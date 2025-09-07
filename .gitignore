@@ -1,60 +1,63 @@
-# OS / IDE
-.DS_Store
-.idea/
-.vscode/
-Thumbs.db
+# WordPress Core Files - EXCLUDE EVERYTHING except what we explicitly need
+*
 
-# Node / JS
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.swarm/
-coverage/
+# ONLY INCLUDE WordPress essentials
+!.gitignore
+!README.md
+!wp-content/
+!wp-content/themes/
+!wp-content/themes/**
+!wp-content/plugins/
+!wp-content/plugins/**
+!.github/
+!.github/**
+!scripts/wp-ssh-v2.sh
+!scripts/deploy-ftp.sh
+!docker-compose.yml
 
-# Build / Cache
-dist/
-.cache/
-.sass-cache/
-
-# Local env / secrets / dumps
-.env
-*.env.local
-*.local
-*.sql
-*.sqlite
-*.sqlite3
-
-# WordPress: nur flüchtige/veränderliche Inhalte ignorieren
-uploads/
+# EXCLUDE uploads and cache from wp-content
 wp-content/uploads/
+wp-content/uploads-from-docker/
 wp-content/cache/
 wp-content/upgrade/
 wp-content/wflogs/
 wp-content/backups/
 wp-content/ai1wm-backups/
 wp-content/debug.log
-wp-content/uploads-from-docker/
-backups/
-scripts/midjourney-images/
 
-# Große lokale Asset-Ordner (nicht in Git verfolgen)
+# Exclude development files
+*.log
+*.sql
+*.sqlite
+*.json
+*.md
+*.php
+*.js
+*.sh
+*.py
+
+# Exclude specific unwanted files
+!README.md
+*.local
+.env*
+.DS_Store
+node_modules/
+.swarm/
+.claude*/
+.hive-mind/
+.playwright-mcp/
+backups/
 images/
 categorized-images/
 downloaded_images/
 midjourney-images/
 generated/
-
-# Erlaube Themes & Plugins explizit (nicht ignorieren)
-!wp-content/themes/
-!wp-content/plugins/
-
-# Docker / runtime
-*.pid
-*.log
-tmp/
-.tmp/
-wp-content/plugins/wordpress-mcp/
-scripts/complete-subservice-optimizer.js
-scripts/subservice-image-optimizer.js
-docs/Midjourney-MCP-Setup-Guide.md
+docs/
+tests/
+src/
+memory/
+neural-ml/
+examples/
+assets/
+coordination/
+config/
