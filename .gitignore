@@ -1,0 +1,31 @@
+# WordPress Core Files - EXCLUDE EVERYTHING except what we explicitly need
+*
+
+# ONLY INCLUDE WordPress essentials
+!.gitignore
+!README.md
+!wp-content/
+!wp-content/themes/
+!wp-content/themes/**
+!wp-content/plugins/
+!wp-content/plugins/**
+!.github/
+!.github/**
+
+# EXCLUDE uploads and cache from wp-content
+wp-content/uploads/
+wp-content/uploads-from-docker/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/wflogs/
+wp-content/backups/
+wp-content/ai1wm-backups/
+wp-content/debug.log
+
+# Exclude development files
+*.log
+*.sql
+*.sqlite
+.env*
+.DS_Store
+node_modules/
