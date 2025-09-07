@@ -1,27 +1,18 @@
-# Exclude all development files, keep only WordPress essentials
-*.php
-*.js
-*.sh
-*.py
-*.json
-*.md
+# WordPress Repository - Include only WordPress files and exclude development
+*
+
+# INCLUDE WordPress essentials
+!.gitignore
 !README.md
+!wp-content/
+!wp-content/themes/
+!wp-content/themes/**
+!wp-content/plugins/
+!wp-content/plugins/**
+!.github/
+!.github/**
 
-# Development directories
-scripts/
-src/
-tests/
-docs/
-neural-ml/
-memory/
-.claude/
-.hive-mind/
-.swarm/
-coordination/
-config/
-examples/
-
-# WordPress uploads and cache
+# EXCLUDE uploads and cache from wp-content  
 wp-content/uploads/
 wp-content/uploads-from-docker/
 wp-content/cache/
@@ -31,18 +22,43 @@ wp-content/backups/
 wp-content/ai1wm-backups/
 wp-content/debug.log
 
-# Large image directories (keep local only)
+# EXCLUDE development files and directories (only from root)
+# This excludes root-level PHP/JS/etc but allows them in wp-content/
+/*.php
+/*.js
+/*.sh
+/*.py
+/*.json
+/*.md
+/*.sql
+/*.sqlite
+!README.md
+
+# EXCLUDE development directories completely
+.swarm/
+.claude*/
+.hive-mind/
+.playwright-mcp/
+backups/
+images/
 categorized-images/
 downloaded_images/
-images/
 midjourney-images/
-
-# Generated and temporary files
 generated/
-backups/
-*.log
-*.sql
-*.sqlite
+docs/
+tests/
+src/
+memory/
+neural-ml/
+examples/
+assets/
+coordination/
+config/
+scripts/
+node_modules/
+
+# EXCLUDE environment and system files
 .env*
 .DS_Store
-node_modules/
+*.local
+*.log
