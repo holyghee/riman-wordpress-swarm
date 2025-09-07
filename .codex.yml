@@ -1,0 +1,13 @@
+codex:
+  default_branch: main
+  commit_prefix: "chore(codex)"
+  include_file_list: true
+  push_by_default: false
+  add_all_by_default: true
+  # valid values: all|staged
+  commit_scope: all
+  # files to always include in add step (space-separated patterns)
+  add_include: "docs scripts wp-content"
+  # files to exclude from add step (space-separated patterns)
+  add_exclude: "node_modules .git .cache"
+

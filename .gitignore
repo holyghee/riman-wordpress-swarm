@@ -62,3 +62,13 @@ node_modules/
 .DS_Store
 *.local
 *.log
+
+# Re-include project docs + codex/deploy helpers
+!.codex.yml
+!docs/
+!docs/**
+!scripts/
+!scripts/codex-*.sh
+!scripts/docker-export-code.sh
+!scripts/wp-db-sync.sh
+!scripts/wp-ssh-v2.sh
