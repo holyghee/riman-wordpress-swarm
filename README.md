@@ -12,3 +12,5 @@ https://riman-wordpress-swarm.ecomwy.com/
 
 ## Deployment
 Automatic deployment via GitHub Actions to All-Inkl hosting.
+
+**Last Update:** Testing automated deployment workflow
