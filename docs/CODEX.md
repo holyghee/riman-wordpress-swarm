@@ -13,11 +13,17 @@ Nutze diese Datei als Startpunkt für Codex/Assistenten in diesem Repository. Bi
 - `docs/CHANGELOG.md` – Änderungsprotokoll (wird automatisch ergänzt)
 
 ## Commit & Doku (auf Zuruf)
-- Doku: `./scripts/codex-doc.sh --summary "Kurzbeschreibung"`
-- Commit: `./scripts/codex-commit.sh --message "Kurzbeschreibung" [--push]`
-- Workflow (typisch):
-  1) Doku‑Eintrag schreiben
-  2) Commit (+ optional Push)
+- Einzeiler (empfohlen):
+  - `./scripts/commit.sh "Kurzbeschreibung"`  (schreibt CHANGELOG, commit + auto‑push per Config)
+  - `./scripts/commit.sh "Kurzbeschreibung" --no-push`  (ohne Push)
+  - `./scripts/commit.sh "Kurzbeschreibung" --scope working`  (Doku über Working‑Diff)
+  - `./scripts/commit.sh "Kurzbeschreibung" --no-doc`  (ohne CHANGELOG)
+- Ganz ohne Beschreibung (automatisch erzeugt):
+  - `./scripts/auto-doc-commit.sh`  (liest geänderte Dateien, baut kurze Zusammenfassung, CHANGELOG + commit + auto‑push)
+  - `./scripts/auto-doc-commit.sh --no-push`  (ohne Push)
+- Alternativ (manuell):
+  - Doku: `./scripts/codex-doc.sh --summary "Kurzbeschreibung"`
+  - Commit: `./scripts/codex-commit.sh --message "Kurzbeschreibung" [--push|--no-push]`
 
 ## Deploy (SSH)
 - Code: `./scripts/wp-ssh-v2.sh deploy-wp`
@@ -42,4 +48,3 @@ Nutze diese Datei als Startpunkt für Codex/Assistenten in diesem Repository. Bi
 - `.gitignore` ist strikt; nur Doku + Helfer + `./wp-content` werden versioniert.
 - Große Dateien (Uploads) niemals in Git – stattdessen SSH‑Sync.
 - Live‑Pfad ist in `.env.local`/REMOTE_ROOT hinterlegt.
-

@@ -4,6 +4,7 @@
 # INCLUDE WordPress essentials
 !.gitignore
 !README.md
+!codex.md
 !wp-content/
 !wp-content/themes/
 !wp-content/themes/**

@@ -14,11 +14,12 @@ MESSAGE=""
 
 usage(){
   cat <<EOF
-Usage: $0 [-m "message"] [--push]
+Usage: $0 [-m "message"] [--push|--no-push]
 
 Options:
   -m, --message   Commit message (without prefix); required unless --stage-only
   --push          Push to default branch after commit
+  --no-push       Do not push (overrides config)
   --stage-only    Only stage changes according to config, no commit
 
 Examples:
@@ -29,10 +30,12 @@ EOF
 }
 
 STAGE_ONLY=0
+NO_PUSH=0
 while [[ $# -gt 0 ]]; do
   case "$1" in
     -m|--message) MESSAGE="$2"; shift 2;;
     --push) PUSH=1; shift;;
+    --no-push) NO_PUSH=1; shift;;
     --stage-only) STAGE_ONLY=1; shift;;
     -h|--help) usage; exit 0;;
     *) echo "Unknown option: $1"; usage; exit 1;;
@@ -54,6 +57,17 @@ PREFIX=$(sed -nE 's/^\s*commit_prefix:\s*"?([^"\n]+)"?\s*$/\1/p' "$CFG" 2>/dev/n
 INCLUDE_FILES=$(sed -nE 's/^\s*include_file_list:\s*([^\n]+)\s*$/\1/p' "$CFG" 2>/dev/null | head -1 || echo true)
 COMMIT_SCOPE=$(sed -nE 's/^\s*commit_scope:\s*([^\n]+)\s*$/\1/p' "$CFG" 2>/dev/null | head -1 || echo all)
 ADD_ALL=$(sed -nE 's/^\s*add_all_by_default:\s*([^\n]+)\s*$/\1/p' "$CFG" 2>/dev/null | head -1 || echo true)
+PUSH_BY_DEFAULT_RAW=$(sed -nE 's/^\s*push_by_default:\s*([^\n]+)\s*$/\1/p' "$CFG" 2>/dev/null | head -1 || echo false)
+
+# Decide push behavior based on flags and config
+if [ "$NO_PUSH" -eq 1 ]; then
+  PUSH=0
+elif [ "$PUSH" -eq 0 ]; then
+  case "$PUSH_BY_DEFAULT_RAW" in
+    true|True|TRUE|1|yes|Yes) PUSH=1 ;;
+    *) PUSH=0 ;;
+  esac
+fi
 
 # Stage according to config
 if [ "$STAGE_ONLY" -eq 1 ] || [ -n "$MESSAGE" ] || [ "$ADD_ALL" = "true" ]; then
@@ -102,4 +116,3 @@ if [ "$PUSH" -eq 1 ]; then
 fi
 
 echo "✅ Commit created"
-

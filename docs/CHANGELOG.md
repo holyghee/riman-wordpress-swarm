@@ -74,3 +74,5 @@ Alle wesentlichen Änderungen werden hier festgehalten.
 \nGeänderte Dateien:
 - wp-content/plugins/riman-test-plugin/readme.txt
 - wp-content/plugins/riman-test-plugin/riman-test-plugin.php
+\n## 2025-09-07 11:57:12 UTC – Add codex.md (LLM instructions)
+\n(Keine Dateiänderungen im gewählten Scope gefunden)

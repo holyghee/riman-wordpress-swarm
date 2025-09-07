@@ -12,7 +12,7 @@ REPO_ROOT="${SCRIPT_DIR}/.."
 WORDPRESS_CONTAINER=${WORDPRESS_CONTAINER:-riman-wordpress-swarm-wordpress-1}
 DRY_RUN=0
 NO_DELETE=0
-DO_PUSH=0
+DO_PUSH=1
 # Optional individuelle Commit-Message für --push
 COMMIT_MSG=""
 # Standard: ALLE Themes/Plugins exportieren (Core-Defaults ausgeschlossen)
@@ -28,7 +28,7 @@ usage() {
 Docker-Export nur für WordPress-Code (ohne Uploads)
 
 Usage:
-  $0 [--container <name>] [--dry-run|-n] [--no-delete|-k] [--push] [--branch <branch>]
+  $0 [--container <name>] [--dry-run|-n] [--no-delete|-k] [--push|--no-push] [--branch <branch>]
      [--message "<commit message>"] [--themes "pattern1 pattern2"] [--plugins "pattern1 pattern2"] [--allowlist]
 
 Beispiele:
@@ -36,6 +36,7 @@ Beispiele:
   $0                                   # Mirror-Code aus Container -> ./wp-content
   $0 --no-delete                       # Additiv (keine Löschungen)
   $0 --push                            # Commit + Push nur für ./wp-content
+  $0 --no-push                         # Commit ohne Push
   $0 --push --message "feat: update"   # Eigene Commit-Message
   $0 --allowlist                       # Statt ALL den Muster-Filter verwenden
 
@@ -52,6 +53,7 @@ while [[ $# -gt 0 ]]; do
     --dry-run|-n) DRY_RUN=1; shift;;
     --no-delete|-k) NO_DELETE=1; shift;;
     --push) DO_PUSH=1; shift;;
+    --no-push) DO_PUSH=0; shift;;
     --branch) BRANCH="$2"; shift 2;;
     --themes) THEME_PATTERNS="$2"; shift 2;;
     --plugins) PLUGIN_PATTERNS="$2"; shift 2;;
