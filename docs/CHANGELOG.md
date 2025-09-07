@@ -70,3 +70,7 @@ Alle wesentlichen Änderungen werden hier festgehalten.
 - scripts/docker-export-code.sh
 - scripts/wp-db-sync.sh
 - scripts/wp-ssh-v2.sh
+\n## 2025-09-07 11:28:00 UTC – Riman Test Plugin entfernt
+\nGeänderte Dateien:
+- wp-content/plugins/riman-test-plugin/readme.txt
+- wp-content/plugins/riman-test-plugin/riman-test-plugin.php
