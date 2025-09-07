@@ -1,18 +1,27 @@
-# WordPress Core Files - EXCLUDE EVERYTHING except what we explicitly need
-*
-
-# ONLY INCLUDE WordPress essentials
-!.gitignore
+# Exclude all development files, keep only WordPress essentials
+*.php
+*.js
+*.sh
+*.py
+*.json
+*.md
 !README.md
-!wp-content/
-!wp-content/themes/
-!wp-content/themes/**
-!wp-content/plugins/
-!wp-content/plugins/**
-!.github/
-!.github/**
 
-# EXCLUDE uploads and cache from wp-content
+# Development directories
+scripts/
+src/
+tests/
+docs/
+neural-ml/
+memory/
+.claude/
+.hive-mind/
+.swarm/
+coordination/
+config/
+examples/
+
+# WordPress uploads and cache
 wp-content/uploads/
 wp-content/uploads-from-docker/
 wp-content/cache/
@@ -22,7 +31,15 @@ wp-content/backups/
 wp-content/ai1wm-backups/
 wp-content/debug.log
 
-# Exclude development files
+# Large image directories (keep local only)
+categorized-images/
+downloaded_images/
+images/
+midjourney-images/
+
+# Generated and temporary files
+generated/
+backups/
 *.log
 *.sql
 *.sqlite
