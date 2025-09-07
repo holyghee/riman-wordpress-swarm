@@ -1,0 +1,348 @@
+/*
+Theme Name: RIMAN Cholot
+Theme URI: https://riman-gmbh.de
+Author: RIMAN GmbH
+Author URI: https://riman-gmbh.de
+Description: Custom WordPress theme for RIMAN GmbH with Cholot design system
+Template: twentytwentyfive
+Version: 1.0.0
+License: GPL v2 or later
+Text Domain: riman-cholot
+*/
+
+:root {
+    --riman-gold: #b68c2f;
+    --riman-blue: #1e4a6d;
+    --riman-green: #4a7c59;
+    --riman-dark: #333333;
+    --riman-light: #f5f5f5;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+    color: var(--riman-dark);
+}
+
+.riman-service-card {
+    background: white;
+    border-radius: 16px;
+    overflow: visible;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: 1px dashed rgba(182, 140, 47, 0.3);
+    position: relative;
+    transition: transform 0.3s ease;
+    margin-bottom: 60px;
+}
+
+.riman-service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+.riman-card-image {
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+    clip-path: ellipse(100% 85% at 50% 0%);
+    -webkit-clip-path: ellipse(100% 85% at 50% 0%);
+}
+
+.riman-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.riman-card-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--riman-gold);
+    border-radius: 50%;
+    position: absolute;
+    top: 240px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 4px solid white;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.riman-card-icon svg {
+    width: 40px;
+    height: 40px;
+    color: white;
+}
+
+.riman-card-content {
+    padding: 60px 30px 30px;
+    text-align: center;
+}
+
+.riman-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--riman-blue);
+    margin-bottom: 15px;
+}
+
+.riman-card-description {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.riman-play-button {
+    width: 50px;
+    height: 50px;
+    background: rgba(182, 140, 47, 0.9);
+    border-radius: 50%;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.riman-play-button:hover {
+    background: var(--riman-gold);
+}
+
+.riman-play-button::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 15px solid white;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    margin-left: 3px;
+}
+
+.riman-service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin: 60px 0;
+}
+
+.riman-breadcrumb {
+    padding: 20px 0;
+    font-size: 0.9rem;
+}
+
+.riman-breadcrumb a {
+    color: var(--riman-blue);
+    text-decoration: none;
+}
+
+.riman-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.riman-breadcrumb .separator {
+    margin: 0 10px;
+    color: #999;
+}
+
+.riman-mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    display: none;
+    z-index: 9999;
+}
+
+.riman-mega-menu.active {
+    display: block;
+}
+
+.riman-mega-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+}
+
+.riman-mega-menu-column h3 {
+    color: var(--riman-gold);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.riman-mega-menu-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.riman-mega-menu-column li {
+    margin-bottom: 10px;
+}
+
+.riman-mega-menu-column a {
+    color: var(--riman-dark);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.riman-mega-menu-column a:hover {
+    color: var(--riman-gold);
+}
+
+.riman-header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.riman-header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.riman-logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--riman-gold);
+}
+
+.riman-nav {
+    display: flex;
+    gap: 40px;
+}
+
+.riman-nav-menu {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.riman-nav-item {
+    position: relative;
+}
+
+.riman-nav-link {
+    color: var(--riman-dark);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 0;
+    display: inline-block;
+    transition: color 0.2s ease;
+}
+
+.riman-nav-link:hover {
+    color: var(--riman-gold);
+}
+
+.riman-footer {
+    background: var(--riman-blue);
+    color: white;
+    padding: 60px 0 30px;
+    margin-top: 100px;
+}
+
+.riman-footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.riman-footer-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.riman-footer-column h3 {
+    color: var(--riman-gold);
+    margin-bottom: 20px;
+}
+
+.riman-footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.riman-footer-column li {
+    margin-bottom: 10px;
+}
+
+.riman-footer-column a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+}
+
+.riman-footer-column a:hover {
+    color: white;
+}
+
+.riman-footer-bottom {
+    padding-top: 30px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    text-align: center;
+    color: rgba(255,255,255,0.6);
+}
+
+.riman-content {
+    padding: 60px 30px;
+    min-height: 500px;
+}
+
+.riman-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.riman-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--riman-gold);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+}
+
+.riman-button:hover {
+    background: var(--riman-blue);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .riman-service-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .riman-mega-menu-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .riman-footer-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .riman-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+}

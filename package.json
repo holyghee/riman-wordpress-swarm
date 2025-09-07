@@ -1,0 +1,111 @@
+{
+  "name": "riman-wordpress-swarm",
+  "version": "1.0.0",
+  "description": "Distributed swarm execution system with intelligent task orchestration and agent coordination",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:unit": "jest tests/unit/",
+    "test:integration": "jest tests/integration/",
+    "lint": "eslint src/ tests/",
+    "lint:fix": "eslint src/ tests/ --fix",
+    "dev": "nodemon src/index.js",
+    "build": "echo 'No build step required for Node.js project'",
+    "validate": "npm run lint && npm run test",
+    "clean": "rm -rf .swarm/ node_modules/.cache/",
+    "docs": "jsdoc src/ -d docs/",
+    "benchmark": "node benchmarks/performance.js"
+  },
+  "keywords": [
+    "swarm",
+    "distributed-computing",
+    "task-orchestration",
+    "agent-coordination",
+    "parallel-execution",
+    "claude-flow",
+    "automation",
+    "workflow"
+  ],
+  "author": "SwarmCore Development Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holyghee/mediation-platform-swarm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/holyghee/mediation-platform-swarm/issues"
+  },
+  "homepage": "https://github.com/holyghee/mediation-platform-swarm#readme",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "eslint": "^8.57.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "nodemon": "^3.0.3",
+    "jsdoc": "^4.0.2"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/index.js",
+      "!**/node_modules/**"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "text",
+      "lcov",
+      "html"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "testTimeout": 10000
+  },
+  "eslintConfig": {
+    "extends": [
+      "standard"
+    ],
+    "env": {
+      "node": true,
+      "jest": true
+    },
+    "rules": {
+      "no-console": "warn",
+      "no-unused-vars": "error",
+      "prefer-const": "error",
+      "no-var": "error"
+    }
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src/"
+    ],
+    "ext": "js,json",
+    "ignore": [
+      "tests/",
+      "node_modules/",
+      ".swarm/"
+    ]
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "package.json"
+  ]
+}

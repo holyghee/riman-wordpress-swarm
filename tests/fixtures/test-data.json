@@ -1,0 +1,337 @@
+{
+  "content": [
+    {
+      "id": 1,
+      "file": "asbestsanierung-trgs-519.md",
+      "title": "Asbestsanierung nach TRGS 519",
+      "category": "schadstoffe",
+      "subcategory": "asbest",
+      "keywords": ["asbest", "sanierung", "trgs", "sicherheit", "schutzausruestung"],
+      "excerpt": "Professionelle Asbestsanierung nach den Technischen Regeln für Gefahrstoffe (TRGS) 519 mit vollständiger Sicherheitsausrüstung und Dokumentation.",
+      "content": "# Asbestsanierung nach TRGS 519\n\nDie professionelle Asbestsanierung erfordert die strikte Einhaltung der TRGS 519. Unsere zertifizierten Fachkräfte führen alle Arbeiten mit modernster Schutzausrüstung durch.\n\n## Leistungsumfang\n- Schadstoffanalyse\n- Arbeitsplatzwechsung\n- Fachgerechte Entsorgung\n- Vollständige Dokumentation",
+      "seo_slug": "schadstoffe-asbestsanierung-trgs-519",
+      "meta_description": "Professionelle Asbestsanierung nach TRGS 519 - Zertifizierte Fachkräfte, moderne Schutzausrüstung, vollständige Dokumentation"
+    },
+    {
+      "id": 2,
+      "file": "sigeko-planung-bauprojekte.md",
+      "title": "SiGeKo-Planung für Bauprojekte",
+      "category": "sicherheit",
+      "subcategory": "sigeko-planung",
+      "keywords": ["sigeko", "sicherheit", "koordination", "baustelle", "arbeitsschutz"],
+      "excerpt": "Sicherheits- und Gesundheitsschutzkoordination (SiGeKo) nach Baustellenverordnung für sichere und effiziente Bauprojekte.",
+      "content": "# SiGeKo-Planung für Bauprojekte\n\nDie Sicherheits- und Gesundheitsschutzkoordination ist ein wesentlicher Bestandteil jedes Bauprojekts. Wir unterstützen Sie bei der vollständigen SiGeKo-Planung.\n\n## Unsere Leistungen\n- Sicherheits- und Gesundheitsschutzplan\n- Koordination der Gewerke\n- Baustellenbegehungen\n- Dokumentation und Überwachung",
+      "seo_slug": "sicherheit-sigeko-planung-bauprojekte",
+      "meta_description": "Professionelle SiGeKo-Planung nach Baustellenverordnung - Sicherheitskoordination, Gesundheitsschutz, Dokumentation"
+    },
+    {
+      "id": 3,
+      "file": "altlastenuntersuchung-sanierung.md",
+      "title": "Altlastenuntersuchung und Sanierung",
+      "category": "altlasten",
+      "subcategory": "erkundung",
+      "keywords": ["altlasten", "untersuchung", "sanierung", "bodenschutz", "umwelt"],
+      "excerpt": "Umfassende Altlastenuntersuchung und fachgerechte Sanierung kontaminierter Standorte nach aktuellen Umweltstandards.",
+      "content": "# Altlastenuntersuchung und Sanierung\n\nKontaminierte Standorte erfordern eine systematische Herangehensweise. Von der ersten Erkundung bis zur abschließenden Sanierung begleiten wir Sie durch den gesamten Prozess.\n\n## Unser Vorgehen\n- Historische Erkundung\n- Orientierende Untersuchung\n- Detailuntersuchung\n- Sanierungsplanung\n- Sanierungsdurchführung\n- Nachsorge und Monitoring",
+      "seo_slug": "altlasten-untersuchung-sanierung",
+      "meta_description": "Professionelle Altlastenuntersuchung und Sanierung - Von der Erkundung bis zur Nachsorge, alle Leistungen aus einer Hand"
+    },
+    {
+      "id": 4,
+      "file": "rueckbau-entsorgung-recycling.md",
+      "title": "Nachhaltiger Rückbau und Recycling",
+      "category": "rueckbau",
+      "subcategory": "recycling",
+      "keywords": ["rueckbau", "entsorgung", "recycling", "nachhaltigkeit", "kreislaufwirtschaft"],
+      "excerpt": "Nachhaltiger Gebäuderückbau mit maximaler Wiederverwertung von Materialien im Sinne der Kreislaufwirtschaft.",
+      "content": "# Nachhaltiger Rückbau und Recycling\n\nNachhaltigkeit steht im Mittelpunkt unserer Rückbauarbeiten. Wir maximieren die Wiederverwertung von Materialien und minimieren Abfälle.\n\n## Nachhaltigkeitskonzept\n- Selektiver Rückbau\n- Materialsorting vor Ort\n- Hochwertige Verwertungswege\n- Minimierung von Deponieabfällen\n- CO2-reduzierte Logistik",
+      "seo_slug": "rueckbau-nachhaltiger-ruckbau-recycling",
+      "meta_description": "Nachhaltiger Gebäuderückbau und Recycling - Maximale Wiederverwertung, minimale Umweltbelastung"
+    },
+    {
+      "id": 5,
+      "file": "baumediation-konfliktloesung.md",
+      "title": "Baumediation und Konfliktlösung",
+      "category": "beratung",
+      "subcategory": "baumediation",
+      "keywords": ["mediation", "konfliktloesung", "bau", "beratung", "projektmanagement"],
+      "excerpt": "Professionelle Mediation bei Baukonflikten zur einvernehmlichen Lösung von Streitigkeiten und Projektrettung.",
+      "content": "# Baumediation und Konfliktlösung\n\nBaukonflikte können Projekte zum Stillstand bringen. Als zertifizierte Mediatoren helfen wir dabei, Streitigkeiten konstruktiv zu lösen.\n\n## Mediationsverfahren\n- Konfliktanalyse\n- Strukturierte Gespräche\n- Lösungserarbeitung\n- Vereinbarungsdokumentation\n- Nachbetreuung",
+      "seo_slug": "beratung-baumediation-konfliktloesung",
+      "meta_description": "Professionelle Baumediation und Konfliktlösung - Zertifizierte Mediatoren für einvernehmliche Lösungen"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "slug": "rueckbau",
+      "name": "Rückbau",
+      "description": "Professioneller Gebäuderückbau und Abbrucharbeiten",
+      "image": "nachhaltiger-rueckbau-baustelle-recycling.jpg"
+    },
+    {
+      "id": 2,
+      "slug": "altlasten",
+      "name": "Altlasten",
+      "description": "Altlastenerkundung und Bodensanierung",
+      "image": "altlastensanierung-grundwasser-bodenschutz.jpg"
+    },
+    {
+      "id": 3,
+      "slug": "schadstoffe",
+      "name": "Schadstoffe",
+      "description": "Schadstoffsanierung und Gefahrstoffmanagement",
+      "image": "schadstoffsanierung-industrieanlage-riman-gmbh.jpg"
+    },
+    {
+      "id": 4,
+      "slug": "sicherheit",
+      "name": "Sicherheit",
+      "description": "Sicherheitskoordination und Arbeitsschutz",
+      "image": "sicherheitsvorbereitung-schutzausruestung-schritt-3.jpg"
+    },
+    {
+      "id": 5,
+      "slug": "beratung",
+      "name": "Beratung",
+      "description": "Projektberatung und Mediation",
+      "image": "baumediation-konfliktloesung-projektmanagement.jpg"
+    }
+  ],
+  "images": [
+    {
+      "id": 1,
+      "filename": "schadstoffsanierung-industrieanlage-riman-gmbh.jpg",
+      "alt": "Professionelle Schadstoffsanierung in Industrieanlage",
+      "title": "Schadstoffsanierung Industrieanlage",
+      "description": "Fachgerechte Sanierung von Schadstoffen in industriellen Anlagen mit modernster Schutzausrüstung",
+      "category": "schadstoffe",
+      "tags": ["asbest", "sanierung", "industrie", "schutzausrüstung"],
+      "dimensions": { "width": 1920, "height": 1080 },
+      "fileSize": 856432,
+      "mimeType": "image/jpeg"
+    },
+    {
+      "id": 2,
+      "filename": "sicherheitsvorbereitung-schutzausruestung-schritt-3.jpg",
+      "alt": "Sicherheitsvorbereitung mit Schutzausrüstung",
+      "title": "Sicherheitsvorbereitung Schutzausrüstung",
+      "description": "Gründliche Vorbereitung der Schutzausrüstung vor Sanierungsarbeiten",
+      "category": "sicherheit",
+      "tags": ["sicherheit", "schutzausrüstung", "vorbereitung", "arbeitsschutz"],
+      "dimensions": { "width": 1920, "height": 1080 },
+      "fileSize": 743521,
+      "mimeType": "image/jpeg"
+    },
+    {
+      "id": 3,
+      "filename": "altlastensanierung-grundwasser-bodenschutz.jpg",
+      "alt": "Altlastensanierung mit Grundwasserschutz",
+      "title": "Altlastensanierung Grundwasserschutz",
+      "description": "Umweltschonende Altlastensanierung mit besonderem Fokus auf Grundwasserschutz",
+      "category": "altlasten",
+      "tags": ["altlasten", "grundwasser", "bodenschutz", "umwelt"],
+      "dimensions": { "width": 1920, "height": 1080 },
+      "fileSize": 923847,
+      "mimeType": "image/jpeg"
+    },
+    {
+      "id": 4,
+      "filename": "nachhaltiger-rueckbau-baustelle-recycling.jpg",
+      "alt": "Nachhaltiger Rückbau mit Recycling",
+      "title": "Nachhaltiger Rückbau Recycling",
+      "description": "Nachhaltiger Gebäuderückbau mit systematischer Materialtrennung für optimales Recycling",
+      "category": "rueckbau",
+      "tags": ["rückbau", "recycling", "nachhaltigkeit", "materialverwertung"],
+      "dimensions": { "width": 1920, "height": 1080 },
+      "fileSize": 1024673,
+      "mimeType": "image/jpeg"
+    },
+    {
+      "id": 5,
+      "filename": "baumediation-konfliktloesung-projektmanagement.jpg",
+      "alt": "Baumediation und Konfliktlösung",
+      "title": "Baumediation Konfliktlösung",
+      "description": "Professionelle Mediation zur konstruktiven Lösung von Baukonflikten",
+      "category": "beratung",
+      "tags": ["mediation", "konfliktlösung", "beratung", "projektmanagement"],
+      "dimensions": { "width": 1920, "height": 1080 },
+      "fileSize": 687294,
+      "mimeType": "image/jpeg"
+    }
+  ],
+  "semantic_mappings": [
+    {
+      "content_id": 1,
+      "image_id": 1,
+      "confidence_score": 0.95,
+      "matching_details": {
+        "theme_score": 0.88,
+        "description_score": 0.92,
+        "total_score": 0.95
+      },
+      "selected_quadrant": "top_left",
+      "reason": "Perfect match for asbestos remediation content with industrial setting"
+    },
+    {
+      "content_id": 2,
+      "image_id": 2,
+      "confidence_score": 0.91,
+      "matching_details": {
+        "theme_score": 0.85,
+        "description_score": 0.94,
+        "total_score": 0.91
+      },
+      "selected_quadrant": "top_right",
+      "reason": "Excellent match for safety coordination with PPE focus"
+    },
+    {
+      "content_id": 3,
+      "image_id": 3,
+      "confidence_score": 0.89,
+      "matching_details": {
+        "theme_score": 0.82,
+        "description_score": 0.93,
+        "total_score": 0.89
+      },
+      "selected_quadrant": "bottom_left",
+      "reason": "Strong match for contaminated site investigation and remediation"
+    },
+    {
+      "content_id": 4,
+      "image_id": 4,
+      "confidence_score": 0.93,
+      "matching_details": {
+        "theme_score": 0.90,
+        "description_score": 0.95,
+        "total_score": 0.93
+      },
+      "selected_quadrant": "top_left",
+      "reason": "Excellent match for sustainable demolition and recycling content"
+    },
+    {
+      "content_id": 5,
+      "image_id": 5,
+      "confidence_score": 0.87,
+      "matching_details": {
+        "theme_score": 0.78,
+        "description_score": 0.92,
+        "total_score": 0.87
+      },
+      "selected_quadrant": "bottom_right",
+      "reason": "Good match for construction mediation and conflict resolution"
+    }
+  ],
+  "wordpress_data": {
+    "posts": [
+      {
+        "ID": 101,
+        "post_title": "Asbestsanierung nach TRGS 519",
+        "post_content": "Professionelle Asbestsanierung...",
+        "post_status": "publish",
+        "post_type": "page",
+        "meta": {
+          "_linked_category": 3,
+          "_thumbnail_id": 201
+        }
+      },
+      {
+        "ID": 102,
+        "post_title": "SiGeKo-Planung für Bauprojekte",
+        "post_content": "Sicherheitskoordination...",
+        "post_status": "publish",
+        "post_type": "page",
+        "meta": {
+          "_linked_category": 4,
+          "_thumbnail_id": 202
+        }
+      }
+    ],
+    "attachments": [
+      {
+        "ID": 201,
+        "post_title": "Schadstoffsanierung Industrieanlage",
+        "post_content": "Professionelle Schadstoffsanierung",
+        "post_status": "inherit",
+        "post_type": "attachment",
+        "post_mime_type": "image/jpeg",
+        "meta": {
+          "_wp_attached_file": "2024/01/schadstoffsanierung-industrieanlage-riman-gmbh.jpg",
+          "_wp_attachment_metadata": {
+            "width": 1920,
+            "height": 1080,
+            "file": "schadstoffsanierung-industrieanlage-riman-gmbh.jpg",
+            "sizes": {
+              "thumbnail": { "file": "schadstoffsanierung-industrieanlage-riman-gmbh-150x150.jpg", "width": 150, "height": 150 },
+              "medium": { "file": "schadstoffsanierung-industrieanlage-riman-gmbh-300x169.jpg", "width": 300, "height": 169 },
+              "large": { "file": "schadstoffsanierung-industrieanlage-riman-gmbh-1024x576.jpg", "width": 1024, "height": 576 }
+            }
+          }
+        }
+      },
+      {
+        "ID": 202,
+        "post_title": "Sicherheitsvorbereitung Schutzausrüstung",
+        "post_content": "Sicherheitsvorbereitung mit Schutzausrüstung",
+        "post_status": "inherit",
+        "post_type": "attachment",
+        "post_mime_type": "image/jpeg",
+        "meta": {
+          "_wp_attached_file": "2024/01/sicherheitsvorbereitung-schutzausruestung-schritt-3.jpg",
+          "_wp_attachment_metadata": {
+            "width": 1920,
+            "height": 1080,
+            "file": "sicherheitsvorbereitung-schutzausruestung-schritt-3.jpg"
+          }
+        }
+      }
+    ]
+  },
+  "performance_benchmarks": {
+    "image_processing": {
+      "small_batch": { "size": 5, "max_time_ms": 2000, "success_rate": 0.95 },
+      "medium_batch": { "size": 20, "max_time_ms": 6000, "success_rate": 0.90 },
+      "large_batch": { "size": 50, "max_time_ms": 15000, "success_rate": 0.85 }
+    },
+    "semantic_matching": {
+      "simple_content": { "agents": 10, "max_time_ms": 500, "min_confidence": 0.7 },
+      "complex_content": { "agents": 50, "max_time_ms": 1500, "min_confidence": 0.6 },
+      "large_database": { "agents": 200, "max_time_ms": 3000, "min_confidence": 0.5 }
+    },
+    "wordpress_integration": {
+      "category_creation": { "items": 10, "max_time_ms": 2000, "success_rate": 0.98 },
+      "image_upload": { "items": 20, "max_time_ms": 8000, "success_rate": 0.95 },
+      "page_creation": { "items": 15, "max_time_ms": 5000, "success_rate": 0.97 }
+    }
+  },
+  "error_scenarios": [
+    {
+      "name": "missing_image_file",
+      "description": "Image file referenced in database doesn't exist",
+      "trigger_condition": "file_not_found",
+      "expected_behavior": "graceful_fallback",
+      "recovery_action": "use_default_image"
+    },
+    {
+      "name": "invalid_wordpress_credentials",
+      "description": "WordPress database connection fails",
+      "trigger_condition": "db_connection_error",
+      "expected_behavior": "retry_with_backoff",
+      "recovery_action": "cache_operations_for_retry"
+    },
+    {
+      "name": "low_semantic_confidence",
+      "description": "No images match content with sufficient confidence",
+      "trigger_condition": "confidence_below_threshold",
+      "expected_behavior": "manual_review_required",
+      "recovery_action": "queue_for_human_review"
+    },
+    {
+      "name": "memory_overflow",
+      "description": "Processing large datasets exceeds memory limits",
+      "trigger_condition": "memory_usage_high",
+      "expected_behavior": "batch_processing",
+      "recovery_action": "reduce_batch_size"
+    }
+  ]
+}

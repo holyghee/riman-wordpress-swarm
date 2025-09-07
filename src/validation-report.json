@@ -1,0 +1,56 @@
+{
+  "executionSummary": {
+    "generationDate": "2025-09-06T08:50:52.412Z",
+    "totalProcessingTime": "N/A",
+    "systemVersion": "1.0.0"
+  },
+  "metrics": {
+    "totalContent": 129,
+    "totalImages": 233,
+    "perfectMatches": 0,
+    "goodMatches": 129,
+    "fallbackMatches": 0,
+    "conflictsPrevented": 0,
+    "accuracy": 0.7682170542635672,
+    "coverage": 100
+  },
+  "qualityDistribution": {
+    "good": 85,
+    "excellent": 44
+  },
+  "categoryAnalysis": {
+    "general": {
+      "total": 4,
+      "averageScore": 0.45599935487320437,
+      "conflicts": 0
+    },
+    "altlastensanierung": {
+      "total": 24,
+      "averageScore": 0.6185043579750038,
+      "conflicts": 0
+    },
+    "beratung-mediation": {
+      "total": 26,
+      "averageScore": 0.6566516892370348,
+      "conflicts": 0
+    },
+    "rueckbaumanagement": {
+      "total": 18,
+      "averageScore": 0.49168251010812486,
+      "conflicts": 0
+    },
+    "schadstoff-management": {
+      "total": 28,
+      "averageScore": 0.47270769212541813,
+      "conflicts": 0
+    },
+    "sicherheitskoordination": {
+      "total": 29,
+      "averageScore": 0.5283642989362782,
+      "conflicts": 0
+    }
+  },
+  "recommendations": [],
+  "potentialIssues": [],
+  "aiConfidence": 82
+}

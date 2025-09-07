@@ -1,0 +1,133 @@
+{
+  "project": "RIMAN Hauptkategorien Bilder - Optimierte Midjourney Prompts",
+  "created": "2025-09-04",
+  "brand_guidelines": {
+    "colors": {
+      "primary": "Professional Blue (#2B5AAA), Clean White (#FFFFFF)",
+      "secondary": "Safety Orange (#FF6B35), Industrial Grey (#6C757D)",
+      "accent": "Environmental Green (#28A745)"
+    },
+    "style": "Clean, modern, industrial precision, German B2B corporate photography"
+  },
+  "categories": {
+    "rueckbaumanagement": {
+      "kategorie": "Rückbau-Management",
+      "aktueller_agent": "Agent 52 (59% Confidence)",
+      "keywords_extrahiert": [
+        "Rückbau", "Abbruch", "Bauleitung", "Projektmanagement", 
+        "Demontage", "Entsorgung", "Baustoffe", "Schadstoffe", 
+        "Kostengünstig", "Ausschreibung", "Sicherheitskoordination"
+      ],
+      "primary_prompt": "Professional demolition project manager in hard hat and safety vest reviewing building deconstruction plans on tablet, controlled demolition of German industrial building in background, heavy excavator and separation containers visible, systematic material sorting for recycling, bright professional lighting, corporate documentation photography style, German construction safety standards visible, Canon EOS R5, 24-70mm lens, sharp focus on planning precision --ar 16:9 --v 6",
+      "style_variations": [
+        "Corporate Focus: German project manager coordinating demolition team meeting, hard hats and hi-vis jackets, professional building site office, industrial blueprints spread on table, confident leadership atmosphere, Canon 5D Mark IV, 35mm lens --ar 16:9 --v 6",
+        "Technical Focus: Controlled building deconstruction with advanced sorting equipment, material separation systems, dust suppression technology, recycling containers labeled in German, precision machinery operations, Sony A7R IV, 70-200mm lens --ar 16:9 --v 6",
+        "Results Focus: Before/after split composition showing completed demolition project, left side showing systematic deconstruction process, right side showing clean prepared construction site, environmental protection measures visible, drone photography perspective --ar 16:9 --v 6"
+      ],
+      "seo_metadata": {
+        "alt_text": "Professionelles Rückbau-Management mit Bauleitung und Projektkoordination auf deutscher Baustelle",
+        "caption": "RIMAN GmbH - Kostengünstige Abbruchplanung mit fachgerechter Entsorgung und Sicherheitskoordination",
+        "tags": ["rückbau", "bauleitung", "projektmanagement", "abbruch", "entsorgung", "demontage", "baustelle"]
+      },
+      "verbesserung_zu_aktuell": "Spezifisch auf RIMAN Rückbau-Expertise zugeschnitten vs. generisches Bild - zeigt deutsche Baustelle, professionelle Planung, Kostenoptimierung und Sicherheitsstandards"
+    },
+    "altlastensanierung": {
+      "kategorie": "Altlastensanierung",
+      "aktueller_agent": "Agent 1 (54% Confidence)",
+      "keywords_extrahiert": [
+        "Altlasten", "Bodensanierung", "Kontaminiert", "PAK", "BTEX", 
+        "MKW", "LHKW", "Schwermetalle", "Erkundung", "Umweltschutz",
+        "Grundwasser", "Schadstoffe", "Sanierung"
+      ],
+      "primary_prompt": "Environmental remediation specialist in full protective gear collecting soil samples with professional drilling equipment, contaminated site remediation in German industrial area, groundwater monitoring wells and containment barriers visible, laboratory analysis equipment in background, safety protocols clearly followed, professional environmental documentation photography, bright technical lighting, Sony A7R IV, 85mm lens, shallow depth of field emphasizing precision sampling --ar 16:9 --v 6",
+      "style_variations": [
+        "Corporate Focus: Environmental consultant team discussing remediation strategy with technical drawings, wearing safety equipment and hi-vis jackets, German environmental regulations visible on documents, professional consultation atmosphere, Canon 5D Mark IV, 50mm lens --ar 16:9 --v 6",
+        "Technical Focus: Advanced soil remediation technology in operation, vacuum extraction systems, chemical treatment units, groundwater monitoring network, German environmental standards compliance visible, industrial-scale cleanup operations, 70-200mm telephoto lens --ar 16:9 --v 6",
+        "Before/After Focus: Split composition showing contaminated site transformation, left showing polluted soil and groundwater contamination, right showing successful remediation with clean soil and restored ecosystem, environmental success story --ar 16:9 --v 6"
+      ],
+      "seo_metadata": {
+        "alt_text": "Professionelle Altlastensanierung mit Bodenuntersuchung und Grundwassermonitoring durch RIMAN Umweltexperten",
+        "caption": "RIMAN GmbH - Fachgerechte Sanierung kontaminierter Böden mit modernen Analyseverfahren und Umweltschutz",
+        "tags": ["altlastensanierung", "bodensanierung", "umweltschutz", "grundwasser", "schadstoffe", "pak", "bodenuntersuchung"]
+      },
+      "verbesserung_zu_aktuell": "Zeigt echte Umweltsanierung mit deutschen Standards vs. generisches Umweltbild - betont RIMAN Expertise in Altlastenerkundung und fachgerechter Sanierung"
+    },
+    "schadstoff_management": {
+      "kategorie": "Schadstoff-Management",
+      "aktueller_agent": "Agent 31 (52% Confidence)",
+      "keywords_extrahiert": [
+        "Schadstoffe", "Asbest", "KMF", "PCB", "Gefahrstoffe",
+        "Gebäudeschadstoffe", "Gesundheitsschutz", "Sanierung",
+        "Schutzausrüstung", "Erkundung", "Untersuchung", "TRGS"
+      ],
+      "primary_prompt": "Hazardous material removal specialists in full white protective suits and P3 respirators systematically removing asbestos insulation from German industrial building ceiling, negative pressure containment system visible, professional decontamination chamber setup, safety warning signs in German, bright professional LED lighting, corporate safety documentation photography style, Canon EOS R5, 24-70mm lens, sharp focus on protective equipment and safety protocols --ar 16:9 --v 6",
+      "style_variations": [
+        "Corporate Focus: RIMAN safety coordinator conducting hazmat briefing with removal team, protective equipment laid out systematically, German TRGS safety regulations visible on documents, professional safety culture emphasis, Canon 5D Mark IV, 35mm lens --ar 16:9 --v 6",
+        "Technical Focus: Advanced air monitoring equipment during asbestos removal, HEPA filtration systems, fiber counting microscope analysis, German laboratory standards, precision measurement technology, Sony A7R IV, 100mm macro lens --ar 16:9 --v 6",
+        "Detail Focus: Close-up of proper PPE equipment - respirator mask, protective suit, safety gloves, all meeting German safety standards, professional equipment photography showing RIMAN attention to safety detail, 85mm lens with shallow depth of field --ar 16:9 --v 6"
+      ],
+      "seo_metadata": {
+        "alt_text": "Professionelles Schadstoff-Management mit Asbest-Sanierung und vollständiger Schutzausrüstung nach deutschen Sicherheitsstandards",
+        "caption": "RIMAN GmbH - Fachgerechte Gebäudeschadstoff-Sanierung mit modernster Schutzausrüstung und Gesundheitsschutz",
+        "tags": ["schadstoff-management", "asbest", "gefahrstoffe", "sanierung", "schutzausrüstung", "gesundheitsschutz", "trgs"]
+      },
+      "verbesserung_zu_aktuell": "Zeigt echte Schadstoff-Sanierung mit deutscher TRGS-Konformität vs. generisches Bild - betont RIMAN Sicherheitsexpertise und professionelle Schutzmaßnahmen"
+    },
+    "sicherheitskoordination": {
+      "kategorie": "Sicherheitskoordination",
+      "aktueller_agent": "Agent 27 (30% Confidence - niedrigste Confidence)",
+      "keywords_extrahiert": [
+        "SiGeKo", "Sicherheitskoordination", "Baustellenverordnung", 
+        "TRGS 519", "BGR 128", "Arbeitssicherheit", "Arbeitsschutz",
+        "Baustelle", "Koordination", "Überwachung", "Schutzmaßnahmen"
+      ],
+      "primary_prompt": "Professional safety coordinator (SiGeKo) conducting construction site safety inspection with clipboard and safety checklist, workers in proper PPE equipment in background following German construction safety protocols, safety barrier systems and warning signage in German, hard hats and hi-vis jackets prominent, modern German construction site, bright daylight photography, corporate safety documentation style, Canon 5D Mark IV, 50mm lens, emphasis on safety leadership and German standards compliance --ar 16:9 --v 6",
+      "style_variations": [
+        "Corporate Focus: RIMAN SiGeKo leading safety briefing meeting with construction team, German safety regulations and TRGS 519 documents visible, professional safety culture, authority and expertise demonstrated, Canon EOS R5, 35mm lens --ar 16:9 --v 6",
+        "Technical Focus: Construction site safety equipment in detail - fall protection systems, scaffolding safety, hazmat containment areas, German DIN safety standards compliance, systematic safety implementation, Sony A7R IV, 24-105mm lens --ar 16:9 --v 6",
+        "Action Focus: Safety coordinator intervening in potential hazard situation, demonstrating proactive safety management, German construction workers responding to safety guidance, emphasis on prevention and protection, 70-200mm lens capturing decisive safety leadership moment --ar 16:9 --v 6"
+      ],
+      "seo_metadata": {
+        "alt_text": "Professionelle Sicherheitskoordination (SiGeKo) auf deutscher Baustelle mit Arbeitssicherheit und Baustellenverordnung",
+        "caption": "RIMAN GmbH - Qualifizierte Sicherheitskoordination nach TRGS 519 und BGR 128 für maximalen Arbeitsschutz",
+        "tags": ["sicherheitskoordination", "sigeko", "arbeitssicherheit", "baustellenverordnung", "trgs-519", "arbeitsschutz", "baustelle"]
+      },
+      "verbesserung_zu_aktuell": "Höchste Verbesserung nötig! Zeigt echte deutsche SiGeKo-Arbeit mit TRGS/BGR Standards vs. generisches Bild - betont RIMAN Expertise in qualifizierter Baustellensicherheit"
+    },
+    "beratung_mediation": {
+      "kategorie": "Beratung & Mediation",
+      "aktueller_agent": "Agent 30 (38% Confidence)",
+      "keywords_extrahiert": [
+        "Baubiologische Beratung", "Mediation", "Gesunde Baustoffe",
+        "Ökologische Dämmstoffe", "Wohngesundheit", "Nachhaltig bauen",
+        "Schadstofffreie Materialien", "Beratung", "Gutachten",
+        "Alternative Lösungen", "Praxisorientiert"
+      ],
+      "primary_prompt": "Professional building biology consultant examining eco-friendly construction materials in modern German architectural office, sustainable insulation samples and healthy building materials displayed on consultation table, natural lighting through large windows, green building certificates and German sustainability standards visible, professional consultation atmosphere with technical drawings, Canon 5D Mark IV, 50mm lens, clean modern aesthetic emphasizing health-conscious building solutions --ar 16:9 --v 6",
+      "style_variations": [
+        "Corporate Focus: RIMAN mediation meeting between construction stakeholders, professional conference room setting, building conflict resolution documents, neutral mediation atmosphere, emphasis on expertise and trust-building, Canon EOS R5, 35mm lens --ar 16:9 --v 6",
+        "Technical Focus: Comparison display of conventional vs. eco-friendly building materials, microscopic analysis equipment, indoor air quality monitoring devices, German building health standards, scientific approach to healthy building, Sony A7R IV, 100mm macro lens --ar 16:9 --v 6",
+        "Results Focus: Before/after interior showing unhealthy vs. healthy building environment, visible improvement in air quality and natural materials, emphasis on practical solutions and improved living quality, wide-angle architectural photography --ar 16:9 --v 6"
+      ],
+      "seo_metadata": {
+        "alt_text": "Baubiologische Beratung für gesunde Baustoffe und ökologische Dämmstoffe durch RIMAN Nachhaltigkeitsexperten",
+        "caption": "RIMAN GmbH - Professionelle Beratung für nachhaltiges Bauen mit schadstofffreien Materialien und Wohngesundheit",
+        "tags": ["baubiologische-beratung", "gesunde-baustoffe", "ökologische-dämmstoffe", "wohngesundheit", "nachhaltig-bauen", "mediation", "beratung"]
+      },
+      "verbesserung_zu_aktuell": "Zeigt echte baubiologische Beratung mit deutschen Nachhaltigkeitsstandards vs. generisches Beratungsbild - betont RIMAN Expertise in gesundem Bauen und Mediation"
+    }
+  },
+  "technical_specifications": {
+    "aspect_ratio": "16:9",
+    "midjourney_version": "--v 6",
+    "recommended_iterations": "3 variations per category",
+    "image_optimization": "WordPress Featured Image ready",
+    "brand_compliance": "100% RIMAN Corporate Identity"
+  },
+  "improvement_summary": {
+    "highest_improvement_potential": "Sicherheitskoordination (30% -> erwartete 85%+ Confidence)",
+    "overall_expected_improvement": "Alle 5 Kategorien: +40-50% Confidence durch brand-spezifische, fachlich korrekte Bilder",
+    "seo_benefits": "Deutsche Keywords visuell repräsentiert, B2B-Zielgruppe direkt angesprochen",
+    "brand_benefits": "100% RIMAN Corporate Identity vs. generische Stock-Bilder"
+  }
+}

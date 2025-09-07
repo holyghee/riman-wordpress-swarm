@@ -1,0 +1,23 @@
+{
+  "description": "Balanced WordPress Mappings - High Coverage with Critical Rule Enforcement",
+  "version": "4.0-balanced",
+  "generated": "2025-09-06T09:20:19.568Z",
+  "algorithm": "Balanced semantic scoring with critical rule enforcement",
+  "main_categories": {},
+  "subcategories": {},
+  "pages": {},
+  "validation": {
+    "passed": true,
+    "critical_violations": [],
+    "warnings": []
+  },
+  "statistics": {
+    "total_content": 129,
+    "mapped": 0,
+    "coverage": 0,
+    "critical_violations": 0,
+    "mediation_mappings_ok": 0,
+    "pcb_mappings_ok": 0,
+    "validation_passed": true
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "mappings": [
+    {
+      "bash_id": "eefad8",
+      "category": "altlasten-erkundung",
+      "keyword": "contaminated-site-investigation",
+      "filename": "midjourney_upscaled_1756980979254.png",
+      "new_name": "altlasten-erkundung_contaminated-site-investigation.png"
+    },
+    {
+      "bash_id": "42bdb3",
+      "category": "altlasten-sanierungsplanung",
+      "keyword": "remediation-planning-engineering",
+      "filename": "midjourney_upscaled_1756980985972.png",
+      "new_name": "altlasten-sanierungsplanung_remediation-planning-engineering.png"
+    },
+    {
+      "bash_id": "80a5bf",
+      "category": "bodensanierung",
+      "keyword": "soil-remediation",
+      "filename": "midjourney_upscaled_1756980995723.png",
+      "new_name": "altlasten-bodensanierung_soil-remediation.png"
+    },
+    {
+      "bash_id": "584db7",
+      "category": "grundwassersanierung",
+      "keyword": "groundwater-remediation",
+      "filename": "midjourney_upscaled_1756981018755.png",
+      "new_name": "altlasten-grundwassersanierung_groundwater-remediation.png"
+    },
+    {
+      "bash_id": "a39f9e",
+      "category": "altlasten-monitoring",
+      "keyword": "environmental-monitoring",
+      "filename": "midjourney_upscaled_1756981011403.png",
+      "new_name": "altlasten-monitoring_environmental-monitoring.png"
+    },
+    {
+      "bash_id": "eb0eec",
+      "category": "dokumentation",
+      "keyword": "project-documentation",
+      "filename": "midjourney_upscaled_1756981040549.png",
+      "new_name": "rueckbau-dokumentation_project-documentation.png"
+    },
+    {
+      "bash_id": "b2d88e",
+      "category": "recycling",
+      "keyword": "material-recycling",
+      "filename": "midjourney_upscaled_1756981024733.png",
+      "new_name": "rueckbau-recycling_material-recycling.png"
+    },
+    {
+      "bash_id": "abfb15",
+      "category": "asbestsanierung",
+      "keyword": "asbestos-removal",
+      "filename": "midjourney_upscaled_1756981050685.png",
+      "new_name": "schadstoffe-asbest_asbestos-removal.png"
+    },
+    {
+      "bash_id": "9ff906",
+      "category": "pcb-sanierung",
+      "keyword": "pcb-contamination",
+      "filename": "midjourney_upscaled_1756981054301.png",
+      "new_name": "schadstoffe-pcb_pcb-contamination.png"
+    },
+    {
+      "bash_id": "cd5c2d",
+      "category": "pak-sanierung",
+      "keyword": "pah-hydrocarbons",
+      "filename": "midjourney_upscaled_1756981075809.png",
+      "new_name": "schadstoffe-pak_pah-hydrocarbons.png"
+    },
+    {
+      "bash_id": "2163c3",
+      "category": "kmf-sanierung",
+      "keyword": "mineral-fiber",
+      "filename": "midjourney_upscaled_1756981087262.png",
+      "new_name": "schadstoffe-kmf_mineral-fiber.png"
+    },
+    {
+      "bash_id": "5d702f",
+      "category": "schwermetalle",
+      "keyword": "heavy-metal",
+      "filename": "midjourney_upscaled_1756981104576.png",
+      "new_name": "schadstoffe-schwermetalle_heavy-metal.png"
+    },
+    {
+      "bash_id": "f793b9",
+      "category": "sigeko-planung",
+      "keyword": "safety-planning",
+      "filename": "midjourney_upscaled_1756981090397.png",
+      "new_name": "sicherheitskoordination-sigeko-planung_safety-planning.png"
+    },
+    {
+      "bash_id": "326e9d",
+      "category": "sigeko-ausfuehrung",
+      "keyword": "safety-coordination",
+      "filename": "midjourney_upscaled_1756981118393.png",
+      "new_name": "sicherheitskoordination-sigeko-ausfuehrung_safety-coordination.png"
+    },
+    {
+      "bash_id": "fd8160",
+      "category": "gefaehrdungsbeurteilung",
+      "keyword": "risk-assessment",
+      "filename": "midjourney_upscaled_1756981120421.png",
+      "new_name": "sicherheitskoordination-gefaehrdungsbeurteilung_risk-assessment.png"
+    },
+    {
+      "bash_id": "654521",
+      "category": "arbeitsschutz",
+      "keyword": "workplace-safety",
+      "filename": "midjourney_upscaled_1756981135339.png",
+      "new_name": "sicherheitskoordination-arbeitsschutz_workplace-safety.png"
+    },
+    {
+      "bash_id": "472380",
+      "category": "notfallmanagement",
+      "keyword": "emergency-response",
+      "filename": "midjourney_upscaled_1756981152714.png",
+      "new_name": "sicherheitskoordination-notfallmanagement_emergency-response.png"
+    },
+    {
+      "bash_id": "6a68d5",
+      "category": "projektberatung",
+      "keyword": "construction-consulting",
+      "filename": "midjourney_upscaled_1756981167863.png",
+      "new_name": "beratung-projektberatung_construction-consulting.png"
+    },
+    {
+      "bash_id": "f04077",
+      "category": "baumediation",
+      "keyword": "mediation-conflict",
+      "filename": "midjourney_upscaled_1756981153032.png",
+      "new_name": "beratung-baumediation_mediation-conflict.png"
+    },
+    {
+      "bash_id": "2ab255",
+      "category": "gutachten",
+      "keyword": "expert-assessment",
+      "filename": "midjourney_upscaled_1756981181993.png",
+      "new_name": "beratung-gutachten_expert-assessment.png"
+    },
+    {
+      "bash_id": "f9fc7f",
+      "category": "compliance",
+      "keyword": "regulatory-compliance",
+      "filename": "midjourney_upscaled_1756981185185.png",
+      "new_name": "beratung-compliance_regulatory-compliance.png"
+    },
+    {
+      "bash_id": "d3c0f3",
+      "category": "schulungen",
+      "keyword": "training-workshop",
+      "filename": "midjourney_upscaled_1756981199360.png",
+      "new_name": "beratung-schulungen_training-workshop.png"
+    }
+  ]
+}

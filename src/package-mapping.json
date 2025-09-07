@@ -1,0 +1,32 @@
+{
+  "name": "wordpress-ai-image-mapping",
+  "version": "1.0.0",
+  "description": "AI-powered semantic image-to-content mapping for WordPress",
+  "main": "ai-enhanced-mapping.js",
+  "scripts": {
+    "start": "node ai-enhanced-mapping.js",
+    "test": "node test-mapping.js",
+    "validate": "node validate-mappings.js"
+  },
+  "dependencies": {
+    "compromise": "^14.10.0",
+    "natural": "^6.5.0",
+    "stopword": "^2.0.8",
+    "stemmer": "^2.0.1",
+    "franc": "^6.1.0",
+    "cosine-similarity": "^1.0.1",
+    "lodash": "^4.17.21",
+    "fs-extra": "^11.1.1"
+  },
+  "keywords": [
+    "ai",
+    "semantic-analysis",
+    "image-mapping",
+    "wordpress",
+    "machine-learning",
+    "nlp",
+    "german-language"
+  ],
+  "author": "RIMAN AI Mapping System",
+  "license": "MIT"
+}

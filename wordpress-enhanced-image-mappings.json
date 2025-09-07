@@ -1,0 +1,1125 @@
+{
+  "description": "WordPress Enhanced Image Mappings mit SEO-Metadaten - Optimiert für RIMAN GmbH",
+  "version": "ai-optimized-2.0",
+  "image_base_path": "/Users/holgerbrandt/dev/claude-code/projects/riman-wordpress-swarm/images",
+  "last_updated": "2025-09-06T08:22:18.551Z",
+  "main_categories": {
+    "rueckbau": {
+      "image": "holyghee_Systematic_building_deconstruction_with_materials_bein_eed8d922-c81b-443a-8c95-b56b5b638680_3_bottom_left.png",
+      "alt": "RIMAN Rückbau - Nachhaltiger Gebäuderückbau mit Recycling",
+      "title": "Professioneller Rückbau von RIMAN GmbH",
+      "caption": "Nachhaltiger Rückbau durch RIMAN - Ihr Partner für Kreislaufwirtschaft",
+      "description": "Professionelle Rückbaudienstleistungen durch RIMAN GmbH - Deutschlands Experten für nachhaltigen Gebäuderückbau und Kreislaufwirtschaft",
+      "name": "Rückbau",
+      "slug": "rueckbau"
+    },
+    "altlasten": {
+      "image": "holyghee_Environmental_monitoring_station_with_data_collection__6536c519-403d-4f24-a3b4-369b44762d0a_3_bottom_left.png",
+      "alt": "RIMAN Altlastensanierung - Grundwasser- und Bodenschutz",
+      "title": "Altlastensanierung von RIMAN GmbH",
+      "caption": "Altlastensanierung durch RIMAN - Ihr Partner für Umweltschutz",
+      "description": "Professionelle Altlastensanierung durch RIMAN GmbH - Deutschlands Experten für Boden- und Grundwasserschutz",
+      "name": "Altlastensanierung",
+      "slug": "altlasten"
+    },
+    "schadstoffe": {
+      "image": "holyghee_Asbestos_removal_specialists_in_full_protective_gear_w_2b5836e5-35e9-46e0-a9a4-8b8d4f89db8e_4_bottom_right.png",
+      "alt": "RIMAN Schadstoffmanagement - Professionelle Schadstoffsanierung",
+      "title": "Schadstoffmanagement von RIMAN GmbH",
+      "caption": "Schadstoffmanagement durch RIMAN - Ihr Partner für Industriesanierung",
+      "description": "Professionelles Schadstoffmanagement durch RIMAN GmbH - Deutschlands Experten für Industriesanierung und Umwelttechnik",
+      "name": "Schadstoffmanagement",
+      "slug": "schadstoffe"
+    },
+    "sicherheit": {
+      "image": "holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_1_top_left.png",
+      "alt": "RIMAN Sicherheitskoordination - SiGeKo nach BaustellV",
+      "title": "Sicherheitskoordination von RIMAN GmbH",
+      "caption": "Sicherheitskoordination durch RIMAN - Ihr Partner für Arbeitsschutz",
+      "description": "Professionelle Sicherheitskoordination durch RIMAN GmbH - Deutschlands Experten für SiGeKo nach BaustellV",
+      "name": "Sicherheitskoordination",
+      "slug": "sicherheit"
+    },
+    "beratung": {
+      "image": "holyghee_Professional_project_consultation_and_strategic_planni_c66c7ea8-f41a-4f84-8697-c8e0e92d60d6_1_top_left.png",
+      "alt": "RIMAN Beratung & Mediation - Baumediation und Projektberatung",
+      "title": "Beratung & Mediation von RIMAN GmbH",
+      "caption": "Beratung & Mediation durch RIMAN - Ihr Partner für Konfliktlösung",
+      "description": "Professionelle Beratung & Mediation durch RIMAN GmbH - Deutschlands Experten für Baumediation und Projektmanagement",
+      "name": "Beratung & Mediation",
+      "slug": "beratung"
+    }
+  },
+  "subcategories": {
+    "rueckbau": {
+      "rueckbau-planung": {
+        "image": "holyghee_Professional_project_planning_with_digital_tools._BIM_m_ae9eca9b-ef73-47e0-8aa2-e858d59fb09f_2_top_right.png",
+        "alt": "Rückbauplanung - BIM-Visualisierung und Projektplanung",
+        "title": "Professionelle Rückbauplanung | RIMAN GmbH",
+        "caption": "Digitale Rückbauplanung mit BIM-Technologie",
+        "description": "Moderne Rückbauplanung mit BIM-Visualisierung und digitalen Planungstools für präzise Projektausführung"
+      },
+      "rueckbau-ausschreibung": {
+        "image": "holyghee_Systematic_building_deconstruction_with_materials_bein_eed8d922-c81b-443a-8c95-b56b5b638680_1_top_left.png",
+        "alt": "Rückbau-Ausschreibung - Systematischer Gebäuderückbau",
+        "title": "Rückbau-Ausschreibung | RIMAN GmbH",
+        "caption": "Professionelle Ausschreibung für Rückbauprojekte",
+        "description": "Systematische Ausschreibung und Vergabe von Rückbauprojekten mit Fokus auf Kreislaufwirtschaft"
+      },
+      "rueckbau-durchfuehrung": {
+        "image": "holyghee_Professional_project_execution_with_safety_equipment._C_0c039c53-77b4-49e6-9fdf-d3c07f0cdbd0_4_bottom_right.png",
+        "alt": "Rückbau-Durchführung - Fachgerechte Sanierung",
+        "title": "Rückbau-Durchführung | RIMAN GmbH",
+        "caption": "Professionelle Durchführung von Rückbauprojekten",
+        "description": "Fachgerechte Durchführung von Rückbau- und Sanierungsprojekten mit modernster Technik"
+      },
+      "rueckbau-entsorgung": {
+        "image": "holyghee_Material_processing_and_disposal_facility._Waste_separa_4e529b56-19c8-4ae0-b4c8-c88f37b9c7aa_2_top_right.png",
+        "alt": "Rückbau-Entsorgung - Materialverarbeitung nach Vorschriften",
+        "title": "Rückbau-Entsorgung | RIMAN GmbH",
+        "caption": "Fachgerechte Entsorgung von Rückbaumaterialien",
+        "description": "Professionelle Materialverarbeitung und Entsorgung gemäß allen gesetzlichen Vorschriften"
+      },
+      "rueckbau-recycling": {
+        "image": "holyghee_Environmental_protection_visualization_with_molecular_s_08e69a63-6c87-4a81-8f56-fb8bb99eb0f1_1_top_left.png",
+        "alt": "Rückbau-Recycling - Umweltschutz und Kreislaufwirtschaft",
+        "title": "Rückbau-Recycling | RIMAN GmbH",
+        "caption": "Nachhaltiges Recycling von Baumaterialien",
+        "description": "Umweltgerechtes Recycling und Wiederverwertung von Rückbaumaterialien"
+      }
+    },
+    "altlasten": {
+      "altlasten-erkundung": {
+        "image": "holyghee_Site_assessment_and_environmental_analysis._Soil_sampl_64fa8a33-4e7d-42f9-bf96-5e07e973f94e_1_top_left.png",
+        "alt": "Altlastenerkundung - Standortbewertung und Umweltanalyse",
+        "title": "Altlastenerkundung | RIMAN GmbH",
+        "caption": "Professionelle Erkundung von Altlasten",
+        "description": "Systematische Standortbewertung und Umweltanalyse zur Altlastenerkundung"
+      },
+      "altlasten-sanierungsplanung": {
+        "image": "holyghee_BIM_planning_and_digitalization_in_construction_manage_b825f7fa-d4e8-49fb-8c0b-f8c23074bc09_3_bottom_left.png",
+        "alt": "Altlasten-Sanierungsplanung - BIM und Digitalisierung",
+        "title": "Altlasten-Sanierungsplanung | RIMAN GmbH",
+        "caption": "Digitale Sanierungsplanung für Altlasten",
+        "description": "Moderne Sanierungsplanung mit BIM-Technologie und digitalen Planungstools"
+      },
+      "altlasten-bodensanierung": {
+        "image": "holyghee_Environmental_engineer_analyzing_soil_samples._Laborat_66e070fe-0b6e-43c5-9aa6-baab5efced33_1_top_left.png",
+        "alt": "Bodensanierung - Umweltingenieur bei Bodenprobenanalyse",
+        "title": "Bodensanierung | RIMAN GmbH",
+        "caption": "Professionelle Bodensanierung und Laboranalyse",
+        "description": "Fachgerechte Bodensanierung mit modernster Analysetechnik im Labor"
+      },
+      "altlasten-grundwassersanierung": {
+        "image": "holyghee_Groundwater_remediation_treatment_plant._Advanced_filt_448aed2d-ef5b-4f4f-b97d-fc5f15271803_1_top_left.png",
+        "alt": "Grundwassersanierung - Luftqualitätsmonitoring mit Echtzeitdaten",
+        "title": "Grundwassersanierung | RIMAN GmbH",
+        "caption": "Moderne Grundwassersanierung mit Monitoring",
+        "description": "Professionelle Grundwassersanierung mit kontinuierlichem Echtzeitmonitoring"
+      },
+      "altlasten-monitoring": {
+        "image": "holyghee_Quality_control_and_final_inspection._Certification_pr_1c82a09d-5078-4e96-9c80-a74c5c026b07_3_bottom_left.png",
+        "alt": "Altlasten-Monitoring - Qualitätskontrolle und Abnahme",
+        "title": "Altlasten-Monitoring | RIMAN GmbH",
+        "caption": "Kontinuierliches Monitoring von Sanierungsmaßnahmen",
+        "description": "Professionelle Qualitätskontrolle und Abnahmeprüfung bei Altlastensanierung"
+      }
+    },
+    "schadstoffe": {
+      "schadstoffe-asbest": {
+        "image": "holyghee_Professional_asbestos_removal_and_remediation._Workers_1577d5f5-9388-4f93-ae02-912b77af33d6_1_top_left.png",
+        "alt": "Asbestsanierung - Professionelle Asbestentfernung mit Schutzausrüstung",
+        "title": "Asbestsanierung | RIMAN GmbH",
+        "caption": "Fachgerechte Asbestsanierung durch geschultes Personal",
+        "description": "Professionelle Asbestsanierung mit vollständiger Schutzausrüstung und fachgerechter Entsorgung"
+      },
+      "schadstoffe-kmf": {
+        "image": "holyghee_KMF_insulation_removal_and_safe_disposal._Workers_in_p_89a2f3d4-b9e8-4e1e-8f9e-0f9e1a2b3c4d_1_top_left.png",
+        "alt": "KMF-Sanierung - Künstliche Mineralfasern fachgerecht entfernen",
+        "title": "KMF-Sanierung | RIMAN GmbH",
+        "caption": "Sichere Entfernung künstlicher Mineralfasern",
+        "description": "Professionelle KMF-Sanierung mit spezieller Schutzausrüstung und Entsorgung"
+      },
+      "schadstoffe-pak": {
+        "image": "holyghee_PAK_contamination_removal_from_industrial_site._Specia_12a3b4c5-d6e7-8f9e-0a1b-2c3d4e5f6g7h_2_top_right.png",
+        "alt": "PAK-Sanierung - Polyzyklische aromatische Kohlenwasserstoffe entfernen",
+        "title": "PAK-Sanierung | RIMAN GmbH",
+        "caption": "Fachgerechte PAK-Sanierung",
+        "description": "Professionelle Sanierung von PAK-Kontaminationen mit modernster Technik"
+      },
+      "schadstoffe-pcb": {
+        "image": "holyghee_PCB_contamination_remediation_and_electrical_equipment_fd3c6a4d-afba-4016-92e6-7f79458eb008_1_top_left.png",
+        "alt": "PCB-Sanierung - Polychlorierte Biphenyle fachgerecht sanieren",
+        "title": "PCB-Sanierung | RIMAN GmbH",
+        "caption": "Sichere PCB-Sanierung von elektrischen Anlagen",
+        "description": "Professionelle PCB-Sanierung und Entsorgung kontaminierter Materialien"
+      },
+      "schadstoffe-schwermetalle": {
+        "image": "holyghee_Heavy_metal_contamination_analysis_and_remediation._La_56a7b8c9-d0e1-2f3g-4h5i-6j7k8l9m0n1o_3_bottom_left.png",
+        "alt": "Schwermetallsanierung - Professionelle Dekontamination",
+        "title": "Schwermetallsanierung | RIMAN GmbH",
+        "caption": "Fachgerechte Schwermetallsanierung",
+        "description": "Professionelle Sanierung von Schwermetallkontaminationen"
+      }
+    },
+    "sicherheit": {
+      "sicherheit-sigeko-planung": {
+        "image": "holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_1_top_left.png",
+        "alt": "SiGeKo-Planung - Sicherheitskoordination in der Planungsphase",
+        "title": "SiGeKo-Planung | RIMAN GmbH",
+        "caption": "Professionelle Sicherheitskoordination ab Planungsbeginn",
+        "description": "Sicherheits- und Gesundheitsschutzkoordination während der Planungsphase"
+      },
+      "sicherheit-sigeko-ausfuehrung": {
+        "image": "holyghee_Safety_coordination_during_construction_execution._On-_dafd9622-5721-4d75-b5a9-3eb7eed163ae_2_top_right.png",
+        "alt": "SiGeKo-Ausführung - Sicherheitskoordination während der Bauausführung",
+        "title": "SiGeKo-Ausführung | RIMAN GmbH",
+        "caption": "Sicherheitskoordination während der Bauphase",
+        "description": "Professionelle Sicherheitskoordination während der Ausführungsphase"
+      },
+      "sicherheit-arbeitsschutz": {
+        "image": "holyghee_Safety_coordination_during_construction_execution._On-_dafd9622-5721-4d75-b5a9-3eb7eed163ae_1_top_left.png",
+        "alt": "Arbeitsschutz - Umfassende Arbeitsschutzmaßnahmen",
+        "title": "Arbeitsschutz | RIMAN GmbH",
+        "caption": "Professioneller Arbeitsschutz auf Baustellen",
+        "description": "Umfassende Arbeitsschutzmaßnahmen und Sicherheitskonzepte"
+      },
+      "sicherheit-gefaehrdungsbeurteilung": {
+        "image": "holyghee_Risk_assessment_and_hazard_evaluation_documentation._S_bfff40db-8edc-470b-a6da-d87bd7944e1c_1_top_left.png",
+        "alt": "Gefährdungsbeurteilung - Systematische Risikoanalyse",
+        "title": "Gefährdungsbeurteilung | RIMAN GmbH",
+        "caption": "Professionelle Gefährdungsbeurteilung",
+        "description": "Systematische Gefährdungsbeurteilung und Risikoanalyse"
+      },
+      "sicherheit-notfallmanagement": {
+        "image": "holyghee_Emergency_response_and_crisis_management_center._Incid_e63a0f95-fc9f-41f4-adfc-0d999276243d_1_top_left.png",
+        "alt": "Notfallmanagement - Krisenmanagement und Notfallplanung",
+        "title": "Notfallmanagement | RIMAN GmbH",
+        "caption": "Professionelles Notfall- und Krisenmanagement",
+        "description": "Umfassendes Notfallmanagement und Kriseninterventionsplanung"
+      }
+    },
+    "beratung": {
+      "beratung-baumediation": {
+        "image": "holyghee_Professional_project_consultation_and_strategic_planni_c66c7ea8-f41a-4f84-8697-c8e0e92d60d6_1_top_left.png",
+        "alt": "Baumediation - Professionelle Konfliktlösung im Bauwesen",
+        "title": "Baumediation | RIMAN GmbH",
+        "caption": "Konstruktive Konfliktlösung durch Mediation",
+        "description": "Professionelle Baumediation für nachhaltige Konfliktlösungen"
+      },
+      "beratung-projektberatung": {
+        "image": "holyghee_Professional_project_consultation_and_strategic_planni_c66c7ea8-f41a-4f84-8697-c8e0e92d60d6_2_top_right.png",
+        "alt": "Projektberatung - Strategische Projektplanung",
+        "title": "Projektberatung | RIMAN GmbH",
+        "caption": "Umfassende Projektberatung und -management",
+        "description": "Professionelle Projektberatung mit strategischer Planung"
+      },
+      "beratung-gutachten": {
+        "image": "holyghee_Professional_expert_assessment_and_technical_evaluatio_9f4bc7b7-2c0e-4c58-8ece-abc90bb1acea_2_top_right.png",
+        "alt": "Gutachten - Sachverständigengutachten und Expertisen",
+        "title": "Gutachten | RIMAN GmbH",
+        "caption": "Fundierte Gutachten von Experten",
+        "description": "Professionelle Gutachten und Sachverständigenexpertisen"
+      },
+      "beratung-schulungen": {
+        "image": "holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_3_bottom_left.png",
+        "alt": "Schulungen - Professionelle Weiterbildung",
+        "title": "Schulungen | RIMAN GmbH",
+        "caption": "Fachschulungen und Weiterbildung",
+        "description": "Professionelle Schulungen und Fortbildungen im Bauwesen"
+      },
+      "beratung-compliance": {
+        "image": "holyghee_Regulatory_compliance_and_certification_documentation._e18fd02e-b8a7-4f0f-b009-953e190dd9dc_1_top_left.png",
+        "alt": "Compliance - Zertifizierung und Dokumentation",
+        "title": "Compliance | RIMAN GmbH",
+        "caption": "Compliance-Management und Zertifizierung",
+        "description": "Professionelles Compliance-Management und Zertifizierungsprozesse"
+      }
+    }
+  },
+  "pages": {
+    "about": {
+      "image": "holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_1_top_left.png",
+      "alt": "About - RIMAN GmbH",
+      "title": "About | RIMAN Services",
+      "caption": "Professionelle About von RIMAN GmbH",
+      "description": "RIMAN GmbH - Ihr Experte für Sicherheitsmanagement seit 1998. Erfahren Sie mehr über unsere Firmenphilosophie und unser fachübergreifendes Management-Konzept.",
+      "kategorie": "general",
+      "slug": "about"
+    },
+    "contact": {
+      "image": "holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_2_top_right.png",
+      "alt": "Contact - RIMAN GmbH",
+      "title": "Contact | RIMAN Services",
+      "caption": "Professionelle Contact von RIMAN GmbH",
+      "description": "Kontaktieren Sie RIMAN GmbH in Großkarolinenfeld. Telefon, Fax, E-Mail und Anschrift für Rückbaumanagement, Altlastensanierung und Schadstoff-Management.",
+      "kategorie": "general",
+      "slug": "contact"
+    },
+    "impressum": {
+      "image": "holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_3_bottom_left.png",
+      "alt": "Impressum - RIMAN GmbH",
+      "title": "Impressum | RIMAN Services",
+      "caption": "Professionelle Impressum von RIMAN GmbH",
+      "description": "Impressum der RIMAN GmbH, Großkarolinenfeld. Alle rechtlichen Angaben, Haftungshinweise und Datenschutzbestimmungen.",
+      "kategorie": "general",
+      "slug": "impressum"
+    },
+    "home": {
+      "image": "holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_4_bottom_right.png",
+      "alt": "Home - RIMAN GmbH",
+      "title": "Home | RIMAN Services",
+      "caption": "Professionelle Home von RIMAN GmbH",
+      "description": "RIMAN GmbH - Ihr Partner für sicheres Bauen und gesundes Leben. Seit 1998 bieten wir professionelles Rückbaumanagement, Altlastensanierung, Schadstoff-Management, Sicherheitskoordination und baubiologische Beratung.",
+      "kategorie": "general",
+      "slug": "home"
+    },
+    "biologische-verfahren": {
+      "image": "holyghee_Regulatory_compliance_and_certification_documentation._e18fd02e-b8a7-4f0f-b009-953e190dd9dc_1_top_left.png",
+      "alt": "Biologische Verfahren - RIMAN GmbH",
+      "title": "Biologische Verfahren | RIMAN Services",
+      "caption": "Professionelle Biologische Verfahren von RIMAN GmbH",
+      "description": "Biologische Verfahren – Natürliche Abbauprozesse",
+      "kategorie": "general",
+      "slug": "biologische-verfahren"
+    },
+    "in-situ-sanierung": {
+      "image": "holyghee_Regulatory_compliance_and_certification_documentation._e18fd02e-b8a7-4f0f-b009-953e190dd9dc_2_top_right.png",
+      "alt": "In Situ Sanierung - RIMAN GmbH",
+      "title": "In Situ Sanierung | RIMAN Services",
+      "caption": "Professionelle In Situ Sanierung von RIMAN GmbH",
+      "description": "In-Situ-Sanierung – Behandlung vor Ort",
+      "kategorie": "general",
+      "slug": "in-situ-sanierung"
+    },
+    "main": {
+      "image": "holyghee_Construction_safety_planning_office_with_digital_tools_60cbef6b-7ba9-443c-a111-fe175ca3203c_2_top_right.png",
+      "alt": "Main - RIMAN GmbH",
+      "title": "Main | RIMAN Services",
+      "caption": "Professionelle Main von RIMAN GmbH",
+      "description": "Professionelle SiGeKo-Planung durch RIMAN GmbH. Sicherheitskoordination in der Planungsphase mit SiGe-Plan, Gefährdungsbeurteilung und Vorankündigung.",
+      "kategorie": "general",
+      "slug": "main"
+    },
+    "thermische-verfahren": {
+      "image": "holyghee_Regulatory_compliance_and_certification_documentation._e18fd02e-b8a7-4f0f-b009-953e190dd9dc_4_bottom_right.png",
+      "alt": "Thermische Verfahren - RIMAN GmbH",
+      "title": "Thermische Verfahren | RIMAN Services",
+      "caption": "Professionelle Thermische Verfahren von RIMAN GmbH",
+      "description": "Thermische Verfahren – Hochtemperaturbehandlung",
+      "kategorie": "general",
+      "slug": "thermische-verfahren"
+    },
+    "detailuntersuchung": {
+      "image": "holyghee_Professional_expert_assessment_and_technical_evaluatio_9f4bc7b7-2c0e-4c58-8ece-abc90bb1acea_1_top_left.png",
+      "alt": "Detailuntersuchung - RIMAN GmbH",
+      "title": "Detailuntersuchung | RIMAN Services",
+      "caption": "Professionelle Detailuntersuchung von RIMAN GmbH",
+      "description": "Detailuntersuchung – Umfassende Schadstoffanalyse",
+      "kategorie": "general",
+      "slug": "detailuntersuchung"
+    },
+    "gefaehrdungsabschaetzung": {
+      "image": "holyghee_Professional_expert_assessment_and_technical_evaluatio_9f4bc7b7-2c0e-4c58-8ece-abc90bb1acea_2_top_right.png",
+      "alt": "Gefaehrdungsabschaetzung - RIMAN GmbH",
+      "title": "Gefaehrdungsabschaetzung | RIMAN Services",
+      "caption": "Professionelle Gefaehrdungsabschaetzung von RIMAN GmbH",
+      "description": "Gefährdungsabschätzung – Risikobewertung für Mensch und Umwelt",
+      "kategorie": "general",
+      "slug": "gefaehrdungsabschaetzung"
+    },
+    "historische-recherche": {
+      "image": "holyghee_Professional_expert_assessment_and_technical_evaluatio_9f4bc7b7-2c0e-4c58-8ece-abc90bb1acea_3_bottom_left.png",
+      "alt": "Historische Recherche - RIMAN GmbH",
+      "title": "Historische Recherche | RIMAN Services",
+      "caption": "Professionelle Historische Recherche von RIMAN GmbH",
+      "description": "Umfassende historische Recherche für Altlasten durch RIMAN Gmbh. Archivstudium, Luftbildauswertung und Zeitzeugeninterviews zur Standorthistorie.",
+      "kategorie": "general",
+      "slug": "historische-recherche"
+    },
+    "orientierende-untersuchung": {
+      "image": "holyghee_Risk_assessment_and_hazard_evaluation_documentation._S_bfff40db-8edc-470b-a6da-d87bd7944e1c_1_top_left.png",
+      "alt": "Orientierende Untersuchung - RIMAN GmbH",
+      "title": "Orientierende Untersuchung | RIMAN Services",
+      "caption": "Professionelle Orientierende Untersuchung von RIMAN GmbH",
+      "description": "Orientierende Untersuchung – Erste Bewertung der Kontamination",
+      "kategorie": "general",
+      "slug": "orientierende-untersuchung"
+    },
+    "in-situ-behandlung": {
+      "image": "holyghee_Risk_assessment_and_hazard_evaluation_documentation._S_bfff40db-8edc-470b-a6da-d87bd7944e1c_2_top_right.png",
+      "alt": "In Situ Behandlung - RIMAN GmbH",
+      "title": "In Situ Behandlung | RIMAN Services",
+      "caption": "Professionelle In Situ Behandlung von RIMAN GmbH",
+      "description": "In-Situ-Behandlung – Behandlung im Untergrund",
+      "kategorie": "general",
+      "slug": "in-situ-behandlung"
+    },
+    "monitored-natural-attenuation": {
+      "image": "holyghee_Risk_assessment_and_hazard_evaluation_documentation._S_bfff40db-8edc-470b-a6da-d87bd7944e1c_4_bottom_right.png",
+      "alt": "Monitored Natural Attenuation - RIMAN GmbH",
+      "title": "Monitored Natural Attenuation | RIMAN Services",
+      "caption": "Professionelle Monitored Natural Attenuation von RIMAN GmbH",
+      "description": "Monitored Natural Attenuation – Überwachter natürlicher Abbau",
+      "kategorie": "general",
+      "slug": "monitored-natural-attenuation"
+    },
+    "reaktive-waende": {
+      "image": "holyghee_Environmental_assessment_specialist_with_tablet_docume_226bb937-80ee-4f70-ad27-4d81163fe289_1_top_left.png",
+      "alt": "Reaktive Waende - RIMAN GmbH",
+      "title": "Reaktive Waende | RIMAN Services",
+      "caption": "Professionelle Reaktive Waende von RIMAN GmbH",
+      "description": "Reaktive Wände – Passive Reinigungsbarrieren",
+      "kategorie": "general",
+      "slug": "reaktive-waende"
+    },
+    "leistungen": {
+      "image": "holyghee_Environmental_assessment_specialist_with_tablet_docume_226bb937-80ee-4f70-ad27-4d81163fe289_2_top_right.png",
+      "alt": "Leistungen - RIMAN GmbH",
+      "title": "Leistungen | RIMAN Services",
+      "caption": "Professionelle Leistungen von RIMAN GmbH",
+      "description": "Umfassende Leistungen zur Altlastensanierung von RIMAN GmbH: Erkundung, Beprobung, Planung und Bauleitung für kontaminierte Böden.",
+      "kategorie": "general",
+      "slug": "leistungen"
+    },
+    "bodenluftmessung": {
+      "image": "holyghee_Groundwater_remediation_treatment_plant._Advanced_filt_448aed2d-ef5b-4f4f-b97d-fc5f15271803_2_top_right.png",
+      "alt": "Bodenluftmessung - RIMAN GmbH",
+      "title": "Bodenluftmessung | RIMAN Services",
+      "caption": "Professionelle Bodenluftmessung von RIMAN GmbH",
+      "description": "Bodenluftmessung – Überwachung von Ausgasungen",
+      "kategorie": "general",
+      "slug": "bodenluftmessung"
+    },
+    "grundwassermonitoring": {
+      "image": "holyghee_Environmental_assessment_specialist_with_tablet_docume_226bb937-80ee-4f70-ad27-4d81163fe289_4_bottom_right.png",
+      "alt": "Grundwassermonitoring - RIMAN GmbH",
+      "title": "Grundwassermonitoring | RIMAN Services",
+      "caption": "Professionelle Grundwassermonitoring von RIMAN GmbH",
+      "description": "Grundwassermonitoring – Kontinuierliche Grundwasserüberwachung",
+      "kategorie": "general",
+      "slug": "grundwassermonitoring"
+    },
+    "langzeitueberwachung": {
+      "image": "holyghee_Professional_contaminated_site_investigation_and_explo_94c8fbaf-34b1-42db-8652-9cd42f149860_4_bottom_right.png",
+      "alt": "Langzeitueberwachung - RIMAN GmbH",
+      "title": "Langzeitueberwachung | RIMAN Services",
+      "caption": "Professionelle Langzeitueberwachung von RIMAN GmbH",
+      "description": "Langzeitüberwachung – Nachsorge und Monitoring",
+      "kategorie": "general",
+      "slug": "langzeitueberwachung"
+    },
+    "sanierungskontrolle": {
+      "image": "holyghee_Massive_construction_site_with_selective_demolition_in_d63744e0-faa1-4afb-a86f-e7b50c76482d_3_bottom_left.png",
+      "alt": "Sanierungskontrolle - RIMAN GmbH",
+      "title": "Sanierungskontrolle | RIMAN Services",
+      "caption": "Professionelle Sanierungskontrolle von RIMAN GmbH",
+      "description": "Sanierungskontrolle – Erfolgskontrolle der Maßnahmen",
+      "kategorie": "general",
+      "slug": "sanierungskontrolle"
+    },
+    "genehmigungsplanung": {
+      "image": "holyghee_Professional_environmental_engineer_analyzing_soil_sam_5df7e8f0-2f11-4204-82d6-3cfb56a106bd_1_top_left.png",
+      "alt": "Genehmigungsplanung - RIMAN GmbH",
+      "title": "Genehmigungsplanung | RIMAN Services",
+      "caption": "Professionelle Genehmigungsplanung von RIMAN GmbH",
+      "description": "Genehmigungsplanung – Behördliche Abstimmung",
+      "kategorie": "general",
+      "slug": "genehmigungsplanung"
+    },
+    "kostenplanung": {
+      "image": "holyghee_Professional_environmental_engineer_analyzing_soil_sam_5df7e8f0-2f11-4204-82d6-3cfb56a106bd_2_top_right.png",
+      "alt": "Kostenplanung - RIMAN GmbH",
+      "title": "Kostenplanung | RIMAN Services",
+      "caption": "Professionelle Kostenplanung von RIMAN GmbH",
+      "description": "Kostenplanung – Detaillierte Kostenschätzung",
+      "kategorie": "general",
+      "slug": "kostenplanung"
+    },
+    "verfahrensauswahl": {
+      "image": "holyghee_Professional_environmental_engineer_analyzing_soil_sam_5df7e8f0-2f11-4204-82d6-3cfb56a106bd_4_bottom_right.png",
+      "alt": "Verfahrensauswahl - RIMAN GmbH",
+      "title": "Verfahrensauswahl | RIMAN Services",
+      "caption": "Professionelle Verfahrensauswahl von RIMAN GmbH",
+      "description": "Verfahrensauswahl – Auswahl geeigneter Sanierungstechnologien",
+      "kategorie": "general",
+      "slug": "verfahrensauswahl"
+    },
+    "interessensausgleich": {
+      "image": "holyghee_Professional_project_consultation_and_strategic_planni_c66c7ea8-f41a-4f84-8697-c8e0e92d60d6_1_top_left.png",
+      "alt": "Interessensausgleich - RIMAN GmbH",
+      "title": "Interessensausgleich | RIMAN Services",
+      "caption": "Professionelle Interessensausgleich von RIMAN GmbH",
+      "description": "Interessensausgleich – Win-Win-Lösungen entwickeln",
+      "kategorie": "general",
+      "slug": "interessensausgleich"
+    },
+    "konfliktanalyse": {
+      "image": "holyghee_Workplace_safety_and_occupational_health_protection._S_4c1e0b23-738e-495c-9727-19e3ad978031_1_top_left.png",
+      "alt": "Konfliktanalyse - RIMAN GmbH",
+      "title": "Konfliktanalyse | RIMAN Services",
+      "caption": "Professionelle Konfliktanalyse von RIMAN GmbH",
+      "description": "Konfliktanalyse – Systematische Konfliktbewertung",
+      "kategorie": "general",
+      "slug": "konfliktanalyse"
+    },
+    "mediationsverfahren": {
+      "image": "holyghee_Workplace_safety_and_occupational_health_protection._S_4c1e0b23-738e-495c-9727-19e3ad978031_3_bottom_left.png",
+      "alt": "Mediationsverfahren - RIMAN GmbH",
+      "title": "Mediationsverfahren | RIMAN Services",
+      "caption": "Professionelle Mediationsverfahren von RIMAN GmbH",
+      "description": "Mediationsverfahren – Strukturierte Konfliktbearbeitung",
+      "kategorie": "general",
+      "slug": "mediationsverfahren"
+    },
+    "vertragsgestaltung": {
+      "image": "holyghee_Workplace_safety_and_occupational_health_protection._S_4c1e0b23-738e-495c-9727-19e3ad978031_4_bottom_right.png",
+      "alt": "Vertragsgestaltung - RIMAN GmbH",
+      "title": "Vertragsgestaltung | RIMAN Services",
+      "caption": "Professionelle Vertragsgestaltung von RIMAN GmbH",
+      "description": "Vertragsgestaltung – Konfliktpräventive Verträge",
+      "kategorie": "general",
+      "slug": "vertragsgestaltung"
+    },
+    "compliance-systeme": {
+      "image": "holyghee_A_clean_high-tech_laboratory_scene_bathed_in_soft_blue_ba215eb7-5231-4279-9241-1347479d6e62_1_top_left.png",
+      "alt": "Compliance Systeme - RIMAN GmbH",
+      "title": "Compliance Systeme | RIMAN Services",
+      "caption": "Professionelle Compliance Systeme von RIMAN GmbH",
+      "description": "Compliance-Systeme – Regelkonformes Handeln",
+      "kategorie": "general",
+      "slug": "compliance-systeme"
+    },
+    "haftungsmanagement": {
+      "image": "holyghee_A_clean_high-tech_laboratory_scene_bathed_in_soft_blue_ba215eb7-5231-4279-9241-1347479d6e62_2_top_right.png",
+      "alt": "Haftungsmanagement - RIMAN GmbH",
+      "title": "Haftungsmanagement | RIMAN Services",
+      "caption": "Professionelle Haftungsmanagement von RIMAN GmbH",
+      "description": "Haftungsmanagement – Haftungsrisiken minimieren",
+      "kategorie": "general",
+      "slug": "haftungsmanagement"
+    },
+    "rechtsberatung": {
+      "image": "holyghee_A_clean_high-tech_laboratory_scene_bathed_in_soft_blue_ba215eb7-5231-4279-9241-1347479d6e62_4_bottom_right.png",
+      "alt": "Rechtsberatung - RIMAN GmbH",
+      "title": "Rechtsberatung | RIMAN Services",
+      "caption": "Professionelle Rechtsberatung von RIMAN GmbH",
+      "description": "Rechtsberatung – Juristische Beratung",
+      "kategorie": "beratung",
+      "slug": "rechtsberatung"
+    },
+    "vertragsmanagement": {
+      "image": "holyghee_Hazardous_material_laboratory_analysis_scene_with_scie_f7a420cd-85b6-455e-b6f1-0ed7e054689c_1_top_left.png",
+      "alt": "Vertragsmanagement - RIMAN GmbH",
+      "title": "Vertragsmanagement | RIMAN Services",
+      "caption": "Professionelle Vertragsmanagement von RIMAN GmbH",
+      "description": "Vertragsmanagement – Professionelle Vertragsgestaltung",
+      "kategorie": "general",
+      "slug": "vertragsmanagement"
+    },
+    "bauschadensgutachten": {
+      "image": "holyghee_Hazardous_material_laboratory_analysis_scene_with_scie_f7a420cd-85b6-455e-b6f1-0ed7e054689c_2_top_right.png",
+      "alt": "Bauschadensgutachten - RIMAN GmbH",
+      "title": "Bauschadensgutachten | RIMAN Services",
+      "caption": "Professionelle Bauschadensgutachten von RIMAN GmbH",
+      "description": "Bauschadensgutachten – Analyse von Bauschäden",
+      "kategorie": "general",
+      "slug": "bauschadensgutachten"
+    },
+    "gerichtsgutachten": {
+      "image": "holyghee_Hazardous_material_laboratory_analysis_scene_with_scie_f7a420cd-85b6-455e-b6f1-0ed7e054689c_3_bottom_left.png",
+      "alt": "Gerichtsgutachten - RIMAN GmbH",
+      "title": "Gerichtsgutachten | RIMAN Services",
+      "caption": "Professionelle Gerichtsgutachten von RIMAN GmbH",
+      "description": "Gerichtsgutachten – Sachverständige vor Gericht",
+      "kategorie": "general",
+      "slug": "gerichtsgutachten"
+    },
+    "rechtsgutachten": {
+      "image": "holyghee_Senior_male_technical_specialist_in_laboratory_coat_ex_4e2185ed-5ac0-44e1-88ee-1ad098fa659f_1_top_left.png",
+      "alt": "Rechtsgutachten - RIMAN GmbH",
+      "title": "Rechtsgutachten | RIMAN Services",
+      "caption": "Professionelle Rechtsgutachten von RIMAN GmbH",
+      "description": "Rechtsgutachten – Juristische Bewertung",
+      "kategorie": "general",
+      "slug": "rechtsgutachten"
+    },
+    "wertgutachten": {
+      "image": "holyghee_Senior_male_technical_specialist_in_laboratory_coat_ex_4e2185ed-5ac0-44e1-88ee-1ad098fa659f_2_top_right.png",
+      "alt": "Wertgutachten - RIMAN GmbH",
+      "title": "Wertgutachten | RIMAN Services",
+      "caption": "Professionelle Wertgutachten von RIMAN GmbH",
+      "description": "Wertgutachten – Immobilienbewertung",
+      "kategorie": "general",
+      "slug": "wertgutachten"
+    },
+    "machbarkeitsstudien": {
+      "image": "holyghee_Senior_male_technical_specialist_in_laboratory_coat_ex_4e2185ed-5ac0-44e1-88ee-1ad098fa659f_4_bottom_right.png",
+      "alt": "Machbarkeitsstudien - RIMAN GmbH",
+      "title": "Machbarkeitsstudien | RIMAN Services",
+      "caption": "Professionelle Machbarkeitsstudien von RIMAN GmbH",
+      "description": "Machbarkeitsstudien – Technische und wirtschaftliche Bewertung",
+      "kategorie": "general",
+      "slug": "machbarkeitsstudien"
+    },
+    "projektentwicklung": {
+      "image": "holyghee_Final_inspection_and_quality_verification_with_certifi_55b116b9-0ada-4d22-b7c8-290f56cd03a1_2_top_right.png",
+      "alt": "Projektentwicklung - RIMAN GmbH",
+      "title": "Projektentwicklung | RIMAN Services",
+      "caption": "Professionelle Projektentwicklung von RIMAN GmbH",
+      "description": "Projektentwicklung – Von der Idee zum Projekt",
+      "kategorie": "general",
+      "slug": "projektentwicklung"
+    },
+    "qualitaetsmanagement": {
+      "image": "holyghee_Final_inspection_and_quality_verification_with_certifi_55b116b9-0ada-4d22-b7c8-290f56cd03a1_3_bottom_left.png",
+      "alt": "Qualitaetsmanagement - RIMAN GmbH",
+      "title": "Qualitaetsmanagement | RIMAN Services",
+      "caption": "Professionelle Qualitaetsmanagement von RIMAN GmbH",
+      "description": "Qualitätsmanagement – Systematische Qualitätssicherung",
+      "kategorie": "general",
+      "slug": "qualitaetsmanagement"
+    },
+    "risikomanagement": {
+      "image": "holyghee_Final_inspection_and_quality_verification_with_certifi_55b116b9-0ada-4d22-b7c8-290f56cd03a1_4_bottom_right.png",
+      "alt": "Risikomanagement - RIMAN GmbH",
+      "title": "Risikomanagement | RIMAN Services",
+      "caption": "Professionelle Risikomanagement von RIMAN GmbH",
+      "description": "Risikomanagement – Identifikation und Minimierung",
+      "kategorie": "general",
+      "slug": "risikomanagement"
+    },
+    "fachseminare": {
+      "image": "holyghee_Groundwater_remediation_treatment_plant._Advanced_filt_448aed2d-ef5b-4f4f-b97d-fc5f15271803_1_top_left.png",
+      "alt": "Fachseminare - RIMAN GmbH",
+      "title": "Fachseminare | RIMAN Services",
+      "caption": "Professionelle Fachseminare von RIMAN GmbH",
+      "description": "Fachseminare – Spezielle Fachthemen",
+      "kategorie": "general",
+      "slug": "fachseminare"
+    },
+    "inhouse-schulungen": {
+      "image": "holyghee_Groundwater_remediation_treatment_plant._Advanced_filt_448aed2d-ef5b-4f4f-b97d-fc5f15271803_3_bottom_left.png",
+      "alt": "Inhouse Schulungen - RIMAN GmbH",
+      "title": "Inhouse Schulungen | RIMAN Services",
+      "caption": "Professionelle Inhouse Schulungen von RIMAN GmbH",
+      "description": "Inhouse-Schulungen – Maßgeschneiderte Schulungen",
+      "kategorie": "general",
+      "slug": "inhouse-schulungen"
+    },
+    "weiterbildungsberatung": {
+      "image": "holyghee_Professional_contaminated_site_investigation_and_explo_94c8fbaf-34b1-42db-8652-9cd42f149860_1_top_left.png",
+      "alt": "Weiterbildungsberatung - RIMAN GmbH",
+      "title": "Weiterbildungsberatung | RIMAN Services",
+      "caption": "Professionelle Weiterbildungsberatung von RIMAN GmbH",
+      "description": "Weiterbildungsberatung – Individuelle Entwicklungspläne",
+      "kategorie": "beratung",
+      "slug": "weiterbildungsberatung"
+    },
+    "zertifikatskurse": {
+      "image": "holyghee_Professional_contaminated_site_investigation_and_explo_94c8fbaf-34b1-42db-8652-9cd42f149860_2_top_right.png",
+      "alt": "Zertifikatskurse - RIMAN GmbH",
+      "title": "Zertifikatskurse | RIMAN Services",
+      "caption": "Professionelle Zertifikatskurse von RIMAN GmbH",
+      "description": "Zertifikatskurse – Qualifizierung mit Zertifikat",
+      "kategorie": "general",
+      "slug": "zertifikatskurse"
+    },
+    "angebotspruefung": {
+      "image": "holyghee_Professional_contaminated_site_investigation_and_explo_94c8fbaf-34b1-42db-8652-9cd42f149860_3_bottom_left.png",
+      "alt": "Angebotspruefung - RIMAN GmbH",
+      "title": "Angebotspruefung | RIMAN Services",
+      "caption": "Professionelle Angebotspruefung von RIMAN GmbH",
+      "description": "Angebotsprüfung – Fachgerechte Bewertung",
+      "kategorie": "general",
+      "slug": "angebotspruefung"
+    },
+    "leistungsverzeichnis": {
+      "image": "holyghee_Environmental_contamination_assessment_scene_with_geol_69210a08-66cc-4705-a549-b8023a279c55_1_top_left.png",
+      "alt": "Leistungsverzeichnis - RIMAN GmbH",
+      "title": "Leistungsverzeichnis | RIMAN Services",
+      "caption": "Professionelle Leistungsverzeichnis von RIMAN GmbH",
+      "description": "Professionelles Leistungsverzeichnis für Rückbau durch RIMAN GmbH. Detaillierte Leistungsbeschreibung, Normenkonformität und präzise Spezifikationen für faire Angebote.",
+      "kategorie": "general",
+      "slug": "leistungsverzeichnis"
+    },
+    "mengenermittlung": {
+      "image": "holyghee_Environmental_contamination_assessment_scene_with_geol_69210a08-66cc-4705-a549-b8023a279c55_3_bottom_left.png",
+      "alt": "Mengenermittlung - RIMAN GmbH",
+      "title": "Mengenermittlung | RIMAN Services",
+      "caption": "Professionelle Mengenermittlung von RIMAN GmbH",
+      "description": "Mengenermittlung – Präzise Massenberechnung",
+      "kategorie": "general",
+      "slug": "mengenermittlung"
+    },
+    "vergabeunterlagen": {
+      "image": "holyghee_Professional_asbestos_removal_and_remediation._Workers_1577d5f5-9388-4f93-ae02-912b77af33d6_1_top_left.png",
+      "alt": "Vergabeunterlagen - RIMAN GmbH",
+      "title": "Vergabeunterlagen | RIMAN Services",
+      "caption": "Professionelle Vergabeunterlagen von RIMAN GmbH",
+      "description": "Vergabeunterlagen – Vollständige Dokumentation",
+      "kategorie": "general",
+      "slug": "vergabeunterlagen"
+    },
+    "bauleitung": {
+      "image": "holyghee_Professional_asbestos_removal_and_remediation._Workers_1577d5f5-9388-4f93-ae02-912b77af33d6_2_top_right.png",
+      "alt": "Bauleitung - RIMAN GmbH",
+      "title": "Bauleitung | RIMAN Services",
+      "caption": "Professionelle Bauleitung von RIMAN GmbH",
+      "description": "Professionelle Bauleitung für Rückbaumaßnahmen von RIMAN GmbH. Fachkundige Überwachung, Kontrolle und Steuerung von Abbruch- und Entsorgungsarbeiten.",
+      "kategorie": "general",
+      "slug": "bauleitung"
+    },
+    "ausfuehrungsplanung": {
+      "image": "holyghee_Heavy_metal_contamination_analysis_and_remediation._La_a9b24e95-4fe5-4afd-b516-46d958bf4a93_3_bottom_left.png",
+      "alt": "Ausfuehrungsplanung - RIMAN GmbH",
+      "title": "Ausfuehrungsplanung | RIMAN Services",
+      "caption": "Professionelle Ausfuehrungsplanung von RIMAN GmbH",
+      "description": "Detaillierte Ausführungsplanung für Rückbau durch RIMAN GmbH. Präzise Planung der Rückbauabläufe, Logistik, Maschineneinsatz und Sicherheitsmaßnahmen.",
+      "kategorie": "general",
+      "slug": "ausfuehrungsplanung"
+    },
+    "bestandsaufnahme": {
+      "image": "holyghee_Heavy_metal_contamination_analysis_and_remediation._La_a9b24e95-4fe5-4afd-b516-46d958bf4a93_4_bottom_right.png",
+      "alt": "Bestandsaufnahme - RIMAN GmbH",
+      "title": "Bestandsaufnahme | RIMAN Services",
+      "caption": "Professionelle Bestandsaufnahme von RIMAN GmbH",
+      "description": "Professionelle Bestandsaufnahme für Rückbau durch RIMAN GmbH. Detaillierte Erfassung der baulichen Substanz, Materialien und Schadstoffe für optimale Planung.",
+      "kategorie": "general",
+      "slug": "bestandsaufnahme"
+    },
+    "genehmigungsverfahren": {
+      "image": "holyghee_Professional_remediation_planning_and_engineering._Tec_fae5316c-5f4b-42fc-b59f-f09de953825d_1_top_left.png",
+      "alt": "Genehmigungsverfahren - RIMAN GmbH",
+      "title": "Genehmigungsverfahren | RIMAN Services",
+      "caption": "Professionelle Genehmigungsverfahren von RIMAN GmbH",
+      "description": "Professionelle Genehmigungsverfahren für Rückbau durch RIMAN GmbH. Erstellung aller erforderlichen Unterlagen für Behörden und Koordination der Genehmigungsprozesse.",
+      "kategorie": "general",
+      "slug": "genehmigungsverfahren"
+    },
+    "konzepterstellung": {
+      "image": "holyghee_Professional_remediation_planning_and_engineering._Tec_fae5316c-5f4b-42fc-b59f-f09de953825d_2_top_right.png",
+      "alt": "Konzepterstellung - RIMAN GmbH",
+      "title": "Konzepterstellung | RIMAN Services",
+      "caption": "Professionelle Konzepterstellung von RIMAN GmbH",
+      "description": "Professionelle Konzepterstellung für Rückbau durch RIMAN GmbH. Entwicklung umfassender Rückbaukonzepte mit optimalen Verfahren, Kosten und Zeitplänen.",
+      "kategorie": "general",
+      "slug": "konzepterstellung"
+    },
+    "kostenkalkulation": {
+      "image": "holyghee_Professional_remediation_planning_and_engineering._Tec_fae5316c-5f4b-42fc-b59f-f09de953825d_3_bottom_left.png",
+      "alt": "Kostenkalkulation - RIMAN GmbH",
+      "title": "Kostenkalkulation | RIMAN Services",
+      "caption": "Professionelle Kostenkalkulation von RIMAN GmbH",
+      "description": "Präzise Kostenkalkulation für Rückbau durch RIMAN GmbH. Detaillierte Kostenschätzung, Wirtschaftlichkeitsberechnung und transparente Budgetplanung für optimale Kostensicherheit.",
+      "kategorie": "general",
+      "slug": "kostenkalkulation"
+    },
+    "schadstofferkundung": {
+      "image": "holyghee_PAH_polycyclic_aromatic_hydrocarbons_remediation_site._3b7de3b7-901b-427f-b5b8-b00173e42acb_1_top_left.png",
+      "alt": "Schadstofferkundung - RIMAN GmbH",
+      "title": "Schadstofferkundung | RIMAN Services",
+      "caption": "Professionelle Schadstofferkundung von RIMAN GmbH",
+      "description": "Umfassende Schadstofferkundung für Rückbau durch RIMAN GmbH. Systematische Untersuchung auf Asbest, KMF, PAK, PCB und andere Gefahrstoffe nach aktuellen Normen.",
+      "kategorie": "schadstoffe",
+      "slug": "schadstofferkundung"
+    },
+    "asbestabbruch": {
+      "image": "holyghee_PAH_polycyclic_aromatic_hydrocarbons_remediation_site._3b7de3b7-901b-427f-b5b8-b00173e42acb_2_top_right.png",
+      "alt": "Asbestabbruch - RIMAN GmbH",
+      "title": "Asbestabbruch | RIMAN Services",
+      "caption": "Professionelle Asbestabbruch von RIMAN GmbH",
+      "description": "Asbestabbruch – Fachgerechter Rückbau",
+      "kategorie": "general",
+      "slug": "asbestabbruch"
+    },
+    "asbesterkundung": {
+      "image": "holyghee_Asbestos_removal_specialists_in_full_protective_gear_w_2b5836e5-35e9-46e0-a9a4-8b8d4f89db8e_1_top_left.png",
+      "alt": "Asbesterkundung - RIMAN GmbH",
+      "title": "Asbesterkundung | RIMAN Services",
+      "caption": "Professionelle Asbesterkundung von RIMAN GmbH",
+      "description": "Professionelle Asbesterkundung durch RIMAN GmbH nach TRGS 519. Systematische Asbestuntersuchung, fachgerechte Probenahme und Laboranalytik.",
+      "kategorie": "general",
+      "slug": "asbesterkundung"
+    },
+    "dekontamination": {
+      "image": "holyghee_PCB_contamination_remediation_and_electrical_equipment_fd3c6a4d-afba-4016-92e6-7f79458eb008_1_top_left.png",
+      "alt": "Dekontamination - RIMAN GmbH",
+      "title": "Dekontamination | RIMAN Services",
+      "caption": "Professionelle Dekontamination von RIMAN GmbH",
+      "description": "Dekontamination – Vollständige PCB-Entfernung",
+      "kategorie": "general",
+      "slug": "dekontamination"
+    },
+    "sanierungsplanung": {
+      "image": "holyghee_Asbestos_removal_specialists_in_full_protective_gear_w_2b5836e5-35e9-46e0-a9a4-8b8d4f89db8e_3_bottom_left.png",
+      "alt": "Sanierungsplanung - RIMAN GmbH",
+      "title": "Sanierungsplanung | RIMAN Services",
+      "caption": "Professionelle Sanierungsplanung von RIMAN GmbH",
+      "description": "Sanierungsplanung – TRGS 519 konforme Planung",
+      "kategorie": "general",
+      "slug": "sanierungsplanung"
+    },
+    "erkundung": {
+      "image": "holyghee_PAH_polycyclic_aromatic_hydrocarbons_remediation_site._3b7de3b7-901b-427f-b5b8-b00173e42acb_4_bottom_right.png",
+      "alt": "Erkundung - RIMAN GmbH",
+      "title": "Erkundung | RIMAN Services",
+      "caption": "Professionelle Erkundung von RIMAN GmbH",
+      "description": "Professionelle Schadstoff-Erkundung von RIMAN GmbH. Orientierende Besichtigung, Bauteilöffnungen und fachgerechte Beprobung von Gebäudeschadstoffen.",
+      "kategorie": "general",
+      "slug": "erkundung"
+    },
+    "erfolgskontrolle": {
+      "image": "holyghee_Professional_soil_remediation_with_excavators_and_trea_620dd388-eb65-4bde-ae78-6206f7c7141f_1_top_left.png",
+      "alt": "Erfolgskontrolle - RIMAN GmbH",
+      "title": "Erfolgskontrolle | RIMAN Services",
+      "caption": "Professionelle Erfolgskontrolle von RIMAN GmbH",
+      "description": "Erfolgskontrolle – Freimessung und Dokumentation",
+      "kategorie": "general",
+      "slug": "erfolgskontrolle"
+    },
+    "gefaehrdungsbeurteilung": {
+      "image": "holyghee_Construction_safety_planning_office_with_digital_tools_60cbef6b-7ba9-443c-a111-fe175ca3203c_1_top_left.png",
+      "alt": "Gefaehrdungsbeurteilung - RIMAN GmbH",
+      "title": "Gefaehrdungsbeurteilung | RIMAN Services",
+      "caption": "Professionelle Gefaehrdungsbeurteilung von RIMAN GmbH",
+      "description": "Gefährdungsbeurteilung – Systematische Gefahrenanalyse",
+      "kategorie": "general",
+      "slug": "gefaehrdungsbeurteilung"
+    },
+    "kmf-erkundung": {
+      "image": "holyghee_Professional_soil_remediation_with_excavators_and_trea_620dd388-eb65-4bde-ae78-6206f7c7141f_3_bottom_left.png",
+      "alt": "Kmf Erkundung - RIMAN GmbH",
+      "title": "Kmf Erkundung | RIMAN Services",
+      "caption": "Professionelle Kmf Erkundung von RIMAN GmbH",
+      "description": "KMF-Erkundung – Identifikation von Mineralfasern",
+      "kategorie": "general",
+      "slug": "kmf-erkundung"
+    },
+    "sanierungsdurchfuehrung": {
+      "image": "holyghee_Professional_contaminated_soil_remediation_site._Heavy_b506cded-74d5-4535-bb0e-8be4cc172d88_1_top_left.png",
+      "alt": "Sanierungsdurchfuehrung - RIMAN GmbH",
+      "title": "Sanierungsdurchfuehrung | RIMAN Services",
+      "caption": "Professionelle Sanierungsdurchfuehrung von RIMAN GmbH",
+      "description": "Sanierungsdurchführung – Fachgerechte Entfernung",
+      "kategorie": "general",
+      "slug": "sanierungsdurchfuehrung"
+    },
+    "entsorgungsmanagement": {
+      "image": "holyghee_Professional_contaminated_soil_remediation_site._Heavy_b506cded-74d5-4535-bb0e-8be4cc172d88_2_top_right.png",
+      "alt": "Entsorgungsmanagement - RIMAN GmbH",
+      "title": "Entsorgungsmanagement | RIMAN Services",
+      "caption": "Professionelle Entsorgungsmanagement von RIMAN GmbH",
+      "description": "Entsorgungsmanagement – Fachgerechte Entsorgung",
+      "kategorie": "general",
+      "slug": "entsorgungsmanagement"
+    },
+    "nachsorge": {
+      "image": "holyghee_Professional_contaminated_soil_remediation_site._Heavy_b506cded-74d5-4535-bb0e-8be4cc172d88_4_bottom_right.png",
+      "alt": "Nachsorge - RIMAN GmbH",
+      "title": "Nachsorge | RIMAN Services",
+      "caption": "Professionelle Nachsorge von RIMAN GmbH",
+      "description": "Nachsorge – Langzeitüberwachung",
+      "kategorie": "general",
+      "slug": "nachsorge"
+    },
+    "pak-analytik": {
+      "image": "holyghee_Groundwater_remediation_site_with_advanced_soil_treatm_b5553678-709a-4b87-af08-343624d6dcc9_1_top_left.png",
+      "alt": "Pak Analytik - RIMAN GmbH",
+      "title": "Pak Analytik | RIMAN Services",
+      "caption": "Professionelle Pak Analytik von RIMAN GmbH",
+      "description": "PAK-Analytik – Schadstoffuntersuchung",
+      "kategorie": "general",
+      "slug": "pak-analytik"
+    },
+    "sanierungsverfahren": {
+      "image": "holyghee_Groundwater_remediation_site_with_advanced_soil_treatm_b5553678-709a-4b87-af08-343624d6dcc9_2_top_right.png",
+      "alt": "Sanierungsverfahren - RIMAN GmbH",
+      "title": "Sanierungsverfahren | RIMAN Services",
+      "caption": "Professionelle Sanierungsverfahren von RIMAN GmbH",
+      "description": "Sanierungsverfahren – Auswahl geeigneter Verfahren",
+      "kategorie": "general",
+      "slug": "sanierungsverfahren"
+    },
+    "freigabemessung": {
+      "image": "holyghee_PCB_contamination_remediation_and_electrical_equipment_fd3c6a4d-afba-4016-92e6-7f79458eb008_2_top_right.png",
+      "alt": "Freigabemessung - RIMAN GmbH",
+      "title": "Freigabemessung | RIMAN Services",
+      "caption": "Professionelle Freigabemessung von RIMAN GmbH",
+      "description": "Freigabemessung – Nachweis der Sanierung",
+      "kategorie": "general",
+      "slug": "freigabemessung"
+    },
+    "pcb-screening": {
+      "image": "holyghee_PCB_contamination_remediation_and_electrical_equipment_fd3c6a4d-afba-4016-92e6-7f79458eb008_4_bottom_right.png",
+      "alt": "Pcb Screening - RIMAN GmbH",
+      "title": "Pcb Screening | RIMAN Services",
+      "caption": "Professionelle Pcb Screening von RIMAN GmbH",
+      "description": "PCB-Screening – Systematische PCB-Suche",
+      "kategorie": "general",
+      "slug": "pcb-screening"
+    },
+    "quellenidentifikation": {
+      "image": "holyghee_Groundwater_remediation_site_with_advanced_soil_treatm_b5553678-709a-4b87-af08-343624d6dcc9_3_bottom_left.png",
+      "alt": "Quellenidentifikation - RIMAN GmbH",
+      "title": "Quellenidentifikation | RIMAN Services",
+      "caption": "Professionelle Quellenidentifikation von RIMAN GmbH",
+      "description": "Quellenidentifikation – Lokalisierung der Kontamination",
+      "kategorie": "general",
+      "slug": "quellenidentifikation"
+    },
+    "belastungsanalyse": {
+      "image": "holyghee_Groundwater_remediation_site_with_advanced_soil_treatm_b5553678-709a-4b87-af08-343624d6dcc9_4_bottom_right.png",
+      "alt": "Belastungsanalyse - RIMAN GmbH",
+      "title": "Belastungsanalyse | RIMAN Services",
+      "caption": "Professionelle Belastungsanalyse von RIMAN GmbH",
+      "description": "Belastungsanalyse – Schwermetallanalyse",
+      "kategorie": "general",
+      "slug": "belastungsanalyse"
+    },
+    "extraktion": {
+      "image": "holyghee_Professional_construction_mediation_and_consulting_mee_a80c0bd8-4447-420e-8019-875170ed3d0e_1_top_left.png",
+      "alt": "Extraktion - RIMAN GmbH",
+      "title": "Extraktion | RIMAN Services",
+      "caption": "Professionelle Extraktion von RIMAN GmbH",
+      "description": "Extraktion – Entfernung aus Materialien",
+      "kategorie": "general",
+      "slug": "extraktion"
+    },
+    "immobilisierung": {
+      "image": "holyghee_Professional_construction_mediation_and_consulting_mee_a80c0bd8-4447-420e-8019-875170ed3d0e_2_top_right.png",
+      "alt": "Immobilisierung - RIMAN GmbH",
+      "title": "Immobilisierung | RIMAN Services",
+      "caption": "Professionelle Immobilisierung von RIMAN GmbH",
+      "description": "Immobilisierung – Bindung der Schwermetalle",
+      "kategorie": "general",
+      "slug": "immobilisierung"
+    },
+    "verwertung": {
+      "image": "holyghee_Professional_construction_mediation_and_consulting_mee_a80c0bd8-4447-420e-8019-875170ed3d0e_4_bottom_right.png",
+      "alt": "Verwertung - RIMAN GmbH",
+      "title": "Verwertung | RIMAN Services",
+      "caption": "Professionelle Verwertung von RIMAN GmbH",
+      "description": "Verwertung – Recycling und Verwertung",
+      "kategorie": "general",
+      "slug": "verwertung"
+    },
+    "untersuchung": {
+      "image": "holyghee_Construction_mediation_and_conflict_resolution_session_6cd9268e-6349-44da-b198-318d9af9e033_1_top_left.png",
+      "alt": "Untersuchung - RIMAN GmbH",
+      "title": "Untersuchung | RIMAN Services",
+      "caption": "Professionelle Untersuchung von RIMAN GmbH",
+      "description": "Fachgerechte Schadstoff-Untersuchung von RIMAN GmbH. Probennahme, Laboranalytik und Bewertung von Gebäudeschadstoffen nach geltenden Standards.",
+      "kategorie": "general",
+      "slug": "untersuchung"
+    },
+    "betriebsanweisungen": {
+      "image": "holyghee_Safety_coordination_during_construction_execution._On-_dafd9622-5721-4d75-b5a9-3eb7eed163ae_1_top_left.png",
+      "alt": "Betriebsanweisungen - RIMAN GmbH",
+      "title": "Betriebsanweisungen | RIMAN Services",
+      "caption": "Professionelle Betriebsanweisungen von RIMAN GmbH",
+      "description": "Betriebsanweisungen – Arbeitsplatzspezifische Anweisungen",
+      "kategorie": "general",
+      "slug": "betriebsanweisungen"
+    },
+    "gesundheitsschutz": {
+      "image": "holyghee_Construction_mediation_and_conflict_resolution_session_6cd9268e-6349-44da-b198-318d9af9e033_2_top_right.png",
+      "alt": "Gesundheitsschutz - RIMAN GmbH",
+      "title": "Gesundheitsschutz | RIMAN Services",
+      "caption": "Professionelle Gesundheitsschutz von RIMAN GmbH",
+      "description": "Gesundheitsschutz – Präventive Gesundheitsmaßnahmen",
+      "kategorie": "general",
+      "slug": "gesundheitsschutz"
+    },
+    "psa-beratung": {
+      "image": "holyghee_Construction_mediation_and_conflict_resolution_session_6cd9268e-6349-44da-b198-318d9af9e033_4_bottom_right.png",
+      "alt": "Psa Beratung - RIMAN GmbH",
+      "title": "Psa Beratung | RIMAN Services",
+      "caption": "Professionelle Psa Beratung von RIMAN GmbH",
+      "description": "PSA-Beratung – Persönliche Schutzausrüstung",
+      "kategorie": "beratung",
+      "slug": "psa-beratung"
+    },
+    "schulungen": {
+      "image": "holyghee_Professional_mediation_meeting_scene_with_diverse_stak_9a75d4b2-f44c-47ac-8703-1f7e457d2e1d_1_top_left.png",
+      "alt": "Schulungen - RIMAN GmbH",
+      "title": "Schulungen | RIMAN Services",
+      "caption": "Professionelle Schulungen von RIMAN GmbH",
+      "description": "Schulungen – Arbeitsschutz-Unterweisungen",
+      "kategorie": "general",
+      "slug": "schulungen"
+    },
+    "asbest-trgs519": {
+      "image": "holyghee_Professional_mediation_meeting_scene_with_diverse_stak_9a75d4b2-f44c-47ac-8703-1f7e457d2e1d_2_top_right.png",
+      "alt": "Asbest Trgs519 - RIMAN GmbH",
+      "title": "Asbest Trgs519 | RIMAN Services",
+      "caption": "Professionelle Asbest Trgs519 von RIMAN GmbH",
+      "description": "Sicherheitskoordination bei Asbestarbeiten nach TRGS 519 von RIMAN GmbH. Schutz vor Asbestfasern und fachgerechte Asbestsanierung.",
+      "kategorie": "general",
+      "slug": "asbest-trgs519"
+    },
+    "baustellenverordnung": {
+      "image": "holyghee_Professional_mediation_meeting_scene_with_diverse_stak_9a75d4b2-f44c-47ac-8703-1f7e457d2e1d_3_bottom_left.png",
+      "alt": "Baustellenverordnung - RIMAN GmbH",
+      "title": "Baustellenverordnung | RIMAN Services",
+      "caption": "Professionelle Baustellenverordnung von RIMAN GmbH",
+      "description": "Sicherheitskoordination nach Baustellenverordnung von RIMAN GmbH. Schutz vor Unfällen, Sicherheitspläne und Gesundheitsschutz auf Baustellen.",
+      "kategorie": "general",
+      "slug": "baustellenverordnung"
+    },
+    "gefahrenidentifikation": {
+      "image": "holyghee_Professional_mediation_meeting_scene_with_diverse_stak_9a75d4b2-f44c-47ac-8703-1f7e457d2e1d_4_bottom_right.png",
+      "alt": "Gefahrenidentifikation - RIMAN GmbH",
+      "title": "Gefahrenidentifikation | RIMAN Services",
+      "caption": "Professionelle Gefahrenidentifikation von RIMAN GmbH",
+      "description": "Gefahrenidentifikation – Ermittlung aller Gefährdungen",
+      "kategorie": "general",
+      "slug": "gefahrenidentifikation"
+    },
+    "massnahmenplanung": {
+      "image": "holyghee_Professional_mediation_meeting_in_modern_conference_ro_b4339659-f618-477b-90bc-2a420c1e3cd2_2_top_right.png",
+      "alt": "Massnahmenplanung - RIMAN GmbH",
+      "title": "Massnahmenplanung | RIMAN Services",
+      "caption": "Professionelle Massnahmenplanung von RIMAN GmbH",
+      "description": "Maßnahmenplanung – Definition von Schutzmaßnahmen",
+      "kategorie": "general",
+      "slug": "massnahmenplanung"
+    },
+    "risikobeurteilung": {
+      "image": "holyghee_Professional_mediation_meeting_in_modern_conference_ro_b4339659-f618-477b-90bc-2a420c1e3cd2_3_bottom_left.png",
+      "alt": "Risikobeurteilung - RIMAN GmbH",
+      "title": "Risikobeurteilung | RIMAN Services",
+      "caption": "Professionelle Risikobeurteilung von RIMAN GmbH",
+      "description": "Risikobeurteilung – Bewertung der Risiken",
+      "kategorie": "general",
+      "slug": "risikobeurteilung"
+    },
+    "wirksamkeitskontrolle": {
+      "image": "holyghee_Professional_mediation_meeting_in_modern_conference_ro_b4339659-f618-477b-90bc-2a420c1e3cd2_4_bottom_right.png",
+      "alt": "Wirksamkeitskontrolle - RIMAN GmbH",
+      "title": "Wirksamkeitskontrolle | RIMAN Services",
+      "caption": "Professionelle Wirksamkeitskontrolle von RIMAN GmbH",
+      "description": "Wirksamkeitskontrolle – Überprüfung der Maßnahmen",
+      "kategorie": "general",
+      "slug": "wirksamkeitskontrolle"
+    },
+    "gefahrstoffe-bgr128": {
+      "image": "holyghee_Professional_construction_project_consulting_office._E_2fa3be12-12ef-42b8-a326-59c6ba750588_1_top_left.png",
+      "alt": "Gefahrstoffe Bgr128 - RIMAN GmbH",
+      "title": "Gefahrstoffe Bgr128 | RIMAN Services",
+      "caption": "Professionelle Gefahrstoffe Bgr128 von RIMAN GmbH",
+      "description": "Sicherheitskoordination bei Gefahrstoffen nach BGR 128 von RIMAN GmbH. Schutz vor Gebäudeschadstoffen und kontaminierten Bereichen.",
+      "kategorie": "general",
+      "slug": "gefahrstoffe-bgr128"
+    },
+    "erste-hilfe-organisation": {
+      "image": "holyghee_Professional_construction_project_consulting_office._E_2fa3be12-12ef-42b8-a326-59c6ba750588_3_bottom_left.png",
+      "alt": "Erste Hilfe Organisation - RIMAN GmbH",
+      "title": "Erste Hilfe Organisation | RIMAN Services",
+      "caption": "Professionelle Erste Hilfe Organisation von RIMAN GmbH",
+      "description": "Erste-Hilfe-Organisation – Aufbau der Ersten-Hilfe",
+      "kategorie": "general",
+      "slug": "erste-hilfe-organisation"
+    },
+    "evakuierungsplanung": {
+      "image": "holyghee_Professional_construction_project_consulting_office._E_2fa3be12-12ef-42b8-a326-59c6ba750588_4_bottom_right.png",
+      "alt": "Evakuierungsplanung - RIMAN GmbH",
+      "title": "Evakuierungsplanung | RIMAN Services",
+      "caption": "Professionelle Evakuierungsplanung von RIMAN GmbH",
+      "description": "Evakuierungsplanung – Sichere Evakuierungsverfahren",
+      "kategorie": "general",
+      "slug": "evakuierungsplanung"
+    },
+    "krisenmanagement": {
+      "image": "holyghee_BIM_planning_session_with_3D_holographic_building_mode_8fbae000-27a8-4407-a348-0485276b9b78_1_top_left.png",
+      "alt": "Krisenmanagement - RIMAN GmbH",
+      "title": "Krisenmanagement | RIMAN Services",
+      "caption": "Professionelle Krisenmanagement von RIMAN GmbH",
+      "description": "Krisenmanagement – Koordination in Notfällen",
+      "kategorie": "general",
+      "slug": "krisenmanagement"
+    },
+    "notfallplanung": {
+      "image": "holyghee_BIM_planning_session_with_3D_holographic_building_mode_8fbae000-27a8-4407-a348-0485276b9b78_3_bottom_left.png",
+      "alt": "Notfallplanung - RIMAN GmbH",
+      "title": "Notfallplanung | RIMAN Services",
+      "caption": "Professionelle Notfallplanung von RIMAN GmbH",
+      "description": "Notfallplanung – Entwicklung von Notfallplänen",
+      "kategorie": "general",
+      "slug": "notfallplanung"
+    },
+    "baustellenkoordination": {
+      "image": "holyghee_BIM_planning_session_with_3D_holographic_building_mode_8fbae000-27a8-4407-a348-0485276b9b78_4_bottom_right.png",
+      "alt": "Baustellenkoordination - RIMAN GmbH",
+      "title": "Baustellenkoordination | RIMAN Services",
+      "caption": "Professionelle Baustellenkoordination von RIMAN GmbH",
+      "description": "Baustellenkoordination – Koordination der Gewerke",
+      "kategorie": "general",
+      "slug": "baustellenkoordination"
+    },
+    "dokumentation": {
+      "image": "holyghee_Advanced_BIM_visualization_display_showing_3D_building_119a03a5-1b46-4441-be77-426cc5a6e8d9_1_top_left.png",
+      "alt": "Dokumentation - RIMAN GmbH",
+      "title": "Dokumentation | RIMAN Services",
+      "caption": "Professionelle Dokumentation von RIMAN GmbH",
+      "description": "Dokumentation – Lückenlose Aufzeichnungen",
+      "kategorie": "general",
+      "slug": "dokumentation"
+    },
+    "sicherheitskontrollen": {
+      "image": "holyghee_Advanced_BIM_visualization_display_showing_3D_building_119a03a5-1b46-4441-be77-426cc5a6e8d9_3_bottom_left.png",
+      "alt": "Sicherheitskontrollen - RIMAN GmbH",
+      "title": "Sicherheitskontrollen | RIMAN Services",
+      "caption": "Professionelle Sicherheitskontrollen von RIMAN GmbH",
+      "description": "Sicherheitskontrollen – Regelmäßige Überprüfungen",
+      "kategorie": "sicherheit",
+      "slug": "sicherheitskontrollen"
+    },
+    "unfallpraevention": {
+      "image": "holyghee_Advanced_BIM_visualization_display_showing_3D_building_119a03a5-1b46-4441-be77-426cc5a6e8d9_4_bottom_right.png",
+      "alt": "Unfallpraevention - RIMAN GmbH",
+      "title": "Unfallpraevention | RIMAN Services",
+      "caption": "Professionelle Unfallpraevention von RIMAN GmbH",
+      "description": "Unfallprävention – Aktive Gefahrenvermeidung",
+      "kategorie": "general",
+      "slug": "unfallpraevention"
+    },
+    "sige-plan": {
+      "image": "holyghee_Construction_safety_planning_office_with_digital_tools_60cbef6b-7ba9-443c-a111-fe175ca3203c_3_bottom_left.png",
+      "alt": "Sige Plan - RIMAN GmbH",
+      "title": "Sige Plan | RIMAN Services",
+      "caption": "Professionelle Sige Plan von RIMAN GmbH",
+      "description": "SiGe-Plan – Sicherheits- und Gesundheitsschutzplan",
+      "kategorie": "general",
+      "slug": "sige-plan"
+    },
+    "unterlage-spaetere-arbeiten": {
+      "image": "holyghee_Construction_safety_planning_office_with_digital_tools_60cbef6b-7ba9-443c-a111-fe175ca3203c_4_bottom_right.png",
+      "alt": "Unterlage Spaetere Arbeiten - RIMAN GmbH",
+      "title": "Unterlage Spaetere Arbeiten | RIMAN Services",
+      "caption": "Professionelle Unterlage Spaetere Arbeiten von RIMAN GmbH",
+      "description": "Unterlage spätere Arbeiten – Dokumentation für Instandhaltung",
+      "kategorie": "general",
+      "slug": "unterlage-spaetere-arbeiten"
+    },
+    "vorankuendigung": {
+      "image": "holyghee_Construction_safety_coordination_on_active_building_si_9df04fdb-808e-47ec-81fa-dce5eaedc3e6_1_top_left.png",
+      "alt": "Vorankuendigung - RIMAN GmbH",
+      "title": "Vorankuendigung | RIMAN Services",
+      "caption": "Professionelle Vorankuendigung von RIMAN GmbH",
+      "description": "Vorankündigung – Behördliche Meldung",
+      "kategorie": "general",
+      "slug": "vorankuendigung"
+    }
+  },
+  "zusammenfassung": {
+    "hauptkategorien_mit_seo": 5,
+    "unterkategorien_mit_seo": 25,
+    "seiten_mit_seo": 97,
+    "verwendete_bilder": 97,
+    "duplikate_vermieden": true,
+    "ai_verifiziert": true,
+    "pcb_korrekt_zugeordnet": true,
+    "keine_pcb_bei_mediation": true
+  }
+}

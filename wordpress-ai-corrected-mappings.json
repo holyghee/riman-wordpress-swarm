@@ -1,0 +1,26 @@
+{
+  "project_info": {
+    "name": "RIMAN WordPress AI-Corrected Mappings",
+    "created_with": "AI Semantic Analyzer",
+    "date": "2025-09-06T08:10:38.824Z",
+    "neural_model": "model_prediction_1757146149466"
+  },
+  "page_mappings": {
+    "schadstoffe-pcb": "./images/holyghee_PCB_contamination_remediation_and_electrical_equipment_fd3c6a4d-afba-4016-92e6-7f79458eb008_1_top_left.png",
+    "schadstoffe-asbest": "./images/holyghee_Professional_asbestos_removal_and_remediation._Workers_1577d5f5-9388-4f93-ae02-912b77af33d6_1_top_left.png",
+    "schadstoffe-schwermetalle": "./images/holyghee_Professional_project_documentation_and_digital_archivi_f1c8a8ac-da47-41d2-9e53-2112699bba4b_2_top_right.png",
+    "beratung-baumediation": "./images/holyghee_Groundwater_remediation_treatment_plant._Advanced_filt_448aed2d-ef5b-4f4f-b97d-fc5f15271803_1_top_left.png",
+    "beratung-gutachten": "./images/holyghee_Professional_expert_assessment_and_technical_evaluatio_9f4bc7b7-2c0e-4c58-8ece-abc90bb1acea_2_top_right.png",
+    "sicherheit-sigeko-planung": "./images/holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_1_top_left.png",
+    "sicherheit-sigeko-ausfuehrung": "./images/holyghee_Professional_safety_and_environmental_training_classro_723e1864-1a70-4004-8c80-a0384819caad_2_top_right.png",
+    "sicherheit-notfallmanagement": "./images/holyghee_Emergency_response_and_crisis_management_center._Incid_e63a0f95-fc9f-41f4-adfc-0d999276243d_1_top_left.png"
+  },
+  "category_corrections": {},
+  "duplicate_prevention": true,
+  "statistics": {
+    "total_pages": 15,
+    "mapped_pages": 8,
+    "unique_images": 8,
+    "duplicates_prevented": true
+  }
+}
