@@ -53,34 +53,27 @@ add_action('init', function() {
                 if ($term->slug === 'uncategorized') continue;
                 if (!empty($include) && !in_array($term->slug, $include, true)) continue;
 
-                // Determine background image: prefer category thumbnail, else linked page thumbnail
+                // Determine background image (prefer linked page first, term thumbnail last)
                 $bg = '';
-                // 1) Kategorie-Thumbnail (beide Keys prüfen)
-                $thumb_id = get_term_meta($term->term_id, '_thumbnail_id', true);
-                if (!$thumb_id) { $thumb_id = get_term_meta($term->term_id, 'thumbnail_id', true); }
-                if ($thumb_id) {
-                    $img = wp_get_attachment_image_url($thumb_id, 'full');
-                    if ($img) $bg = $img;
-                }
-                if (!$bg) {
-                    // 2) Verknüpfte Seite über Term-Meta _linked_page_id
-                    $linked_page_id = get_term_meta($term->term_id, '_linked_page_id', true);
-                    if ($linked_page_id) {
-                        $pidThumb = get_post_thumbnail_id($linked_page_id);
-                        if ($pidThumb) {
-                            $img = wp_get_attachment_image_url($pidThumb, 'full');
-                            if ($img) $bg = $img;
-                        }
+                // 1) Verknüpfte Seite über Term-Meta _linked_page_id
+                $linked_page_id = get_term_meta($term->term_id, '_linked_page_id', true);
+                if ($linked_page_id) {
+                    $pidThumb = get_post_thumbnail_id($linked_page_id);
+                    if ($pidThumb) {
+                        $img = wp_get_attachment_image_url($pidThumb, 'full');
+                        if ($img) $bg = $img;
                     }
                 }
                 if (!$bg) {
-                    // 3) Fallback: verknüpfte Seite via Page-Meta _linked_category_id
+                    // 2) Verknüpfte Seite via Page-Meta _linked_category_id
                     $linked_pages = get_posts([
                         'post_type' => 'page',
                         'meta_key' => '_linked_category_id',
                         'meta_value' => $term->term_id,
                         'numberposts' => 1,
                         'post_status' => 'publish',
+                        'no_found_rows' => true,
+                        'suppress_filters' => true,
                     ]);
                     if (!empty($linked_pages)) {
                         $pid = $linked_pages[0]->ID;
@@ -92,7 +85,7 @@ add_action('init', function() {
                     }
                 }
                 if (!$bg) {
-                    // 4) Fallback: Seite per Pfad (Slug) suchen und Featured Image nutzen
+                    // 3) Seite per Pfad (Slug) suchen und Featured Image nutzen
                     $page = get_page_by_path($term->slug);
                     if ($page) {
                         $pidThumb = get_post_thumbnail_id($page->ID);
@@ -100,6 +93,15 @@ add_action('init', function() {
                             $img = wp_get_attachment_image_url($pidThumb, 'full');
                             if ($img) $bg = $img;
                         }
+                    }
+                }
+                if (!$bg) {
+                    // 4) Kategorie-Thumbnail als letzter Fallback (beide Keys prüfen)
+                    $thumb_id = get_term_meta($term->term_id, '_thumbnail_id', true);
+                    if (!$thumb_id) { $thumb_id = get_term_meta($term->term_id, 'thumbnail_id', true); }
+                    if ($thumb_id) {
+                        $img = wp_get_attachment_image_url($thumb_id, 'full');
+                        if ($img) $bg = $img;
                     }
                 }
 

@@ -11,7 +11,7 @@ This document outlines the comprehensive requirements for a semantic image-conte
 - **WordPress MCP Plugin**: AI-WordPress integration capabilities
 - **Image Assets**: 74+ professionally generated images for German construction/environmental services
 - **Service Structure**: 5 main categories (rueckbau, altlasten, schadstoffe, sicherheit, beratung)
-- **Design System**: Cholot design with elliptical service cards
+- **Design System**: Elliptical service cards with golden accents
 
 ### 1.2 Business Drivers
 - Automate image selection for content management

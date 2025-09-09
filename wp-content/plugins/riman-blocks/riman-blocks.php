@@ -70,6 +70,7 @@ $maybe_blocks = [
     'blocks/category-linked-content.php',
     'blocks/category-content.php',
     'blocks/subcategories-grid.php',
+    'blocks/service-cards.php',
     'blocks/shortcode-category-content.php',
     'blocks/category-hero.php',          // ← WICHTIG: unser Hero mit Video
     'blocks/category-hero-slider.php',

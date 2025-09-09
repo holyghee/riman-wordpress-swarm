@@ -90,12 +90,12 @@ if ($is_parent) {
                                     <div style="height: 280px; background: linear-gradient(135deg, #1e4a6d, #b68c2f); position: relative;">
                                         <?php 
                                         // Füge ein Bild-Placeholder hinzu
-                                        $image_url = '/wp-content/themes/riman-cholot/assets/images/' . $subcat->slug . '.jpg';
-                                        if (!file_exists(ABSPATH . $image_url)) {
+                                        $image_url = get_stylesheet_directory_uri() . '/assets/images/' . $subcat->slug . '.jpg';
+                                        if (!file_exists(get_stylesheet_directory() . '/assets/images/' . $subcat->slug . '.jpg')) {
                                             // Fallback gradient wenn Bild nicht existiert
                                             echo '<div style="width: 100%; height: 100%; background: linear-gradient(135deg, rgba(30,74,109,0.9), rgba(182,140,47,0.9));"></div>';
                                         } else {
-                                            echo '<img src="' . $image_url . '" style="width: 100%; height: 100%; object-fit: cover;" alt="' . esc_attr($title) . '">';
+                                            echo '<img src="' . esc_url($image_url) . '" style="width: 100%; height: 100%; object-fit: cover;" alt="' . esc_attr($title) . '">';
                                         }
                                         ?>
                                     </div>

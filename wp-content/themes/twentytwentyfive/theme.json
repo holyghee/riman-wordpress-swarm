@@ -50,10 +50,10 @@
 				}
 			]
 		},
-		"layout": {
-			"contentSize": "645px",
-			"wideSize": "1340px"
-		},
+        "layout": {
+            "contentSize": "920px",
+            "wideSize": "1440px"
+        },
 		"spacing": {
 			"defaultSpacingSizes": false,
 			"spacingSizes": [

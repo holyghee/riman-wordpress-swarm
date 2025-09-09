@@ -9,14 +9,14 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
 - **Project Type**: RIMAN GmbH WordPress website with semantic content-image mapping
 - **Scale**: 148 hierarchical pages, 230 Midjourney images, professional service showcase
 - **Technology Stack**: WordPress 6.7, PHP 8.2, MySQL 8.0, Docker containerization
-- **Design System**: Cholot design with elliptical service cards and responsive layouts
+- **Design System**: Elliptical service cards with golden accents and responsive layouts
 
 ## Architecture Layers
 
 ### 1. Presentation Layer
-**Components**: WordPress Frontend, Cholot Theme, Block Patterns, Navigation System
+**Components**: WordPress Frontend, Theme, Block Patterns, Navigation System
 **Responsibilities**: 
-- User interface rendering with Cholot design system
+- User interface rendering using the design system
 - Elliptical service cards with CSS clip-path implementation
 - Responsive navigation with mega menus
 - SEO-optimized German content display
@@ -69,7 +69,7 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
   - Duplicate prevention: Each image used only once
 - **Output**: JSON mapping file with WordPress-compatible associations
 
-### Cholot Theme System
+### Theme System
 - **Purpose**: Custom design implementation with specific visual requirements
 - **Key Features**:
   - Elliptical service cards: `clip-path: ellipse(100% 85% at 50% 0%)`
@@ -105,7 +105,7 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
 
 ### Design Rendering Flow
 1. Load WordPress page request
-2. Apply Cholot theme templates and patterns
+2. Apply theme templates and patterns
 3. Render elliptical service cards with CSS styling
 4. Position golden icons and apply hover effects
 5. Generate responsive layouts for all devices
@@ -140,7 +140,7 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
 1. **Infrastructure Agent**: Docker setup, WordPress installation, environment config
 2. **Content Migration Agent**: Import 148 pages, create hierarchy, generate SEO URLs
 3. **Semantic Mapping Agent**: Analyze images, create content-image relationships
-4. **Design Implementation Agent**: Cholot theme, CSS, responsive components
+4. **Design Implementation Agent**: Theme, CSS, responsive components
 5. **Navigation Builder Agent**: Menus, breadcrumbs, hierarchical navigation
 6. **Quality Assurance Agent**: Testing, validation, performance monitoring
 
@@ -159,7 +159,7 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
 
 ### Phase 2: WordPress Configuration  
 - Install WordPress 6.7 with proper configuration
-- Deploy Twenty Twenty-Five child theme (riman-cholot)
+- Deploy Twenty Twenty-Five child theme
 - Configure permalink structure for SEO
 
 ### Phase 3: Content and Media Import
@@ -169,7 +169,7 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
 - Create content-image associations
 
 ### Phase 4: Design System Implementation
-- Deploy Cholot CSS framework
+- Deploy CSS for service cards
 - Implement elliptical service cards
 - Configure responsive navigation system
 - Apply golden icon positioning
@@ -197,7 +197,7 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
 **Rationale**: Matches existing content structure and provides SEO-friendly URLs
 **Status**: Accepted
 
-### ADR-004: Cholot Design System Implementation
+### ADR-004: Design System Implementation
 **Decision**: Twenty Twenty-Five child theme with custom CSS and block patterns
 **Rationale**: Ensures upgradability while maintaining distinctive visual design
 **Status**: Accepted
@@ -207,7 +207,7 @@ The RIMAN WordPress implementation follows a **layered architecture pattern with
 - **WordPress**: 6.7 with PHP 8.2, optimized for large content volume
 - **Database**: MySQL 8.0 with proper indexing for hierarchical queries
 - **Images**: 230 Midjourney PNG files with semantic metadata
-- **Design**: Cholot system with elliptical cards, golden icons, hover effects
+- **Design**: Elliptical cards, golden icons, hover effects
 - **SEO**: German-optimized URLs, meta descriptions, hierarchical breadcrumbs
 - **Performance**: Caching, optimization, monitoring for production deployment
 

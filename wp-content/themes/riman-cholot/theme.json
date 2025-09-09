@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+  "version": 3,
+  "settings": {
+    "layout": {
+      "contentSize": "920px",
+      "wideSize": "1440px"
+    },
+    "spacing": {
+      "useGap": true
+    },
+    "useRootPaddingAwareAlignments": true
+  },
+  "styles": {
+    "spacing": {
+      "padding": {
+        "left": "var:preset|spacing|50",
+        "right": "var:preset|spacing|50"
+      }
+    }
+  }
+}
+
