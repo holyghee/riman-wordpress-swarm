@@ -38,12 +38,13 @@ Nutze diese Datei als Startpunkt für Codex/Assistenten in diesem Repository. Bi
 - Commit + Push: `./scripts/docker-export-code.sh --push --message "feat: export code"`
 
 ## Docker → Uploads (Medien)
-- Export (Container → Repo): `bash ./scripts/docker-export-uploads.sh`  (Vorschau: `--dry-run`)
-- Deploy Dry-Run: `./scripts/wp-ssh-v2.sh deploy-uploads --dry-run ./wp-content/uploads-from-docker`
-- Deploy (1:1 spiegeln): `./scripts/wp-ssh-v2.sh deploy-uploads ./wp-content/uploads-from-docker`
-- Mediathek registrieren: `./scripts/wp-ssh-v2.sh wp-media-import-all`
-  - Import überspringt Varianten (`-NxM`, `-scaled`). Idealerweise nur einmal pro Datei‑Set ausführen.
-  - Bei Altbeständen: Cleanup Duplikate: `./scripts/wp-ssh-v2.sh wp-media-clean-variants`
+- One‑Shot (Export → Deploy): `bash ./scripts/docker-media-deploy.sh [--dry-run] [--no-delete] [--import] [--cleanup-variants] [--regenerate]`
+  - Alternativ manuell:
+    - Export: `bash ./scripts/docker-export-uploads.sh`  (Vorschau: `--dry-run`)
+    - Deploy Dry-Run: `./scripts/wp-ssh-v2.sh deploy-uploads --dry-run ./wp-content/uploads-from-docker`
+    - Deploy (1:1 spiegeln): `./scripts/wp-ssh-v2.sh deploy-uploads ./wp-content/uploads-from-docker`
+    - Mediathek registrieren: `./scripts/wp-ssh-v2.sh wp-media-import-all` (überspringt Varianten)
+    - Cleanup Duplikate: `./scripts/wp-ssh-v2.sh wp-media-clean-variants`
 
 ## Wie der Assistent starten soll
 1) Diese Datei lesen (`docs/CODEX.md`)

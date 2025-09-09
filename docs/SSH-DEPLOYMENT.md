@@ -153,20 +153,24 @@ Hinweis: Der Import legt zu bestehenden Dateien Attachements an (falls noch nich
 
 Falls deine Medien aus dem Docker‑Container kommen, nutze zuerst den Export in einen separaten lokalen Ordner und deploye von dort:
 
-- Export (Container → lokal):
-  - Vorschau: `bash ./scripts/docker-export-uploads.sh --dry-run`
-  - Mirror: `bash ./scripts/docker-export-uploads.sh`
-  - Ziel: `./wp-content/uploads-from-docker`
+- One‑Shot:
+  - `bash ./scripts/docker-media-deploy.sh [--dry-run] [--no-delete] [--import] [--cleanup-variants] [--regenerate]`
 
-- Deploy (SSH):
-  - Vorschau: `./scripts/wp-ssh-v2.sh deploy-uploads --dry-run ./wp-content/uploads-from-docker`
-  - Mirror: `./scripts/wp-ssh-v2.sh deploy-uploads ./wp-content/uploads-from-docker`
+- Manuell:
+  - Export (Container → lokal):
+    - Vorschau: `bash ./scripts/docker-export-uploads.sh --dry-run`
+    - Mirror: `bash ./scripts/docker-export-uploads.sh`
+    - Ziel: `./wp-content/uploads-from-docker`
 
-- Mediathek registrieren (nur Originale; Varianten werden übersprungen):
-  - `./scripts/wp-ssh-v2.sh wp-media-import-all`
+  - Deploy (SSH):
+    - Vorschau: `./scripts/wp-ssh-v2.sh deploy-uploads --dry-run ./wp-content/uploads-from-docker`
+    - Mirror: `./scripts/wp-ssh-v2.sh deploy-uploads ./wp-content/uploads-from-docker`
 
-- Cleanup Duplikate (falls schon Varianten als eigene Attachments existieren):
-  - `./scripts/wp-ssh-v2.sh wp-media-clean-variants`
+  - Mediathek registrieren (nur Originale; Varianten werden übersprungen):
+    - `./scripts/wp-ssh-v2.sh wp-media-import-all`
+
+  - Cleanup Duplikate (falls schon Varianten als eigene Attachments existieren):
+    - `./scripts/wp-ssh-v2.sh wp-media-clean-variants`
 
 Tipps:
 - Import idealerweise nur einmal pro Datei‑Set ausführen; wiederholtes Importieren kann Duplikate erzeugen.
