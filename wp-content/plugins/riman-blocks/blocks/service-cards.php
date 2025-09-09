@@ -20,12 +20,14 @@ add_action('init', function() {
                 'parent' => 0,
                 'columns' => 3,
                 'showDescriptions' => true,
+                'shape' => 'ellipse',
             ]);
 
             $taxonomy = sanitize_key($a['taxonomy']);
             $parent   = intval($a['parent']);
             $columns  = max(1, min(4, intval($a['columns'])));
             $showDesc = !empty($a['showDescriptions']);
+            $shape    = in_array($a['shape'], ['ellipse','wave','none'], true) ? $a['shape'] : 'ellipse';
 
             $terms = get_terms([
                 'taxonomy'   => $taxonomy,
@@ -160,7 +162,7 @@ add_action('init', function() {
                 $icon_url = $icon_id ? wp_get_attachment_image_url($icon_id, 'thumbnail') : '';
 
                 echo '<a class="wp-block-group riman-service-card" href="' . esc_url($link) . '">';
-                echo '  <div class="riman-card-image">';
+                echo '  <div class="riman-card-image shape-' . esc_attr($shape) . '">';
                 if ($img) {
                     echo '    <img src="' . esc_url($img) . '" alt="' . esc_attr($term->name) . '" loading="lazy" />';
                 } else {
@@ -208,6 +210,7 @@ add_action('init', function() {
             'parent' => [ 'type' => 'number', 'default' => 0 ],
             'columns' => [ 'type' => 'number', 'default' => 3 ],
             'showDescriptions' => [ 'type' => 'boolean', 'default' => true ],
+            'shape' => [ 'type' => 'string', 'default' => 'ellipse' ],
         ],
     ]);
 });
