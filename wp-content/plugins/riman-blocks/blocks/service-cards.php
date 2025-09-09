@@ -7,8 +7,8 @@ add_action('init', function() {
     wp_register_script(
         'riman-service-cards-editor',
         plugin_dir_url(__FILE__) . '../assets/service-cards-block.js',
-        [ 'wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-server-side-render' ],
-        '1.0.0',
+        [ 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-server-side-render' ],
+        '1.0.2',
         true
     );
 
@@ -21,6 +21,9 @@ add_action('init', function() {
                 'columns' => 3,
                 'showDescriptions' => true,
                 'shape' => 'ellipse',
+                'waveHeight' => 180,
+                'waveOffset' => 36,
+                'waveStyle'  => 'medium',
             ]);
 
             $taxonomy = sanitize_key($a['taxonomy']);
@@ -28,6 +31,9 @@ add_action('init', function() {
             $columns  = max(1, min(4, intval($a['columns'])));
             $showDesc = !empty($a['showDescriptions']);
             $shape    = in_array($a['shape'], ['ellipse','wave','none'], true) ? $a['shape'] : 'ellipse';
+            $wave_h   = max(80, min(240, intval($a['waveHeight'])));
+            $wave_off = max(0, min(60, intval($a['waveOffset'])));
+            $wave_style = in_array(($a['waveStyle'] ?? 'medium'), ['soft','medium','deep'], true) ? $a['waveStyle'] : 'medium';
 
             $terms = get_terms([
                 'taxonomy'   => $taxonomy,
@@ -161,12 +167,28 @@ add_action('init', function() {
                 }
                 $icon_url = $icon_id ? wp_get_attachment_image_url($icon_id, 'thumbnail') : '';
 
-                echo '<a class="wp-block-group riman-service-card" href="' . esc_url($link) . '">';
+                echo '<a class="wp-block-group riman-service-card shape-' . esc_attr($shape) . '" href="' . esc_url($link) . '">';
                 echo '  <div class="riman-card-image shape-' . esc_attr($shape) . '">';
                 if ($img) {
                     echo '    <img src="' . esc_url($img) . '" alt="' . esc_attr($term->name) . '" loading="lazy" />';
                 } else {
                     echo '    <div class="riman-card-image--placeholder"></div>';
+                }
+                if ($shape === 'wave') {
+                    $style = 'height:' . esc_attr($wave_h) . 'px; bottom:-' . esc_attr($wave_off) . 'px;';
+                    // choose path by style
+                    if ($wave_style === 'soft') {
+                        $d = 'M0 200 C 250 150, 950 150, 1200 200 L1200 200 L0 200 Z';
+                    } elseif ($wave_style === 'deep') {
+                        $d = 'M0 200 C 200 100, 1000 100, 1200 200 L1200 200 L0 200 Z';
+                    } else {
+                        $d = 'M0 200 C 300 120, 900 120, 1200 200 L1200 200 L0 200 Z';
+                    }
+                    echo '    <div class="riman-card-wave" aria-hidden="true" style="' . $style . '">'
+                        . '<svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
+                        . '<path d="' . esc_attr($d) . '" fill="#ffffff"></path>'
+                        . '</svg>'
+                        . '</div>';
                 }
                 echo '  </div>';
                 echo '  <div class="riman-card-icon" aria-hidden="true">';
@@ -211,6 +233,13 @@ add_action('init', function() {
             'columns' => [ 'type' => 'number', 'default' => 3 ],
             'showDescriptions' => [ 'type' => 'boolean', 'default' => true ],
             'shape' => [ 'type' => 'string', 'default' => 'ellipse' ],
+            'waveHeight' => [ 'type' => 'number', 'default' => 180 ],
+            'waveOffset' => [ 'type' => 'number', 'default' => 36 ],
+            'waveStyle'  => [ 'type' => 'string', 'default' => 'medium' ],
+            // allow common block props to pass validation in REST
+            'className'  => [ 'type' => 'string' ],
+            'align'      => [ 'type' => 'string' ],
+            'anchor'     => [ 'type' => 'string' ],
         ],
     ]);
 });
