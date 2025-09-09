@@ -91,3 +91,5 @@ Alle wesentlichen Änderungen werden hier festgehalten.
 \n(Keine Dateiänderungen im gewählten Scope gefunden)
 \n## 2025-09-09 16:38:07 UTC – feat(onboarding): One-shot Docker→Uploads deploy script + docs
 \n(Keine Dateiänderungen im gewählten Scope gefunden)
+\n## 2025-09-09 16:41:36 UTC – docs: Commit‑Kurzbefehle (Beispiele) ergänzt
+\n(Keine Dateiänderungen im gewählten Scope gefunden)

@@ -25,6 +25,17 @@ Nutze diese Datei als Startpunkt für Codex/Assistenten in diesem Repository. Bi
   - Doku: `./scripts/codex-doc.sh --summary "Kurzbeschreibung"`
   - Commit: `./scripts/codex-commit.sh --message "Kurzbeschreibung" [--push|--no-push]`
 
+## Commit‑Kurzbefehle (Beispiele)
+- Auto‑Message + Push: `./scripts/auto-doc-commit.sh`
+- Auto‑Message ohne Push: `./scripts/auto-doc-commit.sh --no-push`
+- Eigene Message + Doku + Push: `./scripts/commit.sh "feat: update blocks"`
+- Eigene Message ohne Push: `./scripts/commit.sh "fix: hero spacing" --no-push`
+- Nur bestimmte Dateien committen: `git add path1 path2 && ./scripts/commit.sh "chore: partial commit" --scope staged`
+- Nur Doku, danach manuell committen: `./scripts/codex-doc.sh --summary "Kurzbeschreibung" && ./scripts/codex-commit.sh --message "Kurzbeschreibung" --no-push`
+- Nur Staging (kein Commit): `./scripts/codex-commit.sh --stage-only`
+
+Hinweis: `.codex.yml` steuert `commit_prefix` (z. B. `chore(codex)`) und `push_by_default`. `--no-push` überschreibt die Voreinstellung.
+
 ## Deploy (SSH)
 - Code: `./scripts/wp-ssh-v2.sh deploy-wp`
 - Medien (Upload + in Mediathek registrieren):
