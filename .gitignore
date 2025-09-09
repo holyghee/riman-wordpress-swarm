@@ -64,6 +64,10 @@ node_modules/
 *.local
 *.log
 
+# EXCLUDE editor/backup suffixes
+*.disabled
+*.disbaled
+
 # Re-include project docs + codex/deploy helpers
 !.codex.yml
 !docs/

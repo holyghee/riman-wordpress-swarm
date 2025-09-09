@@ -76,3 +76,14 @@ Alle wesentlichen Änderungen werden hier festgehalten.
 - wp-content/plugins/riman-test-plugin/riman-test-plugin.php
 \n## 2025-09-07 11:57:12 UTC – Add codex.md (LLM instructions)
 \n(Keine Dateiänderungen im gewählten Scope gefunden)
+\n## 2025-09-09 15:02:00 UTC – feat(riman-blocks): Category Hero mit Featured‑Video + zentriertem Hero‑Style
+\nGeänderte Dateien:
+- .gitignore
+- wp-content/plugins/riman-blocks/blocks/category-hero.php
+- wp-content/plugins/riman-blocks/riman-blocks.php
+\n## 2025-09-09 15:02:17 UTC – feat(riman-blocks): Category Hero mit Featured‑Video + zentriertem Hero‑Style
+\nGeänderte Dateien:
+- .gitignore
+- docs/CHANGELOG.md
+- wp-content/plugins/riman-blocks/blocks/category-hero.php
+- wp-content/plugins/riman-blocks/riman-blocks.php
