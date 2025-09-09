@@ -298,7 +298,7 @@ case "$1" in
         fi
         ARGS="$2"
         echo "🔧 WP-CLI (remote): $ARGS"
-        run_ssh "cd '${REMOTE_ROOT}' && PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"$PHP_BIN\" wp-cli.phar --path='${REMOTE_ROOT}' $ARGS"
+        run_ssh "cd '${REMOTE_ROOT}' && PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" wp-cli.phar --path='${REMOTE_ROOT}' $ARGS"
         ;;
 
     wp-db-import)
@@ -318,7 +318,7 @@ case "$1" in
         REMOTE_SQL="${REMOTE_ROOT}/$BASENAME"
         run_scp "$LOCAL_SQL" "${SSH_USERNAME}@${KAS_HOST}:$REMOTE_SQL"
         echo "🗄️  Importiere Dump auf Live..."
-        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' db import '$REMOTE_SQL' && rm -f '$REMOTE_SQL'"
+        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' db import '$REMOTE_SQL' && rm -f '$REMOTE_SQL'"
         echo "✅ DB-Import abgeschlossen"
         ;;
 
@@ -331,26 +331,40 @@ case "$1" in
             exit 1
         fi
         echo "🔎 Search-Replace: $FROM → $TO"
-        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' search-replace '$FROM' '$TO' --all-tables --precise --recurse-objects --skip-columns=guid"
+        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' search-replace '$FROM' '$TO' --all-tables --precise --recurse-objects --skip-columns=guid"
         echo "✅ Search-Replace abgeschlossen"
         ;;
 
     wp-rewrite-flush)
         echo "🔁 Flush Permalinks"
-        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' rewrite flush --hard"
+        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' rewrite flush --hard"
         echo "✅ Permalinks geflusht"
         ;;
 
     wp-cache-flush)
         echo "🧹 Cache flush"
-        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' cache flush"
+        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' cache flush"
         echo "✅ Cache geleert"
         ;;
 
     wp-media-regenerate)
         echo "🖼️  Regeneriere fehlende Thumbnails"
-        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' media regenerate --only-missing --yes"
+        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' media regenerate --only-missing --yes"
         echo "✅ Media regenerate gestartet (nur fehlende)"
+        ;;
+
+    wp-media-clean-variants)
+        # Entfernt nur Varianten-Attachments (z. B. -1024x768, -scaled) aus der Mediathek; Dateien bleiben erhalten
+        echo "🧹 Entferne Varianten-Attachments (DB, keine Dateien)"
+        LOCAL_SCRIPT_PATH="${SCRIPT_DIR}/clean-media-variants.php"
+        REMOTE_SCRIPT_PATH="${REMOTE_ROOT}/clean-media-variants.php"
+        if [ ! -f "$LOCAL_SCRIPT_PATH" ]; then
+            echo "❌ Script fehlt lokal: $LOCAL_SCRIPT_PATH"
+            exit 1
+        fi
+        "$0" upload "$LOCAL_SCRIPT_PATH" "$REMOTE_SCRIPT_PATH"
+        run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' eval-file '${REMOTE_SCRIPT_PATH}'"
+        echo "✅ Varianten-Attachments bereinigt"
         ;;
 
     wp-media-import-all)
@@ -360,7 +374,12 @@ case "$1" in
         BASE="${REMOTE_ROOT}/wp-content/uploads"
         [ -n "$SUBDIR" ] && BASE="${BASE}/$SUBDIR"
         echo "📥 Importiere Medien in Mediathek aus: $BASE"
-        run_ssh "set -e; PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; find '$BASE' -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.svg' -o -iname '*.mp4' -o -iname '*.mov' -o -iname '*.webm' \) -print0 | xargs -0 -n 1 -I{} sh -c '\''"\$PHP_BIN" "'"${REMOTE_ROOT}"'/wp-cli.phar" --path="'"${REMOTE_ROOT}"'" media import --skip-copy "\$1" || true'\'' sh {}"
+        # Robust: führe auf Remote eine while-Schleife mit find -print0 aus, damit $PHP_BIN und $f dort expandieren
+        run_ssh "set -e; PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; BASE='$BASE'; find \"\$BASE\" -type f \
+          \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' -o -iname '*.svg' -o -iname '*.mp4' -o -iname '*.mov' -o -iname '*.webm' \) \
+          ! -regex '.*-[0-9]+x[0-9]+\.[A-Za-z0-9]+$' \
+          ! -regex '.*-scaled\.[A-Za-z0-9]+$' \
+          -print0 | while IFS= read -r -d '' f; do \"\$PHP_BIN\" '${REMOTE_ROOT}/wp-cli.phar' --path='${REMOTE_ROOT}' media import --skip-copy \"\$f\" || true; done"
         echo "✅ Medien in Mediathek registriert (bestehende werden übersprungen)"
         ;;
 
@@ -421,6 +440,7 @@ case "$1" in
         echo "  wp-rewrite-flush - Permalinks flushen"
         echo "  wp-cache-flush - Cache leeren"
         echo "  wp-media-regenerate - Fehlende Thumbnails regenerieren"
+        echo "  wp-media-clean-variants - Varianten-Attachments (NxM, -scaled) aus der Mediathek entfernen"
         echo "  wp-media-import-all [subdir] - Alle Medien in uploads[/subdir] in die Mediathek importieren"
         echo "  media-sync [--mirror] <local> [subdir] - Upload + Mediathek-Import in einem Schritt"
         echo "  cache-clear - Cache unter REMOTE_ROOT/wp-content/cache leeren"

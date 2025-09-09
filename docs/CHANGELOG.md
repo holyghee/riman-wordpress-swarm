@@ -87,3 +87,5 @@ Alle wesentlichen Änderungen werden hier festgehalten.
 - docs/CHANGELOG.md
 - wp-content/plugins/riman-blocks/blocks/category-hero.php
 - wp-content/plugins/riman-blocks/riman-blocks.php
+\n## 2025-09-09 16:32:56 UTC – chore(onboarding): Docker→Uploads Flow, WP‑CLI fixes, media cleanup\n\n- Docs: Docker→Uploads Abschnitt in CODEX/SSH-DEPLOYMENT\n- Scripts: docker-export-uploads.sh, wp-media-clean-variants, import skippt Varianten\n- WP‑CLI Quoting/Php84 Fix + DB-Sync Command quoting fix
+\n(Keine Dateiänderungen im gewählten Scope gefunden)

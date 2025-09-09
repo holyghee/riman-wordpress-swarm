@@ -37,6 +37,14 @@ Nutze diese Datei als Startpunkt für Codex/Assistenten in diesem Repository. Bi
 - Mirror: `./scripts/docker-export-code.sh`
 - Commit + Push: `./scripts/docker-export-code.sh --push --message "feat: export code"`
 
+## Docker → Uploads (Medien)
+- Export (Container → Repo): `bash ./scripts/docker-export-uploads.sh`  (Vorschau: `--dry-run`)
+- Deploy Dry-Run: `./scripts/wp-ssh-v2.sh deploy-uploads --dry-run ./wp-content/uploads-from-docker`
+- Deploy (1:1 spiegeln): `./scripts/wp-ssh-v2.sh deploy-uploads ./wp-content/uploads-from-docker`
+- Mediathek registrieren: `./scripts/wp-ssh-v2.sh wp-media-import-all`
+  - Import überspringt Varianten (`-NxM`, `-scaled`). Idealerweise nur einmal pro Datei‑Set ausführen.
+  - Bei Altbeständen: Cleanup Duplikate: `./scripts/wp-ssh-v2.sh wp-media-clean-variants`
+
 ## Wie der Assistent starten soll
 1) Diese Datei lesen (`docs/CODEX.md`)
 2) `.codex.yml` beachten (Commit‑Prefix/Branch)
@@ -48,3 +56,4 @@ Nutze diese Datei als Startpunkt für Codex/Assistenten in diesem Repository. Bi
 - `.gitignore` ist strikt; nur Doku + Helfer + `./wp-content` werden versioniert.
 - Große Dateien (Uploads) niemals in Git – stattdessen SSH‑Sync.
 - Live‑Pfad ist in `.env.local`/REMOTE_ROOT hinterlegt.
+- Mediathek‑Import: `wp-media-import-all` importiert nur Originale. Wiederholtes Importieren gleicher Dateien kann Duplikate erzeugen – im Zweifel vorher `wp-media-clean-variants` ausführen.

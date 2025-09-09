@@ -75,5 +75,7 @@ node_modules/
 !scripts/
 !scripts/codex-*.sh
 !scripts/docker-export-code.sh
+!scripts/docker-export-uploads.sh
 !scripts/wp-db-sync.sh
 !scripts/wp-ssh-v2.sh
+!scripts/clean-media-variants.php

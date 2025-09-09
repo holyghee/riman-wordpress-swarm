@@ -146,3 +146,28 @@ Wichtig: Reiner Datei‑Upload legt keine Mediathek‑Einträge an. Für IDs/Ref
   - Spiegeln statt additiv: `./scripts/wp-ssh-v2.sh media-sync --mirror ./wp-content/uploads`
 
 Hinweis: Der Import legt zu bestehenden Dateien Attachements an (falls noch nicht vorhanden). Inhalte, die Medien per ID referenzieren (z. B. Video‑Block), funktionieren danach ohne erneutes „Auswählen“.
+
+—
+
+## 9) Medien aus Docker (empfohlen, wenn Container „Quelle der Wahrheit“)
+
+Falls deine Medien aus dem Docker‑Container kommen, nutze zuerst den Export in einen separaten lokalen Ordner und deploye von dort:
+
+- Export (Container → lokal):
+  - Vorschau: `bash ./scripts/docker-export-uploads.sh --dry-run`
+  - Mirror: `bash ./scripts/docker-export-uploads.sh`
+  - Ziel: `./wp-content/uploads-from-docker`
+
+- Deploy (SSH):
+  - Vorschau: `./scripts/wp-ssh-v2.sh deploy-uploads --dry-run ./wp-content/uploads-from-docker`
+  - Mirror: `./scripts/wp-ssh-v2.sh deploy-uploads ./wp-content/uploads-from-docker`
+
+- Mediathek registrieren (nur Originale; Varianten werden übersprungen):
+  - `./scripts/wp-ssh-v2.sh wp-media-import-all`
+
+- Cleanup Duplikate (falls schon Varianten als eigene Attachments existieren):
+  - `./scripts/wp-ssh-v2.sh wp-media-clean-variants`
+
+Tipps:
+- Import idealerweise nur einmal pro Datei‑Set ausführen; wiederholtes Importieren kann Duplikate erzeugen.
+- Bei Thumbnails‑Fehlern (`ImproperImageHeader`), Bild neu exportieren oder serverseitig mit ImageMagick neu schreiben, dann: `./scripts/wp-ssh-v2.sh wp-media-regenerate`.

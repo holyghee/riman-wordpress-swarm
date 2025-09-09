@@ -38,7 +38,6 @@ echo "⬆️  Lade Dump hoch…"
 "$SCRIPT_DIR/wp-ssh-v2.sh" upload "$SQL" "$REMOTE_ROOT/local.sql"
 
 echo "📥 Import + URL‑Replace + Flush…"
-run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' db import '$REMOTE_ROOT/local.sql' && \"$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' search-replace '$LOCAL_URL' '$LIVE_URL' --all-tables --precise --recurse-objects --skip-columns=guid && \"$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' rewrite flush --hard && \"$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' cache flush && rm -f '$REMOTE_ROOT/local.sql'"
+run_ssh "PHP_BIN=php; if command -v php84 >/dev/null 2>&1; then PHP_BIN=php84; elif command -v php82 >/dev/null 2>&1; then PHP_BIN=php82; fi; \"\$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' db import '$REMOTE_ROOT/local.sql' && \"\$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' search-replace '$LOCAL_URL' '$LIVE_URL' --all-tables --precise --recurse-objects --skip-columns=guid && \"\$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' rewrite flush --hard && \"\$PHP_BIN\" '$REMOTE_ROOT/wp-cli.phar' --path='$REMOTE_ROOT' cache flush && rm -f '$REMOTE_ROOT/local.sql'"
 
 echo "✅ DB‑Sync fertig"
-
