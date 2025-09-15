@@ -4,11 +4,16 @@ if (!defined('ABSPATH')) exit;
 
 add_action('init', function() {
     // Editor script (simple registration/controls placeholder)
+    $base_url  = defined('RIMAN_BLOCKS_URL') ? RIMAN_BLOCKS_URL : plugin_dir_url(__FILE__) . '../';
+    $base_path = defined('RIMAN_BLOCKS_DIR') ? RIMAN_BLOCKS_DIR : plugin_dir_path(__FILE__) . '../';
+    $editor_rel = 'assets/category-hero-slider-block.js';
+    $editor_ver = file_exists($base_path . $editor_rel) ? filemtime($base_path . $editor_rel) : time();
+
     wp_register_script(
         'riman-category-hero-slider-editor',
-        (defined('RIMAN_BLOCKS_URL') ? RIMAN_BLOCKS_URL : plugin_dir_url(__FILE__) . '../') . 'assets/category-hero-slider-block.js',
-        ['wp-blocks', 'wp-element', 'wp-editor', 'wp-block-editor', 'wp-components', 'wp-i18n'],
-        '1.0',
+        $base_url . $editor_rel,
+        ['wp-blocks', 'wp-element', 'wp-block-editor', 'wp-components', 'wp-i18n'],
+        $editor_ver,
         true
     );
 
@@ -139,9 +144,14 @@ add_action('init', function() {
 
             // Enqueue frontend assets once
             $base_url = defined('RIMAN_BLOCKS_URL') ? RIMAN_BLOCKS_URL : plugin_dir_url(__FILE__) . '../';
-            wp_register_style('riman-category-hero-slider-frontend', $base_url . 'assets/category-hero-slider.css', [], '1.0');
+            $base_path = defined('RIMAN_BLOCKS_DIR') ? RIMAN_BLOCKS_DIR : plugin_dir_path(__FILE__) . '../';
+            $css_rel = 'assets/category-hero-slider.css';
+            $js_rel  = 'assets/category-hero-slider.js';
+            $css_ver = file_exists($base_path . $css_rel) ? filemtime($base_path . $css_rel) : time();
+            $js_ver  = file_exists($base_path . $js_rel)  ? filemtime($base_path . $js_rel)  : time();
+            wp_register_style('riman-category-hero-slider-frontend', $base_url . $css_rel, [], $css_ver);
             wp_enqueue_style('riman-category-hero-slider-frontend');
-            wp_register_script('riman-category-hero-slider-frontend', $base_url . 'assets/category-hero-slider.js', [], '1.0', true);
+            wp_register_script('riman-category-hero-slider-frontend', $base_url . $js_rel, [], $js_ver, true);
             wp_enqueue_script('riman-category-hero-slider-frontend');
 
             // Build per-instance CSS (not filtered by KSES) for bg images and vars
@@ -229,6 +239,9 @@ add_action('init', function() {
             'arrowsShape' => ['type' => 'string', 'default' => 'round'],
             'arrowsStyle' => ['type' => 'string', 'default' => 'light'],
             'arrowsPosition' => ['type' => 'string', 'default' => 'inset'],
+            'parallax' => ['type' => 'boolean', 'default' => false],
+            'parallaxStrength' => ['type' => 'number', 'default' => 0.25],
+            'parallaxMode' => ['type' => 'string', 'default' => 'transform'],
         ],
         'supports' => [ 'align' => ['full'] ],
     ]);

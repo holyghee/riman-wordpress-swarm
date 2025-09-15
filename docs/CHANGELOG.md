@@ -93,3 +93,5 @@ Alle wesentlichen Änderungen werden hier festgehalten.
 \n(Keine Dateiänderungen im gewählten Scope gefunden)
 \n## 2025-09-09 16:41:36 UTC – docs: Commit‑Kurzbefehle (Beispiele) ergänzt
 \n(Keine Dateiänderungen im gewählten Scope gefunden)
+\n## 2025-09-15 11:56:57 UTC – fix(block): restore editor controls for category-hero-slider; cache-bust assets
+\n(Keine Dateiänderungen im gewählten Scope gefunden)
