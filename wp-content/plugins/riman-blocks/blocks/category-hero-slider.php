@@ -114,12 +114,61 @@ add_action('init', function() {
                 $section_desc = get_term_meta($term->term_id, '_section_description', true);
                 $desc = !empty($section_desc) ? $section_desc : trim(strip_tags(term_description($term)));
 
+                // Featured Video lookup (using existing RIMAN system)
+                $video_src = ''; $video_mime = '';
+                // 1) Verknüpfte Seite über Term-Meta _linked_page_id
+                if ($linked_page_id) {
+                    $vid_id  = (int) get_post_meta($linked_page_id, '_riman_featured_video_id', true);
+                    $vid_url = (string) get_post_meta($linked_page_id, '_riman_featured_video_url', true);
+                    
+                    if ($vid_id) {
+                        $video_src = wp_get_attachment_url($vid_id) ?: '';
+                        $video_mime = get_post_mime_type($vid_id) ?: '';
+                    } elseif ($vid_url) {
+                        $video_src = $vid_url;
+                        $video_mime = wp_check_filetype($video_src)['type'] ?? 'video/mp4';
+                    }
+                }
+                if (!$video_src) {
+                    // 2) Verknüpfte Seite via Page-Meta _linked_category_id
+                    if (!empty($linked_pages)) {
+                        $page_id = $linked_pages[0]->ID;
+                        $vid_id  = (int) get_post_meta($page_id, '_riman_featured_video_id', true);
+                        $vid_url = (string) get_post_meta($page_id, '_riman_featured_video_url', true);
+                        
+                        if ($vid_id) {
+                            $video_src = wp_get_attachment_url($vid_id) ?: '';
+                            $video_mime = get_post_mime_type($vid_id) ?: '';
+                        } elseif ($vid_url) {
+                            $video_src = $vid_url;
+                            $video_mime = wp_check_filetype($video_src)['type'] ?? 'video/mp4';
+                        }
+                    }
+                }
+                if (!$video_src) {
+                    // 3) Seite per Pfad (Slug) suchen
+                    if ($page) {
+                        $vid_id  = (int) get_post_meta($page->ID, '_riman_featured_video_id', true);
+                        $vid_url = (string) get_post_meta($page->ID, '_riman_featured_video_url', true);
+                        
+                        if ($vid_id) {
+                            $video_src = wp_get_attachment_url($vid_id) ?: '';
+                            $video_mime = get_post_mime_type($vid_id) ?: '';
+                        } elseif ($vid_url) {
+                            $video_src = $vid_url;
+                            $video_mime = wp_check_filetype($video_src)['type'] ?? 'video/mp4';
+                        }
+                    }
+                }
+
                 $items[] = [
                     'id' => $term->term_id,
                     'name' => $term->name,
                     'slug' => $term->slug,
                     'link' => get_category_link($term->term_id),
                     'bg' => $bg,
+                    'video' => $video_src,
+                    'video_mime' => $video_mime,
                     'desc' => $desc,
                 ];
             }
@@ -155,10 +204,14 @@ add_action('init', function() {
             wp_enqueue_script('riman-category-hero-slider-frontend');
 
             // Build per-instance CSS (not filtered by KSES) for bg images and vars
-            $css_rules = "#{$slider_id}{--riman-hero-min-h: {$min_h}px; --riman-hero-overlay: {$alpha}; --riman-hero-duration: {$duration}ms;}\n";
+            // Choose a safe overscan based on parallax strength to avoid edge bleed
+            $p_strength = floatval($a['parallaxStrength']);
+            $overscan_pct = (!empty($a['parallax'])) ? ($p_strength <= 0.2 ? 20 : ($p_strength <= 0.35 ? 30 : 40)) : 0;
+            $css_rules = "#{$slider_id}{--riman-hero-min-h: {$min_h}px; --riman-hero-overlay: {$alpha}; --riman-hero-duration: {$duration}ms; --riman-parallax-overscan: {$overscan_pct}%;}\n";
             foreach ($items as $idx => $it) {
                 $k = $idx + 1;
-                if (!empty($it['bg'])) {
+                // Nur für Slides OHNE Video ein statisches Hintergrundbild setzen.
+                if (empty($it['video']) && !empty($it['bg'])) {
                     $bg = esc_url($it['bg']);
                     $css_rules .= "#{$slider_id} .riman-hero-slide:nth-child({$k}){background-image:url('{$bg}');background-size:cover;background-position:center;}\n";
                 }
@@ -173,29 +226,42 @@ add_action('init', function() {
               <div class="riman-hero-track">
               <?php foreach ($items as $i => $it): ?>
                 <?php
+                  // Build per-slide inline style
                   $style_inline = "min-height:{$min_h}px;";
-                  if (empty($a['parallax'])) {
-                    if (!empty($it['bg'])) {
-                      $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), url('" . esc_url($it['bg']) . "'); background-size:cover;background-position:center;";
-                    } else {
-                      $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), linear-gradient(135deg,#667eea 0%,#764ba2 100%);";
-                    }
-                  } elseif (!empty($a['parallax']) && isset($a['parallaxMode']) && $a['parallaxMode'] === 'fixed') {
-                    if (!empty($it['bg'])) {
-                      $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), url('" . esc_url($it['bg']) . "'); background-size:cover;background-position:center; background-attachment: fixed;";
-                    } else {
-                      $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), linear-gradient(135deg,#667eea 0%,#764ba2 100%); background-attachment: fixed;";
+                  $has_video = !empty($it['video']);
+                  if (!$has_video) {
+                    if (empty($a['parallax'])) {
+                      if (!empty($it['bg'])) {
+                        $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), url('" . esc_url($it['bg']) . "'); background-size:cover;background-position:center;";
+                      } else {
+                        $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), linear-gradient(135deg,#667eea 0%,#764ba2 100%);";
+                      }
+                    } elseif (!empty($a['parallax']) && isset($a['parallaxMode']) && $a['parallaxMode'] === 'fixed') {
+                      if (!empty($it['bg'])) {
+                        $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), url('" . esc_url($it['bg']) . "'); background-size:cover;background-position:center; background-attachment: fixed;";
+                      } else {
+                        $style_inline .= "background: linear-gradient(rgba(0,0,0,{$alpha}), rgba(0,0,0,{$alpha})), linear-gradient(135deg,#667eea 0%,#764ba2 100%); background-attachment: fixed;";
+                      }
                     }
                   }
                 ?>
-                <div class="riman-hero-slide<?php echo $i === 0 ? ' active' : ''; ?>" style="<?php echo esc_attr($style_inline); ?>">
-                  <?php if (!empty($a['parallax']) && (!isset($a['parallaxMode']) || $a['parallaxMode'] !== 'fixed')): ?>
+                <div class="riman-hero-slide<?php echo $i === 0 ? ' active' : ''; ?><?php echo !empty($it['video']) ? ' has-video' : ''; ?>" style="<?php echo esc_attr($style_inline); ?>">
+                  <?php if (!empty($it['video'])): ?>
+                    <!-- Video Background -->
+                    <div class="riman-hero-video-container">
+                      <video class="riman-hero-video" autoplay muted loop playsinline preload="metadata" data-parallax="<?php echo !empty($a['parallax']) ? '1' : '0'; ?>" data-parallax-strength="<?php echo esc_attr($a['parallaxStrength']); ?>"<?php echo !empty($it['bg']) ? ' poster="'.esc_url($it['bg']).'"' : ''; ?>>
+                        <source src="<?php echo esc_url($it['video']); ?>" type="<?php echo esc_attr($it['video_mime'] ?: 'video/mp4'); ?>">
+                      </video>
+                    </div>
+                  <?php elseif (!empty($a['parallax']) && (!isset($a['parallaxMode']) || $a['parallaxMode'] !== 'fixed')): ?>
+                    <!-- Image Parallax Background -->
                     <?php if (!empty($it['bg'])): ?>
                       <div class="riman-hero-bg" style="background-image:url('<?php echo esc_url($it['bg']); ?>');"></div>
                     <?php else: ?>
                       <div class="riman-hero-bg" style="background-image:linear-gradient(135deg,#667eea 0%,#764ba2 100%);"></div>
                     <?php endif; ?>
                   <?php endif; ?>
+                  <div class="riman-hero-overlay"></div>
                   <div class="riman-hero-inner">
                     <div class="riman-hero-content" style="color:#fff;">
                       <h2 class="riman-hero-title"><?php echo esc_html($it['name']); ?></h2>

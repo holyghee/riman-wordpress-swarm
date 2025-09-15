@@ -79,3 +79,8 @@ node_modules/
 !scripts/wp-db-sync.sh
 !scripts/wp-ssh-v2.sh
 !scripts/clean-media-variants.php
+
+# Re-include critical plugin assets tracked in repo
+!wp-content/plugins/riman-blocks/assets/
+!wp-content/plugins/riman-blocks/assets/category-hero-slider.css
+!wp-content/plugins/riman-blocks/assets/category-hero-slider.js
