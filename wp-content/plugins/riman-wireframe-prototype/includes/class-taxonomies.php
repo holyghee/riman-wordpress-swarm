@@ -19,11 +19,9 @@ class RIMAN_Wireframe_Taxonomies {
      * Standard-Terms die beim Aktivieren erstellt werden
      */
     private $default_terms = array(
-        'home'       => 'Startseite',
         'hauptseite' => 'Hauptseite',
         'unterseite' => 'Unterseite',
-        'detailseite'=> 'Detailseite',
-        'info'       => 'Info'
+        'detailseite'=> 'Detailseite'
     );
 
     /**

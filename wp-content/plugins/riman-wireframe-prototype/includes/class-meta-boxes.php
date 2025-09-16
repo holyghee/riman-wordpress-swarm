@@ -180,29 +180,6 @@ class RIMAN_Wireframe_Meta_Boxes {
                 </div>
             </div>
 
-            <!-- Info (Kind von Detailseite) Felder -->
-            <div id="info-fields" class="seitentyp-fields" style="display: <?php echo $current_seitentyp === 'info' ? 'block' : 'none'; ?>">
-                <h3><?php _e('Info-Inhalt', 'riman-wireframe'); ?></h3>
-
-                <div class="riman-meta-field">
-                    <label for="info_video_url"><?php _e('Video URL', 'riman-wireframe'); ?></label>
-                    <input type="url"
-                           id="info_video_url"
-                           name="riman_info_video_url"
-                           value="<?php echo esc_attr(get_post_meta($post->ID, '_riman_info_video_url', true)); ?>"
-                           placeholder="https://example.com/video.mp4">
-                </div>
-
-                <div class="riman-meta-field">
-                    <label for="info_link"><?php _e('Link Ziel (Post-ID oder URL, optional)', 'riman-wireframe'); ?></label>
-                    <input type="text"
-                           id="info_link"
-                           name="riman_info_link"
-                           value="<?php echo esc_attr(get_post_meta($post->ID, '_riman_info_link', true)); ?>"
-                           placeholder="123 oder https://example.com">
-                    <small><?php _e('Wenn gesetzt, verlinkt die Kachel auf dieses Ziel.', 'riman-wireframe'); ?></small>
-                </div>
-            </div>
 
             <script type="text/javascript">
             jQuery(document).ready(function($) {
@@ -217,8 +194,7 @@ class RIMAN_Wireframe_Meta_Boxes {
                         if (termName === 'Hauptseite') selectedType = 'hauptseite';
                         else if (termName === 'Unterseite') selectedType = 'unterseite';
                         else if (termName === 'Detailseite') selectedType = 'detailseite';
-                        else if (termName === 'Startseite') selectedType = 'home';
-                        else if (termName === 'Info') selectedType = 'info';
+                        // nur Hauptseite/Unterseite/Detailseite verwenden
                 });
                     
                     // Aktualisiere Anzeige
@@ -338,13 +314,7 @@ class RIMAN_Wireframe_Meta_Boxes {
             update_post_meta($post_id, '_riman_detailseite_video_info', $video_info_fields);
         }
 
-        // Speichere Info Daten
-        if (isset($_POST['riman_info_video_url'])) {
-            update_post_meta($post_id, '_riman_info_video_url', esc_url_raw($_POST['riman_info_video_url']));
-        }
-        if (isset($_POST['riman_info_link'])) {
-            update_post_meta($post_id, '_riman_info_link', sanitize_text_field($_POST['riman_info_link']));
-        }
+        // Keine separaten Info-Posttypen – Infofelder verbleiben als Detailseiten-Metafelder
     }
 
     /**

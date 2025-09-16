@@ -15,23 +15,6 @@ get_header();
 $meta = RIMAN_Wireframe_Meta_Boxes::get_page_meta(get_the_ID(), 'detailseite');
 $video_info_fields = $meta['video_info'] ?? array();
 
-// Bevorzugt: Eigene Info-Kindseiten statt Meta-Felder
-$info_children = get_posts(array(
-    'post_type' => 'riman_seiten',
-    'post_status' => 'publish',
-    'numberposts' => -1,
-    'orderby' => 'menu_order',
-    'order' => 'ASC',
-    'post_parent' => get_the_ID(),
-    'tax_query' => array(
-        array(
-            'taxonomy' => 'seitentyp',
-            'field' => 'slug',
-            'terms' => array('info'),
-        ),
-    ),
-));
-
 // Hole Parent-Seite für Breadcrumb
 $parent_id = wp_get_post_parent_id(get_the_ID());
 $parent_post = $parent_id ? get_post($parent_id) : null;
@@ -97,7 +80,7 @@ $grandparent_post = $grandparent_id ? get_post($grandparent_id) : null;
         <?php endif; ?>
 
         <!-- Video-Info Felder Section -->
-        <?php if (!empty($info_children) || !empty($video_info_fields)): ?>
+        <?php if (!empty($video_info_fields)): ?>
         <section class="riman-video-info-section">
             <div class="riman-content-wrapper">
                 <h2 class="section-title">
@@ -105,45 +88,6 @@ $grandparent_post = $grandparent_id ? get_post($grandparent_id) : null;
                 </h2>
                 
                 <div class="riman-video-info-grid">
-                    <?php if (!empty($info_children)): ?>
-                        <?php $idx = 0; foreach ($info_children as $child): $idx++; ?>
-                        <?php 
-                            $vid = get_post_meta($child->ID, '_riman_info_video_url', true);
-                            $link = get_post_meta($child->ID, '_riman_info_link', true);
-                            $href = '';
-                            if ($link) { $href = ctype_digit($link) ? (get_permalink(intval($link)) ?: '') : esc_url($link); }
-                        ?>
-                        <div class="riman-video-info-item" data-index="<?php echo $idx - 1; ?>">
-                            <div class="video-info-media">
-                                <?php if (!empty($vid)): ?>
-                                    <div class="video-container">
-                                        <video class="info-video" controls preload="metadata" poster="">
-                                            <source src="<?php echo esc_url($vid); ?>" type="video/mp4">
-                                            <p><?php _e('Ihr Browser unterstützt keine HTML5-Videos.', 'riman-wireframe'); ?></p>
-                                        </video>
-                                        <div class="video-overlay">
-                                            <button class="video-play-btn" type="button"><span class="play-icon">▶</span></button>
-                                        </div>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="video-placeholder">
-                                        <span class="placeholder-icon">📹</span>
-                                        <span class="placeholder-text"><?php _e('Kein Video', 'riman-wireframe'); ?></span>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                            <div class="video-info-content">
-                                <?php if ($href): ?><a href="<?php echo $href; ?>" class="info-link" style="text-decoration:none;color:inherit"><?php endif; ?>
-                                <h3 class="info-title"><?php echo esc_html(get_the_title($child)); ?></h3>
-                                <div class="info-description"><?php echo apply_filters('the_content', $child->post_content); ?></div>
-                                <?php if ($href): ?></a><?php endif; ?>
-                                <div class="info-meta">
-                                    <span class="info-number"><?php printf(__('Info %d', 'riman-wireframe'), $idx); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
                     <?php foreach ($video_info_fields as $index => $field): ?>
                         <?php if (empty($field['video_url']) && empty($field['ueberschrift']) && empty($field['beschreibung'])) continue; ?>
                         
@@ -189,7 +133,6 @@ $grandparent_post = $grandparent_id ? get_post($grandparent_id) : null;
                             </div>
                         </div>
                     <?php endforeach; ?>
-                    <?php endif; ?>
                 </div>
             </div>
         </section>

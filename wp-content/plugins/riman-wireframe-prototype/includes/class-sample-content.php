@@ -44,14 +44,6 @@ class RIMAN_Wireframe_Sample_Content {
             return false; // Bereits vorhanden
         }
 
-        // Optional: HOME Seite mit 2 Info-Kacheln (verlinken zu den beiden Hauptseiten)
-        $home_id = $this->create_hauptseite(
-            'Home',
-            'Startseite des Wireframe-Prototyps mit zwei Einstiegen.',
-            'Willkommen im RIMAN Wireframe-Prototyp.'
-        );
-        if ($home_id) { wp_set_post_terms($home_id, array('home'), 'seitentyp'); }
-
         // HAUPTSEITE 1: Sicherheits-Koordination & Mediation
         $hauptseite1 = $this->create_hauptseite(
             'Sicherheits-Koordination & Mediation',
@@ -103,12 +95,8 @@ class RIMAN_Wireframe_Sample_Content {
                             'video_url' => $this->get_random_video_url(),
                             'ueberschrift' => 'Mediation bei wirtschaftlichen Konflikten',
                             'beschreibung' => 'Lösung von finanziellen und wirtschaftlichen Konflikten innerhalb der Familie.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Familienmediation allgemein',
-                            'beschreibung' => 'Allgemeine Ansätze und Methoden der professionellen Familienmediation.'
                         )
+                        // 4. Infofeld: bitte Titel laut PDF bestätigen
                     )
                 );
 
@@ -119,13 +107,8 @@ class RIMAN_Wireframe_Sample_Content {
                     array(
                         array(
                             'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei Konflikten in der Nachbarschaft',
-                            'beschreibung' => 'Nachbarschaftskonflikte professionell lösen und langfristige Lösungen schaffen.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation in Vereinen und Gemeinden',
-                            'beschreibung' => 'Konflikte in Vereinsstrukturen und Gemeindeangelegenheiten konstruktiv bearbeiten.'
+                            'ueberschrift' => 'Mediation bei Konflikten in der Nachbarschaft und in Vereinen und Gemeinden',
+                            'beschreibung' => 'Konflikte in Nachbarschaft, Vereinen und Gemeinden professionell lösen und langfristige Lösungen schaffen.'
                         ),
                         array(
                             'video_url' => $this->get_random_video_url(),
@@ -134,9 +117,10 @@ class RIMAN_Wireframe_Sample_Content {
                         ),
                         array(
                             'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation im erweiterten Familienkreis',
+                            'ueberschrift' => 'Mediation bei Konflikten im erweiterten Familienkreis',
                             'beschreibung' => 'Konflikte mit entfernteren Verwandten und Angeheirateten professionell lösen.'
                         )
+                        // 4. Infofeld: bitte Titel laut PDF bestätigen
                     )
                 );
             }
@@ -155,19 +139,15 @@ class RIMAN_Wireframe_Sample_Content {
                         ),
                         array(
                             'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei personellen Veränderungen',
+                            'ueberschrift' => 'Mediation bei Konflikten wegen personeller Veränderungen',
                             'beschreibung' => 'Begleitung und Konfliktlösung bei Umstrukturierungen und Personalwechseln.'
                         ),
                         array(
                             'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei strukturellen Veränderungen',
+                            'ueberschrift' => 'Mediation bei Konflikten wegen struktureller Veränderungen',
                             'beschreibung' => 'Unterstützung bei organisatorischen Veränderungen und damit verbundenen Konflikten.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Teammediation',
-                            'beschreibung' => 'Verbesserung der Teamdynamik und Lösung von Gruppenkonflikten.'
                         )
+                        // 4. Infofeld: bitte Titel laut PDF bestätigen (Teammediation entfernt)
                     )
                 );
 
@@ -266,12 +246,6 @@ class RIMAN_Wireframe_Sample_Content {
             'Ganzheitliches Sicherheitsmanagement für den Baubereich. Abbruch, Schadstoffe, Entsorgung und Altlasten professionell managen.',
             'Komplexe Bauvorhaben erfordern spezialisiertes Management für maximale Sicherheit. Unser Expertenteam begleitet Sie durch alle kritischen Projektphasen.'
         );
-
-        // Link-Kacheln auf Home nach Erstellung der Hauptseiten setzen
-        if (!empty($home_id) && !empty($hauptseite1) && !empty($hauptseite2)) {
-            $this->create_info_page('Sicherheits-Koordination & Mediation', 'Zum Thema gelangen', $home_id, $this->get_random_video_url(), (string) $hauptseite1);
-            $this->create_info_page('Sicherheits-Management im Baubereich', 'Zum Thema gelangen', $home_id, $this->get_random_video_url(), (string) $hauptseite2);
-        }
 
         // Unterseiten unter Hauptseite 2 (4 Stück)
         if ($hauptseite2) {
@@ -514,42 +488,12 @@ class RIMAN_Wireframe_Sample_Content {
             // Setze Seitentyp
             wp_set_post_terms($post_id, array('detailseite'), 'seitentyp');
 
-            // Neu: Statt Meta-Felder erzeugen wir 4 untergeordnete Info-Seiten
-            $infos = $video_info_fields;
-            if (empty($infos)) {
-                $infos = array(
-                    array(
-                        'video_url' => $this->get_random_video_url(),
-                        'ueberschrift' => 'Thema 1',
-                        'beschreibung' => 'Beispielbeschreibung zum Thema 1.'
-                    ),
-                    array(
-                        'video_url' => $this->get_random_video_url(),
-                        'ueberschrift' => 'Thema 2',
-                        'beschreibung' => 'Beispielbeschreibung zum Thema 2.'
-                    ),
-                    array(
-                        'video_url' => $this->get_random_video_url(),
-                        'ueberschrift' => 'Thema 3',
-                        'beschreibung' => 'Beispielbeschreibung zum Thema 3.'
-                    ),
-                    array(
-                        'video_url' => $this->get_random_video_url(),
-                        'ueberschrift' => 'Thema 4',
-                        'beschreibung' => 'Beispielbeschreibung zum Thema 4.'
-                    ),
-                );
-            }
-
-            $order = 0;
-            foreach ($infos as $info) {
-                $this->create_info_page(
-                    $info['ueberschrift'] ?? 'Info',
-                    $info['beschreibung'] ?? '',
-                    $post_id,
-                    $info['video_url'] ?? ''
-                );
-                $order++;
+            // Setze Meta-Felder (4 Video-Text-Infofelder pro Detailseite)
+            if (!empty($video_info_fields)) {
+                update_post_meta($post_id, '_riman_detailseite_video_info', $video_info_fields);
+            } else {
+                // Default: leer lassen oder generisch füllen – wir ergänzen gezielt je Detailseite unten beim Erstellen
+                update_post_meta($post_id, '_riman_detailseite_video_info', array());
             }
 
             update_post_meta($post_id, '_riman_sample_content', '1');
@@ -560,29 +504,7 @@ class RIMAN_Wireframe_Sample_Content {
         return false;
     }
 
-    /**
-     * Erstelle Info-Kindseite unter einer Detailseite
-     */
-    private function create_info_page($title, $content, $parent_id, $video_url = '', $link_target = '') {
-        $post_data = array(
-            'post_title' => $title,
-            'post_content' => wpautop($content ?: ''),
-            'post_status' => 'publish',
-            'post_type' => 'riman_seiten',
-            'post_author' => get_current_user_id(),
-            'post_parent' => $parent_id,
-            'menu_order' => 0,
-        );
-        $post_id = wp_insert_post($post_data);
-        if (!is_wp_error($post_id) && $post_id) {
-            wp_set_post_terms($post_id, array('info'), 'seitentyp');
-            if ($video_url) update_post_meta($post_id, '_riman_info_video_url', esc_url_raw($video_url));
-            if ($link_target) update_post_meta($post_id, '_riman_info_link', sanitize_text_field($link_target));
-            update_post_meta($post_id, '_riman_sample_content', '1');
-            return $post_id;
-        }
-        return false;
-    }
+    // Kein separater Info-Posttyp mehr – Infoelemente bleiben Meta-Felder der Detailseite
 
     /**
      * Hole zufällige Video URL
