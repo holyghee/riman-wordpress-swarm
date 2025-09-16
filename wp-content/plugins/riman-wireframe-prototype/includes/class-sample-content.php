@@ -125,119 +125,111 @@ class RIMAN_Wireframe_Sample_Content {
                 );
             }
 
-            // Detailseiten unter "Mediation in Unternehmen" (2 Stück)
-            if ($unterseite1_2) {
-                $this->create_detailseite(
-                    'Mediation innerhalb von Unternehmen',
-                    'Innerbetriebliche Konflikte professionell lösen. Für bessere Zusammenarbeit und höhere Produktivität.',
-                    $unterseite1_2,
-                    array(
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei Konflikten zwischen Mitarbeitern',
-                            'beschreibung' => 'Lösung von zwischenmenschlichen Konflikten am Arbeitsplatz.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei Konflikten wegen personeller Veränderungen',
-                            'beschreibung' => 'Begleitung und Konfliktlösung bei Umstrukturierungen und Personalwechseln.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei Konflikten wegen struktureller Veränderungen',
-                            'beschreibung' => 'Unterstützung bei organisatorischen Veränderungen und damit verbundenen Konflikten.'
-                        )
-                        // 4. Infofeld: bitte Titel laut PDF bestätigen (Teammediation entfernt)
-                    )
-                );
+              // Detailseiten unter "Mediation in Unternehmen" (2 Stück)
+              if ($unterseite1_2) {
+                  $this->create_detailseite(
+                      'Mediation innerhalb von Unternehmen',
+                      'Innerbetriebliche Konflikte professionell lösen. Für bessere Zusammenarbeit und höhere Produktivität.',
+                      $unterseite1_2,
+                      array(
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation bei Konflikten zwischen Mitarbeitern',
+                              'beschreibung' => 'Lösung von zwischenmenschlichen Konflikten am Arbeitsplatz.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation bei Konflikten wegen personeller Veränderungen',
+                              'beschreibung' => 'Begleitung und Konfliktlösung bei Umstrukturierungen und Personalwechseln.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation bei Konflikten wegen struktureller Veränderungen',
+                              'beschreibung' => 'Unterstützung bei organisatorischen Veränderungen und damit verbundenen Konflikten.'
+                          ),
+                          // 4. Infofeld: bitte Titel laut PDF bestätigen (Teammediation entfernt)
+                      ),
+                      true
+                  );
+  
+                  $this->create_detailseite(
+                      'Mediation zwischen Unternehmen',
+                      'Geschäftskonflikte und Streitigkeiten zwischen Unternehmen konstruktiv lösen.',
+                      $unterseite1_2,
+                      array(
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation bei meist rechtlichen Streitigkeiten zwischen Unternehmen',
+                              'beschreibung' => 'Alternative Streitbeilegung bei unternehmensbezogenen Streitigkeiten als Gerichtsalternative.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation bei Firmenübernahmen oder Insolvenzen',
+                              'beschreibung' => 'Unterstützung bei Fusionsprozessen, Übernahmen sowie Konflikten im Rahmen von Insolvenzen.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation bei kulturell bedingten Konflikten',
+                              'beschreibung' => 'Lösung interkultureller Geschäftskonflikte und Kommunikationsprobleme.'
+                          ),
+                          // 4. Infofeld: bitte Titel laut PDF bestätigen
+                      ),
+                      true
+                  );
+              }
 
-                $this->create_detailseite(
-                    'Mediation zwischen Unternehmen',
-                    'Geschäftskonflikte und Streitigkeiten zwischen Unternehmen konstruktiv lösen.',
-                    $unterseite1_2,
-                    array(
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei rechtlichen Streitigkeiten',
-                            'beschreibung' => 'Alternative Streitbeilegung bei Geschäftskonflikten als Gerichtsalternative.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei Firmenübernahmen',
-                            'beschreibung' => 'Unterstützung bei komplexen Übernahme- und Fusionsprozessen.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei Insolvenzen',
-                            'beschreibung' => 'Professionelle Begleitung bei Insolvenzverfahren und Gläubigerkonflikten.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei kulturell bedingten Konflikten',
-                            'beschreibung' => 'Lösung interkultureller Geschäftskonflikte und Kommunikationsprobleme.'
-                        )
-                    )
-                );
-            }
-
-            // Detailseiten unter "Sicherheits-Koordination & Mediation im Baubereich" (2 Stück)
-            if ($unterseite1_3) {
-                $this->create_detailseite(
-                    'Sicherheitskoordination',
-                    'Professionelle Sicherheitskoordination gemäß BauStVO und TRGS. Für maximale Sicherheit auf der Baustelle.',
-                    $unterseite1_3,
-                    array(
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Sicherheitskoordination gemäß BauStVO',
-                            'beschreibung' => 'Koordination nach Baustellenverordnung für sichere Bauabläufe.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Sicherheitskoordination Asbest (TRGS 519)',
-                            'beschreibung' => 'Spezialisierte Koordination bei asbestbelasteten Baustellen.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Sicherheitskoordination sonstige Gefahrstoffe',
-                            'beschreibung' => 'Koordination bei anderen Gefahrstoffen gemäß TRGS 524.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'SiGe-Koordination allgemein',
-                            'beschreibung' => 'Allgemeine Sicherheits- und Gesundheitsschutzkoordination.'
-                        )
-                    )
-                );
-
-                $this->create_detailseite(
-                    'Mediation im Baubereich',
-                    'Baukonflikte professionell lösen. Von der Genehmigungsplanung bis zur Ausführung.',
-                    $unterseite1_3,
-                    array(
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation bei der Genehmigungsplanung',
-                            'beschreibung' => 'Konfliktlösung bereits in der frühen Planungsphase von Bauprojekten.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation in der Planungsphase',
-                            'beschreibung' => 'Lösung von Planungskonflikten zwischen Architekten, Ingenieuren und Bauherren.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Mediation in der Ausführungsphase',
-                            'beschreibung' => 'Konfliktlösung während der Bauausführung für reibungslose Abläufe.'
-                        ),
-                        array(
-                            'video_url' => $this->get_random_video_url(),
-                            'ueberschrift' => 'Baumediation allgemein',
-                            'beschreibung' => 'Allgemeine Prinzipien und Methoden der Mediation im Bauwesen.'
-                        )
-                    )
-                );
-            }
+              // Detailseiten unter "Sicherheits-Koordination & Mediation im Baubereich" (2 Stück)
+              if ($unterseite1_3) {
+                  $this->create_detailseite(
+                      'Sicherheitskoordination',
+                      'Professionelle Sicherheitskoordination gemäß BauStVO und TRGS. Für maximale Sicherheit auf der Baustelle.',
+                      $unterseite1_3,
+                      array(
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Sicherheitskoordination gemäß BauStVO',
+                              'beschreibung' => 'Koordination nach Baustellenverordnung für sichere Bauabläufe.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Sicherheitskoordination Asbest (TRGS 519)',
+                              'beschreibung' => 'Spezialisierte Koordination bei asbestbelasteten Baustellen.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Sicherheitskoordination sonstige Gefahrstoffe (TRGS 524)',
+                              'beschreibung' => 'Koordination bei anderen Gefahrstoffen gemäß TRGS 524.'
+                          )
+                          // 4. Infofeld: "SiGe-Koordination allgemein" entfernt, bitte ggf. PDF-Titel nennen
+                      ),
+                      true
+                  );
+  
+                  $this->create_detailseite(
+                      'Mediation im Baubereich',
+                      'Baukonflikte professionell lösen. Von der Genehmigungsplanung bis zur Ausführung.',
+                      $unterseite1_3,
+                      array(
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation bei der Genehmigungsplanung',
+                              'beschreibung' => 'Konfliktlösung bereits in der frühen Planungsphase von Bauprojekten.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation in der Planungsphase',
+                              'beschreibung' => 'Lösung von Planungskonflikten zwischen Architekten, Ingenieuren und Bauherren.'
+                          ),
+                          array(
+                              'video_url' => $this->get_random_video_url(),
+                              'ueberschrift' => 'Mediation in der Ausführungsphase',
+                              'beschreibung' => 'Konfliktlösung während der Bauausführung für reibungslose Abläufe.'
+                          )
+                          // 4. Infofeld: "Baumediation allgemein" entfernt, bitte PDF-Titel nennen
+                      ),
+                      true
+                  );
+              }
         }
 
         // HAUPTSEITE 2: Sicherheits-Management im Baubereich
@@ -277,111 +269,143 @@ class RIMAN_Wireframe_Sample_Content {
                 4
             );
 
-            // Detailseiten unter "Abbruch-Management" (4 Stück)
+            // Detailseiten unter "Abbruch-Management" (4 Stück) – ohne Info-Kindseiten
             if ($unterseite2_1) {
                 $this->create_detailseite(
                     'Abbruchmanagement - braucht\'s das?',
                     'Warum professionelles Abbruchmanagement unverzichtbar ist. Risiken minimieren, Kosten optimieren.',
-                    $unterseite2_1
+                    $unterseite2_1,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Erkundung statischer Risiken',
                     'Professionelle Analyse der Bausubstanz und statischen Verhältnisse vor dem Abbruch.',
-                    $unterseite2_1
+                    $unterseite2_1,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Planung/Ausschreibung',
                     'Detaillierte Planung und professionelle Ausschreibung für Abbruchprojekte.',
-                    $unterseite2_1
+                    $unterseite2_1,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Fachbauleitung Rückbau',
                     'Professionelle Bauleitung für fachgerechten und sicheren Rückbau.',
-                    $unterseite2_1
+                    $unterseite2_1,
+                    array(),
+                    false
                 );
             }
 
-            // Detailseiten unter "Schadstoff-Management" (4 Stück)
+            // Detailseiten unter "Schadstoff-Management" (4 Stück) – ohne Info-Kindseiten
             if ($unterseite2_2) {
                 $this->create_detailseite(
                     'Gefahrstoffmanagement - wo haben wir Gefahrstoffe?',
                     'Systematische Identifizierung und Bewertung von Gefahrstoffen in Bausubstanz.',
-                    $unterseite2_2
+                    $unterseite2_2,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Gefahrstofferkundung',
                     'Professionelle Erkundung und Analyse von Gefahrstoffen gemäß aktueller Normen und Vorschriften.',
-                    $unterseite2_2
+                    $unterseite2_2,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Planung/Ausschreibung',
                     'Fachgerechte Planung und Ausschreibung für Gefahrstoffsanierung.',
-                    $unterseite2_2
+                    $unterseite2_2,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Fachbauleitung Gefahrstoffsanierung',
                     'Spezialisierte Bauleitung für die sichere Sanierung von Gefahrstoffen.',
-                    $unterseite2_2
+                    $unterseite2_2,
+                    array(),
+                    false
                 );
             }
 
-            // Detailseiten unter "Entsorgungs-Management" (4 Stück)
+            // Detailseiten unter "Entsorgungs-Management" (4 Stück) – ohne Info-Kindseiten
             if ($unterseite2_3) {
                 $this->create_detailseite(
                     'Entsorgungsmanagement - für was?',
                     'Warum professionelles Entsorgungsmanagement notwendig ist und welche Vorteile es bietet.',
-                    $unterseite2_3
+                    $unterseite2_3,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Schadstofferkundung',
                     'Systematische Erkundung von entsorgungsrelevanten Schadstoffen in Baumaterialien.',
-                    $unterseite2_3
+                    $unterseite2_3,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Planung/Ausschreibung',
                     'Optimierte Planung und Ausschreibung für kosteneffiziente Entsorgungskonzepte.',
-                    $unterseite2_3
+                    $unterseite2_3,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Fachbauleitung Entsorgungsmanagement',
                     'Professionelle Überwachung und Koordination der Entsorgungsmaßnahmen.',
-                    $unterseite2_3
+                    $unterseite2_3,
+                    array(),
+                    false
                 );
             }
 
-            // Detailseiten unter "Altlasten-Management" (4 Stück)
+            // Detailseiten unter "Altlasten-Management" (4 Stück) – ohne Info-Kindseiten
             if ($unterseite2_4) {
                 $this->create_detailseite(
                     'Altlastensanierung - doch nicht bei uns?',
                     'Altlasten sind häufiger als gedacht. Wann und wo Altlastensanierung notwendig wird.',
-                    $unterseite2_4
+                    $unterseite2_4,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Altlastenerkundung',
                     'Professionelle Erkundung und Bewertung von Altlasten gemäß aktueller Normen.',
-                    $unterseite2_4
+                    $unterseite2_4,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Planung/Ausschreibung',
                     'Detaillierte Planung und fachgerechte Ausschreibung für Altlastensanierung.',
-                    $unterseite2_4
+                    $unterseite2_4,
+                    array(),
+                    false
                 );
 
                 $this->create_detailseite(
                     'Fachbauleitung Altlasten',
                     'Spezialisierte Bauleitung für professionelle und sichere Altlastensanierung.',
-                    $unterseite2_4
+                    $unterseite2_4,
+                    array(),
+                    false
                 );
             }
         }
@@ -470,7 +494,7 @@ class RIMAN_Wireframe_Sample_Content {
     /**
      * Erstelle Detailseite
      */
-    private function create_detailseite($title, $excerpt, $parent_id, $video_info_fields = array()) {
+    private function create_detailseite($title, $excerpt, $parent_id, $video_info_fields = array(), $with_info_children = true) {
         $post_data = array(
             'post_title' => $title,
             'post_content' => $this->generate_lorem_ipsum(2),
@@ -488,23 +512,17 @@ class RIMAN_Wireframe_Sample_Content {
             // Setze Seitentyp
             wp_set_post_terms($post_id, array('detailseite'), 'seitentyp');
 
-            // Erzeuge 4 Info-Kindseiten aus den übergebenen Feldern
-            $infos = $video_info_fields;
-            if (empty($infos)) {
-                $infos = array(
-                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 1', 'beschreibung' => ''),
-                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 2', 'beschreibung' => ''),
-                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 3', 'beschreibung' => ''),
-                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 4', 'beschreibung' => ''),
-                );
-            }
-            foreach ($infos as $info) {
-                $this->create_info_page(
-                    $info['ueberschrift'] ?? 'Info',
-                    $info['beschreibung'] ?? '',
-                    $post_id,
-                    $info['video_url'] ?? ''
-                );
+            if ($with_info_children) {
+                // Erzeuge Info-Kindseiten aus den übergebenen Feldern
+                $infos = $video_info_fields;
+                foreach ($infos as $info) {
+                    $this->create_info_page(
+                        $info['ueberschrift'] ?? 'Info',
+                        $info['beschreibung'] ?? '',
+                        $post_id,
+                        $info['video_url'] ?? ''
+                    );
+                }
             }
 
             update_post_meta($post_id, '_riman_sample_content', '1');
