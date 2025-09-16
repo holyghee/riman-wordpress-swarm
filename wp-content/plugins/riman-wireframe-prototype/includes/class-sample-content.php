@@ -488,12 +488,23 @@ class RIMAN_Wireframe_Sample_Content {
             // Setze Seitentyp
             wp_set_post_terms($post_id, array('detailseite'), 'seitentyp');
 
-            // Setze Meta-Felder (4 Video-Text-Infofelder pro Detailseite)
-            if (!empty($video_info_fields)) {
-                update_post_meta($post_id, '_riman_detailseite_video_info', $video_info_fields);
-            } else {
-                // Default: leer lassen oder generisch füllen – wir ergänzen gezielt je Detailseite unten beim Erstellen
-                update_post_meta($post_id, '_riman_detailseite_video_info', array());
+            // Erzeuge 4 Info-Kindseiten aus den übergebenen Feldern
+            $infos = $video_info_fields;
+            if (empty($infos)) {
+                $infos = array(
+                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 1', 'beschreibung' => ''),
+                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 2', 'beschreibung' => ''),
+                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 3', 'beschreibung' => ''),
+                    array('video_url' => $this->get_random_video_url(), 'ueberschrift' => 'Info 4', 'beschreibung' => ''),
+                );
+            }
+            foreach ($infos as $info) {
+                $this->create_info_page(
+                    $info['ueberschrift'] ?? 'Info',
+                    $info['beschreibung'] ?? '',
+                    $post_id,
+                    $info['video_url'] ?? ''
+                );
             }
 
             update_post_meta($post_id, '_riman_sample_content', '1');
@@ -504,7 +515,29 @@ class RIMAN_Wireframe_Sample_Content {
         return false;
     }
 
-    // Kein separater Info-Posttyp mehr – Infoelemente bleiben Meta-Felder der Detailseite
+    /**
+     * Erstelle Info-Kindseite unter einer Detailseite
+     */
+    private function create_info_page($title, $content, $parent_id, $video_url = '', $link_target = '') {
+        $post_data = array(
+            'post_title' => $title,
+            'post_content' => wpautop($content ?: ''),
+            'post_status' => 'publish',
+            'post_type' => 'riman_seiten',
+            'post_author' => get_current_user_id(),
+            'post_parent' => $parent_id,
+            'menu_order' => 0,
+        );
+        $post_id = wp_insert_post($post_data);
+        if (!is_wp_error($post_id) && $post_id) {
+            wp_set_post_terms($post_id, array('info'), 'seitentyp');
+            if ($video_url) update_post_meta($post_id, '_riman_info_video_url', esc_url_raw($video_url));
+            if ($link_target) update_post_meta($post_id, '_riman_info_link', sanitize_text_field($link_target));
+            update_post_meta($post_id, '_riman_sample_content', '1');
+            return $post_id;
+        }
+        return false;
+    }
 
     /**
      * Hole zufällige Video URL

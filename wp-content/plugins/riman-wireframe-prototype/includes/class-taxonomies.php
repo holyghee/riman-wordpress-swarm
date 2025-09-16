@@ -21,7 +21,8 @@ class RIMAN_Wireframe_Taxonomies {
     private $default_terms = array(
         'hauptseite' => 'Hauptseite',
         'unterseite' => 'Unterseite',
-        'detailseite'=> 'Detailseite'
+        'detailseite'=> 'Detailseite',
+        'info'       => 'Info'
     );
 
     /**
