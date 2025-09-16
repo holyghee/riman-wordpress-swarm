@@ -1,0 +1,481 @@
+/**
+ * RIMAN Wireframe Prototype - Admin Styles
+ * Styling für das WordPress Admin Interface
+ */
+
+/* ============================================
+   Allgemeine Admin Styles
+   ============================================ */
+
+.riman-wireframe-overview {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* ============================================
+   Statistiken Box
+   ============================================ */
+
+.riman-stats {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.riman-stat-box h3 {
+    background: #f0f0f1;
+    margin: 0;
+    padding: 12px 20px;
+    border-bottom: 1px solid #ccd0d4;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid #f0f0f1;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-weight: 500;
+    color: #3c434a;
+}
+
+.stat-count {
+    background: #2271b1;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* ============================================
+   Struktur-Baum
+   ============================================ */
+
+.riman-structure-tree {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.riman-structure-tree h3 {
+    background: #f0f0f1;
+    margin: 0;
+    padding: 12px 20px;
+    border-bottom: 1px solid #ccd0d4;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.structure-tree {
+    padding: 20px;
+}
+
+.no-pages {
+    text-align: center;
+    padding: 40px 20px;
+    color: #646970;
+}
+
+.no-pages h3 {
+    background: none;
+    border: none;
+    color: #646970;
+    margin-bottom: 10px;
+}
+
+.no-pages p {
+    margin-bottom: 20px;
+}
+
+/* ============================================
+   Page Tree Styling
+   ============================================ */
+
+.page-tree {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page-tree.level-0 {
+    margin-left: 0;
+}
+
+.page-tree.level-1 {
+    margin-left: 20px;
+    border-left: 2px solid #f0f0f1;
+    padding-left: 15px;
+}
+
+.page-tree.level-2 {
+    margin-left: 20px;
+    border-left: 1px solid #f0f0f1;
+    padding-left: 15px;
+}
+
+.page-item {
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.page-info {
+    background: #f9f9f9;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.page-info:hover {
+    background: #f0f0f1;
+}
+
+.page-title {
+    font-weight: 600;
+    color: #1d2327;
+    font-size: 14px;
+}
+
+.page-type {
+    background: #646970;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 10px;
+}
+
+/* Seitentyp-spezifische Farben */
+.seitentyp-hauptseite .page-type {
+    background: #d63638;
+}
+
+.seitentyp-unterseite .page-type {
+    background: #00a32a;
+}
+
+.seitentyp-detailseite .page-type {
+    background: #2271b1;
+}
+
+.page-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.action-edit,
+.action-view {
+    color: #2271b1;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: all 0.15s ease-in-out;
+}
+
+.action-edit:hover,
+.action-view:hover {
+    background: #2271b1;
+    color: white;
+    text-decoration: none;
+}
+
+/* ============================================
+   Schnellaktionen
+   ============================================ */
+
+.riman-quick-actions {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 0;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.riman-quick-actions h3 {
+    background: #f0f0f1;
+    margin: 0;
+    padding: 12px 20px;
+    border-bottom: 1px solid #ccd0d4;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.action-buttons {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.action-buttons .button {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+/* ============================================
+   Meta Boxes Styling
+   ============================================ */
+
+.riman-seitentyp-info {
+    background: #e7f3ff;
+    border-left: 4px solid #2271b1;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-radius: 0 4px 4px 0;
+}
+
+.riman-meta-field {
+    margin: 20px 0;
+}
+
+.riman-meta-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #1d2327;
+}
+
+.riman-meta-field input[type="text"],
+.riman-meta-field input[type="url"],
+.riman-meta-field input[type="number"],
+.riman-meta-field textarea {
+    width: 100%;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+.riman-meta-field textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+/* ============================================
+   Repeater Fields
+   ============================================ */
+
+.riman-repeater {
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 15px 0;
+    background: #fafafa;
+}
+
+.riman-repeater-item {
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 10px 0;
+    background: white;
+    position: relative;
+}
+
+.riman-repeater-header {
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1d2327;
+}
+
+.riman-remove-item {
+    color: #d63638;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: all 0.15s ease-in-out;
+}
+
+.riman-remove-item:hover {
+    background: #d63638;
+    color: white;
+    text-decoration: none;
+}
+
+.riman-add-item {
+    background: #2271b1;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.riman-add-item:hover {
+    background: #135e96;
+}
+
+/* ============================================
+   Einstellungsseite
+   ============================================ */
+
+.riman-dev-tools {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.riman-dev-tools h2 {
+    margin-top: 0;
+    color: #1d2327;
+}
+
+.dev-actions p {
+    margin-bottom: 15px;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 1200px) {
+    .riman-wireframe-overview {
+        grid-template-columns: 1fr 2fr;
+        gap: 1.5rem;
+    }
+    
+    .riman-quick-actions {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .riman-wireframe-overview {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .page-tree.level-1,
+    .page-tree.level-2 {
+        margin-left: 10px;
+        padding-left: 10px;
+    }
+    
+    .page-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .page-actions {
+        margin-top: 5px;
+    }
+    
+    .action-buttons {
+        gap: 8px;
+    }
+}
+
+/* ============================================
+   Dark Mode Support (WordPress 5.7+)
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+    body.admin-color-auto {
+        .riman-stats,
+        .riman-structure-tree,
+        .riman-quick-actions,
+        .riman-dev-tools {
+            background: #1d2327;
+            border-color: #3c434a;
+        }
+        
+        .riman-stat-box h3,
+        .riman-structure-tree h3,
+        .riman-quick-actions h3 {
+            background: #2c3338;
+            border-color: #3c434a;
+            color: #f0f0f1;
+        }
+        
+        .stat-label,
+        .page-title {
+            color: #f0f0f1;
+        }
+        
+        .page-info {
+            background: #2c3338;
+            border-color: #3c434a;
+        }
+        
+        .page-info:hover {
+            background: #32373c;
+        }
+        
+        .riman-repeater-item {
+            background: #2c3338;
+            border-color: #3c434a;
+        }
+    }
+}
+
+/* ============================================
+   Accessibility Improvements
+   ============================================ */
+
+.action-edit:focus,
+.action-view:focus,
+.riman-remove-item:focus,
+.riman-add-item:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: 2px;
+}
+
+.page-info:focus-within {
+    box-shadow: 0 0 0 2px #2271b1;
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .page-type {
+        border: 1px solid currentColor;
+    }
+    
+    .stat-count {
+        border: 1px solid white;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
