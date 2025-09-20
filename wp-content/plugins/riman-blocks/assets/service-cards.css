@@ -235,11 +235,6 @@
   --wp-padding: clamp(30px, 5vw, 50px);
 }
 
-.riman-service-cards-wrap.sc-overlap {
-  position: relative;
-  z-index: 5;
-}
-
 .riman-service-card {
   background: #fff;
   border: none;
