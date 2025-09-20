@@ -1,5 +1,8 @@
 <?php
 // RIMAN Blocks: Service Cards (dynamic) – shows terms as RIMAN service cards
+if (defined('RIMAN_BLOCKS_DIR')) {
+    require_once RIMAN_BLOCKS_DIR . 'includes/class-service-cards-overlap.php';
+}
 if (!defined('ABSPATH')) exit;
 
 add_action('init', function() {
@@ -66,6 +69,12 @@ add_action('init', function() {
             $has_tablet_override = ($tablet_width && $tablet_width !== 'default');
             $has_mobile_override = ($mobile_width && $mobile_width !== 'default');
             $has_lower_breakpoint_override = $has_tablet_override || $has_mobile_override;
+
+            $service_cards_overlap = 0;
+            $current_page_id = get_the_ID();
+            if ($current_page_id) {
+                $service_cards_overlap = absint(get_post_meta($current_page_id, '_riman_service_cards_offset', true));
+            }
 
             // Get items based on source
             $items = [];
@@ -441,6 +450,16 @@ add_action('init', function() {
                     $wrapper_style = rtrim($wrapper_style, ';') . ';' . $custom_style;
                 } else {
                     $wrapper_style = $custom_style;
+                }
+            }
+
+            if ($service_cards_overlap > 0) {
+                $wrapper_classes[] = 'sc-overlap';
+                $overlap_css = 'margin-top:-' . $service_cards_overlap . 'px;';
+                if ($wrapper_style !== '') {
+                    $wrapper_style = rtrim($wrapper_style, ';') . ';' . $overlap_css;
+                } else {
+                    $wrapper_style = $overlap_css;
                 }
             }
 
