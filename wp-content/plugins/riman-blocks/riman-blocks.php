@@ -74,6 +74,8 @@ $maybe_blocks = [
     'blocks/shortcode-category-content.php',
     'blocks/category-hero.php',          // ← WICHTIG: unser Hero mit Video
     'blocks/category-hero-slider.php',
+    'blocks/riman-hero-meta.php',        // Meta Box für riman_seiten
+    'blocks/riman-page-hero.php',        // RIMAN Page Hero für FSE Templates
 ];
 
 foreach ($maybe_blocks as $rel) { riman_require($rel); }
