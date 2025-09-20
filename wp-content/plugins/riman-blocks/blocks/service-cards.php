@@ -67,6 +67,17 @@ add_action('init', function() {
             $has_mobile_override = ($mobile_width && $mobile_width !== 'default');
             $has_lower_breakpoint_override = $has_tablet_override || $has_mobile_override;
 
+            $service_cards_overlap = 0;
+            if (class_exists('RIMAN_Hero_Meta')) {
+                $current_id = get_the_ID();
+                if ($current_id && get_post_type($current_id) === 'riman_seiten') {
+                    $page_meta_overlap = RIMAN_Hero_Meta::get_hero_meta($current_id);
+                    if (!empty($page_meta_overlap['service_cards_overlap'])) {
+                        $service_cards_overlap = absint($page_meta_overlap['service_cards_overlap']);
+                    }
+                }
+            }
+
             // Get items based on source
             $items = [];
             if ($source === 'riman') {
@@ -441,6 +452,16 @@ add_action('init', function() {
                     $wrapper_style = rtrim($wrapper_style, ';') . ';' . $custom_style;
                 } else {
                     $wrapper_style = $custom_style;
+                }
+            }
+
+            if ($service_cards_overlap > 0) {
+                $wrapper_classes[] = 'sc-overlap';
+                $overlap_value = '-'.$service_cards_overlap.'px';
+                if ($wrapper_style !== '') {
+                    $wrapper_style = rtrim($wrapper_style, ';') . ';margin-top:' . $overlap_value . ';';
+                } else {
+                    $wrapper_style = 'margin-top:' . $overlap_value . ';';
                 }
             }
 
