@@ -1,0 +1,517 @@
+/* RIMAN Service Cards - Responsive Alignment Styles */
+
+.riman-service-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--riman-columns, 3), 1fr);
+  gap: 40px;
+  margin: 40px 0;
+}
+.riman-service-section-header { text-align:center; margin: 0 0 24px; }
+.riman-section-label { display:inline-block; background:#b68c2f; color:#fff; padding:6px 20px; border-radius:20px; font-size:.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.riman-service-grid.columns-1 { --riman-columns: 1; }
+.riman-service-grid.columns-2 { --riman-columns: 2; }
+.riman-service-grid.columns-3 { --riman-columns: 3; }
+.riman-service-grid.columns-4 { --riman-columns: 4; }
+
+/* Tablet: WordPress Standard Responsive Verhalten */
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* Service Cards Grid: 2 Spalten auf Tablet */
+  .riman-service-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 32px;
+  }
+
+  /* Container: Standard container with padding on tablet */
+  .riman-service-cards-wrap.sc-container,
+  .riman-service-cards-wrap.sc-container.sc-responsive {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--wp-padding) !important;
+    padding-right: var(--wp-padding) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Wide: Extends closer to edges with reduced padding */
+  .riman-service-cards-wrap.alignwide:not(.sc-container),
+  .riman-service-cards-wrap.alignwide.sc-responsive:not(.sc-container) {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: calc(-1 * var(--wp-padding) / 2) !important;
+    margin-right: calc(-1 * var(--wp-padding) / 2) !important;
+    padding-left: calc(var(--wp-padding) / 2) !important;
+    padding-right: calc(var(--wp-padding) / 2) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Full: True full width, breaks out of container */
+  .riman-service-cards-wrap.alignfull:not(.sc-container),
+  .riman-service-cards-wrap.alignfull.sc-responsive:not(.sc-container) {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Full width: Cards get internal padding */
+  .riman-service-cards-wrap.alignfull:not(.sc-container) .riman-service-grid,
+  .riman-service-cards-wrap.alignfull.sc-responsive:not(.sc-container) .riman-service-grid {
+    padding-left: var(--wp-padding) !important;
+    padding-right: var(--wp-padding) !important;
+  }
+}
+
+/* Mobile: WordPress Standard Responsive Verhalten */
+@media (max-width: 767px) {
+  /* Service Cards Grid: Single column auf Mobile */
+  .riman-service-grid {
+    --riman-columns: 1 !important;
+    grid-template-columns: 1fr !important;
+    gap: 28px;
+  }
+
+  /* Container: Standard container with padding on mobile */
+  .riman-service-cards-wrap.sc-container,
+  .riman-service-cards-wrap.sc-container.sc-responsive {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--wp-padding) !important;
+    padding-right: var(--wp-padding) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Wide: Extends closer to edges with reduced padding */
+  .riman-service-cards-wrap.alignwide:not(.sc-container),
+  .riman-service-cards-wrap.alignwide.sc-responsive:not(.sc-container) {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: calc(-1 * var(--wp-padding) / 2) !important;
+    margin-right: calc(-1 * var(--wp-padding) / 2) !important;
+    padding-left: calc(var(--wp-padding) / 2) !important;
+    padding-right: calc(var(--wp-padding) / 2) !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Full: True full width, breaks out of container */
+  .riman-service-cards-wrap.alignfull:not(.sc-container),
+  .riman-service-cards-wrap.alignfull.sc-responsive:not(.sc-container) {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Full width: Cards get internal padding */
+  .riman-service-cards-wrap.alignfull:not(.sc-container) .riman-service-grid,
+  .riman-service-cards-wrap.alignfull.sc-responsive:not(.sc-container) .riman-service-grid {
+    padding-left: var(--wp-padding) !important;
+    padding-right: var(--wp-padding) !important;
+  }
+}
+
+/* Responsive width overrides driven by meta box selections */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-wide,
+  .riman-service-cards-wrap.sc-container.sc-responsive.sc-tablet-wide,
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-wide.alignwide {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: calc(var(--wp-padding, 30px) / 2) !important;
+    padding-right: calc(var(--wp-padding, 30px) / 2) !important;
+    box-sizing: border-box !important;
+  }
+
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-full,
+  .riman-service-cards-wrap.sc-container.sc-responsive.sc-tablet-full,
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-full.alignwide,
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-full.alignfull {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-custom,
+  .riman-service-cards-wrap.sc-container.sc-responsive.sc-tablet-custom,
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-custom.alignwide,
+  .riman-service-cards-wrap.sc-responsive.sc-tablet-custom.alignfull {
+    width: var(--sc-tablet-custom-width, 100%) !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-wide,
+  .riman-service-cards-wrap.sc-container.sc-responsive.sc-mobile-wide,
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-wide.alignwide {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: calc(var(--wp-padding, 30px) / 2) !important;
+    padding-right: calc(var(--wp-padding, 30px) / 2) !important;
+    box-sizing: border-box !important;
+  }
+
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-full,
+  .riman-service-cards-wrap.sc-container.sc-responsive.sc-mobile-full,
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-full.alignwide,
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-full.alignfull {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-custom,
+  .riman-service-cards-wrap.sc-container.sc-responsive.sc-mobile-custom,
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-custom.alignwide,
+  .riman-service-cards-wrap.sc-responsive.sc-mobile-custom.alignfull {
+    width: var(--sc-mobile-custom-width, 100%) !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .riman-service-cards-wrap.sc-desktop-wide {
+    width: 100% !important;
+    max-width: var(--local-wide-size) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: calc(var(--wp-padding, 30px) / 2) !important;
+    padding-right: calc(var(--wp-padding, 30px) / 2) !important;
+    box-sizing: border-box !important;
+  }
+
+  .riman-service-cards-wrap.sc-desktop-full {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .riman-service-cards-wrap.sc-responsive.sc-desktop-custom {
+    width: var(--sc-desktop-custom-width, 100%) !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+}
+
+
+/* Ensure CSS variables are available in all template contexts */
+.riman-service-cards-wrap {
+  /* Use WordPress Global Styles layout values from Site Editor - WORDPRESS STANDARD */
+  --local-content-size: var(--wp--style--global--content-size, 1140px);
+  --local-wide-size: var(--wp--style--global--wide-size, 1170px);
+  /* WordPress standard padding system */
+  --wp-padding: clamp(30px, 5vw, 50px);
+}
+
+.riman-service-card {
+  background: #fff;
+  border: none;
+  border-radius: 0;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  display: block;
+  position: relative;
+  overflow: visible;
+  min-height: 480px;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Dashed border inside card */
+.riman-service-card::after {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  border: 1px dashed rgba(182, 140, 47, 0.4);
+  border-radius: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* White overlay behind curved image */
+.riman-service-card::before {
+  display: none;
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  height: 180px;
+  background: #fff;
+  z-index: 2;
+  pointer-events: none;
+}
+.riman-service-card.shape-ellipse::before { display: block; }
+
+
+
+
+.riman-service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(182, 140, 47, 0.12), 0 8px 16px rgba(0,0,0,0.08);
+}
+.riman-service-card:hover::after {
+  border-color: rgba(182,140,47,0.6);
+}
+
+.riman-card-media { height: 280px; overflow: hidden; position: relative; background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); z-index: 2; display:block; width: 100%; }
+.riman-card-media--has-video { background: none; }
+.riman-card-media img,
+.riman-card-media video,
+.riman-card-media .riman-card-media--placeholder { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.riman-card-media img,
+.riman-card-media .riman-card-media--placeholder { z-index: 1; transition: opacity 0.2s ease; }
+.riman-card-media video { z-index: 2; background: #000; opacity: 0; transition: opacity 0.2s ease; }
+.riman-card-media video.is-active { opacity: 1; }
+.riman-service-card.riman-card-has-video .riman-card-media::after {
+  content: '\25B6';
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.85);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.85);
+  color: #fff;
+  font-size: 22px;
+  line-height: 48px;
+  text-align: center;
+  font-family: 'Arial', 'Helvetica', sans-serif;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+.riman-service-card.riman-card-video-ended .riman-card-media::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+.riman-card-media.shape-ellipse { clip-path: ellipse(100% 85% at 50% 0%); -webkit-clip-path: ellipse(100% 85% at 50% 0%); }
+.riman-card-media.shape-wave { overflow: visible; clip-path: none; -webkit-clip-path: none; }
+.riman-card-media.shape-wave img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position: center;
+  clip-path: inset(0);
+}
+.riman-card-media.shape-wave::after { display:none; }
+.riman-card-wave { position:absolute; left:0; right:0; bottom:var(--wave-offset, -28px); height:var(--wave-height, 160px); z-index:3; pointer-events:none; }
+.riman-card-wave svg { width:100%; height:100%; display:block; }
+.riman-card-media.shape-none { clip-path: none; -webkit-clip-path: none; }
+.riman-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+.riman-card-media--placeholder { width: 100%; height: 100%; background: linear-gradient(135deg,#f5f5f5,#eaeaea); }
+.riman-card-icon { position:absolute; top:207px; left:50%; transform:translateX(-50%); width:80px; height:80px; border-radius:50%; background: linear-gradient(135deg, #B68C2F 0%, #D4A644 100%); display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 16px rgba(182, 140, 47, 0.3); transition: all 0.3s ease; z-index:5; border:4px solid #fff; color:#fff; }
+.riman-card-icon i { font-size: 40px; line-height: 1; color: #fff; display: block; }
+.riman-service-card:hover .riman-card-icon { transform: translateX(-50%) scale(1.1); box-shadow: 0 6px 20px rgba(182, 140, 47, 0.4); }
+.riman-card-category { position:absolute; top:305px; left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#B68C2F; background:transparent; padding:4px 8px; z-index:4; white-space:nowrap; }
+.riman-card-content { padding: 50px 30px 30px; text-align: center; display:flex; flex-direction:column; align-items:center; }
+
+/* Dynamische Ableitung der Icon-Position relativ zur Wellenkante */
+.riman-service-card.shape-wave { --riman-icon-top: calc(var(--riman-wave-overlay-top, 220px) + (var(--riman-wave-height, 160px) * 0.52) + var(--riman-wave-gap, 24px)); }
+.riman-card-title { font-size: 1.25rem; margin: 0 0 10px; color:#1e4a6d; font-weight:600; }
+/* Erzwinge Titel-Farbe (überschreibt Theme-Linkfarben) */
+.riman-service-card .riman-card-title,
+.riman-service-card:link .riman-card-title,
+.riman-service-card:visited .riman-card-title,
+.riman-service-card:hover .riman-card-title,
+.riman-service-card:focus .riman-card-title,
+.riman-service-card:active .riman-card-title {
+  color: #1e4a6d !important;
+}
+.riman-card-description { color:#555; margin:0; line-height: 1.6; word-break: normal; overflow-wrap: anywhere; max-width: 60ch; margin-left: auto; margin-right: auto; }
+
+/* CTA: Mehr erfahren */
+.riman-card-cta {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 16px;
+  border: 1px solid #B68C2F;
+  color: #B68C2F;
+  background: transparent;
+  border-radius: 0;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all .2s ease;
+}
+.riman-service-card:hover .riman-card-cta {
+  background: #B68C2F;
+  color: #fff;
+}
+.riman-card-description.align-center-justify { text-align: justify; text-justify: inter-word; text-align-last: center; -moz-text-align-last: center; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; }
+.riman-card-description.align-justify { text-align: justify; text-justify: inter-word; text-align-last: left; -moz-text-align-last: left; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; }
+.riman-card-description.align-left { text-align: left; text-align-last: left; -moz-text-align-last: left; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; }
+.riman-card-description.align-center { text-align: center; text-align-last: center; -moz-text-align-last: center; hyphens: auto; -webkit-hyphens: auto; -ms-hyphens: auto; }
+
+/* Links im Service-Card-Anchor nicht unterstreichen */
+.riman-service-card,
+.riman-service-card:link,
+.riman-service-card:visited,
+.riman-service-card:hover,
+.riman-service-card:focus,
+.riman-service-card:active {
+  text-decoration: none;
+}
+.riman-service-card .riman-card-title,
+.riman-service-card .riman-card-description {
+  text-decoration: none;
+}
+
+
+/* WordPress Standard: Container und Wide Verhalten auf Desktop */
+@media (min-width: 1200px) {
+  /* Standard Container - WordPress-konform */
+  .riman-service-cards-wrap:not(.alignfull):not(.alignwide):not(.sc-responsive) {
+    width: 100%;
+    max-width: var(--local-content-size);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--wp-padding);
+    padding-right: var(--wp-padding);
+    box-sizing: border-box;
+  }
+
+  /* Wide Container - WordPress-konform */
+  .riman-service-cards-wrap.alignwide:not(.sc-responsive) {
+    width: 100%;
+    max-width: var(--local-wide-size);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--wp-padding);
+    padding-right: var(--wp-padding);
+    box-sizing: border-box;
+  }
+}
+
+/* Enforce alignfull breakout for NON-responsive Service Cards wrapper */
+.wp-block-riman-service-cards.alignfull:not(.sc-responsive),
+.riman-service-cards-wrap.alignfull:not(.sc-responsive) {
+  box-sizing: border-box;
+  width: calc(100vw - (100vw - 100%));
+  max-width: calc(100vw - (100vw - 100%));
+  margin-left: calc(50% - 50vw + (100vw - 100%)/2);
+  margin-right: calc(50% - 50vw + (100vw - 100%)/2);
+}
+
+/* Base responsive override: Inline styles take precedence when sc-responsive is active */
+.riman-service-cards-wrap.sc-responsive {
+  /* Prepare for device-specific inline styles */
+  width: auto;
+  max-width: none;
+}
+
+/* Container Alignment: Standard container width from Global Styles - HIGHEST PRIORITY */
+.riman-service-cards-wrap.sc-container,
+.riman-service-cards-wrap.sc-container.sc-responsive {
+  width: 100% !important;
+  max-width: var(--local-content-size) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--wp-padding) !important;
+  padding-right: var(--wp-padding) !important;
+  box-sizing: border-box !important;
+}
+
+/* Wide Alignment: Desktop gets wide size, responsive behavior on smaller screens */
+@media (min-width: 1200px) {
+  .riman-service-cards-wrap.alignwide:not(.sc-container),
+  .riman-service-cards-wrap.alignwide.sc-responsive:not(.sc-container) {
+    width: 100% !important;
+    max-width: var(--local-wide-size) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: var(--wp-padding) !important;
+    padding-right: var(--wp-padding) !important;
+    box-sizing: border-box !important;
+  }
+}
+
+/* Full Alignment: Full viewport width on all screens */
+.riman-service-cards-wrap.alignfull:not(.sc-container),
+.riman-service-cards-wrap.alignfull.sc-responsive:not(.sc-container) {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* Full width: Cards inside get padding for content */
+.riman-service-cards-wrap.alignfull:not(.sc-container) .riman-service-grid,
+.riman-service-cards-wrap.alignfull.sc-responsive:not(.sc-container) .riman-service-grid {
+  padding-left: var(--wp-padding) !important;
+  padding-right: var(--wp-padding) !important;
+}
+
+/* WordPress Standard: Responsive Settings nur für custom responsive Einstellungen */
+@media (min-width: 1200px) {
+  .riman-service-cards-wrap.sc-responsive.alignwide {
+    width: var(--local-wide-size) !important;
+    max-width: calc(100vw - 2 * var(--wp-padding)) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .riman-service-cards-wrap.sc-responsive.alignfull {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+  }
+}
