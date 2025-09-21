@@ -81,6 +81,11 @@ $maybe_blocks = [
 foreach ($maybe_blocks as $rel) { riman_require($rel); }
 
 /**
+ * Meta Boxes laden
+ */
+riman_require('includes/class-service-cards-overlap.php');
+
+/**
  * Optionale Patterns
  */
 riman_require('patterns/page-hero.php');

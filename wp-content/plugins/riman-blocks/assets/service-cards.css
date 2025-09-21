@@ -247,7 +247,8 @@
   padding: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   text-align: center;
-  display: block;
+  display: flex;
+  flex-direction: column;
   position: relative;
   overflow: visible;
   min-height: 480px;
@@ -376,7 +377,18 @@
 .riman-card-icon i { font-size: 40px; line-height: 1; color: #fff; display: block; }
 .riman-service-card:hover .riman-card-icon { transform: translateX(-50%) scale(1.1); box-shadow: 0 6px 20px rgba(182, 140, 47, 0.4); }
 .riman-card-category { position:absolute; top:305px; left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#B68C2F; background:transparent; padding:4px 8px; z-index:4; white-space:nowrap; }
-.riman-card-content { padding: 50px 30px 30px; text-align: center; display:flex; flex-direction:column; align-items:center; }
+.riman-card-content { padding: 50px 30px 20px; text-align: center; display:flex; flex-direction:column; align-items:center; }
+
+/* Content Offset - Verschiebt Inhalt ab Icon nach unten */
+.riman-service-card[style*="--riman-content-offset"] .riman-card-icon {
+  top: calc(207px + var(--riman-content-offset, 0px));
+}
+.riman-service-card[style*="--riman-content-offset"] .riman-card-category {
+  top: calc(305px + var(--riman-content-offset, 0px));
+}
+.riman-service-card[style*="--riman-content-offset"] .riman-card-content {
+  padding-top: calc(50px + var(--riman-content-offset, 0px));
+}
 
 /* Dynamische Ableitung der Icon-Position relativ zur Wellenkante */
 .riman-service-card.shape-wave { --riman-icon-top: calc(var(--riman-wave-overlay-top, 220px) + (var(--riman-wave-height, 160px) * 0.52) + var(--riman-wave-gap, 24px)); }
@@ -531,4 +543,65 @@
     margin-left: calc(50% - 50vw) !important;
     margin-right: calc(50% - 50vw) !important;
   }
+}
+
+/* RIMAN Service Cards - "Mehr erfahren" Button - Flexbox Layout */
+.riman-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* WordPress Button Alignment */
+.riman-card-button {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+/* RIMAN Service Cards - Subtle Button Styling */
+.riman-card-button .wp-block-button__link {
+  /* Override global styles with subtle RIMAN design */
+  background: transparent !important;
+  color: #B68C2F !important;
+  border: none !important;
+  padding: 8px 16px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  position: relative !important;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.2s ease !important;
+  border-radius: 0 !important;
+  white-space: nowrap !important;
+  min-width: fit-content !important;
+}
+
+/* Arrow icon */
+.riman-card-button .wp-block-button__link::after {
+  content: '→';
+  font-size: 16px;
+  line-height: 1;
+  margin-left: 4px;
+  transition: transform 0.2s ease;
+}
+
+/* Hover effects */
+.riman-card-button .wp-block-button__link:hover {
+  background: rgba(182, 140, 47, 0.05) !important;
+  color: #9e7a28 !important;
+  transform: translateX(2px) !important;
+}
+
+.riman-card-button .wp-block-button__link:hover::after {
+  transform: translateX(4px);
+}
+
+/* Make service cards with buttons still look clickable */
+.riman-service-card[data-href] {
+  cursor: pointer;
 }

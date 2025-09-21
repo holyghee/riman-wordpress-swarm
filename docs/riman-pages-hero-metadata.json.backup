@@ -1,0 +1,765 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2025-01-18",
+    "description": "Complete hero metadata for all RIMAN WordPress pages based on sample content structure",
+    "total_pages": 32,
+    "structure": {
+      "hauptseiten": 2,
+      "unterseiten": 7,
+      "detailseiten": 22,
+      "info_seiten": "variable (3-4 per detailseite with info children)"
+    }
+  },
+  "pages": {
+    "hauptseiten": [
+      {
+        "id": "hauptseite_1",
+        "title": "Sicherheits-Koordination & Mediation",
+        "slug": "sicherheits-koordination-mediation",
+        "image_path": "/content/images/hero/security-coordination-mediation.jpg",
+        "alt_text": "Professionelle Sicherheitskoordination und Mediation für sichere Projekte",
+        "caption": "Umfassende Betreuung für sichere und konfliktfreie Projekte",
+        "description": "Professionelle Sicherheitskoordination und Mediation für alle Bereiche. Von privaten Konflikten bis hin zu komplexen Bauprojekten.",
+        "theme": "mediation-security",
+        "agent_id": "coordination-specialist",
+        "quadrant": "northwest",
+        "hero": {
+          "title": "Sicherheits-Koordination & Mediation",
+          "subtitle": "Professionelle Lösungen für sichere und konfliktfreie Projekte",
+          "area_label": "Mediation & Sicherheit",
+          "icon": "fas fa-shield-alt"
+        }
+      },
+      {
+        "id": "hauptseite_2",
+        "title": "Sicherheits-Management im Baubereich",
+        "slug": "sicherheits-management-baubereich",
+        "image_path": "/content/images/hero/construction-safety-management.jpg",
+        "alt_text": "Ganzheitliches Sicherheitsmanagement für den Baubereich",
+        "caption": "Komplexe Bauvorhaben sicher und professionell managen",
+        "description": "Ganzheitliches Sicherheitsmanagement für den Baubereich. Abbruch, Schadstoffe, Entsorgung und Altlasten professionell managen.",
+        "theme": "construction-management",
+        "agent_id": "construction-manager",
+        "quadrant": "northeast",
+        "hero": {
+          "title": "Sicherheits-Management im Baubereich",
+          "subtitle": "Ganzheitliches Management für komplexe Bauvorhaben",
+          "area_label": "Bau-Management",
+          "icon": "fas fa-hard-hat"
+        }
+      }
+    ],
+    "unterseiten": [
+      {
+        "id": "unterseite_1_1",
+        "parent_id": "hauptseite_1",
+        "title": "Mediation im Privat-Bereich",
+        "slug": "mediation-privat-bereich",
+        "image_path": "/content/images/hero/private-mediation.jpg",
+        "alt_text": "Professionelle Mediation für private Konflikte",
+        "caption": "Konstruktive Lösungen für Familie, Nachbarschaft und Freundeskreis",
+        "description": "Professionelle Mediation für private Konflikte. Konstruktive Lösungen für Familie, Nachbarschaft und Freundeskreis.",
+        "theme": "private-mediation",
+        "agent_id": "family-mediator",
+        "quadrant": "west",
+        "hero": {
+          "title": "Mediation im Privat-Bereich",
+          "subtitle": "Konstruktive Lösungen für private Konflikte",
+          "area_label": "Private Mediation",
+          "icon": "fas fa-home"
+        }
+      },
+      {
+        "id": "unterseite_1_2",
+        "parent_id": "hauptseite_1",
+        "title": "Mediation in Unternehmen",
+        "slug": "mediation-unternehmen",
+        "image_path": "/content/images/hero/business-mediation.jpg",
+        "alt_text": "Mediation bei betrieblichen Konflikten",
+        "caption": "Harmonisches Arbeitsklima und effiziente Zusammenarbeit",
+        "description": "Mediation bei betrieblichen Konflikten. Für ein harmonisches Arbeitsklima und effiziente Zusammenarbeit.",
+        "theme": "business-mediation",
+        "agent_id": "business-mediator",
+        "quadrant": "center",
+        "hero": {
+          "title": "Mediation in Unternehmen",
+          "subtitle": "Harmonisches Arbeitsklima durch professionelle Konfliktlösung",
+          "area_label": "Unternehmens-Mediation",
+          "icon": "fas fa-building"
+        }
+      },
+      {
+        "id": "unterseite_1_3",
+        "parent_id": "hauptseite_1",
+        "title": "Sicherheits-Koordination & Mediation im Baubereich",
+        "slug": "sicherheits-koordination-mediation-baubereich",
+        "image_path": "/content/images/hero/construction-coordination-mediation.jpg",
+        "alt_text": "Spezialisierte Koordination und Mediation für Bauprojekte",
+        "caption": "Sicherheit und Konfliktlösung aus einer Hand",
+        "description": "Spezialisierte Koordination und Mediation für Bauprojekte. Sicherheit und Konfliktlösung aus einer Hand.",
+        "theme": "construction-coordination",
+        "agent_id": "construction-coordinator",
+        "quadrant": "east",
+        "hero": {
+          "title": "Sicherheits-Koordination & Mediation im Baubereich",
+          "subtitle": "Sicherheit und Konfliktlösung aus einer Hand",
+          "area_label": "Bau-Koordination",
+          "icon": "fas fa-hard-hat"
+        }
+      },
+      {
+        "id": "unterseite_2_1",
+        "parent_id": "hauptseite_2",
+        "title": "Abbruch-Management",
+        "slug": "abbruch-management",
+        "image_path": "/content/images/hero/demolition-management.jpg",
+        "alt_text": "Professionelles Management für Abbruchprojekte",
+        "caption": "Von der Planung bis zur fachgerechten Ausführung",
+        "description": "Professionelles Management für Abbruchprojekte. Von der Planung bis zur fachgerechten Ausführung.",
+        "theme": "demolition-management",
+        "agent_id": "demolition-manager",
+        "quadrant": "southwest",
+        "hero": {
+          "title": "Abbruch-Management",
+          "subtitle": "Professionelles Management für sichere Abbruchprojekte",
+          "area_label": "Abbruch-Projekte",
+          "icon": "fas fa-hammer"
+        }
+      },
+      {
+        "id": "unterseite_2_2",
+        "parent_id": "hauptseite_2",
+        "title": "Schadstoff-Management",
+        "slug": "schadstoff-management",
+        "image_path": "/content/images/hero/hazmat-management.jpg",
+        "alt_text": "Umfassendes Management von Gefahrstoffen im Baubereich",
+        "caption": "Sicherheit und Vorschrifteneinhaltung garantiert",
+        "description": "Umfassendes Management von Gefahrstoffen im Baubereich. Sicherheit und Vorschrifteneinhaltung garantiert.",
+        "theme": "hazmat-management",
+        "agent_id": "hazmat-specialist",
+        "quadrant": "south",
+        "hero": {
+          "title": "Schadstoff-Management",
+          "subtitle": "Sicherer Umgang mit Gefahrstoffen im Baubereich",
+          "area_label": "Gefahrstoff-Management",
+          "icon": "fas fa-exclamation-triangle"
+        }
+      },
+      {
+        "id": "unterseite_2_3",
+        "parent_id": "hauptseite_2",
+        "title": "Entsorgungs-Management",
+        "slug": "entsorgungs-management",
+        "image_path": "/content/images/hero/waste-management.jpg",
+        "alt_text": "Professionelle Entsorgung und Verwertung von Baumaterialien",
+        "caption": "Umweltgerecht und kosteneffizient",
+        "description": "Professionelle Entsorgung und Verwertung von Baumaterialien. Umweltgerecht und kosteneffizient.",
+        "theme": "waste-management",
+        "agent_id": "waste-specialist",
+        "quadrant": "southeast",
+        "hero": {
+          "title": "Entsorgungs-Management",
+          "subtitle": "Umweltgerechte und kosteneffiziente Entsorgungslösungen",
+          "area_label": "Entsorgung",
+          "icon": "fas fa-recycle"
+        }
+      },
+      {
+        "id": "unterseite_2_4",
+        "parent_id": "hauptseite_2",
+        "title": "Altlasten-Management",
+        "slug": "altlasten-management",
+        "image_path": "/content/images/hero/contaminated-sites-management.jpg",
+        "alt_text": "Spezialisiertes Management für Altlastensanierung",
+        "caption": "Professionell, sicher und umweltgerecht",
+        "description": "Spezialisiertes Management für Altlastensanierung. Professionell, sicher und umweltgerecht.",
+        "theme": "contaminated-sites",
+        "agent_id": "contamination-specialist",
+        "quadrant": "east",
+        "hero": {
+          "title": "Altlasten-Management",
+          "subtitle": "Professionelle Sanierung kontaminierter Standorte",
+          "area_label": "Altlasten-Sanierung",
+          "icon": "fas fa-leaf"
+        }
+      }
+    ],
+    "detailseiten": [
+      {
+        "id": "detailseite_1_1_1",
+        "parent_id": "unterseite_1_1",
+        "title": "Mediation innerhalb von Familien",
+        "slug": "mediation-innerhalb-familien",
+        "image_path": "/content/images/hero/family-mediation.jpg",
+        "alt_text": "Familiäre Konflikte professionell lösen",
+        "caption": "Mediation für mehr Harmonie im Familienleben",
+        "description": "Familiäre Konflikte professionell lösen. Mediation für mehr Harmonie im Familienleben.",
+        "theme": "family-mediation",
+        "agent_id": "family-counselor",
+        "quadrant": "northwest",
+        "has_info_children": true,
+        "hero": {
+          "title": "Mediation innerhalb von Familien",
+          "subtitle": "Professionelle Lösungen für familiäre Konflikte",
+          "area_label": "Familien-Mediation",
+          "icon": "fas fa-home"
+        }
+      },
+      {
+        "id": "detailseite_1_1_2",
+        "parent_id": "unterseite_1_1",
+        "title": "Mediation im erweiterten privaten Umfeld",
+        "slug": "mediation-erweitertes-privates-umfeld",
+        "image_path": "/content/images/hero/community-mediation.jpg",
+        "alt_text": "Konflikte in Nachbarschaft und sozialen Kreisen lösen",
+        "caption": "Konstruktive Lösungen für das erweiterte Umfeld",
+        "description": "Konflikte in Nachbarschaft, Vereinen und erweiterten sozialen Kreisen konstruktiv lösen.",
+        "theme": "community-mediation",
+        "agent_id": "community-mediator",
+        "quadrant": "northeast",
+        "has_info_children": true,
+        "hero": {
+          "title": "Mediation im erweiterten privaten Umfeld",
+          "subtitle": "Konfliktlösung in Nachbarschaft und Gemeinde",
+          "area_label": "Gemeinde-Mediation",
+          "icon": "fas fa-handshake"
+        }
+      },
+      {
+        "id": "detailseite_1_2_1",
+        "parent_id": "unterseite_1_2",
+        "title": "Mediation innerhalb von Unternehmen",
+        "slug": "mediation-innerhalb-unternehmen",
+        "image_path": "/content/images/hero/internal-business-mediation.jpg",
+        "alt_text": "Innerbetriebliche Konflikte professionell lösen",
+        "caption": "Bessere Zusammenarbeit und höhere Produktivität",
+        "description": "Innerbetriebliche Konflikte professionell lösen. Für bessere Zusammenarbeit und höhere Produktivität.",
+        "theme": "internal-business",
+        "agent_id": "workplace-mediator",
+        "quadrant": "west",
+        "has_info_children": true,
+        "hero": {
+          "title": "Mediation innerhalb von Unternehmen",
+          "subtitle": "Innerbetriebliche Konflikte professionell lösen",
+          "area_label": "Betriebsinterne Mediation",
+          "icon": "fas fa-building"
+        }
+      },
+      {
+        "id": "detailseite_1_2_2",
+        "parent_id": "unterseite_1_2",
+        "title": "Mediation zwischen Unternehmen",
+        "slug": "mediation-zwischen-unternehmen",
+        "image_path": "/content/images/hero/business-to-business-mediation.jpg",
+        "alt_text": "Geschäftskonflikte zwischen Unternehmen lösen",
+        "caption": "Konstruktive Lösungen für Geschäftskonflikte",
+        "description": "Geschäftskonflikte und Streitigkeiten zwischen Unternehmen konstruktiv lösen.",
+        "theme": "b2b-mediation",
+        "agent_id": "commercial-mediator",
+        "quadrant": "east",
+        "has_info_children": true,
+        "hero": {
+          "title": "Mediation zwischen Unternehmen",
+          "subtitle": "Geschäftskonflikte professionell beilegen",
+          "area_label": "B2B-Mediation",
+          "icon": "fas fa-handshake"
+        }
+      },
+      {
+        "id": "detailseite_1_3_1",
+        "parent_id": "unterseite_1_3",
+        "title": "Sicherheitskoordination",
+        "slug": "sicherheitskoordination",
+        "image_path": "/content/images/hero/safety-coordination.jpg",
+        "alt_text": "Professionelle Sicherheitskoordination auf Baustellen",
+        "caption": "Maximale Sicherheit gemäß BauStVO und TRGS",
+        "description": "Professionelle Sicherheitskoordination gemäß BauStVO und TRGS. Für maximale Sicherheit auf der Baustelle.",
+        "theme": "safety-coordination",
+        "agent_id": "safety-coordinator",
+        "quadrant": "center",
+        "has_info_children": true,
+        "hero": {
+          "title": "Sicherheitskoordination",
+          "subtitle": "Maximale Sicherheit auf der Baustelle",
+          "area_label": "Sicherheits-Koordination",
+          "icon": "fas fa-shield-alt"
+        }
+      },
+      {
+        "id": "detailseite_1_3_2",
+        "parent_id": "unterseite_1_3",
+        "title": "Mediation im Baubereich",
+        "slug": "mediation-baubereich",
+        "image_path": "/content/images/hero/construction-mediation.jpg",
+        "alt_text": "Baukonflikte professionell lösen",
+        "caption": "Von der Genehmigungsplanung bis zur Ausführung",
+        "description": "Baukonflikte professionell lösen. Von der Genehmigungsplanung bis zur Ausführung.",
+        "theme": "construction-mediation",
+        "agent_id": "construction-mediator",
+        "quadrant": "south",
+        "has_info_children": true,
+        "hero": {
+          "title": "Mediation im Baubereich",
+          "subtitle": "Baukonflikte in allen Projektphasen lösen",
+          "area_label": "Bau-Mediation",
+          "icon": "fas fa-tools"
+        }
+      },
+      {
+        "id": "detailseite_2_1_1",
+        "parent_id": "unterseite_2_1",
+        "title": "Abbruchmanagement - braucht's das?",
+        "slug": "abbruchmanagement-braucht-das",
+        "image_path": "/content/images/hero/demolition-necessity.jpg",
+        "alt_text": "Warum professionelles Abbruchmanagement unverzichtbar ist",
+        "caption": "Risiken minimieren, Kosten optimieren",
+        "description": "Warum professionelles Abbruchmanagement unverzichtbar ist. Risiken minimieren, Kosten optimieren.",
+        "theme": "demolition-planning",
+        "agent_id": "demolition-planner",
+        "quadrant": "northwest",
+        "has_info_children": false,
+        "hero": {
+          "title": "Abbruchmanagement - braucht's das?",
+          "subtitle": "Professionelles Management minimiert Risiken",
+          "area_label": "Abbruch-Planung",
+          "icon": "fas fa-question-circle"
+        }
+      },
+      {
+        "id": "detailseite_2_1_2",
+        "parent_id": "unterseite_2_1",
+        "title": "Erkundung statischer Risiken",
+        "slug": "erkundung-statischer-risiken",
+        "image_path": "/content/images/hero/structural-risk-assessment.jpg",
+        "alt_text": "Professionelle Analyse der Bausubstanz vor dem Abbruch",
+        "caption": "Statische Verhältnisse sicher bewerten",
+        "description": "Professionelle Analyse der Bausubstanz und statischen Verhältnisse vor dem Abbruch.",
+        "theme": "structural-analysis",
+        "agent_id": "structural-engineer",
+        "quadrant": "northeast",
+        "has_info_children": false,
+        "hero": {
+          "title": "Erkundung statischer Risiken",
+          "subtitle": "Sichere Bewertung der Bausubstanz",
+          "area_label": "Statik-Analyse",
+          "icon": "fas fa-search"
+        }
+      },
+      {
+        "id": "detailseite_2_1_3",
+        "parent_id": "unterseite_2_1",
+        "title": "Planung/Ausschreibung",
+        "slug": "planung-ausschreibung-abbruch",
+        "image_path": "/content/images/hero/demolition-planning-tender.jpg",
+        "alt_text": "Detaillierte Planung und Ausschreibung für Abbruchprojekte",
+        "caption": "Professionelle Ausschreibung für erfolgreiche Projekte",
+        "description": "Detaillierte Planung und professionelle Ausschreibung für Abbruchprojekte.",
+        "theme": "demolition-tender",
+        "agent_id": "project-planner",
+        "quadrant": "southwest",
+        "has_info_children": false,
+        "hero": {
+          "title": "Planung/Ausschreibung",
+          "subtitle": "Professionelle Ausschreibung für Abbruchprojekte",
+          "area_label": "Projekt-Planung",
+          "icon": "fas fa-clipboard-check"
+        }
+      },
+      {
+        "id": "detailseite_2_1_4",
+        "parent_id": "unterseite_2_1",
+        "title": "Fachbauleitung Rückbau",
+        "slug": "fachbauleitung-rueckbau",
+        "image_path": "/content/images/hero/demolition-site-management.jpg",
+        "alt_text": "Professionelle Bauleitung für sicheren Rückbau",
+        "caption": "Fachgerechte Überwachung der Abbrucharbeiten",
+        "description": "Professionelle Bauleitung für fachgerechten und sicheren Rückbau.",
+        "theme": "demolition-management",
+        "agent_id": "site-manager",
+        "quadrant": "southeast",
+        "has_info_children": false,
+        "hero": {
+          "title": "Fachbauleitung Rückbau",
+          "subtitle": "Sichere Überwachung der Rückbauarbeiten",
+          "area_label": "Baustellen-Leitung",
+          "icon": "fas fa-cogs"
+        }
+      },
+      {
+        "id": "detailseite_2_2_1",
+        "parent_id": "unterseite_2_2",
+        "title": "Gefahrstoffmanagement - wo haben wir Gefahrstoffe?",
+        "slug": "gefahrstoffmanagement-wo-gefahrstoffe",
+        "image_path": "/content/images/hero/hazmat-identification.jpg",
+        "alt_text": "Systematische Identifizierung von Gefahrstoffen",
+        "caption": "Gefahrstoffe in Bausubstanz erkennen und bewerten",
+        "description": "Systematische Identifizierung und Bewertung von Gefahrstoffen in Bausubstanz.",
+        "theme": "hazmat-identification",
+        "agent_id": "hazmat-inspector",
+        "quadrant": "north",
+        "has_info_children": false,
+        "hero": {
+          "title": "Gefahrstoffmanagement - wo haben wir Gefahrstoffe?",
+          "subtitle": "Systematische Identifizierung von Gefahrstoffen",
+          "area_label": "Gefahrstoff-Erkennung",
+          "icon": "fas fa-search"
+        }
+      },
+      {
+        "id": "detailseite_2_2_2",
+        "parent_id": "unterseite_2_2",
+        "title": "Gefahrstofferkundung",
+        "slug": "gefahrstofferkundung",
+        "image_path": "/content/images/hero/hazmat-investigation.jpg",
+        "alt_text": "Professionelle Erkundung und Analyse von Gefahrstoffen",
+        "caption": "Analyse gemäß aktueller Normen und Vorschriften",
+        "description": "Professionelle Erkundung und Analyse von Gefahrstoffen gemäß aktueller Normen und Vorschriften.",
+        "theme": "hazmat-investigation",
+        "agent_id": "hazmat-analyst",
+        "quadrant": "west",
+        "has_info_children": false,
+        "hero": {
+          "title": "Gefahrstofferkundung",
+          "subtitle": "Professionelle Analyse von Gefahrstoffen",
+          "area_label": "Gefahrstoff-Analyse",
+          "icon": "fas fa-microscope"
+        }
+      },
+      {
+        "id": "detailseite_2_2_3",
+        "parent_id": "unterseite_2_2",
+        "title": "Planung/Ausschreibung",
+        "slug": "planung-ausschreibung-gefahrstoffe",
+        "image_path": "/content/images/hero/hazmat-planning-tender.jpg",
+        "alt_text": "Fachgerechte Planung und Ausschreibung für Gefahrstoffsanierung",
+        "caption": "Professionelle Ausschreibung für Sanierungsprojekte",
+        "description": "Fachgerechte Planung und Ausschreibung für Gefahrstoffsanierung.",
+        "theme": "hazmat-tender",
+        "agent_id": "hazmat-planner",
+        "quadrant": "center",
+        "has_info_children": false,
+        "hero": {
+          "title": "Planung/Ausschreibung",
+          "subtitle": "Fachgerechte Planung für Gefahrstoffsanierung",
+          "area_label": "Sanierungsplanung",
+          "icon": "fas fa-clipboard-list"
+        }
+      },
+      {
+        "id": "detailseite_2_2_4",
+        "parent_id": "unterseite_2_2",
+        "title": "Fachbauleitung Gefahrstoffsanierung",
+        "slug": "fachbauleitung-gefahrstoffsanierung",
+        "image_path": "/content/images/hero/hazmat-remediation-management.jpg",
+        "alt_text": "Spezialisierte Bauleitung für sichere Gefahrstoffsanierung",
+        "caption": "Sichere Überwachung der Sanierungsarbeiten",
+        "description": "Spezialisierte Bauleitung für die sichere Sanierung von Gefahrstoffen.",
+        "theme": "hazmat-remediation",
+        "agent_id": "remediation-manager",
+        "quadrant": "east",
+        "has_info_children": false,
+        "hero": {
+          "title": "Fachbauleitung Gefahrstoffsanierung",
+          "subtitle": "Sichere Überwachung der Sanierungsarbeiten",
+          "area_label": "Sanierungsleitung",
+          "icon": "fas fa-hard-hat"
+        }
+      },
+      {
+        "id": "detailseite_2_3_1",
+        "parent_id": "unterseite_2_3",
+        "title": "Entsorgungsmanagement - für was?",
+        "slug": "entsorgungsmanagement-fuer-was",
+        "image_path": "/content/images/hero/waste-management-necessity.jpg",
+        "alt_text": "Warum professionelles Entsorgungsmanagement notwendig ist",
+        "caption": "Vorteile und Notwendigkeit der professionellen Entsorgung",
+        "description": "Warum professionelles Entsorgungsmanagement notwendig ist und welche Vorteile es bietet.",
+        "theme": "waste-planning",
+        "agent_id": "waste-consultant",
+        "quadrant": "south",
+        "has_info_children": false,
+        "hero": {
+          "title": "Entsorgungsmanagement - für was?",
+          "subtitle": "Vorteile professioneller Entsorgungskonzepte",
+          "area_label": "Entsorgungsberatung",
+          "icon": "fas fa-question-circle"
+        }
+      },
+      {
+        "id": "detailseite_2_3_2",
+        "parent_id": "unterseite_2_3",
+        "title": "Schadstofferkundung",
+        "slug": "schadstofferkundung-entsorgung",
+        "image_path": "/content/images/hero/waste-contamination-assessment.jpg",
+        "alt_text": "Systematische Erkundung entsorgungsrelevanter Schadstoffe",
+        "caption": "Schadstoffe in Baumaterialien identifizieren",
+        "description": "Systematische Erkundung von entsorgungsrelevanten Schadstoffen in Baumaterialien.",
+        "theme": "waste-assessment",
+        "agent_id": "waste-assessor",
+        "quadrant": "southwest",
+        "has_info_children": false,
+        "hero": {
+          "title": "Schadstofferkundung",
+          "subtitle": "Entsorgungsrelevante Schadstoffe identifizieren",
+          "area_label": "Schadstoff-Bewertung",
+          "icon": "fas fa-search"
+        }
+      },
+      {
+        "id": "detailseite_2_3_3",
+        "parent_id": "unterseite_2_3",
+        "title": "Planung/Ausschreibung",
+        "slug": "planung-ausschreibung-entsorgung",
+        "image_path": "/content/images/hero/waste-planning-tender.jpg",
+        "alt_text": "Optimierte Planung und Ausschreibung für Entsorgungskonzepte",
+        "caption": "Kosteneffiziente Entsorgungskonzepte entwickeln",
+        "description": "Optimierte Planung und Ausschreibung für kosteneffiziente Entsorgungskonzepte.",
+        "theme": "waste-tender",
+        "agent_id": "waste-planner",
+        "quadrant": "southeast",
+        "has_info_children": false,
+        "hero": {
+          "title": "Planung/Ausschreibung",
+          "subtitle": "Kosteneffiziente Entsorgungskonzepte",
+          "area_label": "Entsorgungsplanung",
+          "icon": "fas fa-clipboard-check"
+        }
+      },
+      {
+        "id": "detailseite_2_3_4",
+        "parent_id": "unterseite_2_3",
+        "title": "Fachbauleitung Entsorgungsmanagement",
+        "slug": "fachbauleitung-entsorgungsmanagement",
+        "image_path": "/content/images/hero/waste-management-supervision.jpg",
+        "alt_text": "Professionelle Überwachung der Entsorgungsmaßnahmen",
+        "caption": "Koordination und Überwachung der Entsorgung",
+        "description": "Professionelle Überwachung und Koordination der Entsorgungsmaßnahmen.",
+        "theme": "waste-supervision",
+        "agent_id": "waste-supervisor",
+        "quadrant": "northeast",
+        "has_info_children": false,
+        "hero": {
+          "title": "Fachbauleitung Entsorgungsmanagement",
+          "subtitle": "Professionelle Überwachung der Entsorgung",
+          "area_label": "Entsorgungsleitung",
+          "icon": "fas fa-cogs"
+        }
+      },
+      {
+        "id": "detailseite_2_4_1",
+        "parent_id": "unterseite_2_4",
+        "title": "Altlastensanierung - doch nicht bei uns?",
+        "slug": "altlastensanierung-nicht-bei-uns",
+        "image_path": "/content/images/hero/contaminated-sites-awareness.jpg",
+        "alt_text": "Altlasten sind häufiger als gedacht",
+        "caption": "Wann und wo Altlastensanierung notwendig wird",
+        "description": "Altlasten sind häufiger als gedacht. Wann und wo Altlastensanierung notwendig wird.",
+        "theme": "contamination-awareness",
+        "agent_id": "contamination-consultant",
+        "quadrant": "northwest",
+        "has_info_children": false,
+        "hero": {
+          "title": "Altlastensanierung - doch nicht bei uns?",
+          "subtitle": "Altlasten sind häufiger als gedacht",
+          "area_label": "Altlasten-Beratung",
+          "icon": "fas fa-question-circle"
+        }
+      },
+      {
+        "id": "detailseite_2_4_2",
+        "parent_id": "unterseite_2_4",
+        "title": "Altlastenerkundung",
+        "slug": "altlastenerkundung",
+        "image_path": "/content/images/hero/contaminated-sites-investigation.jpg",
+        "alt_text": "Professionelle Erkundung und Bewertung von Altlasten",
+        "caption": "Altlasten gemäß aktueller Normen bewerten",
+        "description": "Professionelle Erkundung und Bewertung von Altlasten gemäß aktueller Normen.",
+        "theme": "contamination-investigation",
+        "agent_id": "contamination-investigator",
+        "quadrant": "west",
+        "has_info_children": false,
+        "hero": {
+          "title": "Altlastenerkundung",
+          "subtitle": "Professionelle Bewertung von Altlasten",
+          "area_label": "Altlasten-Erkundung",
+          "icon": "fas fa-microscope"
+        }
+      },
+      {
+        "id": "detailseite_2_4_3",
+        "parent_id": "unterseite_2_4",
+        "title": "Planung/Ausschreibung",
+        "slug": "planung-ausschreibung-altlasten",
+        "image_path": "/content/images/hero/contaminated-sites-planning.jpg",
+        "alt_text": "Detaillierte Planung und Ausschreibung für Altlastensanierung",
+        "caption": "Fachgerechte Ausschreibung für Sanierungsprojekte",
+        "description": "Detaillierte Planung und fachgerechte Ausschreibung für Altlastensanierung.",
+        "theme": "contamination-tender",
+        "agent_id": "contamination-planner",
+        "quadrant": "center",
+        "has_info_children": false,
+        "hero": {
+          "title": "Planung/Ausschreibung",
+          "subtitle": "Fachgerechte Planung für Altlastensanierung",
+          "area_label": "Sanierungsplanung",
+          "icon": "fas fa-clipboard-list"
+        }
+      },
+      {
+        "id": "detailseite_2_4_4",
+        "parent_id": "unterseite_2_4",
+        "title": "Fachbauleitung Altlasten",
+        "slug": "fachbauleitung-altlasten",
+        "image_path": "/content/images/hero/contaminated-sites-management.jpg",
+        "alt_text": "Spezialisierte Bauleitung für Altlastensanierung",
+        "caption": "Sichere und professionelle Altlastensanierung",
+        "description": "Spezialisierte Bauleitung für professionelle und sichere Altlastensanierung.",
+        "theme": "contamination-management",
+        "agent_id": "contamination-manager",
+        "quadrant": "east",
+        "has_info_children": false,
+        "hero": {
+          "title": "Fachbauleitung Altlasten",
+          "subtitle": "Professionelle Leitung der Altlastensanierung",
+          "area_label": "Altlasten-Management",
+          "icon": "fas fa-hard-hat"
+        }
+      }
+    ],
+    "info_seiten_sample": [
+      {
+        "id": "info_1_1_1_1",
+        "parent_id": "detailseite_1_1_1",
+        "title": "Mediation bei Generationenkonflikten",
+        "slug": "mediation-generationenkonflikte",
+        "image_path": "/content/images/hero/generational-conflicts.jpg",
+        "alt_text": "Konflikte zwischen verschiedenen Generationen lösen",
+        "caption": "Verständnis zwischen den Generationen schaffen",
+        "description": "Konflikte zwischen verschiedenen Generationen in der Familie konstruktiv lösen und Verständnis schaffen.",
+        "theme": "generational-mediation",
+        "agent_id": "family-counselor",
+        "quadrant": "north",
+        "hero": {
+          "title": "Mediation bei Generationenkonflikten",
+          "subtitle": "Verständnis zwischen den Generationen schaffen",
+          "area_label": "Generationen-Mediation",
+          "icon": "fas fa-users"
+        }
+      },
+      {
+        "id": "info_1_1_1_2",
+        "parent_id": "detailseite_1_1_1",
+        "title": "Mediation bei Krisen in Lebensgemeinschaften",
+        "slug": "mediation-krisen-lebensgemeinschaften",
+        "image_path": "/content/images/hero/relationship-crisis.jpg",
+        "alt_text": "Professionelle Unterstützung bei Partnerschaftskrisen",
+        "caption": "Krisen in Partnerschaften professionell begleiten",
+        "description": "Professionelle Unterstützung bei Krisen in Partnerschaften und Lebensgemeinschaften.",
+        "theme": "relationship-mediation",
+        "agent_id": "relationship-counselor",
+        "quadrant": "east",
+        "hero": {
+          "title": "Mediation bei Krisen in Lebensgemeinschaften",
+          "subtitle": "Professionelle Unterstützung bei Partnerschaftskrisen",
+          "area_label": "Beziehungs-Mediation",
+          "icon": "fas fa-heart"
+        }
+      },
+      {
+        "id": "info_1_1_1_3",
+        "parent_id": "detailseite_1_1_1",
+        "title": "Mediation bei wirtschaftlichen Konflikten",
+        "slug": "mediation-wirtschaftliche-konflikte",
+        "image_path": "/content/images/hero/financial-family-conflicts.jpg",
+        "alt_text": "Finanzielle Konflikte innerhalb der Familie lösen",
+        "caption": "Wirtschaftliche Familienstreitigkeiten beilegen",
+        "description": "Lösung von finanziellen und wirtschaftlichen Konflikten innerhalb der Familie.",
+        "theme": "financial-mediation",
+        "agent_id": "financial-mediator",
+        "quadrant": "south",
+        "hero": {
+          "title": "Mediation bei wirtschaftlichen Konflikten",
+          "subtitle": "Finanzielle Familienstreitigkeiten lösen",
+          "area_label": "Finanz-Mediation",
+          "icon": "fas fa-dollar-sign"
+        }
+      }
+    ]
+  },
+  "themes": {
+    "mediation-security": {
+      "primary_color": "#2563eb",
+      "secondary_color": "#1e40af",
+      "accent_color": "#3b82f6"
+    },
+    "construction-management": {
+      "primary_color": "#dc2626",
+      "secondary_color": "#b91c1c",
+      "accent_color": "#ef4444"
+    },
+    "private-mediation": {
+      "primary_color": "#059669",
+      "secondary_color": "#047857",
+      "accent_color": "#10b981"
+    },
+    "business-mediation": {
+      "primary_color": "#7c3aed",
+      "secondary_color": "#6d28d9",
+      "accent_color": "#8b5cf6"
+    },
+    "construction-coordination": {
+      "primary_color": "#ea580c",
+      "secondary_color": "#c2410c",
+      "accent_color": "#f97316"
+    },
+    "demolition-management": {
+      "primary_color": "#be123c",
+      "secondary_color": "#9f1239",
+      "accent_color": "#e11d48"
+    },
+    "hazmat-management": {
+      "primary_color": "#dc2626",
+      "secondary_color": "#b91c1c",
+      "accent_color": "#ef4444"
+    },
+    "waste-management": {
+      "primary_color": "#15803d",
+      "secondary_color": "#166534",
+      "accent_color": "#22c55e"
+    },
+    "contaminated-sites": {
+      "primary_color": "#a16207",
+      "secondary_color": "#92400e",
+      "accent_color": "#d97706"
+    }
+  },
+  "agent_types": {
+    "coordination-specialist": "Coordination and mediation specialist",
+    "construction-manager": "Construction safety management expert",
+    "family-mediator": "Private and family mediation specialist",
+    "business-mediator": "Corporate mediation and conflict resolution expert",
+    "construction-coordinator": "Construction coordination and safety specialist",
+    "demolition-manager": "Demolition project management expert",
+    "hazmat-specialist": "Hazardous materials management specialist",
+    "waste-specialist": "Waste management and disposal expert",
+    "contamination-specialist": "Contaminated sites remediation specialist",
+    "family-counselor": "Family counseling and mediation specialist",
+    "community-mediator": "Community and neighborhood mediation expert",
+    "workplace-mediator": "Workplace conflict resolution specialist",
+    "commercial-mediator": "Commercial and business mediation expert",
+    "safety-coordinator": "Construction safety coordination specialist",
+    "construction-mediator": "Construction project mediation expert"
+  },
+  "quadrants": {
+    "northwest": "Upper left positioning",
+    "northeast": "Upper right positioning",
+    "southwest": "Lower left positioning",
+    "southeast": "Lower right positioning",
+    "north": "Top center positioning",
+    "south": "Bottom center positioning",
+    "east": "Right center positioning",
+    "west": "Left center positioning",
+    "center": "Center positioning"
+  }
+}

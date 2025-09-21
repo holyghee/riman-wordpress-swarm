@@ -1,0 +1,75 @@
+{
+  "strategy": "Intelligent Thematic Mapping",
+  "description": "Map 21 site pages to unique images from 95-agent database based on content themes",
+  "total_pages": 21,
+  "total_agents": 95,
+  "available_images": 380,
+
+  "page_categories": {
+    "mediation_private": [
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/familien/generationenkonflikte.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/familien/krisen_in_lebensgemeinschaften.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/familien/wirtschaftliche_konflikte.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/erweitertes_umfeld/freundeskreis.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/erweitertes_umfeld/erweiterter_familienkreis.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/erweitertes_umfeld/nachbarschaft_vereine_gemeinden.md"
+    ],
+    "mediation_business": [
+      "01_Sicherheits-Koordination_und_Mediation/mediation_in_unternehmen/index.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_in_unternehmen/intern/index.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_in_unternehmen/extern/index.md"
+    ],
+    "mediation_construction": [
+      "01_Sicherheits-Koordination_und_Mediation/baubereich/mediation/index.md"
+    ],
+    "safety_coordination": [
+      "01_Sicherheits-Koordination_und_Mediation/index.md"
+    ],
+    "construction_management": [
+      "02_Sicherheits-Management_im_Baubereich/index.md",
+      "02_Sicherheits-Management_im_Baubereich/abbruch-management/index.md",
+      "02_Sicherheits-Management_im_Baubereich/abbruch-management/brauchts_das.md"
+    ],
+    "environmental_contamination": [
+      "02_Sicherheits-Management_im_Baubereich/altlasten-management/index.md",
+      "02_Sicherheits-Management_im_Baubereich/schadstoff-management/index.md",
+      "02_Sicherheits-Management_im_Baubereich/entsorgungs-management/index.md"
+    ],
+    "overview_pages": [
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/index.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/familien/index.md",
+      "01_Sicherheits-Koordination_und_Mediation/mediation_im_privat-bereich/erweitertes_umfeld/index.md"
+    ]
+  },
+
+  "agent_mapping_strategy": {
+    "mediation_themes": {
+      "agents": [23, 37, 38, 39, 40, 41],
+      "description": "Professional mediation meeting scenes with diverse stakeholders"
+    },
+    "safety_coordination": {
+      "agents": [8, 9, 10, 11],
+      "description": "Construction site safety coordination scenes"
+    },
+    "environmental_assessment": {
+      "agents": [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+      "description": "Contamination assessment, soil remediation, groundwater treatment"
+    },
+    "construction_planning": {
+      "agents": [4, 5, 6, 7],
+      "description": "Professional construction planning and demolition management"
+    },
+    "training_education": {
+      "agents": [1, 2, 3],
+      "description": "Professional training and regulatory compliance"
+    }
+  },
+
+  "mapping_rules": {
+    "unique_usage": "Each image used only once",
+    "thematic_relevance": "Match image content to page topic",
+    "professional_quality": "Use high-quality professional imagery",
+    "cultural_context": "German business/professional context preferred",
+    "seo_optimization": "Alt text and descriptions optimized for search"
+  }
+}

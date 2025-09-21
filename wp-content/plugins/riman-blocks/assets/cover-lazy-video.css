@@ -1,0 +1,16 @@
+.wp-block-cover.riman-cover--has-poster,
+.riman-page-hero.riman-cover--has-poster {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.wp-block-cover.riman-cover--has-poster video,
+.riman-page-hero.riman-cover--has-poster video {
+    opacity: 0;
+}
+
+.wp-block-cover.riman-cover--has-poster video.is-active,
+.riman-page-hero.riman-cover--has-poster video.is-active {
+    opacity: 1;
+}

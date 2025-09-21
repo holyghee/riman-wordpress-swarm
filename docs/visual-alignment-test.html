@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Cards Alignment Visual Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .controls {
+            background: #1e4a6d;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .control-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        button {
+            background: #b68c2f;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #9a7529;
+        }
+        button.active {
+            background: #d4a644;
+        }
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+        .info {
+            background: #e8f4f8;
+            border: 1px solid #b3d9e6;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .measurement-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 10000;
+        }
+        .measurement-line {
+            position: absolute;
+            background: red;
+            opacity: 0.8;
+        }
+        .measurement-label {
+            position: absolute;
+            background: red;
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        .iframe-container {
+            border: 3px solid #1e4a6d;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+        }
+        .viewport-indicator {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            background: #1e4a6d;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px 4px 0 0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🎯 RIMAN Service Cards - Visual Alignment Test</h1>
+
+        <div class="info">
+            <strong>Problem:</strong> User sieht keine visuellen Unterschiede zwischen Container/Wide/Full Alignments.<br>
+            <strong>Lösung:</strong> Dieser Test zeigt die tatsächlichen Unterschiede durch Live-Manipulation der CSS-Klassen.
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label><strong>Alignment Test:</strong></label>
+                <button onclick="setAlignment('sc-container')" id="btn-container">📦 Container</button>
+                <button onclick="setAlignment('alignwide')" id="btn-wide">📐 Wide</button>
+                <button onclick="setAlignment('alignfull')" id="btn-full">🎯 Full</button>
+                <button onclick="showBoundaries()" id="btn-boundaries">🔍 Show Boundaries</button>
+            </div>
+
+            <div class="control-group">
+                <label><strong>Viewport Size:</strong></label>
+                <select onchange="setViewport(this.value)" id="viewport-selector">
+                    <option value="1440">🖥️ Desktop (1440px)</option>
+                    <option value="768">📱 Tablet (768px)</option>
+                    <option value="375">📱 Mobile (375px)</option>
+                </select>
+                <button onclick="measureSpacing()">📏 Measure Spacing</button>
+                <button onclick="takeScreenshot()">📸 Screenshot</button>
+            </div>
+        </div>
+
+        <div class="iframe-container">
+            <div class="viewport-indicator" id="viewport-indicator">🖥️ Desktop (1440px)</div>
+            <iframe id="test-frame" src="http://127.0.0.1:8801/riman-seiten/sicherheits-koordination_und_mediation/"></iframe>
+        </div>
+
+        <div class="measurement-overlay" id="measurement-overlay"></div>
+    </div>
+
+    <script>
+        let currentAlignment = '';
+        let currentViewport = 1440;
+        let boundariesVisible = false;
+
+        function setAlignment(alignmentType) {
+            // Remove active class from all buttons
+            document.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+
+            const iframe = document.getElementById('test-frame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            if (!iframeDoc) {
+                alert('Iframe nicht geladen. Bitte warten...');
+                return;
+            }
+
+            // Find service cards container
+            const container = iframeDoc.querySelector('.riman-service-cards-wrap');
+            if (!container) {
+                alert('Service Cards Container nicht gefunden!');
+                return;
+            }
+
+            // Remove all alignment classes
+            container.classList.remove('sc-container', 'alignwide', 'alignfull');
+
+            // Add new alignment class
+            container.classList.add(alignmentType);
+            if (alignmentType !== 'alignfull') {
+                container.classList.add('sc-responsive');
+            }
+
+            // Update current alignment
+            currentAlignment = alignmentType;
+
+            // Set active button
+            document.getElementById('btn-' + alignmentType.replace('align', '').replace('sc-', '')).classList.add('active');
+
+            // Log the change
+            console.log('Alignment changed to:', alignmentType);
+            console.log('Container classes:', container.className);
+
+            // Update info
+            updateAlignmentInfo(alignmentType, container);
+        }
+
+        function setViewport(width) {
+            currentViewport = parseInt(width);
+            const iframe = document.getElementById('test-frame');
+            const container = document.querySelector('.iframe-container');
+            const indicator = document.getElementById('viewport-indicator');
+
+            // Set iframe width
+            iframe.style.width = width + 'px';
+            container.style.width = width + 'px';
+            container.style.margin = '0 auto';
+
+            // Update indicator
+            const viewportNames = {
+                1440: '🖥️ Desktop (1440px)',
+                768: '📱 Tablet (768px)',
+                375: '📱 Mobile (375px)'
+            };
+            indicator.textContent = viewportNames[width];
+
+            console.log('Viewport changed to:', width + 'px');
+        }
+
+        function showBoundaries() {
+            boundariesVisible = !boundariesVisible;
+            const iframe = document.getElementById('test-frame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            const btn = document.getElementById('btn-boundaries');
+
+            if (!iframeDoc) return;
+
+            if (boundariesVisible) {
+                // Add boundary styles
+                const style = iframeDoc.createElement('style');
+                style.id = 'boundary-styles';
+                style.innerHTML = `
+                    .riman-service-cards-wrap {
+                        border: 3px solid red !important;
+                        position: relative !important;
+                    }
+                    .riman-service-cards-wrap::before {
+                        content: 'Container: ' + attr(class) !important;
+                        position: absolute !important;
+                        top: -25px !important;
+                        left: 0 !important;
+                        background: red !important;
+                        color: white !important;
+                        padding: 4px 8px !important;
+                        font-size: 12px !important;
+                        z-index: 1000 !important;
+                        white-space: nowrap !important;
+                    }
+                    .riman-service-grid {
+                        border: 2px dashed blue !important;
+                        position: relative !important;
+                    }
+                    .riman-service-grid::before {
+                        content: 'Grid Container' !important;
+                        position: absolute !important;
+                        top: -20px !important;
+                        right: 0 !important;
+                        background: blue !important;
+                        color: white !important;
+                        padding: 2px 6px !important;
+                        font-size: 10px !important;
+                        z-index: 1000 !important;
+                    }
+                `;
+                iframeDoc.head.appendChild(style);
+                btn.textContent = '✅ Hide Boundaries';
+                btn.classList.add('active');
+            } else {
+                // Remove boundary styles
+                const style = iframeDoc.getElementById('boundary-styles');
+                if (style) style.remove();
+                btn.textContent = '🔍 Show Boundaries';
+                btn.classList.remove('active');
+            }
+        }
+
+        function measureSpacing() {
+            const iframe = document.getElementById('test-frame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            if (!iframeDoc) return;
+
+            const container = iframeDoc.querySelector('.riman-service-cards-wrap');
+            if (!container) return;
+
+            const rect = container.getBoundingClientRect();
+            const viewportWidth = iframe.offsetWidth;
+
+            // Calculate measurements
+            const leftOffset = rect.left;
+            const rightOffset = viewportWidth - rect.right;
+            const containerWidth = rect.width;
+
+            // Create measurement display
+            const measurements = {
+                'Viewport Width': viewportWidth + 'px',
+                'Container Width': containerWidth + 'px',
+                'Left Offset': leftOffset + 'px',
+                'Right Offset': rightOffset + 'px',
+                'Container Classes': container.className,
+                'Alignment': currentAlignment
+            };
+
+            // Show measurements in console and alert
+            console.table(measurements);
+            alert('Measurements logged to console. Check DevTools.');
+        }
+
+        function takeScreenshot() {
+            alert('Screenshot function placeholder. Use browser DevTools to capture.');
+        }
+
+        function updateAlignmentInfo(alignmentType, container) {
+            const rect = container.getBoundingClientRect();
+            console.log('=== ALIGNMENT INFO ===');
+            console.log('Type:', alignmentType);
+            console.log('Classes:', container.className);
+            console.log('Width:', rect.width + 'px');
+            console.log('Left offset:', rect.left + 'px');
+            console.log('Right offset:', (currentViewport - rect.right) + 'px');
+        }
+
+        // Initialize when iframe loads
+        document.getElementById('test-frame').onload = function() {
+            setTimeout(() => {
+                // Set default to container
+                setAlignment('sc-container');
+            }, 1000);
+        };
+
+        // Auto-reload iframe every 30 seconds to refresh content
+        setInterval(() => {
+            const iframe = document.getElementById('test-frame');
+            iframe.src = iframe.src;
+        }, 30000);
+    </script>
+</body>
+</html>

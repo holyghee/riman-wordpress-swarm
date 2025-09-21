@@ -14,6 +14,9 @@ class Auto_Populate_Navigation_DragDrop {
         // Hook für Navigation Block Rendering
         add_filter('render_block_core/navigation-link', array($this, 'check_category_link'), 10, 3);
         add_filter('render_block_core/navigation-submenu', array($this, 'check_category_submenu'), 10, 3);
+
+        // RIMAN Seiten Support aktiviert
+        add_filter('render_block_core/navigation-link', array($this, 'check_riman_link'), 10, 3);
         
         // Admin-Menü
         add_action('admin_menu', array($this, 'add_admin_menu'));
@@ -448,7 +451,147 @@ class Auto_Populate_Navigation_DragDrop {
         
         wp_send_json_success('Sortierung gespeichert');
     }
-    
+
+    /**
+     * Holt den Hero-Titel oder falls leer den bereinigten Post-Titel
+     */
+    private function get_riman_display_title($post_id) {
+        // Prüfe ob Hero Meta Klasse verfügbar ist
+        if (class_exists('RIMAN_Hero_Meta')) {
+            $hero_meta = RIMAN_Hero_Meta::get_hero_meta($post_id);
+            if (!empty($hero_meta['title'])) {
+                return $hero_meta['title'];
+            }
+        }
+
+        // Fallback: Bereinigter Post-Titel
+        $post_title = get_the_title($post_id);
+        return str_replace(' - Riman GmbH', '', $post_title);
+    }
+
+    /**
+     * Erstellt ein Submenu für RIMAN Seiten (gleiche Struktur wie Kategorien)
+     */
+    private function create_riman_submenu($post, $block) {
+        // Hole Unterseiten der RIMAN Hauptseite
+        $subpages = get_posts([
+            'post_type' => 'riman_seiten',
+            'post_parent' => $post->ID,
+            'post_status' => 'publish',
+            'numberposts' => -1,
+            'orderby' => 'menu_order title',
+            'order' => 'ASC'
+        ]);
+
+        // Wenn keine Unterseiten vorhanden, einfacher Link
+        if (empty($subpages)) {
+            return sprintf(
+                '<li class="wp-block-navigation-item">
+                    <a class="wp-block-navigation-item__content" href="%s">%s</a>
+                </li>',
+                esc_url($block['attrs']['url']),
+                esc_html($this->get_riman_display_title($post->ID))
+            );
+        }
+
+        // Erstelle Submenu HTML (exakt wie bei Kategorien)
+        $submenu_html = '<ul class="wp-block-navigation__submenu-container auto-populated-dragdrop">';
+
+        // Hauptseiten-Link oben
+        $submenu_html .= sprintf(
+            '<li class="wp-block-navigation-item main-category-link">
+                <a class="wp-block-navigation-item__content" href="%s">
+                    <strong>Alle %s →</strong>
+                </a>
+            </li>',
+            esc_url(get_permalink($post->ID)),
+            esc_html($this->get_riman_display_title($post->ID))
+        );
+
+        $submenu_html .= '<li class="nav-divider"></li>';
+
+        // Unterseiten hinzufügen
+        foreach ($subpages as $subpage) {
+            // Prüfe ob Unterseite weitere Detailseiten hat
+            $detailseiten = get_posts([
+                'post_type' => 'riman_seiten',
+                'post_parent' => $subpage->ID,
+                'post_status' => 'publish',
+                'numberposts' => -1,
+                'orderby' => 'menu_order title',
+                'order' => 'ASC'
+            ]);
+
+            if (!empty($detailseiten)) {
+                // Unterseite MIT Detailseiten als verschachteltes Submenu
+                $submenu_html .= sprintf(
+                    '<li class="wp-block-navigation-item wp-block-navigation-submenu has-child subcategory-with-posts">
+                        <a class="wp-block-navigation-item__content" href="%s">
+                            %s
+                        </a>
+                        <button class="wp-block-navigation-submenu__toggle subcategory-toggle" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="1.5"></path>
+                            </svg>
+                        </button>
+                        <ul class="wp-block-navigation__submenu-container subcategory-posts">',
+                    esc_url(get_permalink($subpage->ID)),
+                    esc_html($this->get_riman_display_title($subpage->ID))
+                );
+
+                // "Alle anzeigen" Link für Unterseite
+                $submenu_html .= sprintf(
+                    '<li class="wp-block-navigation-item subcategory-overview">
+                        <a class="wp-block-navigation-item__content" href="%s">
+                            <strong>Alle %s →</strong>
+                        </a>
+                    </li>',
+                    esc_url(get_permalink($subpage->ID)),
+                    esc_html($this->get_riman_display_title($subpage->ID))
+                );
+
+                $submenu_html .= '<li class="nav-divider"></li>';
+
+                // Detailseiten der Unterseite
+                foreach ($detailseiten as $detailseite) {
+                    $submenu_html .= sprintf(
+                        '<li class="wp-block-navigation-item post-item">
+                            <a class="wp-block-navigation-item__content" href="%s">%s</a>
+                        </li>',
+                        get_permalink($detailseite->ID),
+                        esc_html($this->get_riman_display_title($detailseite->ID))
+                    );
+                }
+
+                $submenu_html .= '</ul></li>';
+            } else {
+                // Unterseite OHNE Detailseiten (einfacher Link)
+                $submenu_html .= sprintf(
+                    '<li class="wp-block-navigation-item subcategory-link">
+                        <a class="wp-block-navigation-item__content" href="%s">%s</a>
+                    </li>',
+                    esc_url(get_permalink($subpage->ID)),
+                    esc_html($this->get_riman_display_title($subpage->ID))
+                );
+            }
+        }
+
+        $submenu_html .= '</ul>';
+
+        // Vollständiger Menüpunkt mit Submenu (exakt wie bei Kategorien)
+        return sprintf(
+            '<li class="wp-block-navigation-item wp-block-navigation-submenu has-child auto-populated-dd">
+                <a class="wp-block-navigation-item__content" href="%s">
+                    <span class="wp-block-navigation-item__label">%s</span>
+                </a>
+                %s
+            </li>',
+            esc_url(get_permalink($post->ID)),
+            esc_html($this->get_riman_display_title($post->ID)),
+            $submenu_html
+        );
+    }
+
     /**
      * Hole sortierte Kategorien
      */
@@ -500,7 +643,27 @@ class Auto_Populate_Navigation_DragDrop {
         
         return $block_content;
     }
-    
+
+    /**
+     * Prüft und erweitert RIMAN Seiten Links
+     */
+    public function check_riman_link($block_content, $block, $instance) {
+        if (!empty($block['attrs']['url'])) {
+            // Erkenne RIMAN Seiten durch URL-Pattern oder Post-Type
+            $post_id = url_to_postid($block['attrs']['url']);
+
+            if ($post_id) {
+                $post = get_post($post_id);
+
+                if ($post && $post->post_type === 'riman_seiten' && $post->post_parent == 0) {
+                    return $this->create_riman_submenu($post, $block);
+                }
+            }
+        }
+
+        return $block_content;
+    }
+
     /**
      * Verarbeitet bestehende Submenus
      */

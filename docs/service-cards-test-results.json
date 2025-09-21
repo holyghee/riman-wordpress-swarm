@@ -1,0 +1,140 @@
+{
+  "startseite": {
+    "desktop": {
+      "width": 1440,
+      "height": 614.9375,
+      "left": 0,
+      "right": 1440,
+      "marginLeft": "-50px",
+      "marginRight": "-50px",
+      "maxWidth": "1440px",
+      "className": "riman-service-cards-wrap riman-sc-68ce662a9c034 alignfull sc-responsive",
+      "offsetWidth": 1440,
+      "scrollWidth": 1440,
+      "viewportWidth": 1440,
+      "viewportHeight": 900
+    },
+    "tablet": {
+      "width": 900,
+      "height": 782.546875,
+      "left": 0,
+      "right": 900,
+      "marginLeft": "-45px",
+      "marginRight": "-45px",
+      "maxWidth": "900px",
+      "className": "riman-service-cards-wrap riman-sc-68ce662ba9f7f alignfull sc-responsive",
+      "offsetWidth": 900,
+      "scrollWidth": 900,
+      "viewportWidth": 900,
+      "viewportHeight": 800
+    },
+    "mobile": {
+      "width": 375,
+      "height": 1434.28125,
+      "left": 0,
+      "right": 375,
+      "marginLeft": "-30px",
+      "marginRight": "-30px",
+      "maxWidth": "375px",
+      "className": "riman-service-cards-wrap riman-sc-68ce662c9191f alignfull sc-responsive",
+      "offsetWidth": 375,
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "viewportHeight": 667
+    }
+  },
+  "template": {
+    "desktop": {
+      "width": 1140,
+      "height": 896.4375,
+      "left": 150,
+      "right": 1290,
+      "marginLeft": "150px",
+      "marginRight": "150px",
+      "maxWidth": "1140px",
+      "className": "riman-service-cards-wrap riman-sc-68ce662d60981 sc-container sc-responsive",
+      "offsetWidth": 1140,
+      "scrollWidth": 1140,
+      "viewportWidth": 1440,
+      "viewportHeight": 900
+    },
+    "tablet": {
+      "width": 868,
+      "height": 1614.609375,
+      "left": 16,
+      "right": 884,
+      "marginLeft": "16px",
+      "marginRight": "16px",
+      "maxWidth": "868px",
+      "className": "riman-service-cards-wrap riman-sc-68ce662e4920a sc-container sc-responsive",
+      "offsetWidth": 868,
+      "scrollWidth": 868,
+      "viewportWidth": 900,
+      "viewportHeight": 800
+    },
+    "mobile": {
+      "width": 375,
+      "height": 819.625,
+      "left": 0,
+      "right": 375,
+      "marginLeft": "0px",
+      "marginRight": "0px",
+      "maxWidth": "375px",
+      "className": "riman-service-cards-wrap riman-sc-68ce662f1765e sc-container sc-responsive riman-mobile-slider-active",
+      "offsetWidth": 375,
+      "scrollWidth": 375,
+      "viewportWidth": 375,
+      "viewportHeight": 667
+    }
+  },
+  "summary": [
+    {
+      "page": "startseite",
+      "viewport": "desktop",
+      "status": "✅ Correct",
+      "actualWidth": 1440,
+      "expectedWidth": 1440,
+      "classes": "riman-service-cards-wrap riman-sc-68ce662a9c034 alignfull sc-responsive"
+    },
+    {
+      "page": "startseite",
+      "viewport": "tablet",
+      "status": "✅ Correct",
+      "actualWidth": 900,
+      "expectedWidth": 900,
+      "classes": "riman-service-cards-wrap riman-sc-68ce662ba9f7f alignfull sc-responsive"
+    },
+    {
+      "page": "startseite",
+      "viewport": "mobile",
+      "status": "✅ Correct",
+      "actualWidth": 375,
+      "expectedWidth": 375,
+      "classes": "riman-service-cards-wrap riman-sc-68ce662c9191f alignfull sc-responsive"
+    },
+    {
+      "page": "template",
+      "viewport": "desktop",
+      "status": "❌ Wrong width (expected ~920px)",
+      "actualWidth": 1140,
+      "expectedWidth": 920,
+      "classes": "riman-service-cards-wrap riman-sc-68ce662d60981 sc-container sc-responsive"
+    },
+    {
+      "page": "template",
+      "viewport": "tablet",
+      "status": "❌ Wrong width (expected ~920px)",
+      "actualWidth": 868,
+      "expectedWidth": 920,
+      "classes": "riman-service-cards-wrap riman-sc-68ce662e4920a sc-container sc-responsive"
+    },
+    {
+      "page": "template",
+      "viewport": "mobile",
+      "status": "❌ Wrong width (expected ~920px)",
+      "actualWidth": 375,
+      "expectedWidth": 920,
+      "classes": "riman-service-cards-wrap riman-sc-68ce662f1765e sc-container sc-responsive riman-mobile-slider-active"
+    }
+  ]
+}

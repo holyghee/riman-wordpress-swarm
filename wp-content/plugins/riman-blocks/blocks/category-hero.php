@@ -108,8 +108,11 @@ add_action('init', function () {
             'debug'              => ['type' => 'boolean', 'default' => false],
         ],
         'supports' => ['align' => ['full']],
+        'uses_context' => ['postId', 'postType'],
+        'api_version' => 2,
+        'render_callback' => function ($attributes, $content, $block) {
+            // Dynamisches Rendering - wird bei jedem Seitenaufruf ausgeführt
 
-        'render_callback' => function ($attributes) {
 
             // ---- Attribute / Defaults
             $min_h      = isset($attributes['minHeight']) ? (int) $attributes['minHeight'] : 600;
@@ -120,15 +123,72 @@ add_action('init', function () {
             $title_mode = $attributes['titleMode'] ?? 'category';
             $debug      = !empty($attributes['debug']);
 
-            // ---- Titel / Beschreibung (wie ursprünglich)
-            if ($title_mode === 'page' && is_singular()) {
+            // ---- Titel / Beschreibung / Area Label / Icon (erweiterte Logik für Riman-Seiten)
+            $area_label = '';
+            $icon_class = '';
+            $desc = '';
+            $title = '';
+
+            if ($title_mode === 'page' && is_singular() && is_singular('riman_seiten') && class_exists('RIMAN_Hero_Meta')) {
+                // RIMAN-SEITEN: Verwende Hero-Meta-Felder
+                $hero_meta = RIMAN_Hero_Meta::get_hero_meta(get_the_ID());
+
+                if ($debug) {
+                    echo "\n<!-- RIMAN Hero Meta Raw: " . esc_html(json_encode($hero_meta)) . " -->\n";
+                }
+
+                // Hero-Titel (ohne "- Riman GmbH")
+                $title = !empty($hero_meta['title']) ? $hero_meta['title'] :
+                         str_replace(' - Riman GmbH', '', get_the_title());
+
+                // Hero-Beschreibung
+                $desc = $hero_meta['subtitle'] ?? '';
+
+                // Bereichs-Label und Icon
+                $area_label = $hero_meta['area_label'] ?? '';
+                $icon_class = $hero_meta['icon'] ?? '';
+
+                // Fallback für Beschreibung wenn leer
+                if (empty($desc)) {
+                    // 1. Priorität: Benutzerdefinierte Hero-Beschreibung (falls vorhanden)
+                    $hero_desc = get_post_meta(get_the_ID(), '_riman_hero_description', true);
+                    if (!empty($hero_desc)) {
+                        $desc = $hero_desc;
+                    } else {
+                        // 2. Priorität: Featured Image Meta-Description
+                        $featured_image_id = get_post_thumbnail_id();
+                        if ($featured_image_id) {
+                            $image_alt = get_post_meta($featured_image_id, '_wp_attachment_image_alt', true);
+                            $image_caption = wp_get_attachment_caption($featured_image_id);
+                            $image_description = get_post_field('post_content', $featured_image_id);
+
+                            // Verwende Caption falls vorhanden, sonst Description, sonst Alt-Text
+                            if (!empty($image_caption)) {
+                                $desc = $image_caption;
+                            } elseif (!empty($image_description)) {
+                                $desc = $image_description;
+                            } elseif (!empty($image_alt)) {
+                                $desc = $image_alt;
+                            }
+                        }
+
+                        // 3. Fallback: Page Excerpt
+                        if (empty($desc)) {
+                            $desc = get_the_excerpt() ?: '';
+                        }
+                    }
+                }
+            } elseif ($title_mode === 'page' && is_singular()) {
+                // NORMALE SEITEN: bisherige Page-Logik
                 $title = get_the_title();
-                $desc  = get_the_excerpt() ?: '';
+                $desc = get_the_excerpt() ?: '';
             } elseif (is_category() || is_tax()) {
+                // KATEGORIEN/TAXONOMIEN
                 $term  = get_queried_object();
                 $title = $term ? $term->name : get_the_archive_title();
                 $desc  = $term ? term_description($term) : '';
             } else {
+                // FALLBACK
                 $title = get_the_title() ?: get_bloginfo('name');
                 $desc  = is_singular() ? (get_the_excerpt() ?: '') : '';
             }
@@ -153,8 +213,40 @@ add_action('init', function () {
                         if ($page) $linked_page_id = (int) $page->ID;
                     }
                 }
-            } elseif (is_singular('page')) {
+            } elseif (is_singular('page') || is_singular('riman_seiten')) {
                 $linked_page_id = get_the_ID();
+            }
+
+            // ---- Hero-Metadaten der verknüpften Seite laden (für Kategorien)
+            if ($linked_page_id && (is_category() || is_tax()) && class_exists('RIMAN_Hero_Meta')) {
+                $linked_hero_meta = RIMAN_Hero_Meta::get_hero_meta($linked_page_id);
+
+                if (!empty($linked_hero_meta['area_label'])) {
+                    $area_label = $linked_hero_meta['area_label'];
+                }
+                if (!empty($linked_hero_meta['icon'])) {
+                    $icon_class = $linked_hero_meta['icon'];
+                }
+            }
+
+            // ---- Fallback: Hardcoded Area Labels für Kategorien ohne verknüpfte Seite
+            if (empty($area_label) && (is_category() || is_tax())) {
+                $term = get_queried_object();
+                if ($term) {
+                    $category_labels = [
+                        'rueckbau' => ['label' => 'NACHHALTIG', 'icon' => 'fas fa-leaf'],
+                        'altlasten' => ['label' => 'FACHGERECHT', 'icon' => 'fas fa-award'],
+                        'schadstoffe' => ['label' => 'KOMPETENT', 'icon' => 'fas fa-star'],
+                        'sicherheitskoordination' => ['label' => 'SICHER', 'icon' => 'fas fa-shield-alt'],
+                        'beratung' => ['label' => 'VERTRAUENSVOLL', 'icon' => 'fas fa-handshake'],
+                        'mediation' => ['label' => 'PROFESSIONELL', 'icon' => 'fas fa-briefcase']
+                    ];
+
+                    if (isset($category_labels[$term->slug])) {
+                        $area_label = $category_labels[$term->slug]['label'];
+                        $icon_class = $category_labels[$term->slug]['icon'];
+                    }
+                }
             }
 
             // ---- Media der verknüpften Seite: Featured Video (neu) oder Featured Image (wie früher)
@@ -199,7 +291,7 @@ add_action('init', function () {
                          style="min-height:<?php echo esc_attr($min_h); ?>px;display:flex;align-items:center;justify-content:center;text-align:center;">
                         <div class="wp-block-group" style="max-width:var(--wp--style--global--content-size);margin:0 auto;">
                             <h1 class="wp-block-heading has-text-color has-base-color"
-                                style="color:var(--wp--preset--color--base,#fff);margin-bottom:0.2em;">
+                                style="color:var(--wp--preset--color--base,#fff);margin-bottom:1rem;">
                                 <?php echo esc_html($title); ?>
                             </h1>
                             <?php if ($show_desc && $desc) : ?>
@@ -222,7 +314,7 @@ add_action('init', function () {
                                 display:flex;align-items:center;justify-content:center;text-align:center;">
                     <div class="wp-block-group has-global-padding" style="max-width:var(--wp--style--global--content-size);margin:0 auto;">
                         <h1 class="wp-block-heading has-text-color has-base-color"
-                            style="color:var(--wp--preset--color--base,#fff);margin-bottom:0.2em;">
+                            style="color:var(--wp--preset--color--base,#fff);margin-bottom:1rem;">
                             <?php echo esc_html($title); ?>
                         </h1>
                         <?php if ($show_desc && $desc): ?>
@@ -235,7 +327,23 @@ add_action('init', function () {
             <?php endif;
 
             if ($debug) {
-                echo "\n<!-- RIMAN Category Hero Debug: linked_page_id={$linked_page_id} video_src=" . esc_html($video_src) . " poster_url=" . esc_html($poster_url) . " -->\n";
+                echo "\n<!-- RIMAN Category Hero Debug: -->\n";
+                echo "\n<!-- Post Type: " . esc_html(get_post_type()) . " -->\n";
+                echo "\n<!-- Title Mode: " . esc_html($title_mode) . " -->\n";
+                echo "\n<!-- Is Singular: " . (is_singular() ? 'true' : 'false') . " -->\n";
+                echo "\n<!-- Is Singular riman_seiten: " . (is_singular('riman_seiten') ? 'true' : 'false') . " -->\n";
+                echo "\n<!-- RIMAN_Hero_Meta exists: " . (class_exists('RIMAN_Hero_Meta') ? 'true' : 'false') . " -->\n";
+                echo "\n<!-- linked_page_id={$linked_page_id} video_src=" . esc_html($video_src) . " poster_url=" . esc_html($poster_url) . " -->\n";
+                echo "\n<!-- Hero Meta Debug: area_label='" . esc_html($area_label) . "' icon_class='" . esc_html($icon_class) . "' title='" . esc_html($title) . "' desc='" . esc_html($desc) . "' -->\n";
+
+                // Direkte Meta-Abfrage
+                $direct_meta = [
+                    '_riman_hero_title' => get_post_meta(get_the_ID(), '_riman_hero_title', true),
+                    '_riman_hero_subtitle' => get_post_meta(get_the_ID(), '_riman_hero_subtitle', true),
+                    '_riman_hero_area_label' => get_post_meta(get_the_ID(), '_riman_hero_area_label', true),
+                    '_riman_hero_icon' => get_post_meta(get_the_ID(), '_riman_hero_icon', true)
+                ];
+                echo "\n<!-- Direct Meta Fields: " . esc_html(json_encode($direct_meta)) . " -->\n";
             }
 
             return ob_get_clean();

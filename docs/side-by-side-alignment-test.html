@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 RIMAN Service Cards - Side-by-Side Alignment Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e4a6d 0%, #2c5f7f 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .problem-statement {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: #b68c2f;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            min-width: 140px;
+        }
+
+        .btn:hover {
+            background: #9a7529;
+            transform: translateY(-2px);
+        }
+
+        .btn.active {
+            background: #d4a644;
+            box-shadow: 0 4px 12px rgba(180, 140, 47, 0.4);
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 0;
+            min-height: 800px;
+        }
+
+        .test-panel {
+            border-right: 2px solid #e9ecef;
+            position: relative;
+            background: white;
+        }
+
+        .test-panel:last-child {
+            border-right: none;
+        }
+
+        .panel-header {
+            background: #343a40;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .panel-header.container-header {
+            background: #28a745;
+        }
+
+        .panel-header.wide-header {
+            background: #007bff;
+        }
+
+        .panel-header.full-header {
+            background: #dc3545;
+        }
+
+        .iframe-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-iframe {
+            width: 100%;
+            height: 750px;
+            border: none;
+            transform-origin: top left;
+        }
+
+        .measurement-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .measurement-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .comparison-table {
+            margin: 20px;
+            overflow-x: auto;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .difference {
+            font-weight: bold;
+        }
+
+        .difference.significant {
+            color: #28a745;
+        }
+
+        .difference.minimal {
+            color: #ffc107;
+        }
+
+        .difference.none {
+            color: #dc3545;
+        }
+
+        .analysis {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+        }
+
+        .viewport-controls {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        select {
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background: white;
+            font-size: 14px;
+        }
+
+        .scale-info {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        @media (max-width: 1200px) {
+            .test-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .test-panel {
+                border-right: none;
+                border-bottom: 2px solid #e9ecef;
+            }
+
+            .test-panel:last-child {
+                border-bottom: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>🎯 Service Cards Alignment Test</h1>
+            <p>Visual proof of Container vs Wide vs Full alignment differences</p>
+        </div>
+
+        <div class="problem-statement">
+            <strong>🚨 Problem:</strong> User reports that Container/Wide/Full alignments look identical.<br>
+            <strong>🎯 Solution:</strong> This test loads the same page three times with different alignments to show the actual visual differences.
+        </div>
+
+        <div class="viewport-controls">
+            <label for="scale-select"><strong>View Scale:</strong></label>
+            <select id="scale-select" onchange="updateScale()">
+                <option value="0.4">40% (Overview)</option>
+                <option value="0.6" selected>60% (Balanced)</option>
+                <option value="0.8">80% (Detailed)</option>
+                <option value="1.0">100% (Full Size)</option>
+            </select>
+            <span class="scale-info">Adjust scale to see differences better</span>
+            <button class="btn" onclick="refreshAll()">🔄 Refresh All</button>
+            <button class="btn" onclick="measureAll()">📏 Measure All</button>
+        </div>
+
+        <div class="test-grid" id="test-grid">
+            <!-- Container Alignment -->
+            <div class="test-panel">
+                <div class="panel-header container-header">
+                    📦 CONTAINER Alignment
+                </div>
+                <div class="iframe-container">
+                    <iframe class="test-iframe" id="container-frame"
+                            src="http://127.0.0.1:8801/riman-seiten/sicherheits-koordination_und_mediation/"
+                            onload="setupFrame('container-frame', 'sc-container')">
+                    </iframe>
+                    <div class="measurement-overlay" id="container-measurements">
+                        <div class="measurement-row">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wide Alignment -->
+            <div class="test-panel">
+                <div class="panel-header wide-header">
+                    📐 WIDE Alignment
+                </div>
+                <div class="iframe-container">
+                    <iframe class="test-iframe" id="wide-frame"
+                            src="http://127.0.0.1:8801/riman-seiten/sicherheits-koordination_und_mediation/"
+                            onload="setupFrame('wide-frame', 'alignwide')">
+                    </iframe>
+                    <div class="measurement-overlay" id="wide-measurements">
+                        <div class="measurement-row">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Full Alignment -->
+            <div class="test-panel">
+                <div class="panel-header full-header">
+                    🎯 FULL Alignment
+                </div>
+                <div class="iframe-container">
+                    <iframe class="test-iframe" id="full-frame"
+                            src="http://127.0.0.1:8801/riman-seiten/sicherheits-koordination_und_mediation/"
+                            onload="setupFrame('full-frame', 'alignfull')">
+                    </iframe>
+                    <div class="measurement-overlay" id="full-measurements">
+                        <div class="measurement-row">
+                            <span>Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-table">
+            <h3>📊 Measurements Comparison</h3>
+            <table id="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Alignment</th>
+                        <th>Container Width</th>
+                        <th>Left Margin</th>
+                        <th>Right Margin</th>
+                        <th>Viewport %</th>
+                        <th>Difference from Container</th>
+                    </tr>
+                </thead>
+                <tbody id="comparison-tbody">
+                    <tr>
+                        <td colspan="6" style="text-align: center; color: #6c757d;">
+                            Loading measurements...
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="analysis" id="analysis">
+            <h3>🔍 Analysis</h3>
+            <p>Measurements will appear here after all frames load...</p>
+        </div>
+    </div>
+
+    <script>
+        let measurements = {};
+        let framesLoaded = 0;
+        const totalFrames = 3;
+
+        function setupFrame(frameId, alignmentClass) {
+            console.log(`Setting up frame: ${frameId} with alignment: ${alignmentClass}`);
+
+            setTimeout(() => {
+                const iframe = document.getElementById(frameId);
+                const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+                if (!doc) {
+                    console.error(`Cannot access ${frameId} document`);
+                    return;
+                }
+
+                // Find service cards container
+                const container = doc.querySelector('.riman-service-cards-wrap');
+                if (!container) {
+                    console.error(`Service cards container not found in ${frameId}`);
+                    return;
+                }
+
+                // Remove existing alignment classes
+                container.classList.remove('sc-container', 'alignwide', 'alignfull', 'sc-responsive');
+
+                // Apply new alignment
+                if (alignmentClass === 'sc-container') {
+                    container.classList.add('sc-container', 'sc-responsive');
+                } else if (alignmentClass === 'alignwide') {
+                    container.classList.add('alignwide', 'sc-responsive');
+                } else if (alignmentClass === 'alignfull') {
+                    container.classList.add('alignfull', 'sc-responsive');
+                }
+
+                // Add visual indicator
+                const style = doc.createElement('style');
+                style.innerHTML = `
+                    .riman-service-cards-wrap {
+                        border: 4px solid ${alignmentClass === 'sc-container' ? '#28a745' :
+                                           alignmentClass === 'alignwide' ? '#007bff' : '#dc3545'} !important;
+                        background: ${alignmentClass === 'sc-container' ? 'rgba(40, 167, 69, 0.1)' :
+                                     alignmentClass === 'alignwide' ? 'rgba(0, 123, 255, 0.1)' :
+                                     'rgba(220, 53, 69, 0.1)'} !important;
+                        position: relative !important;
+                    }
+                    .riman-service-cards-wrap::before {
+                        content: '${alignmentClass === 'sc-container' ? 'CONTAINER' :
+                                   alignmentClass === 'alignwide' ? 'WIDE' : 'FULL'} ALIGNMENT' !important;
+                        position: absolute !important;
+                        top: -50px !important;
+                        left: 50% !important;
+                        transform: translateX(-50%) !important;
+                        background: ${alignmentClass === 'sc-container' ? '#28a745' :
+                                     alignmentClass === 'alignwide' ? '#007bff' : '#dc3545'} !important;
+                        color: white !important;
+                        padding: 10px 20px !important;
+                        font-size: 18px !important;
+                        font-weight: bold !important;
+                        z-index: 1000 !important;
+                        border-radius: 6px !important;
+                        white-space: nowrap !important;
+                    }
+                `;
+                doc.head.appendChild(style);
+
+                // Measure and store
+                setTimeout(() => {
+                    measureFrame(frameId, alignmentClass);
+                    framesLoaded++;
+
+                    if (framesLoaded === totalFrames) {
+                        updateComparisonTable();
+                        generateAnalysis();
+                    }
+                }, 500);
+
+            }, 2000); // Wait for page to fully load
+        }
+
+        function measureFrame(frameId, alignmentType) {
+            const iframe = document.getElementById(frameId);
+            const doc = iframe.contentDocument || iframe.contentWindow.document;
+
+            if (!doc) return;
+
+            const container = doc.querySelector('.riman-service-cards-wrap');
+            if (!container) return;
+
+            const rect = container.getBoundingClientRect();
+            const viewportWidth = iframe.offsetWidth;
+
+            const measurement = {
+                type: alignmentType,
+                width: Math.round(rect.width),
+                height: Math.round(rect.height),
+                left: Math.round(rect.left),
+                right: Math.round(rect.right),
+                leftMargin: Math.round(rect.left),
+                rightMargin: Math.round(viewportWidth - rect.right),
+                utilization: Math.round((rect.width / viewportWidth) * 100),
+                classes: container.className
+            };
+
+            measurements[alignmentType] = measurement;
+
+            // Update overlay
+            const overlayId = frameId.replace('-frame', '-measurements');
+            const overlay = document.getElementById(overlayId);
+            if (overlay) {
+                overlay.innerHTML = `
+                    <div class="measurement-row">
+                        <span>Width:</span>
+                        <span>${measurement.width}px</span>
+                    </div>
+                    <div class="measurement-row">
+                        <span>Margins:</span>
+                        <span>${measurement.leftMargin}px | ${measurement.rightMargin}px</span>
+                    </div>
+                    <div class="measurement-row">
+                        <span>Viewport %:</span>
+                        <span>${measurement.utilization}%</span>
+                    </div>
+                    <div class="measurement-row">
+                        <span>Classes:</span>
+                        <span style="font-size: 11px;">${measurement.classes.split(' ').slice(0, 3).join(' ')}</span>
+                    </div>
+                `;
+            }
+
+            console.log(`${alignmentType} measurement:`, measurement);
+        }
+
+        function updateComparisonTable() {
+            const tbody = document.getElementById('comparison-tbody');
+            const alignments = ['sc-container', 'alignwide', 'alignfull'];
+            const names = { 'sc-container': 'Container', 'alignwide': 'Wide', 'alignfull': 'Full' };
+
+            tbody.innerHTML = '';
+
+            const containerWidth = measurements['sc-container']?.width || 0;
+
+            alignments.forEach(alignment => {
+                const m = measurements[alignment];
+                if (!m) return;
+
+                const difference = Math.abs(m.width - containerWidth);
+                const diffClass = difference === 0 ? 'none' :
+                                difference < 50 ? 'minimal' : 'significant';
+
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td><strong>${names[alignment]}</strong></td>
+                    <td>${m.width}px</td>
+                    <td>${m.leftMargin}px</td>
+                    <td>${m.rightMargin}px</td>
+                    <td>${m.utilization}%</td>
+                    <td class="difference ${diffClass}">
+                        ${difference === 0 ? 'No difference' : `+${difference}px`}
+                    </td>
+                `;
+            });
+        }
+
+        function generateAnalysis() {
+            const analysis = document.getElementById('analysis');
+            const container = measurements['sc-container'];
+            const wide = measurements['alignwide'];
+            const full = measurements['alignfull'];
+
+            if (!container || !wide || !full) {
+                analysis.innerHTML = '<h3>🔍 Analysis</h3><p>❌ Could not load all measurements.</p>';
+                return;
+            }
+
+            const containerVsWide = Math.abs(container.width - wide.width);
+            const wideVsFull = Math.abs(wide.width - full.width);
+            const containerVsFull = Math.abs(container.width - full.width);
+
+            let analysisHTML = '<h3>🔍 Analysis</h3>';
+
+            if (containerVsWide === 0 && wideVsFull === 0) {
+                analysisHTML += `
+                    <div style="background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                        <h4>🚨 PROBLEM CONFIRMED</h4>
+                        <p><strong>All alignments have identical widths!</strong></p>
+                        <p>Container: ${container.width}px | Wide: ${wide.width}px | Full: ${full.width}px</p>
+                        <p>This indicates the CSS rules are not working correctly.</p>
+                    </div>
+                    <h4>🔧 Possible Causes:</h4>
+                    <ul>
+                        <li>CSS specificity conflicts</li>
+                        <li>Missing or incorrect CSS classes</li>
+                        <li>CSS not loaded properly</li>
+                        <li>Theme or plugin overrides</li>
+                        <li>Viewport size affecting responsive rules</li>
+                    </ul>
+                `;
+            } else {
+                analysisHTML += `
+                    <div style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
+                        <h4>✅ DIFFERENCES DETECTED</h4>
+                        <p>The alignments are working correctly with visible differences.</p>
+                    </div>
+                    <h4>📏 Width Differences:</h4>
+                    <ul>
+                        <li>Container vs Wide: <strong>${containerVsWide}px</strong></li>
+                        <li>Wide vs Full: <strong>${wideVsFull}px</strong></li>
+                        <li>Container vs Full: <strong>${containerVsFull}px</strong></li>
+                    </ul>
+                    <h4>📊 Width Summary:</h4>
+                    <ul>
+                        <li>Container: <strong>${container.width}px</strong> (${container.utilization}% of viewport)</li>
+                        <li>Wide: <strong>${wide.width}px</strong> (${wide.utilization}% of viewport)</li>
+                        <li>Full: <strong>${full.width}px</strong> (${full.utilization}% of viewport)</li>
+                    </ul>
+                `;
+            }
+
+            analysis.innerHTML = analysisHTML;
+        }
+
+        function updateScale() {
+            const scale = document.getElementById('scale-select').value;
+            const iframes = document.querySelectorAll('.test-iframe');
+
+            iframes.forEach(iframe => {
+                iframe.style.transform = `scale(${scale})`;
+                iframe.style.height = `${750 / scale}px`;
+            });
+        }
+
+        function refreshAll() {
+            framesLoaded = 0;
+            measurements = {};
+
+            const iframes = document.querySelectorAll('.test-iframe');
+            iframes.forEach(iframe => {
+                iframe.src = iframe.src;
+            });
+
+            // Reset table
+            document.getElementById('comparison-tbody').innerHTML = `
+                <tr>
+                    <td colspan="6" style="text-align: center; color: #6c757d;">
+                        Reloading measurements...
+                    </td>
+                </tr>
+            `;
+
+            // Reset analysis
+            document.getElementById('analysis').innerHTML = `
+                <h3>🔍 Analysis</h3>
+                <p>Reloading measurements...</p>
+            `;
+        }
+
+        function measureAll() {
+            const alignments = [
+                { frame: 'container-frame', type: 'sc-container' },
+                { frame: 'wide-frame', type: 'alignwide' },
+                { frame: 'full-frame', type: 'alignfull' }
+            ];
+
+            alignments.forEach(({ frame, type }) => {
+                measureFrame(frame, type);
+            });
+
+            setTimeout(() => {
+                updateComparisonTable();
+                generateAnalysis();
+            }, 500);
+        }
+
+        // Initialize
+        updateScale();
+        console.log('🎯 Side-by-side alignment test loaded');
+        console.log('📝 This test will show visual differences between Container/Wide/Full alignments');
+    </script>
+</body>
+</html>

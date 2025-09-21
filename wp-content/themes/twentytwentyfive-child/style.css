@@ -1,0 +1,63 @@
+/*
+Theme Name: Twenty Twenty-Five Child
+Description: Child theme für RIMAN GmbH mit angepassten Überschriften-Abständen
+Template: twentytwentyfive
+Version: 1.0.0
+*/
+
+/* Größere Abstände oberhalb von Überschriften */
+h1, h2, h3, h4, h5, h6,
+.wp-block-heading {
+    margin-top: 2.5em !important;
+}
+
+/* Spezifische Anpassungen für verschiedene Überschriftengrößen */
+h1, .wp-block-heading.has-xx-large-font-size {
+    margin-top: 3em !important;
+}
+
+h2, .wp-block-heading.has-x-large-font-size {
+    margin-top: 2.5em !important;
+}
+
+h3, .wp-block-heading.has-large-font-size {
+    margin-top: 2em !important;
+}
+
+h4, h5, h6 {
+    margin-top: 1.8em !important;
+}
+
+/* Erste Überschrift in Containern ohne zusätzlichen Abstand */
+.wp-block-group > h1:first-child,
+.wp-block-group > h2:first-child,
+.wp-block-group > h3:first-child,
+.wp-block-group > h4:first-child,
+.wp-block-group > h5:first-child,
+.wp-block-group > h6:first-child,
+.wp-block-group > .wp-block-heading:first-child,
+.entry-content > h1:first-child,
+.entry-content > h2:first-child,
+.entry-content > h3:first-child,
+.entry-content > .wp-block-heading:first-child {
+    margin-top: 0 !important;
+}
+
+/* Spezielle Anpassungen für Hero-Bereiche */
+.hero-section h1,
+.hero-section h2,
+.hero-section .wp-block-heading {
+    margin-top: 0 !important;
+}
+
+/* Mobile Responsivität - kleinere Abstände auf mobilen Geräten */
+@media (max-width: 768px) {
+    h1, h2, h3, h4, h5, h6,
+    .wp-block-heading {
+        margin-top: 1.8em !important;
+    }
+    
+    h1, .wp-block-heading.has-xx-large-font-size {
+        margin-top: 2.2em !important;
+    }
+}

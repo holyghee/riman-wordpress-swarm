@@ -34,9 +34,6 @@ class RIMAN_Hero_Meta {
         $hero_area_label = get_post_meta($post->ID, '_riman_hero_area_label', true);
         $hero_icon = get_post_meta($post->ID, '_riman_hero_icon', true);
         $hero_longtext = get_post_meta($post->ID, '_riman_hero_longtext', true);
-        $use_long_in_hero = (bool) get_post_meta($post->ID, '_riman_hero_use_long_in_hero', true);
-        $cards_use_short_fallback = (bool) get_post_meta($post->ID, '_riman_hero_cards_use_short_fallback', true);
-        $service_cards_offset = intval(get_post_meta($post->ID, '_riman_service_cards_offset', true));
 
         // Fallback-Werte anzeigen
         $default_title = get_the_title($post->ID);
@@ -175,40 +172,6 @@ class RIMAN_Hero_Meta {
             </div>
         </div>
 
-        <div class="riman-hero-meta">
-            <label for="riman_service_cards_offset"><?php _e('Service Cards Überlappung (px)', 'riman'); ?></label>
-            <input type="number"
-                   id="riman_service_cards_offset"
-                   name="riman_service_cards_offset"
-                   value="<?php echo esc_attr($service_cards_offset); ?>"
-                   min="0"
-                   max="400"
-                   step="5"
-                   placeholder="0">
-            <div class="help-text">
-                <?php _e('Positiver Wert verschiebt die Service Cards nach oben (Überlappung mit dem Hero). 0 = kein Versatz.', 'riman'); ?>
-            </div>
-        </div>
-
-        <div class="riman-hero-meta">
-            <details>
-                <summary style="cursor:pointer;font-weight:600;<?php echo $use_long_in_hero||$cards_use_short_fallback ? 'color:#1e4a6d;' : '' ?>">
-                    <?php _e('Erweiterte Anzeige‑Optionen (Overrides)', 'riman'); ?>
-                </summary>
-                <div class="help-text" style="margin:8px 0 10px;">
-                    <?php _e('Standard: Hero zeigt den Untertitel. Service Cards zeigen den langen Text. Aktivieren, nur wenn du hiervon abweichen willst.', 'riman'); ?>
-                </div>
-                <label style="display:block; margin-top:6px;">
-                    <input type="checkbox" id="riman_hero_use_long_in_hero" name="riman_hero_use_long_in_hero" value="1" <?php checked($use_long_in_hero, true); ?> />
-                    <?php _e('Override: Im Hero langen Text verwenden', 'riman'); ?>
-                </label>
-                <label style="display:block; margin-top:6px;">
-                    <input type="checkbox" id="riman_hero_cards_use_short_fallback" name="riman_hero_cards_use_short_fallback" value="1" <?php checked($cards_use_short_fallback, true); ?> />
-                    <?php _e('Override: In Service Cards Untertitel verwenden', 'riman'); ?>
-                </label>
-                
-            </details>
-        </div>
 
         <div class="riman-hero-meta">
             <label for="riman_hero_icon"><?php _e('Icon (Font Awesome)', 'riman'); ?></label>
@@ -240,12 +203,11 @@ class RIMAN_Hero_Meta {
                 const title = $('#riman_hero_title').val() || '<?php echo esc_js($default_title); ?>';
                 const subtitle = $('#riman_hero_subtitle').val();
                 const longtext = $('#riman_hero_longtext').val();
-                const useLongInHero = $('#riman_hero_use_long_in_hero').is(':checked');
                 const areaLabel = $('#riman_hero_area_label').val();
                 const icon = $('#riman_hero_icon').val();
 
                 $('#preview-title').text(title);
-                $('#preview-subtitle').text((useLongInHero ? (longtext || subtitle) : (subtitle || longtext)) || '<?php echo esc_js($default_subtitle ?: 'Hero-Untertitel wird hier angezeigt'); ?>');
+                $('#preview-subtitle').text(subtitle || '<?php echo esc_js($default_subtitle ?: 'Hero-Untertitel wird hier angezeigt'); ?>');
                 $('#preview-label-text').text(areaLabel);
 
                 if (icon) {
@@ -265,7 +227,7 @@ class RIMAN_Hero_Meta {
 
             $(document).ready(function() {
                 updatePreview();
-                $('#riman_hero_title, #riman_hero_subtitle, #riman_hero_longtext, #riman_hero_area_label, #riman_hero_icon, #riman_hero_use_long_in_hero').on('input change', updatePreview);
+                $('#riman_hero_title, #riman_hero_subtitle, #riman_hero_longtext, #riman_hero_area_label, #riman_hero_icon').on('input change', updatePreview);
             });
         })(jQuery);
         </script>
@@ -288,8 +250,7 @@ class RIMAN_Hero_Meta {
             '_riman_hero_subtitle' => 'sanitize_textarea_field',
             '_riman_hero_area_label' => 'sanitize_text_field',
             '_riman_hero_icon' => 'sanitize_text_field',
-            '_riman_hero_longtext' => 'sanitize_textarea_field',
-            '_riman_service_cards_offset' => 'absint'
+            '_riman_hero_longtext' => 'sanitize_textarea_field'
         ];
 
         foreach ($fields as $field => $sanitize_func) {
@@ -306,30 +267,13 @@ class RIMAN_Hero_Meta {
                 $value = $sanitize_func($raw);
             }
 
-            if ($field === '_riman_service_cards_offset') {
-                if ($value > 0) {
-                    update_post_meta($post_id, $field, $value);
-                } else {
-                    delete_post_meta($post_id, $field);
-                }
-            } elseif (!empty($value)) {
+            if (!empty($value)) {
                 update_post_meta($post_id, $field, $value);
             } else {
                 delete_post_meta($post_id, $field);
             }
         }
 
-        // Checkboxen speichern: nur Overrides setzen (kein Eintrag = Standardverhalten)
-        if (isset($_POST['riman_hero_use_long_in_hero'])) {
-            update_post_meta($post_id, '_riman_hero_use_long_in_hero', 1);
-        } else {
-            delete_post_meta($post_id, '_riman_hero_use_long_in_hero');
-        }
-        if (isset($_POST['riman_hero_cards_use_short_fallback'])) {
-            update_post_meta($post_id, '_riman_hero_cards_use_short_fallback', 1);
-        } else {
-            delete_post_meta($post_id, '_riman_hero_cards_use_short_fallback');
-        }
         // Ausrichtung: entfernt – Ausrichtung erfolgt per Absatz im Editor
     }
 
@@ -349,10 +293,7 @@ class RIMAN_Hero_Meta {
             'subtitle' => get_post_meta($post_id, '_riman_hero_subtitle', true),
             'area_label' => get_post_meta($post_id, '_riman_hero_area_label', true),
             'icon' => get_post_meta($post_id, '_riman_hero_icon', true),
-            'long_text' => get_post_meta($post_id, '_riman_hero_longtext', true),
-            'use_long_in_hero' => (bool) get_post_meta($post_id, '_riman_hero_use_long_in_hero', true),
-            'cards_use_short_fallback' => (bool) get_post_meta($post_id, '_riman_hero_cards_use_short_fallback', true),
-            'service_cards_overlap' => absint(get_post_meta($post_id, '_riman_service_cards_offset', true))
+            'long_text' => get_post_meta($post_id, '_riman_hero_longtext', true)
         ];
     }
 }

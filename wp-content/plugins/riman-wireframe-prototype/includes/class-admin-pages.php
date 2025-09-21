@@ -47,6 +47,16 @@ class RIMAN_Wireframe_Admin_Pages {
             'riman-wireframe-settings',
             array($this, 'render_settings_page')
         );
+
+        // Migration Tools
+        add_submenu_page(
+            'edit.php?post_type=riman_seiten',
+            __('Migration', 'riman-wireframe'),
+            __('Migration', 'riman-wireframe'),
+            'manage_options',
+            'riman-wireframe-migration',
+            array($this, 'render_migration_page')
+        );
     }
 
     /**
@@ -202,6 +212,38 @@ class RIMAN_Wireframe_Admin_Pages {
     private function save_settings() {
         $delete_on_deactivate = isset($_POST['riman_wireframe_delete_on_deactivate']);
         update_option('riman_wireframe_delete_on_deactivate', $delete_on_deactivate);
+    }
+
+    /**
+     * Migration Page: Inhalte aus alter Struktur übernehmen
+     */
+    public function render_migration_page() {
+        if (!current_user_can('manage_options')) { wp_die(__('Zugriff verweigert.')); }
+        require_once RIMAN_WIREFRAME_PLUGIN_DIR . 'includes/class-migrator.php';
+
+        echo '<div class="wrap">';
+        echo '<h1>' . esc_html__('Migration: Inhalte übernehmen', 'riman-wireframe') . '</h1>';
+
+        if (isset($_POST['riman_migrate']) && check_admin_referer('riman_wireframe_migrate')) {
+            $migrator = new RIMAN_Wireframe_Migrator();
+            $report = $migrator->run();
+            echo '<div class="notice notice-success"><p>' . sprintf(__('Migration abgeschlossen: %d gemappt, %d aktualisiert, %d übersprungen.', 'riman-wireframe'), (int)$report['mapped'], (int)$report['updated'], (int)$report['skipped']) . '</p></div>';
+            if (!empty($report['details'])) {
+                echo '<h2>' . esc_html__('Details', 'riman-wireframe') . '</h2><ul style="list-style:disc;padding-left:20px;">';
+                foreach ($report['details'] as $line) {
+                    echo '<li>' . esc_html($line) . '</li>';
+                }
+                echo '</ul>';
+            }
+        }
+
+        echo '<form method="post">';
+        wp_nonce_field('riman_wireframe_migrate');
+        echo '<p>' . esc_html__('Übernimmt Inhalte (Text, Auszug, Beitragsbild, Video‑Metas) aus bestehenden WordPress‑Seiten in die neue RIMAN‑Struktur. Es werden nur leere Felder befüllt, vorhandene Inhalte bleiben erhalten.', 'riman-wireframe') . '</p>';
+        submit_button(__('Migration starten', 'riman-wireframe'), 'primary', 'riman_migrate');
+        echo '</form>';
+
+        echo '</div>';
     }
 
     /**

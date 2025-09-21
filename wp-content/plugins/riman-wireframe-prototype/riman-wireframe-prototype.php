@@ -81,6 +81,9 @@ class RIMAN_Wireframe_Prototype {
         $this->taxonomies = new RIMAN_Wireframe_Taxonomies();
         $this->meta_boxes = new RIMAN_Wireframe_Meta_Boxes();
         $this->admin_pages = new RIMAN_Wireframe_Admin_Pages();
+        // Featured video metabox for riman_seiten
+        require_once RIMAN_WIREFRAME_PLUGIN_DIR . 'includes/class-featured-video.php';
+        new RIMAN_Wireframe_Featured_Video();
         $this->sample_content = new RIMAN_Wireframe_Sample_Content();
         
         // Manuell Post Types und Taxonomies registrieren

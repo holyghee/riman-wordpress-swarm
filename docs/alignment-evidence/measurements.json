@@ -1,0 +1,44 @@
+[
+  {
+    "width": 1140,
+    "height": 1188,
+    "left": 150,
+    "right": 1290,
+    "top": 111,
+    "bottom": 1300,
+    "leftMargin": 150,
+    "rightMargin": 150,
+    "utilization": 79,
+    "viewport": 1440,
+    "classes": "riman-service-cards-wrap sc-container sc-responsive alignment-highlight",
+    "type": "container"
+  },
+  {
+    "width": 1170,
+    "height": 1150,
+    "left": 135,
+    "right": 1305,
+    "top": 396,
+    "bottom": 1546,
+    "leftMargin": 135,
+    "rightMargin": 135,
+    "utilization": 81,
+    "viewport": 1440,
+    "classes": "riman-service-cards-wrap alignwide sc-responsive alignment-highlight",
+    "type": "wide"
+  },
+  {
+    "width": 1440,
+    "height": 990,
+    "left": 0,
+    "right": 1440,
+    "top": 321,
+    "bottom": 1311,
+    "leftMargin": 0,
+    "rightMargin": 0,
+    "utilization": 100,
+    "viewport": 1440,
+    "classes": "riman-service-cards-wrap alignfull sc-responsive alignment-highlight",
+    "type": "full"
+  }
+]

@@ -1,0 +1,33 @@
+**Datei:** 11_abbruch_brauchts.txt
+----------------------------------------
+
+Abbruch-Management für die alte Hütte?
+Nirgendwo in der Baubranche herrschen derart chaotische Verhältnisse, wie in der Abbruchbranche. Ein juristischer Dschungel unterschiedlichster Bewertungen von Belastungen bei Abbruchabfällen, aber auch der künstliche Mangel an Entsorgungswegen hat hier zu einer dramatischen Explosion der Kosten geführt. 
+Einen ersten "Warnschuss" erfährt der Abbruch-unerfahrene Planer oder Bauherr meist schon in der Angebotsphase, wenn er feststellt, dass die eingegangenen Angebote für Totalabbrüche um bis zu 100, 200 und mehr Prozent auseinander liegen, wodurch dann (hoffentlich) erste Fragen und Unsicherheiten auftreten. 
+Wenn auch diese Hinweise nicht wahrgenommen werden, bzw. dann der billigste Bieter den Zuschlag erhält, wird meist sehr schnell festgestellt, dass das billigste Angebot bei Weitem nicht das Günstigste war. 
+Auf Grundlage von mehr als 20 Jahren Erfahrung in diesem Bereich sind wir deshalb zu dem Schluss gekommen, dass komplexere Abbrüche eben " nicht mal schnell abgewickelt " werden können, sondern ein qualifiziertes Management erfordern. Darüber nachfolgend mehr:
+Hauptaufgabe im Abbruch-Management 
+ist es, eine Abbruchmaßnahme als kostengünstiges Gesamtkonzept zu planen. Dabei muss man sich immer bewußt sein, dass alle Vorteile, aber auch alle Probleme, die im Zusammenhang mit einer Abbruchmaßnahme stehen, direkte oder indirekte Auswirkungen auf deren Gesamtkosten haben können. 
+Will man also die Vorteile nutzen und die Nachteile vermeiden, kommt man nicht umhin, sich den besonderen Problemen eines Abbruchs, insbesondere in den Bereichen Vertragsrecht, Rückbau- und Sanierungsmethoden, Arbeitssicherheit und Umweltschutz zu stellen. 
+Darüber hinaus sind alle weiteren Faktoren und Risiken zu ermitteln, die einen erhöhten Einfluss auf die Gesamtkosten-Entwicklung haben können. All das dazu notwendige Wissen lassen wir seit vielen Jahren erfolgreich in unsere Rückbau- und Entsorgungskonzepte einfließen.
+Auf Grundlage dieser Konzepte folgen die weiteren Planungschritte, die letztendlich in Ausschreibungsunterlagen enden, welche den Bietern eine Grundlage für ein faires und gutes Angebot an den Bauherrn geben. 
+Planung und Bauleitung in einer Hand
+Meist stellt sich schon sehr früh in der Planungsphase heraus, dass sich nicht alle Problemfaktoren  von Abbruch, Rückbau und Entsorgung mittels Planung und konkreter Ausschreibung auf geeignete Weise lösen lassen. 
+So lohnt es sich aus Kostengründen nicht selten, teuere Detailplanungskosten durch eine wesentlich kostengünstigere, fachliche Begleitung von vorgezogenen oder begleitenden Ausführungs-Teilleistungen zu ersetzen. 
+Die dadurch notwendige Aufhebung der organisatoren Trennung zwischen Planungs- und Ausführungsphase, bedingt aber in der Regel auch die Aufhebung der personellen Trennung zwischen Planer und Bauleiter. Dies erfordert einen deutlich größeren Kompetenzanspruch an das eingesetzte Personal, dem wir uns seit vielen Jahren  erfolgreich stellen.
+Sicherheits-Koordination bei Abbrüchen-eine Herausforderung!
+Abbrüche stellen bedingt durch die großen Massen, die bewegt werden müssen, aber auch durch die fast immer vorhandenen Gefahr- und Schadstoffe eine besondere Herausforderung an die Qualifikation der vorgeschriebenen Sicherheitskoordinatoren dar. 
+Neben der bekannten Verpflichtung nach Baustellenverordnung sind hier meist auch die zusätzlichen Qualifizierungen nach TRGS 519 Asbest, BGR 128 Gebäudeschadstoffe und anderen Rechtsvorschriften nötig und sinnvoll. 
+Da die notwendigen Sicherheitskenntnisse wichtige Grundlage der Gesamtbetrachtung im Abbruch sind, hat es sich bewährt, auch hier in Personal-Union zu arbeiten. 
+Denn wenn Planung, Bauleitung und die Sicherheitskoordination in allen Risikobereichen, durch eine einzige Person wahrgenommen werden, entsteht ein durchgängiges Gesamtkonzept, dass mit einem Höchstmaß an Sicherheit aufwarten kann, ohne dabei wirtschaftliche Aspekte außer Acht zu lassen. Selbstverständlich ist auch dies Bestandteil unserer Managementleistungen im Abbruch. 
+Last but not least- die Entsorgungsfachkraft
+Einen besonderen Schwerpunkt erhält das Abbruch-Management sicher auch durch das immer komplexer werdende Umweltrecht, mit seinen immer höher werdenden Haftungsgrenzen, Strafen und nur schwer zu durchschauenden Entsorgungsauflagen. 
+Um hier sowohl die rechtlichen Risiken in den Griff zu bekommen, aber auch um die zum Teil gigantischen Preisunterschiede bei der Entsorgung für den Bauherrn zu nutzen, bedarf es im Planungsteam einer weiteren Kernkompetenz. Ohne das know how einer Entsorgungsfachkraft ist eine qualifizierte Abbruch- und Entsorgungsplanung nicht möglich. Die Entsorgungsfachkraft hat die schwierige Aufgabe abzuwägen, in wie weit Schadstoffrückbau und -trennung betrieben werden müssen. 
+Ziel hierbei ist, zum Einen die  rechtlichen Aufgaben zur Entsorgung zu erfüllen und dabei zum Anderen die Balance zwischen den Mehrkosten für Rückbau und Trennung auf der einen Seite und den alternativen Entsorgungskosten zu finden.  Auch diese Leistung erhalten Sie bei uns in Personalunion. 
+Muss das alles sein?
+Natürlich fragen sich viele Bauherrn, ob es in Anbetracht des hohen Planungsaufwandes nicht möglich ist, die Problemlösungen bei einem Abbruch kostengünstig auf den Abbruchunternehmer abzuwälzen? 
+Sicherlich ist dies eine Möglichkeit, die ausschreibungstechnisch gelöst werden kann, allerdings ist sie dann auch nicht umsonst. Dabei vergibt der Bauherr viele Gestaltungsvorteile für Rückbau, Abbruch und Entsorgung. Und der Versuch komplexe Planungen durch den Auftragnehmer einfach voraus zu setzen, ohne diese separat zu vergüten, geht in der Regel schief. Die Ergebnisse unzähliger verlorener Prozesse der Bauherrn zeichnen hier ein eindeutiges Bild. Das Deutsche Recht stellt sich deutlich vor den Auftragnehmer und fordert eine klare Leistungsbeschreibung bei Bauverträgen. 
+Und bei "gültigen?" Pauschal-Verträgen lassen sich die Abbruchunternehmer, das ihnen unbekannte Risiko zum Einen sehr gut bezahlen, zum Anderen verbleiben dem Bauherrn viele Restrisiken (direkte und indirekte Haftung), auf deren Handhabung er bei Pauschalverträgen nur wenig Einfluss hat. 
+Die Durchführung eines qualifizierten Abbruch-Managements stellt deshalb die sicherste und auch insgesamt kostengünstigste Lösung zur Abwicklung einer Abbruchmaßnahme dar. Eine Lösung, die jedoch den Einsatz von Spezialisten verlangt. Die RIMAN GmbH bietet ihren Kunden in diesem Zusammenhang alle Leistungen an, die für eine sichere und vor allem kostengünstige Abbruchabwicklung notwendig sind.
+
+================================================================================

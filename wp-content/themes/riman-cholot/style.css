@@ -46,8 +46,6 @@ body {
     height: 280px;
     position: relative;
     overflow: hidden;
-    clip-path: ellipse(100% 85% at 50% 0%);
-    -webkit-clip-path: ellipse(100% 85% at 50% 0%);
 }
 
 .riman-card-image img {

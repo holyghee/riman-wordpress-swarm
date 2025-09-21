@@ -1,0 +1,200 @@
+/**
+ * RIMAN Service Cards Mobile Slider Styles
+ */
+
+/* Slider nur auf Mobile (≤780px) aktivieren */
+@media (max-width: 780px) {
+
+  /* Slider Container */
+  .riman-mobile-slider-active .riman-service-slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  /* Slider Track */
+  .riman-mobile-slider-active .riman-service-slider-track {
+    display: flex;
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+
+  /* Slides */
+  .riman-mobile-slider-active .riman-service-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    box-sizing: border-box;
+    /* Padding wird weiter unten responsive definiert */
+  }
+
+  /* Service Cards im Slider */
+  .riman-mobile-slider-active .riman-service-card {
+    /* Card-Links deaktivieren im Slider-Modus */
+    pointer-events: none;
+    cursor: default;
+
+    /* Hover-Effekte deaktivieren */
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .riman-mobile-slider-active .riman-service-card::after {
+    border-color: rgba(182, 140, 47, 0.4) !important;
+  }
+
+  .riman-mobile-slider-active .riman-card-icon {
+    transform: translateX(-50%) !important;
+    box-shadow: 0 4px 16px rgba(182, 140, 47, 0.3) !important;
+  }
+
+  .riman-mobile-slider-active .riman-card-cta {
+    background: transparent !important;
+    color: #B68C2F !important;
+  }
+
+  /* Navigation Dots */
+  .riman-slider-nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 0 16px;
+  }
+
+  .riman-slider-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(182, 140, 47, 0.3);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+  }
+
+  .riman-slider-dot.active {
+    background: #B68C2F;
+    transform: scale(1.2);
+  }
+
+  .riman-slider-dot:hover {
+    background: rgba(182, 140, 47, 0.7);
+  }
+
+  /* Touch-optimiert für bessere Swipe-Gesten */
+  .riman-mobile-slider-active .riman-service-slider-track {
+    touch-action: pan-y;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Smooth scrolling für bessere Performance */
+  .riman-service-slider-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Video-Handling im Slider */
+  .riman-mobile-slider-active .riman-card-media video {
+    pointer-events: none;
+  }
+
+  .riman-mobile-slider-active .riman-card-media video:not(.is-active) {
+    opacity: 0;
+  }
+
+  .riman-mobile-slider-active .riman-card-media video.is-active {
+    opacity: 1;
+  }
+
+  /* Play-Button für Videos im Slider */
+  .riman-mobile-slider-active .riman-service-card.riman-card-has-video .riman-card-media::after {
+    /* Play-Button in Slider-Modus ausblenden, da Cards nicht klickbar */
+    display: none;
+  }
+
+  /* Responsive width bleibt voll funktionsfähig im Slider */
+  .riman-mobile-slider-active.sc-responsive .riman-service-slider-wrapper {
+    width: 100%;
+    overflow: hidden;
+    /* Respektiert alle Parent-Container Styles */
+  }
+
+  /* Slides passen sich an die Container-Breite an */
+  .riman-mobile-slider-active .riman-service-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px; /* Standard Card-Padding */
+  }
+
+  /* Für Vollbreite-Container: Reduziertes Padding */
+  .riman-mobile-slider-active[style*="width:100vw"] .riman-service-slide,
+  .riman-mobile-slider-active[style*="margin-left:calc(50% - 50vw)"] .riman-service-slide {
+    padding: 0 8px;
+  }
+
+  /* Service Card nimmt die verfügbare Slide-Breite */
+  .riman-mobile-slider-active .riman-service-slide .riman-service-card {
+    width: 100%;
+    max-width: none; /* Entfernt eventuelle width-Limitierungen */
+    margin: 0 auto;
+  }
+
+  /* Fallback für Container ohne responsive width */
+  .has-global-padding .riman-mobile-slider-active:not(.sc-responsive),
+  .wp-block-post-content.is-layout-constrained .riman-mobile-slider-active:not(.sc-responsive) {
+    margin-left: calc(-1 * var(--wp--style--root--padding-left, 16px));
+    margin-right: calc(-1 * var(--wp--style--root--padding-right, 16px));
+    width: calc(100vw - (100vw - 100%));
+    max-width: calc(100vw - (100vw - 100%));
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Animation für Slide-Wechsel */
+  .riman-service-slider-track.transitioning {
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  /* Loading State */
+  .riman-mobile-slider-active.slider-loading .riman-service-slide {
+    opacity: 0.7;
+  }
+
+  .riman-mobile-slider-active.slider-loading .riman-service-slide:first-child {
+    opacity: 1;
+  }
+
+  /* Accessibility */
+  .riman-slider-dot:focus {
+    outline: 2px solid #B68C2F;
+    outline-offset: 2px;
+  }
+
+  /* RTL Support */
+  [dir="rtl"] .riman-service-slider-track {
+    direction: rtl;
+  }
+
+  [dir="rtl"] .riman-slider-nav {
+    direction: ltr; /* Dots bleiben LTR */
+  }
+
+}
+
+/* Desktop: Sicherstellen dass Slider-Styles nicht aktiv sind */
+@media (min-width: 781px) {
+  .riman-mobile-slider-active {
+    /* Reset to normal grid layout */
+  }
+
+  .riman-service-slider-wrapper,
+  .riman-service-slider-track,
+  .riman-service-slide,
+  .riman-slider-nav {
+    display: none !important;
+  }
+}

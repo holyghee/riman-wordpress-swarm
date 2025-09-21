@@ -60,10 +60,14 @@ class RIMAN_Wireframe_Post_Types {
             'supports'            => array(
                 'title',
                 'editor',
+                'excerpt',
+                'author',
+                'revisions',
                 'thumbnail',
                 'page-attributes',
                 'custom-fields'
             ),
+            'taxonomies'          => array('category','post_tag'),
             'show_in_rest'        => true, // Gutenberg Support
             'rest_base'           => 'riman-seiten',
             'description'         => __('Wireframe Prototyp Seiten für neue Website-Struktur', 'riman-wireframe'),
@@ -76,31 +80,42 @@ class RIMAN_Wireframe_Post_Types {
      * Lade Custom Templates für Frontend
      */
     public function load_custom_templates($template) {
-        global $post;
-
-        // Prüfe ob es sich um einen riman_seiten Post handelt
-        if ($post && $post->post_type === 'riman_seiten') {
-            // Hole Seitentyp
-            $seitentyp_terms = wp_get_post_terms($post->ID, 'seitentyp');
-            
-            if (!empty($seitentyp_terms) && !is_wp_error($seitentyp_terms)) {
-                $seitentyp = $seitentyp_terms[0]->slug;
-                
-                // Suche nach spezifischem Template
-                $custom_template = RIMAN_WIREFRAME_PLUGIN_DIR . "templates/single-riman_seiten-{$seitentyp}.php";
-                
-                if (file_exists($custom_template)) {
-                    return $custom_template;
+        // Bei Block-Themes (z. B. Twenty Twenty‑Five) NICHT eingreifen,
+        // damit die Site-Editor-Templates (HTML) verwendet und bearbeitet werden können.
+        if (function_exists('wp_is_block_theme') && wp_is_block_theme()) {
+            return $template;
+        }
+        // Archive des CPT auf Theme-Archiv leiten (Beitragsoptik)
+        if (is_post_type_archive('riman_seiten')) {
+            $t = locate_template(['archive.php','home.php','index.php']);
+            if ($t) return $t;
+            $fallback = RIMAN_WIREFRAME_PLUGIN_DIR . 'templates/archive-riman_seiten.php';
+            if (file_exists($fallback)) return $fallback;
+        }
+        // Taxonomie-Archiv (seitentyp) → wie Kategorie-Archiv
+        if (is_tax('seitentyp')) {
+            $t = locate_template(['taxonomy.php','category.php','archive.php','index.php']);
+            if ($t) return $t;
+            $fallback = RIMAN_WIREFRAME_PLUGIN_DIR . 'templates/taxonomy-seitentyp.php';
+            if (file_exists($fallback)) return $fallback;
+        }
+        // Single riman_seiten → Theme-Single bevorzugen
+        if (is_singular('riman_seiten')) {
+            $t = locate_template(['single.php','singular.php','single-post.php','page.php','index.php']);
+            if ($t) return $t;
+            // Fallback auf unsere spezifischen Templates
+            global $post;
+            if ($post) {
+                $terms = wp_get_post_terms($post->ID, 'seitentyp');
+                if (!empty($terms) && !is_wp_error($terms)) {
+                    $slug = $terms[0]->slug;
+                    $custom = RIMAN_WIREFRAME_PLUGIN_DIR . "templates/single-riman_seiten-{$slug}.php";
+                    if (file_exists($custom)) return $custom;
                 }
             }
-            
-            // Fallback: Generisches riman_seiten Template
-            $fallback_template = RIMAN_WIREFRAME_PLUGIN_DIR . 'templates/single-riman_seiten.php';
-            if (file_exists($fallback_template)) {
-                return $fallback_template;
-            }
+            $fallback = RIMAN_WIREFRAME_PLUGIN_DIR . 'templates/single-riman_seiten.php';
+            if (file_exists($fallback)) return $fallback;
         }
-        
         return $template;
     }
 

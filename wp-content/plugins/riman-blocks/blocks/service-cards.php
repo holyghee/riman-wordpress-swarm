@@ -11,12 +11,29 @@ add_action('init', function() {
         'riman-service-cards-editor',
         plugin_dir_url(__FILE__) . '../assets/service-cards-block.js',
         [ 'wp-blocks', 'wp-element', 'wp-components', 'wp-block-editor', 'wp-server-side-render' ],
-        '2.0.0',
+        '2.1.0',
         true
+    );
+
+    // Main frontend CSS for editor
+    wp_register_style(
+        'riman-service-cards-frontend-editor',
+        plugin_dir_url(__FILE__) . '../assets/service-cards.css',
+        [],
+        '2.2.1'
+    );
+
+    // Editor-specific CSS enhancements
+    wp_register_style(
+        'riman-service-cards-editor-style',
+        plugin_dir_url(__FILE__) . '../assets/service-cards-editor.css',
+        ['riman-service-cards-frontend-editor'],
+        '1.0.0'
     );
 
     register_block_type('riman/service-cards', [
         'editor_script'   => 'riman-service-cards-editor',
+        'editor_style'    => 'riman-service-cards-editor-style',
         'render_callback' => function($attributes) {
             $a = wp_parse_args($attributes, [
                 'source' => 'category',
@@ -25,8 +42,6 @@ add_action('init', function() {
                 'columns' => 3,
                 'showDescriptions' => true,
                 'shape' => 'ellipse',
-                'waveHeight' => 180,
-                'waveOffset' => 36,
                 'mobileSlider' => false,
                 'sliderAutoplay' => false,
                 'sliderInterval' => 5000,
@@ -39,6 +54,13 @@ add_action('init', function() {
                 'customTabletWidth' => '100%',
                 'customMobileWidth' => '100%',
                 'showChildren' => 'auto', // 'auto', 'always', 'never'
+                'contentOffset' => 0,
+                'overlapOffset' => 0,
+                'useHeroTitle' => false,
+                'descriptionSource' => 'auto',
+                'showFullText' => false,
+                'showLearnMoreButton' => false,
+                'learnMoreText' => 'Mehr erfahren',
             ]);
 
             $source = sanitize_key($a['source']);
@@ -47,8 +69,15 @@ add_action('init', function() {
             $columns  = max(1, min(4, intval($a['columns'])));
             $showDesc = !empty($a['showDescriptions']);
             $shape    = in_array($a['shape'], ['ellipse','wave','none'], true) ? $a['shape'] : 'ellipse';
-            $wave_h   = max(80, min(240, intval($a['waveHeight'])));
-            $wave_off = max(0, min(60, intval($a['waveOffset'])));
+            $content_offset = max(0, min(100, intval($a['contentOffset'])));
+            $overlap_offset = max(0, min(400, intval($a['overlapOffset'])));
+            $use_hero_title = !empty($a['useHeroTitle']);
+            $description_source = in_array($a['descriptionSource'], ['auto','hero_longtext','hero_subtitle','page_content'], true) ? $a['descriptionSource'] : 'auto';
+            $show_full_text = !empty($a['showFullText']);
+            $show_learn_more_button = !empty($a['showLearnMoreButton']);
+            $learn_more_text = sanitize_text_field($a['learnMoreText'] ?: 'Mehr erfahren');
+
+            // Wave shape is completely handled by static CSS
             $show_children = in_array($a['showChildren'], ['auto','always','never'], true) ? $a['showChildren'] : 'auto';
 
             // Mobile Slider Attributes
@@ -70,11 +99,8 @@ add_action('init', function() {
             $has_mobile_override = ($mobile_width && $mobile_width !== 'default');
             $has_lower_breakpoint_override = $has_tablet_override || $has_mobile_override;
 
-            $service_cards_overlap = 0;
-            $current_page_id = get_the_ID();
-            if ($current_page_id) {
-                $service_cards_overlap = absint(get_post_meta($current_page_id, '_riman_service_cards_offset', true));
-            }
+            // Use block attribute for overlap instead of post meta
+            $service_cards_overlap = $overlap_offset;
 
             // Get items based on source
             $items = [];
@@ -253,7 +279,7 @@ add_action('init', function() {
             $base_url = plugin_dir_url(__FILE__) . '../assets/';
             $handle = 'riman-service-cards-frontend';
             if (!wp_style_is($handle, 'registered')) {
-                wp_register_style($handle, $base_url . 'service-cards.css', [], '2.0.1');
+                wp_register_style($handle, $base_url . 'service-cards.css', [], '2.2.1');
             }
             if (!wp_style_is($handle, 'enqueued')) {
                 wp_enqueue_style($handle);
@@ -283,10 +309,19 @@ add_action('init', function() {
             $service_cards_css_handle = 'riman-service-cards-css';
 
             if (!wp_style_is($service_cards_css_handle, 'registered')) {
-                wp_register_style($service_cards_css_handle, $base_url . 'service-cards.css', [], '2.0.1');
+                wp_register_style($service_cards_css_handle, $base_url . 'service-cards.css', [], '2.2.1');
             }
             if (!wp_style_is($service_cards_css_handle, 'enqueued')) {
                 wp_enqueue_style($service_cards_css_handle);
+            }
+
+            // Enqueue Service Cards Click Handler for WordPress Button Integration
+            $service_cards_js_handle = 'riman-service-cards-click';
+            if (!wp_script_is($service_cards_js_handle, 'registered')) {
+                wp_register_script($service_cards_js_handle, $base_url . 'service-cards-click.js', [], '1.0.0', true);
+            }
+            if (!wp_script_is($service_cards_js_handle, 'enqueued')) {
+                wp_enqueue_script($service_cards_js_handle);
             }
 
             // Enqueue Mobile Slider CSS if needed
@@ -303,6 +338,21 @@ add_action('init', function() {
             // Ensure Font Awesome is present if we render icon classes
             if (!wp_style_is('fontawesome', 'enqueued')) {
                 wp_enqueue_style('fontawesome', 'https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css', [], '6');
+            }
+
+            // Ensure WordPress Block Button styles are loaded (especially important for custom post types)
+            if (!wp_style_is('wp-block-button', 'enqueued')) {
+                wp_enqueue_style('wp-block-button');
+            }
+
+            // Ensure core block styles are loaded
+            if (!wp_style_is('wp-block-library', 'enqueued')) {
+                wp_enqueue_style('wp-block-library');
+            }
+
+            // Ensure theme block styles are loaded
+            if (!wp_style_is('wp-block-library-theme', 'enqueued')) {
+                wp_enqueue_style('wp-block-library-theme');
             }
 
             ob_start();
@@ -435,6 +485,8 @@ add_action('init', function() {
                 }
             }
 
+            // No dynamic wave CSS needed - using static CSS polygon
+
             // Output responsive styles if needed
             if (!empty($responsive_styles)) {
                 echo '<style>' . implode(' ', $responsive_styles) . '</style>';
@@ -511,7 +563,6 @@ add_action('init', function() {
                 $hero_card_desc_long = '';
                 $hero_card_desc_short = '';
                 $hero_card_desc_meta = '';
-                $cards_use_short_fallback = false;
 
                 if ($is_riman) {
                     // RIMAN page handling
@@ -556,7 +607,6 @@ add_action('init', function() {
                         if (!empty($hero_meta_box['subtitle']) && is_string($hero_meta_box['subtitle'])) {
                             $hero_card_desc_short = $strip_meta_text($hero_meta_box['subtitle']);
                         }
-                        $cards_use_short_fallback = !empty($hero_meta_box['cards_use_short_fallback']);
                     }
                 } else {
                     // Term/category handling
@@ -579,26 +629,57 @@ add_action('init', function() {
                 }
 
                 if ($is_riman) {
+                    // Title Override: use Hero-Titel if checkbox is checked
+                    if ($use_hero_title) {
+                        $hero_title_meta = get_post_meta($item_id, '_riman_hero_title', true);
+                        if (!empty($hero_title_meta)) {
+                            $title = trim(strip_tags($hero_title_meta));
+                        }
+                    }
+
+                    // Description with intelligent fallback system
                     $desc_candidates = [];
+
+                    // Get Hero meta fields
+                    $hero_subtitle_meta = get_post_meta($item_id, '_riman_hero_subtitle', true);
+                    $hero_longtext_meta = get_post_meta($item_id, '_riman_hero_longtext', true);
+
+                    if ($description_source === 'hero_longtext') {
+                        // Hero Langer Text preferred, fallback to Seiten-Excerpt
+                        if (!empty($hero_longtext_meta)) {
+                            $desc_candidates[] = trim(strip_tags($hero_longtext_meta));
+                        }
+                        $desc_candidates[] = $desc; // Seiten-Excerpt/Content fallback
+                    } elseif ($description_source === 'hero_subtitle') {
+                        // Hero-Untertitel preferred, fallback to Seiten-Excerpt
+                        if (!empty($hero_subtitle_meta)) {
+                            $desc_candidates[] = trim(strip_tags($hero_subtitle_meta));
+                        }
+                        $desc_candidates[] = $desc; // Seiten-Excerpt/Content fallback
+                    } elseif ($description_source === 'page_content') {
+                        // Standard Seiten-Excerpt/Content only
+                        $desc_candidates[] = $desc;
+                    } else {
+                        // 'auto': Hero-Lang → Hero-Kurz → Seiten-Excerpt
+                        if (!empty($hero_longtext_meta)) {
+                            $desc_candidates[] = trim(strip_tags($hero_longtext_meta));
+                        }
+                        if (!empty($hero_subtitle_meta)) {
+                            $desc_candidates[] = trim(strip_tags($hero_subtitle_meta));
+                        }
+                        $desc_candidates[] = $desc; // Seiten-Excerpt/Content fallback
+                    }
+
+                    // Add legacy fallbacks for backward compatibility
                     if ($hero_card_desc_meta !== '') {
                         $desc_candidates[] = $hero_card_desc_meta;
                     }
-                    if ($cards_use_short_fallback) {
-                        if ($hero_card_desc_short !== '') {
-                            $desc_candidates[] = $hero_card_desc_short;
-                        }
-                        if ($hero_card_desc_long !== '') {
-                            $desc_candidates[] = $hero_card_desc_long;
-                        }
-                    } else {
-                        if ($hero_card_desc_long !== '') {
-                            $desc_candidates[] = $hero_card_desc_long;
-                        }
-                        if ($hero_card_desc_short !== '') {
-                            $desc_candidates[] = $hero_card_desc_short;
-                        }
+                    if ($hero_card_desc_long !== '') {
+                        $desc_candidates[] = $hero_card_desc_long;
                     }
-                    $desc_candidates[] = $desc;
+                    if ($hero_card_desc_short !== '') {
+                        $desc_candidates[] = $hero_card_desc_short;
+                    }
 
                     foreach ($desc_candidates as $candidate) {
                         if (!is_string($candidate)) {
@@ -636,23 +717,25 @@ add_action('init', function() {
                 }
                 $icon_url = $icon_id ? wp_get_attachment_image_url($icon_id, 'thumbnail') : '';
 
-                echo '<a class="wp-block-group riman-service-card shape-' . esc_attr($shape) . '" href="' . esc_url($link) . '">';
+                $card_style = '';
+                if ($content_offset > 0) {
+                    $card_style = ' style="--riman-content-offset: ' . $content_offset . 'px;"';
+                }
+                if ($show_learn_more_button) {
+                    // Use div when button is enabled to avoid nested links
+                    echo '<div class="wp-block-group riman-service-card shape-' . esc_attr($shape) . '" data-href="' . esc_url($link) . '"' . $card_style . '>';
+                } else {
+                    // Use link when no button
+                    echo '<a class="wp-block-group riman-service-card shape-' . esc_attr($shape) . '" href="' . esc_url($link) . '"' . $card_style . '>';
+                }
                 echo '  <div class="riman-card-media shape-' . esc_attr($shape) . '">';
                 if ($img) {
                     echo '    <img src="' . esc_url($img) . '" alt="' . esc_attr($title) . '" loading="lazy" />';
                 } else {
                     echo '    <div class="riman-card-media--placeholder"></div>';
                 }
-                if ($shape === 'wave') {
-                    $style = 'height:' . esc_attr($wave_h) . 'px; bottom:-' . esc_attr($wave_off) . 'px;';
-                    // Standard RIMAN wave path
-                    $d = 'M0,175 L1.82,175 Q313.08,187.6 534.27,165.98 Q944.34,127.23 1199.57,140.98 L1200,140.98 L1200,400 L0,400 Z';
-                    echo '    <div class="riman-card-wave" aria-hidden="true" style="' . $style . '">'
-                        . '<svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">'
-                        . '<path d="' . esc_attr($d) . '" fill="#ffffff"></path>'
-                        . '</svg>'
-                        . '</div>';
-                }
+                // Wave shape is now handled by CSS clip-path with --wave-y variable
+                // No need for SVG overlay anymore
                 echo '  </div>';
                 echo '  <div class="riman-card-icon" aria-hidden="true">';
                 if (!empty($icon_cls)) {
@@ -693,10 +776,21 @@ add_action('init', function() {
                 echo '  <div class="riman-card-content">';
                 echo '    <h3 class="riman-card-title">' . esc_html($title) . '</h3>';
                 if ($showDesc && $desc) {
-                    echo '    <p class="riman-card-description">' . esc_html(wp_trim_words($desc, 24)) . '</p>';
+                    if ($show_full_text) {
+                        echo '    <p class="riman-card-description">' . esc_html($desc) . '</p>';
+                    } else {
+                        echo '    <p class="riman-card-description">' . esc_html(wp_trim_words($desc, 24)) . '</p>';
+                    }
+                }
+                if ($show_learn_more_button) {
+                    echo '    <div class="riman-card-button wp-block-buttons"><div class="wp-block-button"><a class="wp-block-button__link wp-element-button" href="' . esc_url($link) . '">' . esc_html($learn_more_text) . '</a></div></div>';
                 }
                 echo '  </div>';
-                echo '</a>';
+                if ($show_learn_more_button) {
+                    echo '</div>';
+                } else {
+                    echo '</a>';
+                }
             }
             echo '</div>';
             echo '</div>'; // Close wrapper
@@ -709,8 +803,6 @@ add_action('init', function() {
             'columns' => [ 'type' => 'number', 'default' => 3 ],
             'showDescriptions' => [ 'type' => 'boolean', 'default' => true ],
             'shape' => [ 'type' => 'string', 'default' => 'ellipse' ],
-            'waveHeight' => [ 'type' => 'number', 'default' => 180 ],
-            'waveOffset' => [ 'type' => 'number', 'default' => 36 ],
             'mobileSlider' => [ 'type' => 'boolean', 'default' => false ],
             'sliderAutoplay' => [ 'type' => 'boolean', 'default' => false ],
             'sliderInterval' => [ 'type' => 'number', 'default' => 5000 ],
@@ -723,6 +815,13 @@ add_action('init', function() {
             'customTabletWidth' => [ 'type' => 'string', 'default' => '100%' ],
             'customMobileWidth' => [ 'type' => 'string', 'default' => '100%' ],
             'showChildren' => [ 'type' => 'string', 'default' => 'auto' ],
+            'contentOffset' => [ 'type' => 'number', 'default' => 0 ],
+            'overlapOffset' => [ 'type' => 'number', 'default' => 0 ],
+            'useHeroTitle' => [ 'type' => 'boolean', 'default' => false ],
+            'descriptionSource' => [ 'type' => 'string', 'default' => 'auto' ],
+            'showFullText' => [ 'type' => 'boolean', 'default' => false ],
+            'showLearnMoreButton' => [ 'type' => 'boolean', 'default' => false ],
+            'learnMoreText' => [ 'type' => 'string', 'default' => 'Mehr erfahren' ],
             // allow common block props to pass validation in REST
             'className'  => [ 'type' => 'string' ],
             'align'      => [ 'type' => 'string' ],
@@ -730,3 +829,22 @@ add_action('init', function() {
         ],
     ]);
 });
+
+// Ensure WordPress Global Styles are loaded on riman_seiten pages
+add_action('wp_enqueue_scripts', function() {
+    if (is_singular('riman_seiten') || is_post_type_archive('riman_seiten')) {
+        // Force load WordPress core block styles
+        wp_enqueue_style('wp-block-library');
+        wp_enqueue_style('wp-block-library-theme');
+
+        // Force load global styles for this theme
+        if (function_exists('wp_enqueue_global_styles')) {
+            wp_enqueue_global_styles();
+        }
+
+        // Ensure block button styles specifically
+        if (!wp_style_is('wp-block-button', 'enqueued')) {
+            wp_enqueue_style('wp-block-button');
+        }
+    }
+}, 5); // Early priority to ensure styles load before other stylesheets

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Responsive Test</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+        }
+        .test-container {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .measurement {
+            background: #e3f2fd;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #2196f3;
+        }
+        .viewport-info {
+            background: #fff3e0;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #ff9800;
+        }
+        .test-element {
+            background: #f3e5f5;
+            padding: 20px;
+            margin: 10px 0;
+            border: 2px dashed #9c27b0;
+            text-align: center;
+        }
+        .wordpress-styles {
+            /* WordPress CSS Variables */
+            --wp--style--global--content-size: 1140px;
+            --wp--style--global--wide-size: 1170px;
+            --wp--preset--spacing--50: clamp(30px, 5vw, 50px);
+            --wp--style--root--padding-right: var(--wp--preset--spacing--50);
+            --wp--style--root--padding-left: var(--wp--preset--spacing--50);
+        }
+        .wp-container {
+            max-width: var(--wp--style--global--content-size);
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: var(--wp--style--root--padding-left);
+            padding-right: var(--wp--style--root--padding-right);
+        }
+        .wp-wide {
+            max-width: var(--wp--style--global--wide-size);
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: var(--wp--style--root--padding-left);
+            padding-right: var(--wp--style--root--padding-right);
+        }
+    </style>
+</head>
+<body class="wordpress-styles">
+    <div class="test-container">
+        <h1>WordPress Container & Wide Responsive Test</h1>
+
+        <div class="viewport-info">
+            <strong>Current Viewport:</strong> <span id="viewport-size"></span>
+        </div>
+
+        <div class="measurement">
+            <strong>CSS Variables:</strong><br>
+            Content Size: <span id="content-size"></span><br>
+            Wide Size: <span id="wide-size"></span><br>
+            Spacing-50: <span id="spacing-50"></span>
+        </div>
+
+        <div class="test-element wp-container">
+            <strong>WordPress Container</strong><br>
+            max-width: 1140px + responsive padding<br>
+            Width: <span id="container-width"></span>
+        </div>
+
+        <div class="test-element wp-wide">
+            <strong>WordPress Wide</strong><br>
+            max-width: 1170px + responsive padding<br>
+            Width: <span id="wide-width"></span>
+        </div>
+
+        <div class="measurement">
+            <strong>Analysis:</strong><br>
+            <span id="analysis"></span>
+        </div>
+    </div>
+
+    <script>
+        function updateMeasurements() {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            // Get computed CSS variables
+            const rootStyles = getComputedStyle(document.documentElement);
+            const contentSize = rootStyles.getPropertyValue('--wp--style--global--content-size');
+            const wideSize = rootStyles.getPropertyValue('--wp--style--global--wide-size');
+            const spacing50 = rootStyles.getPropertyValue('--wp--preset--spacing--50');
+
+            // Get actual element dimensions
+            const containerEl = document.querySelector('.wp-container');
+            const wideEl = document.querySelector('.wp-wide');
+            const containerWidth = containerEl.offsetWidth;
+            const wideWidth = wideEl.offsetWidth;
+
+            // Update display
+            document.getElementById('viewport-size').textContent = `${viewportWidth}x${viewportHeight}`;
+            document.getElementById('content-size').textContent = contentSize;
+            document.getElementById('wide-size').textContent = wideSize;
+            document.getElementById('spacing-50').textContent = spacing50;
+            document.getElementById('container-width').textContent = `${containerWidth}px`;
+            document.getElementById('wide-width').textContent = `${wideWidth}px`;
+
+            // Analysis
+            let analysis = '';
+            if (containerWidth === wideWidth) {
+                analysis = '⚠️ Container and Wide are SAME width (viewport constrained)';
+            } else {
+                const diff = wideWidth - containerWidth;
+                analysis = `✅ Different widths - Wide is ${diff}px wider than Container`;
+            }
+            document.getElementById('analysis').textContent = analysis;
+
+            // Log to console for debugging
+            console.log('WordPress Responsive Analysis:', {
+                viewport: `${viewportWidth}x${viewportHeight}`,
+                contentSize: contentSize,
+                wideSize: wideSize,
+                spacing50: spacing50,
+                containerWidth: containerWidth,
+                wideWidth: wideWidth,
+                difference: wideWidth - containerWidth
+            });
+        }
+
+        // Initial measurement
+        updateMeasurements();
+
+        // Update on resize
+        window.addEventListener('resize', updateMeasurements);
+
+        // Also update after a short delay to catch any async CSS loading
+        setTimeout(updateMeasurements, 100);
+    </script>
+</body>
+</html>

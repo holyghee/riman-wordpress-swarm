@@ -1,0 +1,57 @@
+/* RIMAN Service Cards - Editor Styles */
+
+/* Ensure editor preview matches frontend appearance */
+.block-editor-block-preview__content .riman-service-cards-wrap,
+.block-editor-block-list__layout .riman-service-cards-wrap {
+  /* Main frontend styles are imported via dependency */
+}
+
+/* Editor-specific adjustments for ServerSideRender */
+.wp-block-riman-service-cards .riman-service-cards-wrap {
+  /* Ensure proper spacing in editor */
+  margin: 0;
+}
+
+/* Ensure WordPress button styles are loaded in editor context */
+.block-editor-block-preview__content .wp-block-button__link,
+.block-editor-block-list__layout .wp-block-button__link {
+  /* WordPress core button styles should be inherited */
+  display: inline-block;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+/* Editor preview container adjustments */
+.wp-block-riman-service-cards .components-server-side-render {
+  min-height: 200px;
+}
+
+/* Ensure editor preview respects the Flexbox layout for buttons */
+.block-editor-block-preview__content .riman-service-card,
+.block-editor-block-list__layout .riman-service-card {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.block-editor-block-preview__content .riman-card-content,
+.block-editor-block-list__layout .riman-card-content {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.block-editor-block-preview__content .riman-card-button,
+.block-editor-block-list__layout .riman-card-button {
+  margin-top: auto !important;
+}
+
+/* Disable click interactions in editor */
+.block-editor-block-preview__content .riman-service-card[data-href],
+.block-editor-block-list__layout .riman-service-card[data-href] {
+  pointer-events: none;
+}
+
+.block-editor-block-preview__content .wp-block-button__link,
+.block-editor-block-list__layout .wp-block-button__link {
+  pointer-events: none;
+}
