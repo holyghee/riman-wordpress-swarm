@@ -271,6 +271,9 @@
                 videoTimeout = null;
             }
 
+            // Show play button after video ends
+            this.showPlayButton(video);
+
             // Move to next video after short delay
             videoTimeout = setTimeout(() => {
                 this.moveToNext(cards);
@@ -282,6 +285,60 @@
             this.playNextVideo(cards);
         }
 
+        showPlayButton(video) {
+            const card = video.closest('.riman-card--has-video');
+            if (!card) return;
+
+            // Remove existing play button
+            const existingButton = card.querySelector('.riman-video-play-button');
+            if (existingButton) {
+                existingButton.remove();
+            }
+
+            // Create play button
+            const playButton = document.createElement('div');
+            playButton.className = 'riman-video-play-button';
+            playButton.innerHTML = `
+                <div class="riman-play-circle">
+                    <svg class="riman-play-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                </div>
+            `;
+
+            // Add click handler to navigate to page
+            playButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const href = card.dataset.href || card.querySelector('a')?.href;
+                if (href) {
+                    window.location.href = href;
+                }
+            });
+
+            // Add to card media
+            const mediaContainer = card.querySelector('.riman-card-media');
+            if (mediaContainer) {
+                mediaContainer.appendChild(playButton);
+            }
+
+            // Fade in play button
+            setTimeout(() => {
+                playButton.style.opacity = '1';
+            }, 100);
+        }
+
+        hidePlayButton(card) {
+            const playButton = card.querySelector('.riman-video-play-button');
+            if (playButton) {
+                playButton.style.opacity = '0';
+                setTimeout(() => {
+                    playButton.remove();
+                }, 300);
+            }
+        }
+
         handleSliderChange(cards) {
             // Stop current video when slider changes
             if (currentVideoIndex < cards.length) {
@@ -290,6 +347,8 @@
 
                 if (video) {
                     this.stopVideo(video);
+                    // Hide play button when slider changes
+                    this.hidePlayButton(currentCard);
                 }
             }
 
@@ -301,12 +360,32 @@
                 videoTimeout = null;
             }
 
-            // Restart sequence after slider transition
-            videoTimeout = setTimeout(() => {
-                if (videoSequenceActive) {
-                    this.playNextVideo(cards);
-                }
-            }, 600); // Wait for slider transition
+            // Fix for mobile slider: Check if we're in a mobile slider environment
+            const isInMobileSlider = cards[0]?.closest('[data-mobile-slider="true"]');
+
+            if (isInMobileSlider && window.innerWidth <= 780) {
+                // In mobile slider: don't restart video sequence automatically
+                // Wait for slider to stabilize before checking if video should start
+                videoTimeout = setTimeout(() => {
+                    const activeSlide = cards[0]?.closest('.riman-service-slider-wrapper')
+                        ?.querySelector('.riman-service-slide:not(.clone-slide)');
+
+                    if (activeSlide && videoSequenceActive) {
+                        // Only restart if the slide with videos is currently visible
+                        const slideCards = activeSlide.querySelectorAll('.riman-card--has-video');
+                        if (slideCards.length > 0) {
+                            this.playNextVideo(Array.from(slideCards));
+                        }
+                    }
+                }, 800); // Wait longer for slider transition
+            } else {
+                // Desktop: restart sequence normally
+                videoTimeout = setTimeout(() => {
+                    if (videoSequenceActive) {
+                        this.playNextVideo(cards);
+                    }
+                }, 600);
+            }
         }
     }
 

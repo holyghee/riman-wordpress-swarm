@@ -142,9 +142,107 @@
     }
 }
 
+/* Play Button Styles */
+.riman-video-play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%); /* Slightly above center */
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    cursor: pointer;
+    pointer-events: auto;
+}
+
+.riman-play-circle {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.riman-play-circle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    background: rgba(255, 255, 255, 1);
+}
+
+.riman-play-icon {
+    width: 32px;
+    height: 32px;
+    color: #333;
+    margin-left: 4px; /* Optical centering */
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+    .riman-play-circle {
+        width: 64px;
+        height: 64px;
+    }
+
+    .riman-play-icon {
+        width: 24px;
+        height: 24px;
+        margin-left: 3px;
+    }
+}
+
+/* Touch device hover states */
+@media (hover: none) and (pointer: coarse) {
+    .riman-play-circle:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+}
+
 /* High contrast mode support */
 @media (prefers-contrast: high) {
     .riman-card-video {
         border: 1px solid;
     }
+
+    .riman-play-circle {
+        background: white;
+        border: 2px solid black;
+    }
+
+    .riman-play-icon {
+        color: black;
+    }
+}
+
+/* Animation for play button appearance */
+@keyframes playButtonFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -60%) scale(1);
+    }
+}
+
+.riman-video-play-button {
+    animation: playButtonFadeIn 0.3s ease-out;
+}
+
+/* Ensure play button doesn't interfere with card interactions */
+.riman-card--has-video .riman-card-content,
+.riman-card--has-video .riman-card-icon {
+    position: relative;
+    z-index: 6;
+}
+
+/* Hide play button during video playback */
+.riman-card--has-video.video-active .riman-video-play-button {
+    opacity: 0;
+    pointer-events: none;
 }
