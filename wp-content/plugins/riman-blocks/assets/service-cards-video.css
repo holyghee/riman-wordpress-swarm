@@ -1,0 +1,150 @@
+/**
+ * RIMAN Service Cards - Video Styles with LCP Optimization
+ *
+ * Features:
+ * - LCP optimized poster display
+ * - Smooth video transitions
+ * - Responsive video handling
+ * - Mobile slider compatibility
+ */
+
+/* Video container positioning */
+.riman-card--has-video .riman-card-media {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Poster image (loads immediately for LCP) */
+.riman-card-poster {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+/* Video element (lazy loaded, initially hidden) */
+.riman-card-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* Prevent interference with card clicks */
+}
+
+/* Video active state */
+.riman-card-video.is-playing {
+    opacity: 1;
+}
+
+/* Card with video active state */
+.riman-card--has-video.video-active .riman-card-poster {
+    opacity: 0;
+}
+
+.riman-card--has-video.video-active .riman-card-video {
+    opacity: 1;
+}
+
+/* Mobile slider specific styles */
+@media (max-width: 767px) {
+    .riman-service-cards-wrap[data-mobile-slider="true"] .riman-card-video {
+        /* Ensure videos don't interfere with slider touch events */
+        pointer-events: none;
+    }
+
+    .riman-service-cards-wrap[data-mobile-slider="true"] .riman-card--has-video {
+        /* Smooth transitions for slider */
+        transition: transform 0.3s ease;
+    }
+}
+
+/* Desktop grid specific styles */
+@media (min-width: 768px) {
+    .riman-card--has-video .riman-card-media {
+        /* Ensure proper aspect ratio for videos */
+        aspect-ratio: 16/9;
+        min-height: 200px;
+    }
+}
+
+/* Loading state */
+.riman-card-video[data-loaded="false"] {
+    opacity: 0;
+}
+
+.riman-card-video[data-loaded="true"] {
+    transition: opacity 0.3s ease;
+}
+
+/* Performance optimizations */
+.riman-card-video {
+    /* Hardware acceleration for smooth playback */
+    transform: translateZ(0);
+    will-change: opacity;
+}
+
+.riman-card-poster {
+    /* Hardware acceleration for smooth transitions */
+    transform: translateZ(0);
+    will-change: opacity;
+}
+
+/* Hover effects (desktop only) */
+@media (min-width: 768px) and (hover: hover) {
+    .riman-card--has-video:hover .riman-card-video {
+        /* Slight opacity increase on hover */
+        opacity: 0.1;
+    }
+
+    .riman-card--has-video.video-active:hover .riman-card-video {
+        /* Full opacity when video is playing */
+        opacity: 1;
+    }
+}
+
+/* Fallback for no-video cards */
+.riman-service-card:not(.riman-card--has-video) .riman-card-media img {
+    /* Standard image display */
+    position: relative;
+    z-index: 1;
+}
+
+/* Debug mode (can be enabled via class) */
+.riman-debug .riman-card--has-video::after {
+    content: 'VIDEO';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 0, 0, 0.7);
+    color: white;
+    padding: 2px 5px;
+    font-size: 10px;
+    z-index: 10;
+    border-radius: 2px;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .riman-card-video,
+    .riman-card-poster {
+        transition: none;
+    }
+
+    .riman-card--has-video {
+        transition: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .riman-card-video {
+        border: 1px solid;
+    }
+}

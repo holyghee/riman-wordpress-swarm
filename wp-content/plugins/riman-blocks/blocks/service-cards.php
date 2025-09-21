@@ -324,6 +324,37 @@ add_action('init', function() {
                 wp_enqueue_script($service_cards_js_handle);
             }
 
+            // Enqueue Service Cards Video Sequence for LCP optimized video playback
+            $has_video_cards = false;
+            foreach ($items as $item) {
+                if ($source === 'riman') {
+                    $video_id = (int) get_post_meta($item->ID, '_riman_featured_video_id', true);
+                    $video_url = (string) get_post_meta($item->ID, '_riman_featured_video_url', true);
+                    if ($video_id > 0 || !empty($video_url)) {
+                        $has_video_cards = true;
+                        break;
+                    }
+                }
+            }
+
+            if ($has_video_cards) {
+                $video_css_handle = 'riman-service-cards-video-css';
+                if (!wp_style_is($video_css_handle, 'registered')) {
+                    wp_register_style($video_css_handle, $base_url . 'service-cards-video.css', [$handle], '1.0.0');
+                }
+                if (!wp_style_is($video_css_handle, 'enqueued')) {
+                    wp_enqueue_style($video_css_handle);
+                }
+
+                $video_js_handle = 'riman-service-cards-video-sequence';
+                if (!wp_script_is($video_js_handle, 'registered')) {
+                    wp_register_script($video_js_handle, $base_url . 'service-cards-video-sequence.js', [], '1.0.0', true);
+                }
+                if (!wp_script_is($video_js_handle, 'enqueued')) {
+                    wp_enqueue_script($video_js_handle);
+                }
+            }
+
             // Enqueue Mobile Slider CSS if needed
             if ($mobile_slider) {
                 $slider_css_handle = 'riman-service-cards-mobile-slider-css';
@@ -571,6 +602,16 @@ add_action('init', function() {
                     $desc = trim(strip_tags($item->post_excerpt ?: $item->post_content));
                     $item_id = $item->ID;
 
+                    // Get Featured Video for Service Cards (LCP optimized)
+                    $video_id = (int) get_post_meta($item_id, '_riman_featured_video_id', true);
+                    $video_url = (string) get_post_meta($item_id, '_riman_featured_video_url', true);
+                    $video_src = '';
+                    if ($video_id > 0) {
+                        $video_src = wp_get_attachment_url($video_id);
+                    } elseif (!empty($video_url)) {
+                        $video_src = $video_url;
+                    }
+
                     // Get hero metadata for icon
                     $hero_meta = get_post_meta($item_id, 'hero_metadata', true);
                     $icon_cls = '';
@@ -694,6 +735,23 @@ add_action('init', function() {
                 }
 
                 $img = $get_item_image($item, $is_riman);
+
+                // Video handling for RIMAN cards with LCP optimization
+                $has_video = false;
+                $poster_url = '';
+                if ($is_riman && !empty($video_src)) {
+                    $has_video = true;
+                    // Use Featured Image as poster for LCP optimization
+                    $poster_url = $img;
+                    // If no featured image, use video thumbnail
+                    if (empty($poster_url) && $video_id > 0) {
+                        $thumb_id = get_post_thumbnail_id($item_id);
+                        if ($thumb_id) {
+                            $poster_url = wp_get_attachment_image_url($thumb_id, 'large');
+                        }
+                    }
+                }
+
                 $icon_cls = trim($icon_cls);
                 // Strip stray quotes/newlines
                 $icon_cls = trim($icon_cls, "\"' \n\r\t");
@@ -721,19 +779,50 @@ add_action('init', function() {
                 if ($content_offset > 0) {
                     $card_style = ' style="--riman-content-offset: ' . $content_offset . 'px;"';
                 }
+
+                // Add video data attributes for sequential playback
+                $card_classes = 'wp-block-group riman-service-card shape-' . esc_attr($shape);
+                $card_attrs = 'data-href="' . esc_url($link) . '"' . $card_style;
+
+                if ($has_video) {
+                    $card_classes .= ' riman-card--has-video';
+                    $card_attrs .= ' data-video-src="' . esc_url($video_src) . '"';
+                    if ($poster_url) {
+                        $card_attrs .= ' data-poster-url="' . esc_url($poster_url) . '"';
+                    }
+                }
+
                 if ($show_learn_more_button) {
                     // Use div when button is enabled to avoid nested links
-                    echo '<div class="wp-block-group riman-service-card shape-' . esc_attr($shape) . '" data-href="' . esc_url($link) . '"' . $card_style . '>';
+                    echo '<div class="' . esc_attr($card_classes) . '" ' . $card_attrs . '>';
                 } else {
                     // Use link when no button
-                    echo '<a class="wp-block-group riman-service-card shape-' . esc_attr($shape) . '" href="' . esc_url($link) . '"' . $card_style . '>';
+                    echo '<a class="' . esc_attr($card_classes) . '" href="' . esc_url($link) . '" ' . $card_attrs . '>';
                 }
                 echo '  <div class="riman-card-media shape-' . esc_attr($shape) . '">';
-                if ($img) {
+
+                // Video with LCP optimization
+                if ($has_video && $poster_url) {
+                    // Poster image loads immediately (LCP optimization)
+                    echo '    <img src="' . esc_url($poster_url) . '" alt="' . esc_attr($title) . '" loading="lazy" class="riman-card-poster" />';
+
+                    // Video element (lazy loaded, initially hidden)
+                    echo '    <video class="riman-card-video" ';
+                    echo 'preload="none" ';
+                    echo 'muted ';
+                    echo 'playsinline ';
+                    echo 'poster="' . esc_url($poster_url) . '" ';
+                    echo 'data-src="' . esc_url($video_src) . '" ';
+                    echo 'data-riman-service-video="1" ';
+                    echo 'style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">';
+                    echo '      <source data-src="' . esc_url($video_src) . '" type="video/mp4">';
+                    echo '    </video>';
+                } elseif ($img) {
                     echo '    <img src="' . esc_url($img) . '" alt="' . esc_attr($title) . '" loading="lazy" />';
                 } else {
                     echo '    <div class="riman-card-media--placeholder"></div>';
                 }
+
                 // Wave shape is now handled by CSS clip-path with --wave-y variable
                 // No need for SVG overlay anymore
                 echo '  </div>';
