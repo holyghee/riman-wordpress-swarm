@@ -96,17 +96,42 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Video-Handling im Slider */
+  /* Video-Handling im Slider - Updated for new video system */
   .riman-mobile-slider-active .riman-card-media video {
     pointer-events: none;
   }
 
-  .riman-mobile-slider-active .riman-card-media video:not(.is-active) {
+  /* Mobile Slider: Keep original design intact */
+  .riman-mobile-slider-active .riman-card--has-video .riman-card-media {
+    /* Keep clipping mask - don't destroy design */
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  /* Mobile Slider: Videos positioned within clipping mask */
+  .riman-mobile-slider-active .riman-card--has-video .riman-card-video {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    z-index: 3 !important;
+    /* Videos will be clipped by parent container - this preserves design */
+  }
+
+  /* Use new video classes for mobile slider */
+  .riman-mobile-slider-active .riman-card-media video:not(.is-playing) {
     opacity: 0;
   }
 
-  .riman-mobile-slider-active .riman-card-media video.is-active {
-    opacity: 1;
+  .riman-mobile-slider-active .riman-card-media video.is-playing {
+    opacity: 1 !important;
+  }
+
+  /* Ensure video-active cards show videos */
+  .riman-mobile-slider-active .riman-card--has-video.video-active video {
+    opacity: 1 !important;
   }
 
   /* Play-Button für Videos im Slider */

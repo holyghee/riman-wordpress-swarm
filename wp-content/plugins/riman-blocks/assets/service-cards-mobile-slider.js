@@ -55,7 +55,24 @@ document.addEventListener('DOMContentLoaded', function() {
         cards.forEach(card => {
             const slide = document.createElement('div');
             slide.className = 'riman-service-slide';
-            slide.appendChild(card.cloneNode(true));
+            const clonedCard = card.cloneNode(true);
+
+            // Ensure video data is preserved in clones
+            const originalVideo = card.querySelector('.riman-card-video');
+            const clonedVideo = clonedCard.querySelector('.riman-card-video');
+
+            if (originalVideo && clonedVideo) {
+                // Copy video source data
+                if (originalVideo.dataset.src) {
+                    clonedVideo.dataset.src = originalVideo.dataset.src;
+                }
+                if (card.dataset.videoSrc) {
+                    clonedCard.dataset.videoSrc = card.dataset.videoSrc;
+                }
+                console.log('Preserved video data for slider clone:', clonedVideo.dataset.src || clonedCard.dataset.videoSrc);
+            }
+
+            slide.appendChild(clonedCard);
             sliderTrack.appendChild(slide);
         });
 
@@ -114,6 +131,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.currentSlide = 1; // Startposition (nach dem Clone)
             this.isPlaying = this.options.autoPlay;
             this.autoPlayTimer = null;
+            this.videoTimer = null;
+            this.videoAdvanceTimer = null;
             this.isDragging = false;
             this.startX = 0;
             this.startY = 0;
@@ -278,15 +297,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     setTimeout(() => {
                         this.track.style.transition = 'transform 0.3s ease';
                         this.isTransitioning = false;
-                    }, 10);
+                        // Handle video playback after loop reset
+                        this.handleVideoPlayback();
+                    }, 50); // Longer delay for stability
                 }, 300);
             } else {
                 setTimeout(() => {
                     this.isTransitioning = false;
+                    // Handle video playback for normal transitions
+                    this.handleVideoPlayback();
                 }, 300);
             }
-
-            this.handleVideoPlayback();
         }
 
         previousSlide() {
@@ -370,35 +391,170 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearInterval(this.autoPlayTimer);
                 this.autoPlayTimer = null;
             }
+
+            // Auch Video-Timer stoppen
+            if (this.videoTimer) {
+                clearTimeout(this.videoTimer);
+                this.videoTimer = null;
+            }
+            if (this.videoAdvanceTimer) {
+                clearTimeout(this.videoAdvanceTimer);
+                this.videoAdvanceTimer = null;
+            }
         }
 
-        // Video-Synchronisation
+        // Video-Synchronisation mit sequentieller Wiedergabe
         handleVideoPlayback() {
-            // Alle Videos pausieren (inklusive Clones)
-            this.allSlides.forEach((slide, index) => {
-                const video = slide.querySelector('video');
-                if (video) {
-                    const realIndex = this.currentSlide - 1; // -1 wegen Clone am Anfang
-                    const isActiveSlide = index === this.currentSlide;
+            console.log('Mobile slider: handleVideoPlayback called, currentSlide:', this.currentSlide);
 
-                    if (isActiveSlide) {
-                        // Aktuelles Video aktivieren
-                        video.classList.add('is-active');
-                        if (video.autoplay || video.dataset.autoplay === 'true') {
-                            const playPromise = video.play();
-                            if (playPromise) {
-                                playPromise.catch(e => console.log('Video autoplay prevented:', e));
-                            }
-                        }
-                    } else {
-                        // Andere Videos pausieren und deaktivieren
-                        video.classList.remove('is-active');
-                        video.pause();
-                        video.currentTime = 0;
+            // Stoppe alle laufenden Videos und Timer
+            this.pauseAllVideos();
+
+            // Finde aktuelle Slide (echte Slide, keine Clone)
+            const currentSlideEl = this.allSlides[this.currentSlide];
+            if (!currentSlideEl) return;
+
+            const video = currentSlideEl.querySelector('.riman-card-video');
+            if (!video) return;
+
+            const card = video.closest('.riman-service-card');
+            if (!card) return;
+
+            // Video source laden
+            const videoSrc = video.dataset.src || card.dataset.videoSrc;
+            if (!videoSrc) return;
+
+            console.log('Mobile slider: Starting video for slide', this.currentSlide, videoSrc);
+
+            // Video-Klassen für Sequential System setzen
+            video.classList.add('is-active', 'is-playing');
+            card.classList.add('video-active');
+
+            // Poster verstecken, Video zeigen
+            const poster = currentSlideEl.querySelector('.riman-card-poster');
+            if (poster) {
+                poster.style.opacity = '0';
+            }
+
+            // Video-Eigenschaften setzen
+            video.src = videoSrc;
+            video.muted = true;
+            video.playsInline = true;
+            video.controls = false;
+            video.currentTime = 0;
+
+            // Video abspielen und Timer starten
+            video.play().then(() => {
+                console.log('✅ Mobile slider video playing');
+
+                // Video-Ende Handler
+                const handleVideoEnd = () => {
+                    console.log('📺 Video ended, showing play button and advancing');
+                    this.showPlayButton(currentSlideEl);
+
+                    // Auto-advance nach kurzer Pause wenn autoplay aktiv
+                    if (this.options.autoPlay) {
+                        this.videoAdvanceTimer = setTimeout(() => {
+                            this.nextSlide();
+                        }, 1000); // 1 Sekunde Pause
                     }
+
+                    video.removeEventListener('ended', handleVideoEnd);
+                };
+
+                video.addEventListener('ended', handleVideoEnd);
+
+                // 5-Sekunden Timer für garantierten Advance
+                this.videoTimer = setTimeout(() => {
+                    if (!video.ended) {
+                        video.pause();
+                        handleVideoEnd();
+                    }
+                }, 5000);
+
+            }).catch(e => {
+                console.log('❌ Video play failed:', e);
+                // Bei Fehler: Advance nach kurzer Pause
+                if (this.options.autoPlay) {
+                    this.videoAdvanceTimer = setTimeout(() => this.nextSlide(), 1000);
                 }
             });
         }
+
+        // Alle Videos pausieren und Timer löschen
+        pauseAllVideos() {
+            // Clear alle Timer
+            if (this.videoTimer) {
+                clearTimeout(this.videoTimer);
+                this.videoTimer = null;
+            }
+            if (this.videoAdvanceTimer) {
+                clearTimeout(this.videoAdvanceTimer);
+                this.videoAdvanceTimer = null;
+            }
+
+            // Alle Videos pausieren
+            this.allSlides.forEach(slide => {
+                const video = slide.querySelector('.riman-card-video');
+                const card = slide.querySelector('.riman-service-card');
+                const poster = slide.querySelector('.riman-card-poster');
+                const playButton = slide.querySelector('.riman-video-play-button');
+
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                    video.classList.remove('is-active', 'is-playing');
+                    video.style.opacity = '0';
+                }
+
+                if (card) {
+                    card.classList.remove('video-active');
+                }
+
+                if (poster) {
+                    poster.style.opacity = '1';
+                }
+
+                if (playButton) {
+                    playButton.remove();
+                }
+            });
+        }
+
+        // Play-Button nach Video-Ende anzeigen
+        showPlayButton(slide) {
+            const card = slide.querySelector('.riman-service-card');
+            if (!card) return;
+
+            // Existierenden Play-Button entfernen
+            const existingButton = slide.querySelector('.riman-video-play-button');
+            if (existingButton) {
+                existingButton.remove();
+            }
+
+            // Neuen Play-Button erstellen
+            const playButton = document.createElement('div');
+            playButton.className = 'riman-video-play-button';
+            playButton.innerHTML = `
+                <div class="riman-play-circle">
+                    <svg class="riman-play-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                </div>
+            `;
+
+            // Click-Handler für Seiten-Navigation
+            playButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const cardLink = card.querySelector('a');
+                if (cardLink) {
+                    window.location.href = cardLink.href;
+                }
+            });
+
+            card.appendChild(playButton);
+        }
+
 
         // Resize Handler
         onResize() {
@@ -423,7 +579,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Slider zerstören (bei Resize zu Desktop)
         destroy() {
+            // Alle Timer stoppen
             this.pauseAutoPlay();
+            this.pauseAllVideos();
+
             // Events entfernen und Original-Layout wiederherstellen
             // Implementation wenn nötig
         }

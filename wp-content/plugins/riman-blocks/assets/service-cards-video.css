@@ -14,6 +14,18 @@
     overflow: hidden;
 }
 
+/* Video shows WITHIN the clipping mask */
+.riman-card--has-video .riman-card-video {
+    /* Video inherits clipping mask from parent */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Don't override clip-path - let it inherit from parent */
+}
+
 /* Poster image (loads immediately for LCP) */
 .riman-card-poster {
     position: relative;
@@ -38,6 +50,38 @@
     pointer-events: none; /* Prevent interference with card clicks */
 }
 
+/* Mobile: Videos stay WITHIN clipping mask but positioned correctly */
+@media (max-width: 780px) {
+    .riman-card-video {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        z-index: 3 !important;
+        /* Videos inherit clipping mask from parent - this is correct */
+    }
+
+    /* Mobile: Media container keeps clipping mask */
+    .riman-card--has-video .riman-card-media {
+        position: relative !important;
+        overflow: hidden !important;
+        /* Keep the clipping mask - videos will be clipped correctly */
+    }
+
+    /* Mobile: Hide poster when video is loaded */
+    .riman-card--has-video.video-active .riman-card-poster {
+        display: none !important;
+    }
+
+    /* Mobile: Show video when playing */
+    .riman-card-video.is-playing {
+        opacity: 1 !important;
+        display: block !important;
+    }
+}
+
 /* Video active state */
 .riman-card-video.is-playing {
     opacity: 1;
@@ -53,7 +97,7 @@
 }
 
 /* Mobile slider specific styles */
-@media (max-width: 767px) {
+@media (max-width: 780px) {
     .riman-service-cards-wrap[data-mobile-slider="true"] .riman-card-video {
         /* Ensure videos don't interfere with slider touch events */
         pointer-events: none;
@@ -62,6 +106,39 @@
     .riman-service-cards-wrap[data-mobile-slider="true"] .riman-card--has-video {
         /* Smooth transitions for slider */
         transition: transform 0.3s ease;
+    }
+
+    /* FORCE SHOW VIDEOS ON MOBILE - Override all hiding rules */
+    .riman-card-video.is-playing {
+        opacity: 1 !important;
+        display: block !important;
+        visibility: visible !important;
+        z-index: 4 !important;
+    }
+
+    .riman-card--has-video.video-active .riman-card-video {
+        opacity: 1 !important;
+        display: block !important;
+        visibility: visible !important;
+        z-index: 4 !important;
+    }
+
+    /* Also ensure poster is hidden when video plays */
+    .riman-card--has-video.video-active .riman-card-poster {
+        opacity: 0 !important;
+        z-index: 1 !important;
+    }
+
+    /* Override mobile slider CSS */
+    .riman-mobile-slider-active .riman-card-video.is-playing {
+        opacity: 1 !important;
+        display: block !important;
+        visibility: visible !important;
+    }
+
+    /* Simple mobile video fix - remove all complex rules */
+    .riman-card-video {
+        /* Let JavaScript handle the styling */
     }
 }
 
@@ -156,41 +233,42 @@
 }
 
 .riman-play-circle {
-    width: 80px;
-    height: 80px;
-    background: rgba(255, 255, 255, 0.95);
+    width: 50px;
+    height: 50px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .riman-play-circle:hover {
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-    background: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .riman-play-icon {
-    width: 32px;
-    height: 32px;
-    color: #333;
-    margin-left: 4px; /* Optical centering */
+    width: 24px;
+    height: 24px;
+    color: white;
+    margin-left: 3px; /* Optical centering */
 }
 
 /* Mobile adjustments */
 @media (max-width: 767px) {
     .riman-play-circle {
-        width: 64px;
-        height: 64px;
+        width: 42px;
+        height: 42px;
+        border-width: 2px;
     }
 
     .riman-play-icon {
-        width: 24px;
-        height: 24px;
-        margin-left: 3px;
+        width: 20px;
+        height: 20px;
+        margin-left: 2px;
     }
 }
 
@@ -198,7 +276,6 @@
 @media (hover: none) and (pointer: coarse) {
     .riman-play-circle:hover {
         transform: none;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 }
 
@@ -209,12 +286,12 @@
     }
 
     .riman-play-circle {
-        background: white;
-        border: 2px solid black;
+        background: rgba(0, 0, 0, 0.9);
+        border: 2px solid white;
     }
 
     .riman-play-icon {
-        color: black;
+        color: white;
     }
 }
 
@@ -234,15 +311,32 @@
     animation: playButtonFadeIn 0.3s ease-out;
 }
 
-/* Ensure play button doesn't interfere with card interactions */
-.riman-card--has-video .riman-card-content,
-.riman-card--has-video .riman-card-icon {
+/* Ensure play button doesn't interfere with card interactions or layout */
+.riman-card--has-video .riman-card-content {
     position: relative;
     z-index: 6;
+    /* Maintain original position - no margin/padding changes */
+}
+
+/* Restore original icon position for video cards */
+.riman-card--has-video .riman-card-icon {
+    position: absolute;
+    top: 207px; /* Force original position */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5; /* Original z-index, below play button */
 }
 
 /* Hide play button during video playback */
-.riman-card--has-video.video-active .riman-video-play-button {
+.riman-card--has-video.video-active .riman-video-play-button,
+.riman-card-video.is-playing + .riman-video-play-button,
+.riman-card-video[data-riman-cover-loaded="true"] + .riman-video-play-button {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Also hide when video element has is-active class */
+.riman-card-video.is-active ~ .riman-video-play-button {
     opacity: 0;
     pointer-events: none;
 }
