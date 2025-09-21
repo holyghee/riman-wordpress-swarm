@@ -81,6 +81,11 @@ $maybe_blocks = [
 foreach ($maybe_blocks as $rel) { riman_require($rel); }
 
 /**
+ * Includes laden (Video Lazy-Loading Support)
+ */
+riman_require('includes/cover-video-lazy.php');
+
+/**
  * Meta Boxes laden
  */
 riman_require('includes/class-service-cards-overlap.php');
