@@ -86,6 +86,22 @@ foreach ($maybe_blocks as $rel) { riman_require($rel); }
 riman_require('includes/cover-video-lazy.php');
 
 /**
+ * Cover Poster Editor im Block Editor laden
+ */
+add_action('enqueue_block_editor_assets', function() {
+    $script_path = RIMAN_BLOCKS_DIR . 'assets/cover-poster-editor.js';
+    if (file_exists($script_path)) {
+        wp_enqueue_script(
+            'riman-cover-poster-editor',
+            RIMAN_BLOCKS_URL . 'assets/cover-poster-editor.js',
+            ['wp-blocks', 'wp-element', 'wp-editor', 'wp-components', 'wp-i18n', 'wp-hooks', 'wp-compose'],
+            filemtime($script_path),
+            true
+        );
+    }
+});
+
+/**
  * Meta Boxes laden
  */
 riman_require('includes/class-service-cards-overlap.php');
