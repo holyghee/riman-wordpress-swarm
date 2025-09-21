@@ -1,5 +1,7 @@
 /* RIMAN Service Cards - Responsive Alignment Styles */
 
+/* Service Cards wrapper - no forced styles */
+
 .riman-service-grid {
   display: grid;
   grid-template-columns: repeat(var(--riman-columns, 3), 1fr);
@@ -326,7 +328,7 @@
   font-size: 22px;
   line-height: 48px;
   text-align: center;
-  font-family: 'Arial', 'Helvetica', sans-serif;
+  font-family: inherit; /* Use global WordPress font */
   opacity: 0;
   transition: opacity 0.25s ease, transform 0.25s ease;
   pointer-events: none;
@@ -392,17 +394,64 @@
 
 /* Dynamische Ableitung der Icon-Position relativ zur Wellenkante */
 .riman-service-card.shape-wave { --riman-icon-top: calc(var(--riman-wave-overlay-top, 220px) + (var(--riman-wave-height, 160px) * 0.52) + var(--riman-wave-gap, 24px)); }
-.riman-card-title { font-size: 1.25rem; margin: 0 0 10px; color:#1e4a6d; font-weight:600; }
-/* Erzwinge Titel-Farbe (überschreibt Theme-Linkfarben) */
-.riman-service-card .riman-card-title,
-.riman-service-card:link .riman-card-title,
-.riman-service-card:visited .riman-card-title,
+.riman-card-title {
+  /* Simply inherit from h3 without forcing specific variables */
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 10px;
+  /* Don't set font-family or color - let them inherit */
+}
+/* Hover-Effekt für Titel */
 .riman-service-card:hover .riman-card-title,
 .riman-service-card:focus .riman-card-title,
 .riman-service-card:active .riman-card-title {
-  color: #1e4a6d !important;
+  color: #B68C2F; /* RIMAN gold on hover */
 }
-.riman-card-description { color:#555; margin:0; line-height: 1.6; word-break: normal; overflow-wrap: anywhere; max-width: 60ch; margin-left: auto; margin-right: auto; }
+.riman-card-description {
+  /* Slightly smaller text for better card layout */
+  font-size: 0.9em; /* 90% of parent font size */
+  margin: 0;
+  line-height: 1.6;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  max-width: 60ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Rich text formatting within descriptions */
+.riman-card-description p {
+  margin: 0 0 1em 0;
+}
+
+.riman-card-description p:last-child {
+  margin-bottom: 0;
+}
+
+.riman-card-description ul,
+.riman-card-description ol {
+  margin: 0 0 1em 0;
+  padding-left: 1.5em;
+}
+
+.riman-card-description li {
+  margin-bottom: 0.5em;
+}
+
+.riman-card-description li:last-child {
+  margin-bottom: 0;
+}
+
+.riman-card-description strong,
+.riman-card-description b {
+  font-weight: 600;
+}
+
+.riman-card-description em,
+.riman-card-description i {
+  font-style: italic;
+}
 
 /* CTA: Mehr erfahren */
 .riman-card-cta {

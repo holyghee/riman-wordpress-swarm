@@ -647,7 +647,7 @@ add_action('init', function() {
                     if ($description_source === 'hero_longtext') {
                         // Hero Langer Text preferred, fallback to Seiten-Excerpt
                         if (!empty($hero_longtext_meta)) {
-                            $desc_candidates[] = trim(strip_tags($hero_longtext_meta));
+                            $desc_candidates[] = trim(wp_kses_post($hero_longtext_meta));
                         }
                         $desc_candidates[] = $desc; // Seiten-Excerpt/Content fallback
                     } elseif ($description_source === 'hero_subtitle') {
@@ -662,7 +662,7 @@ add_action('init', function() {
                     } else {
                         // 'auto': Hero-Lang → Hero-Kurz → Seiten-Excerpt
                         if (!empty($hero_longtext_meta)) {
-                            $desc_candidates[] = trim(strip_tags($hero_longtext_meta));
+                            $desc_candidates[] = trim(wp_kses_post($hero_longtext_meta));
                         }
                         if (!empty($hero_subtitle_meta)) {
                             $desc_candidates[] = trim(strip_tags($hero_subtitle_meta));
@@ -777,9 +777,17 @@ add_action('init', function() {
                 echo '    <h3 class="riman-card-title">' . esc_html($title) . '</h3>';
                 if ($showDesc && $desc) {
                     if ($show_full_text) {
-                        echo '    <p class="riman-card-description">' . esc_html($desc) . '</p>';
+                        // Check if desc contains HTML tags (from hero longtext)
+                        if ($desc !== strip_tags($desc)) {
+                            // Contains HTML - output with proper escaping for rich text
+                            echo '    <div class="riman-card-description">' . $desc . '</div>';
+                        } else {
+                            // Plain text - wrap in paragraph
+                            echo '    <p class="riman-card-description">' . esc_html($desc) . '</p>';
+                        }
                     } else {
-                        echo '    <p class="riman-card-description">' . esc_html(wp_trim_words($desc, 24)) . '</p>';
+                        // For trimmed text, always strip HTML and use paragraph
+                        echo '    <p class="riman-card-description">' . esc_html(wp_trim_words(strip_tags($desc), 24)) . '</p>';
                     }
                 }
                 if ($show_learn_more_button) {
