@@ -395,12 +395,13 @@
 /* Dynamische Ableitung der Icon-Position relativ zur Wellenkante */
 .riman-service-card.shape-wave { --riman-icon-top: calc(var(--riman-wave-overlay-top, 220px) + (var(--riman-wave-height, 160px) * 0.52) + var(--riman-wave-gap, 24px)); }
 .riman-card-title {
-  /* Simply inherit from h3 without forcing specific variables */
+  /* Inherit WordPress theme fonts and styling */
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.3;
   margin: 0 0 10px;
-  /* Don't set font-family or color - let them inherit */
+  font-family: inherit; /* Explicitly inherit theme font */
+  color: inherit; /* Inherit theme colors */
 }
 /* Hover-Effekt für Titel */
 .riman-service-card:hover .riman-card-title,

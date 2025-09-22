@@ -102,6 +102,41 @@ add_action('enqueue_block_editor_assets', function() {
 });
 
 /**
+ * Frontend Styles laden
+ */
+add_action('wp_enqueue_scripts', function() {
+    // Service Cards CSS für Frontend
+    if (file_exists(RIMAN_BLOCKS_DIR . 'assets/service-cards.css')) {
+        wp_enqueue_style(
+            'riman-service-cards-frontend',
+            RIMAN_BLOCKS_URL . 'assets/service-cards.css',
+            [],
+            filemtime(RIMAN_BLOCKS_DIR . 'assets/service-cards.css')
+        );
+    }
+
+    // Mobile Slider CSS
+    if (file_exists(RIMAN_BLOCKS_DIR . 'assets/service-cards-mobile-slider.css')) {
+        wp_enqueue_style(
+            'riman-service-cards-mobile-slider',
+            RIMAN_BLOCKS_URL . 'assets/service-cards-mobile-slider.css',
+            ['riman-service-cards-frontend'],
+            filemtime(RIMAN_BLOCKS_DIR . 'assets/service-cards-mobile-slider.css')
+        );
+    }
+
+    // Video CSS
+    if (file_exists(RIMAN_BLOCKS_DIR . 'assets/service-cards-video.css')) {
+        wp_enqueue_style(
+            'riman-service-cards-video',
+            RIMAN_BLOCKS_URL . 'assets/service-cards-video.css',
+            ['riman-service-cards-frontend'],
+            filemtime(RIMAN_BLOCKS_DIR . 'assets/service-cards-video.css')
+        );
+    }
+});
+
+/**
  * Meta Boxes laden
  */
 riman_require('includes/class-service-cards-overlap.php');
