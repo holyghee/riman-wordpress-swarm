@@ -201,6 +201,9 @@ class SimpleSlider {
         // Auto-play
         this.startAutoPlay();
 
+        // Activate first slide video immediately
+        this.activateCurrentSlideVideo();
+
         console.log('✅ SIMPLE slider initialized');
     }
 
@@ -290,6 +293,46 @@ class SimpleSlider {
             dot.style.background = index === this.currentSlide
                 ? '#B68C2F'
                 : 'rgba(182, 140, 47, 0.3)';
+        });
+
+        // Activate videos on current slide
+        this.activateCurrentSlideVideo();
+    }
+
+    activateCurrentSlideVideo() {
+        // Get all slides
+        const slides = this.track.querySelectorAll('.simple-slide');
+
+        slides.forEach((slide, index) => {
+            const card = slide.querySelector('.riman-service-card');
+            const video = slide.querySelector('.riman-card-video');
+
+            if (index === this.currentSlide) {
+                // Activate current slide video
+                if (video) {
+                    video.classList.add('is-playing', 'is-active');
+                    video.style.opacity = '1';
+                    console.log('🎬 Activated video on slide:', index);
+
+                    // Start playing the video
+                    video.currentTime = 0;
+                    video.play().catch(e => console.log('Video play prevented:', e));
+                }
+                if (card && card.classList.contains('riman-card--has-video')) {
+                    card.classList.add('video-active');
+                }
+            } else {
+                // Deactivate other slide videos
+                if (video) {
+                    video.classList.remove('is-playing', 'is-active');
+                    video.style.opacity = '0';
+                    video.pause();
+                    video.currentTime = 0;
+                }
+                if (card && card.classList.contains('riman-card--has-video')) {
+                    card.classList.remove('video-active');
+                }
+            }
         });
     }
 
