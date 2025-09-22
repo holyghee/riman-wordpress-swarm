@@ -886,7 +886,7 @@ add_action('init', function() {
                 }
                 echo '  <div class="riman-card-category">' . esc_html($card_label) . '</div>';
                 echo '  <div class="riman-card-content">';
-                echo '    <h3 class="riman-card-title">' . esc_html($title) . '</h3>';
+                echo '    <h3 class="wp-block-heading">' . esc_html($title) . '</h3>';
                 if ($showDesc && $desc) {
                     if ($show_full_text) {
                         // Check if desc contains HTML tags (from hero longtext)

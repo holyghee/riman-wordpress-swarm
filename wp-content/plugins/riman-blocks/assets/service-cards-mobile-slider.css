@@ -55,31 +55,38 @@
 
   /* Navigation Dots */
   .riman-slider-nav {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
     margin-top: 20px;
-    padding: 0 16px;
+    padding: 4px 16px 6px 16px !important;
+    flex-wrap: nowrap !important;
+    min-height: 18px !important;
   }
 
   .riman-slider-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(182, 140, 47, 0.3);
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50% !important;
+    border: none !important;
+    background: rgba(182, 140, 47, 0.3) !important;
     cursor: pointer;
     transition: all 0.2s ease;
-    padding: 0;
+    padding: 0 !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
   }
 
   .riman-slider-dot.active {
-    background: #B68C2F;
-    transform: scale(1.2);
+    background: #B68C2F !important;
+    transform: scale(1.1) !important;
+    box-shadow: 0 0 4px rgba(182, 140, 47, 0.5) !important;
   }
 
   .riman-slider-dot:hover {
-    background: rgba(182, 140, 47, 0.7);
+    background: rgba(182, 140, 47, 0.7) !important;
   }
 
   /* Touch-optimiert für bessere Swipe-Gesten */

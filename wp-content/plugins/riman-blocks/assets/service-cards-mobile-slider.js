@@ -37,9 +37,12 @@ function createSimpleSlider(container, cards) {
     console.log('🔧 Creating SIMPLE slider...');
 
     // Hide original grid (cards will be moved to slider)
-    const grid = container.querySelector('.riman-service-cards-grid');
+    const grid = container.querySelector('.riman-service-grid');
     if (grid) {
         grid.style.display = 'none';
+        console.log('✅ Original grid hidden');
+    } else {
+        console.log('❌ Grid not found - selector may be wrong');
     }
 
     // Create slider wrapper
@@ -147,27 +150,13 @@ function createSimpleSlider(container, cards) {
 
     // Create dots
     const dotsContainer = document.createElement('div');
-    dotsContainer.className = 'simple-dots';
-    dotsContainer.style.cssText = `
-        display: flex;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 20px;
-    `;
+    dotsContainer.className = 'riman-slider-nav';
 
     for (let i = 0; i < cards.length; i++) {
         const dot = document.createElement('button');
-        dot.className = 'simple-dot';
-        dot.style.cssText = `
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            border: none;
-            background: ${i === 0 ? '#B68C2F' : 'rgba(182, 140, 47, 0.3)'};
-            cursor: pointer;
-            transition: all 0.2s ease;
-        `;
+        dot.className = `riman-slider-dot ${i === 0 ? 'active' : ''}`;
         dot.dataset.slide = i;
+        dot.setAttribute('aria-label', `Slide ${i + 1}`);
         dotsContainer.appendChild(dot);
     }
 
@@ -273,7 +262,7 @@ class SimpleSlider {
     }
 
     onDotClick(e) {
-        if (e.target.classList.contains('simple-dot')) {
+        if (e.target.classList.contains('riman-slider-dot')) {
             const slideIndex = parseInt(e.target.dataset.slide);
             this.goToSlide(slideIndex);
         }
@@ -304,11 +293,13 @@ class SimpleSlider {
         console.log('🔄 Updated slider - slide:', this.currentSlide, 'translateX:', translateX + '%');
 
         // Update dots
-        const dots = this.dotsContainer.querySelectorAll('.simple-dot');
+        const dots = this.dotsContainer.querySelectorAll('.riman-slider-dot');
         dots.forEach((dot, index) => {
-            dot.style.background = index === this.currentSlide
-                ? '#B68C2F'
-                : 'rgba(182, 140, 47, 0.3)';
+            if (index === this.currentSlide) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
         });
 
         // Activate videos on current slide
