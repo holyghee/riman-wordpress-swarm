@@ -1,8 +1,12 @@
- name: Deploy
-  on: [push]
+name: Deploy
+  on:
+    push:
+      branches: [main]
   jobs:
     deploy:
       runs-on: ubuntu-latest
       steps:
-      - uses: actions/checkout@v4
-      - run: echo "Workflow is working!"
+        - uses: actions/checkout@v4
+        - run: sudo apt-get install -y sshpass
+        - run: sshpass -p "${{ secrets.KAS_PASSWORD }}" scp wp-content/plugins/riman-blocks/includes/cover-video-lazy.php ${{ secrets.SSH_USERNAME
+  }}@${{ secrets.KAS_HOST }}:${{ secrets.REMOTE_PATH }}/wp-content/plugins/riman-blocks/includes/
