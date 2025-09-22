@@ -321,38 +321,49 @@ class SimpleSlider {
                     video.classList.add('is-loading');
                     console.log('🎬 Loading video on slide:', index);
 
-                    // Wait for video to be ready before showing
+                    // Immediate video activation - simplified approach
                     const showVideo = () => {
                         video.classList.remove('is-loading');
                         video.classList.add('is-playing', 'is-active');
                         video.style.opacity = '1';
+                        video.style.display = 'block';
+                        video.style.visibility = 'visible';
 
-                        // Hide poster once video is playing
-                        if (poster) {
-                            poster.style.opacity = '0';
-                            poster.style.zIndex = '1';
-                        }
+                        console.log('🎬 Video activated on slide:', index, {
+                            opacity: video.style.opacity,
+                            display: video.style.display,
+                            readyState: video.readyState,
+                            networkState: video.networkState,
+                            src: video.src
+                        });
 
-                        console.log('🎬 Video ready and visible on slide:', index);
+                        // Start video playback
+                        video.currentTime = 0;
+                        video.play().then(() => {
+                            console.log('🎬 Video playing successfully on slide:', index);
+
+                            // Hide poster once video is actually playing
+                            if (poster) {
+                                poster.style.opacity = '0.3'; // Semi-transparent for debugging
+                                poster.style.zIndex = '1';
+                            }
+                        }).catch(e => {
+                            console.log('🎬 Video play prevented on slide:', index, e);
+                            // Keep poster visible if video can't play
+                            if (poster) {
+                                poster.style.opacity = '1';
+                                poster.style.zIndex = '2';
+                            }
+                        });
                     };
 
-                    // Check if video is already loaded
-                    if (video.readyState >= 3) { // HAVE_FUTURE_DATA or better
-                        showVideo();
-                        video.currentTime = 0;
-                        video.play().catch(e => console.log('Video play prevented:', e));
-                    } else {
-                        // Wait for video to load
-                        video.addEventListener('canplay', () => {
-                            showVideo();
-                            video.currentTime = 0;
-                            video.play().catch(e => console.log('Video play prevented:', e));
-                        }, { once: true });
+                    // Force video activation immediately - don't wait for canplay
+                    console.log('🎬 Forcing immediate video activation on slide:', index);
+                    showVideo();
 
-                        // Force load if not already loading
-                        if (video.networkState === video.NETWORK_EMPTY) {
-                            video.load();
-                        }
+                    // Also try to preload the video
+                    if (video.networkState === video.NETWORK_EMPTY) {
+                        video.load();
                     }
                 }
                 if (card && card.classList.contains('riman-card--has-video')) {
