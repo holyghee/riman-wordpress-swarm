@@ -1,55 +1,49 @@
 /**
  * RIMAN Service Cards Mobile Slider Styles
- * Rebuilt from scratch - preserves original design exactly
+ * REBUILT FROM SCRATCH - SIMPLE AND RELIABLE
  */
 
-/* Slider nur auf Mobile (≤780px) aktivieren */
+/* Only apply on mobile */
 @media (max-width: 780px) {
 
-  /* MINIMAL SLIDER APPROACH - Preserve original Service Cards design exactly */
-
-  /* Hide original grid layout when slider is active */
-  .riman-mobile-slider-active .riman-service-cards-grid {
+  /* Hide original grid when simple slider is active */
+  .riman-simple-slider-active .riman-service-cards-grid {
     display: none !important;
   }
 
-  /* Slider wrapper - minimal, no layout changes */
-  .riman-mobile-slider-active .riman-service-slider-wrapper {
+  /* Simple slider wrapper */
+  .simple-slider-wrapper {
     position: relative;
-    overflow: hidden;
     width: 100%;
+    overflow: hidden;
+    margin: 20px 0;
   }
 
-  /* Slider track - horizontal container for slides */
-  .riman-mobile-slider-active .riman-service-slider-track {
+  /* Simple slider track */
+  .simple-slider-track {
     display: flex;
     transition: transform 0.3s ease;
-    width: 100%;
+    touch-action: pan-y; /* Allow vertical scrolling */
   }
 
-  /* Each slide - takes full width */
-  .riman-mobile-slider-active .riman-service-slide {
-    flex: 0 0 100%;
-    width: 100%;
+  /* Simple slides */
+  .simple-slide {
+    flex-shrink: 0;
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 0;
+    align-items: stretch;
   }
 
-  /* Service Card in slider - PRESERVE ORIGINAL DESIGN EXACTLY */
-  .riman-mobile-slider-active .riman-service-card {
-    /* Keep all original dimensions and styling */
-    /* DO NOT override width, height, margins, padding */
-    /* DO NOT change transform, box-shadow, borders */
-
-    /* Allow clicks on cards */
+  /* Service cards in simple slider */
+  .simple-slide .riman-service-card {
+    width: 100%;
     pointer-events: auto;
     cursor: pointer;
+    /* Preserve all original styling */
   }
 
-  /* Navigation dots - simple and clean */
-  .riman-slider-nav {
+  /* Simple dots */
+  .simple-dots {
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -57,54 +51,25 @@
     padding: 0;
   }
 
-  .riman-slider-dot {
+  .simple-dot {
     width: 10px;
     height: 10px;
     border-radius: 50%;
     border: none;
-    background: rgba(182, 140, 47, 0.3);
     cursor: pointer;
     transition: all 0.2s ease;
     padding: 0;
   }
 
-  .riman-slider-dot.active {
-    background: #B68C2F;
-    transform: scale(1.2);
-  }
-
-  .riman-slider-dot:hover {
-    background: rgba(182, 140, 47, 0.7);
-  }
-
-  /* Hide any navigation arrows completely */
-  .riman-slider-navigation,
-  .riman-slider-arrow,
-  .riman-slider-arrows {
-    display: none !important;
-    visibility: hidden !important;
-  }
-
-  /* Touch support for swipe gestures */
-  .riman-mobile-slider-active .riman-service-slider-track {
-    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
-    -webkit-user-select: none;
-    user-select: none;
-  }
-
-  /* Smooth scrolling */
-  .riman-service-slider-wrapper {
-    -webkit-overflow-scrolling: touch;
+  .simple-dot:hover {
+    opacity: 0.8;
   }
 
 }
 
-/* Desktop: Ensure slider is completely disabled */
+/* Desktop: Hide simple slider */
 @media (min-width: 781px) {
-  .riman-service-slider-wrapper,
-  .riman-service-slider-track,
-  .riman-service-slide,
-  .riman-slider-nav {
+  .simple-slider-wrapper {
     display: none !important;
   }
 }
