@@ -2,13 +2,17 @@ name: Deploy to Live Server
 
   on:
     push:
-      branches: [ main ]
+      branches:
+        - main
     workflow_dispatch:
 
   jobs:
     deploy:
       name: Deploy to All-Inkl Server
       runs-on: ubuntu-latest
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
       steps:
       - name: Checkout Repository
