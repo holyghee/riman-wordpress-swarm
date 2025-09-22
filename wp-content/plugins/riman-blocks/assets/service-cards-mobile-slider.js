@@ -73,22 +73,59 @@ function createSimpleSlider(container, cards) {
             box-sizing: border-box;
         `;
 
-        // BETTER APPROACH: Move original card instead of cloning
-        // This preserves all video functionality, event listeners, etc.
+        // Clone the card and preserve video data (enhanced from working commit)
+        const cardClone = card.cloneNode(true);
 
-        // First, remove card from its original position
-        card.remove();
+        // Preserve ALL video data like the working system
+        const originalVideo = card.querySelector('.riman-card-video');
+        const clonedVideo = cardClone.querySelector('.riman-card-video');
 
-        // Style the original card for slider
-        card.style.cssText = `
+        if (originalVideo && clonedVideo) {
+            // Copy ALL video source data attributes
+            const videoDataAttrs = ['src', 'srcMobile', 'srcDesktop', 'poster', 'posterMobile', 'posterDesktop'];
+            videoDataAttrs.forEach(attr => {
+                if (originalVideo.dataset[attr]) {
+                    clonedVideo.dataset[attr] = originalVideo.dataset[attr];
+                }
+            });
+
+            // Copy video properties
+            if (originalVideo.src) clonedVideo.src = originalVideo.src;
+            if (originalVideo.poster) clonedVideo.poster = originalVideo.poster;
+            if (originalVideo.muted !== undefined) clonedVideo.muted = originalVideo.muted;
+            if (originalVideo.loop !== undefined) clonedVideo.loop = originalVideo.loop;
+            if (originalVideo.autoplay !== undefined) clonedVideo.autoplay = originalVideo.autoplay;
+
+            // Copy card-level video data
+            if (card.dataset.videoSrc) {
+                cardClone.dataset.videoSrc = card.dataset.videoSrc;
+            }
+
+            // Copy video classes and states
+            if (originalVideo.className) {
+                clonedVideo.className = originalVideo.className;
+            }
+
+            console.log('🎬 Enhanced video data preserved:', {
+                src: clonedVideo.dataset.src,
+                srcMobile: clonedVideo.dataset.srcMobile,
+                srcDesktop: clonedVideo.dataset.srcDesktop,
+                cardVideoSrc: cardClone.dataset.videoSrc
+            });
+        }
+
+        // Initialize responsive video selection for cloned card
+        if (cardClone.querySelector('.riman-card-video')) {
+            initializeResponsiveVideo(cardClone);
+        }
+
+        cardClone.style.cssText = `
             width: 100%;
             pointer-events: auto;
             cursor: pointer;
         `;
 
-        console.log('🔄 Moved original card to slider (preserving videos)');
-
-        slide.appendChild(card);
+        slide.appendChild(cardClone);
         sliderTrack.appendChild(slide);
     });
 
@@ -287,5 +324,51 @@ window.addEventListener('resize', () => {
         }, 100);
     }
 });
+
+// Initialize responsive video selection for cloned cards
+function initializeResponsiveVideo(card) {
+    const video = card.querySelector('.riman-card-video');
+    if (!video) return;
+
+    // Select appropriate video source based on screen size
+    const isMobile = window.innerWidth <= 780;
+    let selectedSrc = null;
+
+    if (isMobile && video.dataset.srcMobile) {
+        selectedSrc = video.dataset.srcMobile;
+        console.log('🎬 Using mobile video source:', selectedSrc);
+    } else if (!isMobile && video.dataset.srcDesktop) {
+        selectedSrc = video.dataset.srcDesktop;
+        console.log('🎬 Using desktop video source:', selectedSrc);
+    } else if (video.dataset.src) {
+        selectedSrc = video.dataset.src;
+        console.log('🎬 Using default video source:', selectedSrc);
+    } else if (card.dataset.videoSrc) {
+        selectedSrc = card.dataset.videoSrc;
+        console.log('🎬 Using card video source:', selectedSrc);
+    }
+
+    if (selectedSrc && selectedSrc !== video.src) {
+        video.src = selectedSrc;
+        console.log('🎬 Video source updated to:', selectedSrc);
+    }
+
+    // Set up poster image
+    const posterKey = isMobile ? 'posterMobile' : 'posterDesktop';
+    if (video.dataset[posterKey]) {
+        video.poster = video.dataset[posterKey];
+        console.log('🎬 Poster updated to:', video.poster);
+    } else if (video.dataset.poster) {
+        video.poster = video.dataset.poster;
+    }
+
+    // Ensure video is ready for playback
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    // Load the video
+    video.load();
+}
 
 console.log('📱 SIMPLE Mobile Slider loaded');
