@@ -36,11 +36,16 @@ document.addEventListener('DOMContentLoaded', function() {
 function createSimpleSlider(container, cards) {
     console.log('🔧 Creating SIMPLE slider...');
 
-    // Hide original grid
+    // Hide ALL service cards in container (not just grid)
     const grid = container.querySelector('.riman-service-cards-grid');
     if (grid) {
         grid.style.display = 'none';
     }
+
+    // Also hide any direct service cards in container
+    container.querySelectorAll('.riman-service-card').forEach(card => {
+        card.style.display = 'none';
+    });
 
     // Create slider wrapper
     const sliderWrapper = document.createElement('div');

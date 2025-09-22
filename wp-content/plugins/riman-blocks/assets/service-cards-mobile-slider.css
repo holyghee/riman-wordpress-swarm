@@ -6,8 +6,12 @@
 /* Only apply on mobile */
 @media (max-width: 780px) {
 
-  /* Hide original grid when simple slider is active */
+  /* Hide original grid and cards when simple slider is active */
   .riman-simple-slider-active .riman-service-cards-grid {
+    display: none !important;
+  }
+
+  .riman-simple-slider-active .riman-service-card:not(.simple-slide .riman-service-card) {
     display: none !important;
   }
 
