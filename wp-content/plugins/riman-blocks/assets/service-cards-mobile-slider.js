@@ -20,10 +20,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            const grid = container.querySelector('.riman-service-grid');
+            // CRITICAL FIX: Look for multiple possible grid selectors
+            let grid = container.querySelector('.riman-service-grid');
             if (!grid) {
-                console.log('❌ No .riman-service-grid found in container');
-                return;
+                // Fallback: Look for any grid-like container with service cards
+                grid = container.querySelector('.wp-block-group:has(.riman-service-card)') ||
+                       container.querySelector('[class*="grid"]') ||
+                       container.querySelector('[class*="service"]');
+
+                if (!grid) {
+                    console.log('❌ No service grid found in container - trying direct card selection');
+                    // Last resort: Create temporary grid from direct card children
+                    const directCards = container.querySelectorAll('.riman-service-card');
+                    if (directCards.length > 0) {
+                        grid = container; // Use container itself as grid
+                        console.log('✅ Using container as grid with direct cards:', directCards.length);
+                    } else {
+                        console.log('❌ No service cards found anywhere in container');
+                        return;
+                    }
+                }
             }
 
             const cards = Array.from(grid.querySelectorAll('.riman-service-card'));
@@ -320,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         waitForDimensionsAndInit() {
-            // Check if slides have proper dimensions
+            // CRITICAL FIX: More aggressive initialization approach
             const checkDimensions = () => {
                 const slideWidth = this.getSlideWidth();
                 console.log('🔍 Checking slide dimensions:', {
@@ -331,6 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     trackWidth: this.track.offsetWidth
                 });
 
+                // CRITICAL FIX: Accept any width > 0, don't wait for "perfect" dimensions
                 if (slideWidth > 0) {
                     console.log('✅ Dimensions ready, initializing slider');
                     this.updateSlider();
@@ -346,27 +363,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             };
 
-            // Try immediately first
+            // CRITICAL FIX: Try multiple initialization strategies
+            // Strategy 1: Immediate check
             if (checkDimensions()) {
                 return;
             }
 
-            // If dimensions not ready, wait and retry
-            console.log('⏳ Dimensions not ready, waiting...');
+            // Strategy 2: Force reflow and try again
+            this.track.style.display = 'none';
+            this.track.offsetHeight; // Force reflow
+            this.track.style.display = 'flex';
+
+            if (checkDimensions()) {
+                return;
+            }
+
+            // Strategy 3: Retry with shorter intervals and fewer attempts
+            console.log('⏳ Dimensions not ready, using rapid retry...');
             let attempts = 0;
-            const maxAttempts = 20;
+            const maxAttempts = 10; // Reduced from 20
             const retryInterval = setInterval(() => {
                 attempts++;
-                console.log(`🔄 Retry ${attempts}/${maxAttempts} checking dimensions...`);
+                console.log(`🔄 Rapid retry ${attempts}/${maxAttempts} checking dimensions...`);
 
                 if (checkDimensions() || attempts >= maxAttempts) {
                     clearInterval(retryInterval);
                     if (attempts >= maxAttempts) {
-                        console.warn('⚠️ Max attempts reached, forcing initialization with fallback');
+                        console.warn('⚠️ Rapid retries exhausted, forcing initialization');
                         this.forceInitWithFallback();
                     }
                 }
-            }, 50);
+            }, 25); // Faster retry interval
+
+            // Strategy 4: Fallback timer - if still no success after 500ms, force init
+            setTimeout(() => {
+                if (!this.track.style.transform || this.track.style.transform === 'translateX(0px)') {
+                    console.warn('🚨 Emergency fallback: forcing slider initialization');
+                    clearInterval(retryInterval);
+                    this.forceInitWithFallback();
+                }
+            }, 500);
         }
 
         forceInitWithFallback() {
@@ -642,35 +678,51 @@ document.addEventListener('DOMContentLoaded', function() {
             if (slideWidth === 0) {
                 console.log('🔧 Slide width is 0, trying fallback calculations...');
 
-                // Try container width
-                if (this.container.offsetWidth > 0) {
+                // CRITICAL FIX: More robust width calculation
+                // 1. Try track container width
+                const trackContainer = this.track.parentElement;
+                if (trackContainer && trackContainer.offsetWidth > 0) {
+                    slideWidth = trackContainer.offsetWidth;
+                    console.log('📐 Using track container width as fallback:', slideWidth);
+                }
+                // 2. Try container width
+                else if (this.container.offsetWidth > 0) {
                     slideWidth = this.container.offsetWidth;
                     console.log('📐 Using container width as fallback:', slideWidth);
                 }
-                // Try track width
+                // 3. Try track width
                 else if (this.track.offsetWidth > 0) {
                     slideWidth = this.track.offsetWidth;
                     console.log('📐 Using track width as fallback:', slideWidth);
                 }
-                // Try window width as last resort
+                // 4. Calculate from viewport considering padding/margins
                 else {
-                    slideWidth = window.innerWidth;
-                    console.log('📐 Using window width as fallback:', slideWidth);
+                    slideWidth = window.innerWidth - 30; // Account for padding
+                    console.log('📐 Using calculated viewport width as fallback:', slideWidth);
                 }
 
-                // Force the slide to have proper width
+                // CRITICAL FIX: Force immediate reflow and proper slide styling
                 if (slideWidth > 0) {
-                    this.allSlides.forEach(slide => {
-                        slide.style.width = '100%';
-                        slide.style.flexBasis = '100%';
+                    this.allSlides.forEach((slide, index) => {
+                        slide.style.width = `${slideWidth}px`;
+                        slide.style.flexBasis = `${slideWidth}px`;
                         slide.style.minWidth = `${slideWidth}px`;
+                        slide.style.maxWidth = `${slideWidth}px`;
+                        slide.style.flexShrink = '0';
+                        slide.style.display = 'flex';
+
+                        // Force reflow
+                        slide.offsetHeight;
                     });
-                    console.log('🔧 Applied fallback width to all slides:', slideWidth);
+
+                    // Force track width recalculation
+                    this.track.style.width = `${slideWidth * this.allSlides.length}px`;
+                    console.log('🔧 Applied robust width to all slides and track:', slideWidth);
                 }
             }
 
             console.log('📏 Final slide width:', slideWidth);
-            return slideWidth;
+            return slideWidth || window.innerWidth - 30; // Ultimate fallback
         }
 
         getTransformX() {
