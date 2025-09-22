@@ -36,16 +36,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function createSimpleSlider(container, cards) {
     console.log('🔧 Creating SIMPLE slider...');
 
-    // Hide ALL service cards in container (not just grid)
+    // Hide original grid (cards will be moved to slider)
     const grid = container.querySelector('.riman-service-cards-grid');
     if (grid) {
         grid.style.display = 'none';
     }
-
-    // Also hide any direct service cards in container
-    container.querySelectorAll('.riman-service-card').forEach(card => {
-        card.style.display = 'none';
-    });
 
     // Create slider wrapper
     const sliderWrapper = document.createElement('div');
@@ -78,36 +73,22 @@ function createSimpleSlider(container, cards) {
             box-sizing: border-box;
         `;
 
-        // Clone the card
-        const cardClone = card.cloneNode(true);
-        cardClone.style.cssText = `
+        // BETTER APPROACH: Move original card instead of cloning
+        // This preserves all video functionality, event listeners, etc.
+
+        // First, remove card from its original position
+        card.remove();
+
+        // Style the original card for slider
+        card.style.cssText = `
             width: 100%;
             pointer-events: auto;
             cursor: pointer;
         `;
 
-        // Fix videos in cloned card
-        const originalVideos = card.querySelectorAll('video');
-        const clonedVideos = cardClone.querySelectorAll('video');
+        console.log('🔄 Moved original card to slider (preserving videos)');
 
-        originalVideos.forEach((originalVideo, index) => {
-            if (clonedVideos[index]) {
-                // Copy video properties
-                clonedVideos[index].src = originalVideo.src;
-                clonedVideos[index].currentSrc = originalVideo.currentSrc;
-                clonedVideos[index].load(); // Reload video
-
-                // Copy video attributes
-                if (originalVideo.autoplay) clonedVideos[index].autoplay = true;
-                if (originalVideo.loop) clonedVideos[index].loop = true;
-                if (originalVideo.muted) clonedVideos[index].muted = true;
-                if (originalVideo.playsInline) clonedVideos[index].playsInline = true;
-
-                console.log('🎬 Fixed video in cloned card:', clonedVideos[index].src);
-            }
-        });
-
-        slide.appendChild(cardClone);
+        slide.appendChild(card);
         sliderTrack.appendChild(slide);
     });
 
