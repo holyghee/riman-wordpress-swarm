@@ -311,10 +311,13 @@ class SimpleSlider {
             if (index === this.currentSlide) {
                 // Activate current slide video
                 if (video) {
-                    // Keep poster visible initially
+                    // Keep poster visible initially - CSS handles this but ensure it
                     if (poster) {
                         poster.style.opacity = '1';
                         poster.style.zIndex = '2';
+                        poster.style.display = 'block';
+                        poster.style.position = 'relative';
+                        console.log('🖼️ Poster made visible on slide:', index);
                     }
 
                     // Load video but keep it hidden until ready
@@ -355,10 +358,11 @@ class SimpleSlider {
                         video.play().then(() => {
                             console.log('🎬 Video playing successfully on slide:', index);
 
-                            // Hide poster once video is actually playing
+                            // Keep poster visible for now (for debugging)
                             if (poster) {
-                                poster.style.opacity = '0.3'; // Semi-transparent for debugging
+                                poster.style.opacity = '0.7'; // Semi-transparent to see video underneath
                                 poster.style.zIndex = '1';
+                                console.log('🖼️ Poster semi-transparent - video playing on slide:', index);
                             }
                         }).catch(e => {
                             console.log('🎬 Video play prevented on slide:', index, e);

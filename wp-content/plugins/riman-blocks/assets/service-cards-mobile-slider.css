@@ -46,6 +46,43 @@
     /* Preserve all original styling */
   }
 
+  /* Video and poster management in mobile slider */
+  .simple-slide .riman-card-media {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Poster images should be visible by default */
+  .simple-slide .riman-card-poster {
+    position: relative;
+    z-index: 2;
+    opacity: 1 !important;
+    display: block !important;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Videos hidden by default, shown when active */
+  .simple-slide .riman-card-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Active video state */
+  .simple-slide .riman-card-video.is-playing,
+  .simple-slide .riman-card-video.is-active {
+    z-index: 3;
+    opacity: 1;
+  }
+
   /* Simple dots */
   .simple-dots {
     display: flex;
