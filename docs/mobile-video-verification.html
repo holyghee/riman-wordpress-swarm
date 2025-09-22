@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>📱 RIMAN Mobile Video Verification</title>
+    <style>
+        body { font-family: Arial; margin: 20px; background: #f8f9fa; }
+        .test-result { padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
+        .instructions { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        code { background: #f8f9fa; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        h1 { color: #495057; }
+        h2 { color: #6c757d; margin-top: 30px; }
+        .video-list { list-style-type: none; padding: 0; }
+        .video-list li { margin: 8px 0; padding: 8px; background: white; border-radius: 4px; }
+        .size { color: #28a745; font-weight: bold; }
+        .format { color: #007bff; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>📱 RIMAN Mobile Video System - Verification Guide</h1>
+
+    <div class="test-result success">
+        <strong>✅ System Status:</strong> Mobile video optimization is now fully working!<br>
+        Both Hero sections and Service Cards automatically switch to mobile-optimized videos on mobile devices.
+    </div>
+
+    <h2>🎯 How to Test Mobile Videos</h2>
+
+    <div class="test-result instructions">
+        <strong>Quick Test:</strong><br>
+        1. Open <a href="http://127.0.0.1:8801/riman-seiten/sicherheits-koordination_und_mediation/" target="_blank">Sicherheits-Koordination Seite</a><br>
+        2. Press <code>F12</code> → Network Tab → Filter: "media"<br>
+        3. Toggle Device Toolbar (<code>Ctrl+Shift+M</code>) → iPhone/Android view<br>
+        4. Reload page → Check Network tab for mobile video files
+    </div>
+
+    <h2>📺 Expected Mobile Video Files</h2>
+
+    <div class="test-result info">
+        <strong>Hero Section (9:16 Portrait Format):</strong>
+        <ul class="video-list">
+            <li>📱 <code>*-hero-mobile.mp4</code> <span class="format">(260x464, 9:16)</span> <span class="size">~160KB</span></li>
+            <li>🖥️ Original: <code>*.mp4</code> <span class="format">(832x464)</span> <span class="size">~2-6MB</span></li>
+        </ul>
+    </div>
+
+    <div class="test-result info">
+        <strong>Service Cards (Original Aspect Ratio):</strong>
+        <ul class="video-list">
+            <li>📱 <code>*-cards-mobile.mp4</code> <span class="format">(400x224, 1.79:1)</span> <span class="size">~98KB</span></li>
+            <li>🖥️ Original: <code>*.mp4</code> <span class="format">(832x464)</span> <span class="size">~2-6MB</span></li>
+        </ul>
+    </div>
+
+    <h2>🔍 Browser Console Messages</h2>
+
+    <div class="test-result info">
+        <strong>Hero Mobile Video:</strong><br>
+        <code>🎯 Hero Video switching to mobile (9:16 Portrait): ...hero-mobile.mp4</code><br>
+        <code>✅ Hero Video data-src updated to: ...hero-mobile.mp4</code>
+    </div>
+
+    <div class="test-result info">
+        <strong>Service Cards Mobile Video:</strong><br>
+        <code>📱 Using mobile-optimized video: ...cards-mobile.mp4</code><br>
+        <code>✅ Mobile slider video playing</code>
+    </div>
+
+    <h2>🎛️ Responsive Breakpoint</h2>
+
+    <div class="test-result info">
+        <strong>Mobile Detection:</strong> <code>window.innerWidth <= 780px</code><br>
+        • Mobile (≤780px): Uses compressed mobile variants<br>
+        • Desktop (>780px): Uses original high-quality videos
+    </div>
+
+    <h2>📊 Performance Benefits</h2>
+
+    <div class="test-result success">
+        <strong>Video Size Reduction:</strong><br>
+        • Hero: 2-6MB → ~160KB <span style="color: #28a745;">(95% smaller)</span><br>
+        • Service Cards: 2-6MB → ~98KB <span style="color: #28a745;">(97% smaller)</span><br>
+        • Total bandwidth savings on mobile: <strong>Up to 97% reduction</strong>
+    </div>
+
+    <h2>🚀 Live Deployment</h2>
+
+    <div class="test-result instructions">
+        <strong>For Live Server:</strong><br>
+        1. Upload <code>riman-video-compressor</code> plugin to live server<br>
+        2. Check FFmpeg availability at <code>/wp-admin/upload.php?page=riman-video-compressor</code><br>
+        3. If needed, install FFmpeg: <code>apt-get install ffmpeg</code> (or contact hosting provider)<br>
+        4. Run "Alle Videos Komprimieren" to create mobile variants<br>
+        5. Test with mobile device or browser dev tools
+    </div>
+
+    <script>
+        // Auto-detect current viewport
+        function updateViewportInfo() {
+            const width = window.innerWidth;
+            const isMobile = width <= 780;
+            const status = isMobile ? '📱 Mobile' : '🖥️ Desktop';
+            const expected = isMobile ? 'Mobile-optimized videos' : 'Original high-quality videos';
+
+            document.body.insertAdjacentHTML('afterbegin', `
+                <div class="test-result ${isMobile ? 'success' : 'info'}" style="margin-bottom: 20px;">
+                    <strong>Current Viewport:</strong> ${status} (${width}px)<br>
+                    <strong>Expected:</strong> ${expected}
+                </div>
+            `);
+        }
+
+        window.addEventListener('load', updateViewportInfo);
+        window.addEventListener('resize', () => {
+            const existing = document.querySelector('.test-result[style*="margin-bottom: 20px"]');
+            if (existing) existing.remove();
+            updateViewportInfo();
+        });
+    </script>
+</body>
+</html>
