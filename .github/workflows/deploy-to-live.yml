@@ -1,0 +1,66 @@
+name: Deploy to Live Server
+
+  on:
+    push:
+      branches: [ main ]
+    workflow_dispatch:
+
+  jobs:
+    deploy:
+      name: Deploy to All-Inkl Server
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: Deploy WordPress Files
+        run: |
+          # Deploy all wp-content/plugins/ changes (excluding media)
+          sshpass -p "${{ secrets.KAS_PASSWORD }}" rsync -avz --delete --exclude='*.mp4' --exclude='*.mov' --exclude='*.avi' --exclude='*.jpg' 
+  --exclude='*.jpeg' --exclude='*.png' --exclude='*.gif' --exclude='*.webp' wp-content/plugins/ ${{ secrets.SSH_USERNAME }}@${{ secrets.KAS_HOST }}:${{
+   secrets.REMOTE_PATH }}/wp-content/plugins/
+
+          # Deploy all wp-content/themes/ changes (excluding media)
+          sshpass -p "${{ secrets.KAS_PASSWORD }}" rsync -avz --delete --exclude='*.mp4' --exclude='*.mov' --exclude='*.avi' --exclude='*.jpg'
+  --exclude='*.jpeg' --exclude='*.png' --exclude='*.gif' --exclude='*.webp' wp-content/themes/ ${{ secrets.SSH_USERNAME }}@${{ secrets.KAS_HOST }}:${{
+  secrets.REMOTE_PATH }}/wp-content/themes/
+
+          # Deploy root WordPress files (excluding wp-config.php and uploads)
+          sshpass -p "${{ secrets.KAS_PASSWORD }}" rsync -avz --exclude='wp-config.php' --exclude='wp-content/uploads/' --exclude='.git/'
+  --exclude='node_modules/' --exclude='.env*' *.php ${{ secrets.SSH_USERNAME }}@${{ secrets.KAS_HOST }}:${{ secrets.REMOTE_PATH }}/
+
+      - name: Check Deployment Status
+        run: |
+          sshpass -p "${{ secrets.KAS_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USERNAME }}@${{ secrets.KAS_HOST }} "
+            cd ${{ secrets.REMOTE_PATH }} &&
+            echo '=== WordPress Core Files ===' &&
+            ls -la *.php | head -5 &&
+            echo '=== Plugin Directory ===' &&
+            ls -la wp-content/plugins/ | head -10 &&
+            echo '=== Theme Directory ===' &&
+            ls -la wp-content/themes/ | head -5
+          "
+
+      - name: Deployment Complete
+        run: |
+          echo "🚀 WordPress deployment completed successfully!"
+          echo ""
+          echo "📂 What was deployed:"
+          echo "   • All wp-content/plugins/ code changes"
+          echo "   • All wp-content/themes/ code changes" 
+          echo "   • WordPress core files (excluding wp-config.php)"
+          echo ""
+          echo "🚫 Excluded from deployment:"
+          echo "   • Media files (*.mp4, *.jpg, *.png, etc.)"
+          echo "   • wp-content/uploads/ directory"
+          echo "   • Database files"
+          echo "   • wp-config.php"
+          echo ""
+          echo "🔧 Next steps:"
+          echo "   1. Test website: https://riman-wordpress-swarm.ecomwy.com"
+          echo "   2. Check WordPress admin for any issues"
+          echo "   3. Clear caching if needed"
