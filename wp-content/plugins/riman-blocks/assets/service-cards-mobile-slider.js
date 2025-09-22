@@ -119,15 +119,20 @@ function createSimpleSlider(container, cards) {
             initializeResponsiveVideo(cardClone);
         }
 
-        // Ensure poster is visible by default in cloned card
+        // CRITICAL: Ensure poster is visible IMMEDIATELY in cloned card
         const clonedPoster = cardClone.querySelector('.riman-card-poster');
         if (clonedPoster) {
-            clonedPoster.style.opacity = '1';
-            clonedPoster.style.zIndex = '2';
-            clonedPoster.style.display = 'block';
-            clonedPoster.style.position = 'relative';
-            clonedPoster.style.visibility = 'visible';
-            console.log('🖼️ Cloned poster made visible for card:', index);
+            clonedPoster.style.cssText = `
+                opacity: 1 !important;
+                z-index: 2 !important;
+                display: block !important;
+                position: relative !important;
+                visibility: visible !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+            `;
+            console.log('🖼️ Cloned poster forced visible for card:', index);
         }
 
         cardClone.style.cssText = `
@@ -332,39 +337,28 @@ class SimpleSlider {
     ensurePosterThenVideo(slide, index, video, poster, card) {
         console.log('🎯 Activating slide with fallback system:', index);
 
-        // Step 1: Always ensure poster is visible first
+        // Step 1: ALWAYS ensure poster is visible IMMEDIATELY
         if (poster) {
             this.ensurePosterVisible(poster, index);
-
-            // Step 2: Wait for poster to load, then handle video
-            if (poster.complete) {
-                console.log('🖼️ Poster already loaded on slide:', index);
-                this.handleVideoAfterPoster(video, poster, card, index);
-            } else {
-                console.log('🖼️ Waiting for poster to load on slide:', index);
-                poster.onload = () => {
-                    console.log('🖼️ Poster loaded successfully on slide:', index);
-                    this.handleVideoAfterPoster(video, poster, card, index);
-                };
-                poster.onerror = () => {
-                    console.log('🖼️ Poster failed to load on slide:', index);
-                    this.handleVideoAfterPoster(video, poster, card, index);
-                };
-            }
-        } else {
-            // No poster, proceed with video only
-            console.log('🖼️ No poster found on slide:', index);
-            this.handleVideoAfterPoster(video, poster, card, index);
         }
+
+        // Step 2: Start video immediately (don't wait for poster load)
+        console.log('🎬 Starting video immediately on slide:', index);
+        this.handleVideoAfterPoster(video, poster, card, index);
     }
 
     ensurePosterVisible(poster, index) {
-        poster.style.opacity = '1';
-        poster.style.zIndex = '2';
-        poster.style.display = 'block';
-        poster.style.position = 'relative';
-        poster.style.visibility = 'visible';
-        console.log('🖼️ Poster made visible on slide:', index);
+        poster.style.cssText = `
+            opacity: 1 !important;
+            z-index: 2 !important;
+            display: block !important;
+            position: relative !important;
+            visibility: visible !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+        `;
+        console.log('🖼️ Poster forced visible on slide:', index);
     }
 
     handleVideoAfterPoster(video, poster, card, index) {
