@@ -380,23 +380,30 @@ class SimpleSlider {
             video.src = video.dataset.srcMobile;
         }
 
-        // Step 4: Wait for video to be ready before showing
-        const showVideo = () => {
-            console.log('🎬 Video ready - showing over poster on slide:', index);
+        // Step 4: Force video to start - simplified approach
+        const forceVideoStart = () => {
+            console.log('🎬 Force starting video on slide:', index);
             video.classList.add('is-playing', 'is-active');
             video.style.opacity = '1';
             video.style.zIndex = '3'; // Above poster
 
+            console.log('🎬 Video state:', {
+                readyState: video.readyState,
+                networkState: video.networkState,
+                src: video.src,
+                duration: video.duration
+            });
+
             video.currentTime = 0;
             video.play().then(() => {
-                console.log('🎬 Video playing successfully on slide:', index);
-                // Keep poster as fallback (slightly transparent for debugging)
+                console.log('🎬 ✅ Video playing successfully on slide:', index);
+                // Hide poster when video plays
                 if (poster) {
-                    poster.style.opacity = '0.1';
+                    poster.style.opacity = '0.2';
                     poster.style.zIndex = '2';
                 }
             }).catch(e => {
-                console.log('🎬 Video play failed - keeping poster on slide:', index, e);
+                console.log('🎬 ❌ Video play failed - keeping poster on slide:', index, e);
                 video.style.opacity = '0';
                 if (poster) {
                     poster.style.opacity = '1';
@@ -405,19 +412,19 @@ class SimpleSlider {
             });
         };
 
-        // Check if video is ready
-        if (video.readyState >= 3) {
-            console.log('🎬 Video already ready on slide:', index);
-            showVideo();
-        } else {
-            console.log('🎬 Waiting for video to load on slide:', index);
-            video.addEventListener('canplay', showVideo, { once: true });
+        // Try immediate start
+        console.log('🎬 Attempting immediate video start on slide:', index);
+        forceVideoStart();
 
-            // Load video if needed
-            if (video.networkState === video.NETWORK_EMPTY) {
+        // Also try after a short delay in case video needs time
+        setTimeout(() => {
+            console.log('🎬 Retry video start after delay on slide:', index);
+            if (video.readyState < 3) {
+                console.log('🎬 Video still not ready, loading...');
                 video.load();
             }
-        }
+            forceVideoStart();
+        }, 500);
 
         if (card && card.classList.contains('riman-card--has-video')) {
             card.classList.add('video-active');
