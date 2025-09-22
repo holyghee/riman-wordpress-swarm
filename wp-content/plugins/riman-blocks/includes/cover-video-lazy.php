@@ -108,6 +108,32 @@ function riman_blocks_cover_lazy_enqueue_assets() {
     );
 }
 
+function riman_blocks_cover_lazy_get_mobile_video_url($video_url) {
+    if (empty($video_url)) {
+        return '';
+    }
+
+    // Extract video file info
+    $uploads = wp_get_upload_dir();
+    $video_path = str_replace($uploads['baseurl'], $uploads['basedir'], $video_url);
+
+    if (!file_exists($video_path)) {
+        return '';
+    }
+
+    $video_dir = dirname($video_path);
+    $video_filename = pathinfo($video_path, PATHINFO_FILENAME);
+
+    // Check for mobile variant in mobile subdirectory
+    $mobile_video_path = $video_dir . '/mobile/' . $video_filename . '-mobile.mp4';
+
+    if (file_exists($mobile_video_path)) {
+        return str_replace($uploads['basedir'], $uploads['baseurl'], $mobile_video_path);
+    }
+
+    return '';
+}
+
 function riman_blocks_cover_lazy_filter($html, $block) {
     static $did_enqueue_assets = false;
 
@@ -174,7 +200,20 @@ function riman_blocks_cover_lazy_filter($html, $block) {
         }
 
         if (strpos($modified_video_tag, ' data-src=') === false) {
-            $modified_video_tag = preg_replace('/\s+src="([^"]+)"/', ' data-src="$1"', $modified_video_tag, 1);
+            // Extract original video URL and add mobile video support
+            if (preg_match('/\s+src="([^"]+)"/', $modified_video_tag, $src_match)) {
+                $original_video_url = $src_match[1];
+                $mobile_video_url = riman_blocks_cover_lazy_get_mobile_video_url($original_video_url);
+
+                $modified_video_tag = preg_replace('/\s+src="([^"]+)"/', ' data-src="$1"', $modified_video_tag, 1);
+
+                // Add responsive video attributes for Cover blocks
+                if ($mobile_video_url) {
+                    $modified_video_tag = str_replace('<video', '<video data-src-desktop="' . esc_attr($original_video_url) . '"', $modified_video_tag);
+                    $modified_video_tag = str_replace('<video', '<video data-src-mobile="' . esc_attr($mobile_video_url) . '"', $modified_video_tag);
+                    $modified_video_tag = str_replace('<video', '<video data-riman-responsive-video="1"', $modified_video_tag);
+                }
+            }
         }
 
         if (strpos($modified_video_tag, 'playsinline') === false) {

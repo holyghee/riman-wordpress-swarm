@@ -24,7 +24,7 @@ add_action('init', function() {
                 'minHeight' => 560,
                 'dim' => 30,              // overlay darkness percent 0..100
                 'autoPlay' => true,
-                'interval' => 6000,
+                'interval' => 8000,
                 'showDescription' => true,
                 'includeCategories' => [], // array of slugs; empty => all top-level
                 'ctaText' => __('Mehr erfahren', 'riman'),
@@ -249,7 +249,7 @@ add_action('init', function() {
                   <?php if (!empty($it['video'])): ?>
                     <!-- Video Background -->
                     <div class="riman-hero-video-container">
-                      <video class="riman-hero-video" autoplay muted loop playsinline preload="metadata" data-parallax="<?php echo !empty($a['parallax']) ? '1' : '0'; ?>" data-parallax-strength="<?php echo esc_attr($a['parallaxStrength']); ?>"<?php echo !empty($it['bg']) ? ' poster="'.esc_url($it['bg']).'"' : ''; ?>>
+                      <video class="riman-hero-video" muted loop playsinline webkit-playsinline preload="metadata" data-parallax="<?php echo !empty($a['parallax']) ? '1' : '0'; ?>" data-parallax-strength="<?php echo esc_attr($a['parallaxStrength']); ?>"<?php echo !empty($it['bg']) ? ' poster="'.esc_url($it['bg']).'"' : ''; ?>>
                         <source src="<?php echo esc_url($it['video']); ?>" type="<?php echo esc_attr($it['video_mime'] ?: 'video/mp4'); ?>">
                       </video>
                     </div>

@@ -112,7 +112,31 @@ function riman_render_page_hero_block($attributes, $content, $block) {
         $poster_url = get_the_post_thumbnail_url($post_id, 'full');
     }
 
+    // 4. Mobile-optimierte Video-Versionen suchen
+    $hero_mobile_src = '';
+    if ($video_src) {
+        $video_path = wp_get_upload_dir()['basedir'] . str_replace(wp_get_upload_dir()['baseurl'], '', $video_src);
+        $video_dir = dirname($video_path);
+        $video_filename = pathinfo($video_path, PATHINFO_FILENAME);
+
+        // Hero-Mobile Format (9:16, 260x464) für Hero-Sections
+        $hero_mobile_path = $video_dir . '/mobile/' . $video_filename . '-hero-mobile.mp4';
+        if (file_exists($hero_mobile_path)) {
+            $hero_mobile_src = wp_get_upload_dir()['baseurl'] . str_replace(wp_get_upload_dir()['basedir'], '', $hero_mobile_path);
+        }
+    }
+
     if ($video_src && function_exists('riman_blocks_cover_lazy_enqueue_assets')) {
+        // Hero Responsive Video Script ZUERST - muss vor Cover-Lazy-Video laufen
+        wp_enqueue_script(
+            'riman-hero-responsive-video',
+            plugin_dir_url(__FILE__) . '../assets/hero-responsive-video.js',
+            [],
+            '1.0.1', // Version erhöht für Cache-Busting
+            true
+        );
+
+        // Cover-Lazy-Video Script DANACH - abhängig von Hero Responsive
         riman_blocks_cover_lazy_enqueue_assets();
     }
 
@@ -161,6 +185,9 @@ function riman_render_page_hero_block($attributes, $content, $block) {
                        <?php if ($poster_url): ?>data-riman-poster="<?php echo esc_url($poster_url); ?>"<?php endif; ?>
                        <?php if ($poster_id): ?>data-riman-poster-id="<?php echo esc_attr($poster_id); ?>"<?php endif; ?>
                        data-src="<?php echo esc_url($video_src); ?>"
+                       data-src-desktop="<?php echo esc_url($video_src); ?>"
+                       <?php if ($hero_mobile_src): ?>data-src-mobile="<?php echo esc_url($hero_mobile_src); ?>"<?php endif; ?>
+                       data-riman-responsive-video="1"
                        style="width: 100%; height: 100%; object-fit: cover;">
                     <source data-src="<?php echo esc_url($video_src); ?>" type="<?php echo esc_attr($video_mime); ?>">
                     <?php if ($poster_url): ?>

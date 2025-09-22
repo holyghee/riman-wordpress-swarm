@@ -808,14 +808,37 @@ add_action('init', function() {
 
                     // Video element (lazy loaded, initially hidden)
                     echo '    <video class="riman-card-video" ';
-                    echo 'preload="none" ';
+                    echo 'preload="metadata" ';
                     echo 'muted ';
                     echo 'playsinline ';
                     echo 'poster="' . esc_url($poster_url) . '" ';
-                    echo 'data-src="' . esc_url($video_src) . '" ';
+                    // Service Cards Mobile-optimierte Video-Version suchen (400x150 Breitbild)
+                    $mobile_video_src = '';
+                    $video_path = wp_get_upload_dir()['basedir'] . str_replace(wp_get_upload_dir()['baseurl'], '', $video_src);
+                    $video_dir = dirname($video_path);
+                    $video_filename = pathinfo($video_path, PATHINFO_FILENAME);
+
+                    // Prüfe zuerst Cards-Mobile Format (400x150, optimal für Service Cards)
+                    $cards_mobile_path = $video_dir . '/mobile/' . $video_filename . '-cards-mobile.mp4';
+                    if (file_exists($cards_mobile_path)) {
+                        $mobile_video_src = wp_get_upload_dir()['baseurl'] . str_replace(wp_get_upload_dir()['basedir'], '', $cards_mobile_path);
+                    } else {
+                        // Fallback zu Hero-Mobile Format (260x464) falls Cards-Mobile nicht existiert
+                        $hero_mobile_path = $video_dir . '/mobile/' . $video_filename . '-hero-mobile.mp4';
+                        if (file_exists($hero_mobile_path)) {
+                            $mobile_video_src = wp_get_upload_dir()['baseurl'] . str_replace(wp_get_upload_dir()['basedir'], '', $hero_mobile_path);
+                        }
+                    }
+
+                    echo 'src="' . esc_url($video_src) . '" ';
+                    echo 'data-src-desktop="' . esc_url($video_src) . '" ';
+                    if ($mobile_video_src) {
+                        echo 'data-src-mobile="' . esc_url($mobile_video_src) . '" ';
+                    }
+                    echo 'data-riman-responsive-video="1" ';
                     echo 'data-riman-service-video="1" ';
                     echo 'style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">';
-                    echo '      <source data-src="' . esc_url($video_src) . '" type="video/mp4">';
+                    echo '      <source src="' . esc_url($video_src) . '" data-src="' . esc_url($video_src) . '" type="video/mp4">'; echo '      <source src="' . esc_url($video_src) . '" type="video/webm">'; // Fallback format
                     echo '    </video>';
                 } elseif ($img) {
                     echo '    <img src="' . esc_url($img) . '" alt="' . esc_attr($title) . '" loading="lazy" />';

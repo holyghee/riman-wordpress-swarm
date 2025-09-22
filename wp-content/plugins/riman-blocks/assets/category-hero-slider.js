@@ -7,7 +7,7 @@
     var track = root.querySelector('.riman-hero-track');
     var n = slides.length; if (!n) return;
     var i = 0, timer = null;
-    var interval = parseInt(root.getAttribute('data-interval')||'6000', 10) || 6000;
+    var interval = parseInt(root.getAttribute('data-interval')||'8000', 10) || 8000;
     var auto = root.getAttribute('data-auto') === '1';
     var anim = root.getAttribute('data-anim') || 'fade';
     var parallax = root.getAttribute('data-parallax') === '1';
@@ -65,12 +65,20 @@
         if (!v) continue;
         try {
           if (a === activeIndex){
-            v.muted = true; v.setAttribute('muted',''); v.playsInline = true; v.setAttribute('playsinline','');
+            v.muted = true; v.setAttribute('muted',''); v.playsInline = true; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
             // mark loaded state and try to play on various readiness events
             var onLoaded = function(){ this.setAttribute('data-loaded','true'); };
             v.removeEventListener('loadeddata', onLoaded); v.addEventListener('loadeddata', onLoaded, { once:true });
             var tryPlay = function(){
-              try { v.play().catch(function(){}); } catch(e){}
+              try {
+                var playPromise = v.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch(function(e){
+                    console.log('Video autoplay blocked:', e);
+                    v.setAttribute('data-autoplay-blocked', 'true');
+                  });
+                }
+              } catch(e){}
             };
             v.removeEventListener('canplay', tryPlay); v.addEventListener('canplay', tryPlay, { once:true });
             v.removeEventListener('canplaythrough', tryPlay); v.addEventListener('canplaythrough', tryPlay, { once:true });
@@ -99,7 +107,14 @@
     }
     function nextFn(){ show((i+1)%n); }
     function prevFn(){ show((i-1+n)%n); }
-    function start(){ if (!auto || n<2) return; stop(); timer = setInterval(nextFn, interval); }
+    function start(){
+      if (!auto || n<2) return;
+      stop();
+      // Delay first auto-advance to let video load
+      timer = setTimeout(() => {
+        timer = setInterval(nextFn, interval);
+      }, 1000);
+    }
     function stop(){ if (timer) { clearInterval(timer); timer=null; } }
 
     if (prev) prev.addEventListener('click', function(){ prevFn(); start(); });

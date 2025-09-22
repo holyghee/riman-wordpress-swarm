@@ -44,10 +44,38 @@
         });
     };
 
+    const updateResponsiveVideoSource = (video) => {
+        if (!video || !video.dataset.rimanResponsiveVideo) {
+            return;
+        }
+
+        const isMobile = window.innerWidth <= 780;
+        const mobileSource = video.dataset.srcMobile;
+        const desktopSource = video.dataset.srcDesktop || video.dataset.src;
+
+        let targetSource = desktopSource;
+        let sourceType = 'desktop';
+
+        // Mobile-Version verwenden falls verfügbar und auf Mobile
+        if (isMobile && mobileSource) {
+            targetSource = mobileSource;
+            sourceType = 'mobile';
+        }
+
+        // Source nur ändern wenn nötig
+        if (video.dataset.src !== targetSource) {
+            console.log(`🎯 Cover Video switching to ${sourceType}:`, targetSource);
+            video.dataset.src = targetSource;
+        }
+    };
+
     const loadVideoSources = (video) => {
         if (!video || video.dataset.rimanCoverLoaded === 'true') {
             return;
         }
+
+        // Check for responsive video first
+        updateResponsiveVideoSource(video);
 
         const dataSrc = video.getAttribute('data-src');
         if (dataSrc) {
@@ -291,6 +319,17 @@
         if (!videos.length) {
             return;
         }
+
+        // Add resize handler for responsive videos
+        let resizeTimeout;
+        const handleResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const responsiveVideos = document.querySelectorAll('video[data-riman-responsive-video]');
+                responsiveVideos.forEach(updateResponsiveVideoSource);
+            }, 250);
+        };
+        window.addEventListener('resize', handleResize);
 
         if (!('IntersectionObserver' in window)) {
             videos.forEach(scheduleVideo);

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Slider-Instanz erstellen
             const slider = new ServiceCardSlider(container, {
                 autoPlay: container.dataset.sliderAutoplay === 'true',
-                interval: parseInt(container.dataset.sliderInterval || '5000', 10),
+                interval: parseInt(container.dataset.sliderInterval || '8000', 10),
                 cards: cards
             });
 
@@ -379,11 +379,14 @@ document.addEventListener('DOMContentLoaded', function() {
         startAutoPlay() {
             if (!this.options.autoPlay || this.autoPlayTimer) return;
 
-            this.autoPlayTimer = setInterval(() => {
-                if (!this.isDragging && !document.hidden) {
-                    this.nextSlide();
-                }
-            }, this.options.interval);
+            // Delay first auto-advance for mobile stability
+            this.autoPlayTimer = setTimeout(() => {
+                this.autoPlayTimer = setInterval(() => {
+                    if (!this.isDragging && !document.hidden) {
+                        this.nextSlide();
+                    }
+                }, this.options.interval);
+            }, 2000);
         }
 
         pauseAutoPlay() {
@@ -420,8 +423,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const card = video.closest('.riman-service-card');
             if (!card) return;
 
-            // Video source laden
-            const videoSrc = video.dataset.src || card.dataset.videoSrc;
+            // Responsive Video-Auswahl: Mobile-Version bevorzugen
+            let videoSrc = video.src || video.dataset.src || card.dataset.videoSrc;
+
+            // Auf Mobile: Mobile-Version verwenden falls verfügbar
+            if (window.innerWidth <= 780 && video.dataset.srcMobile) {
+                videoSrc = video.dataset.srcMobile;
+                console.log('📱 Using mobile-optimized video:', videoSrc);
+            } else if (video.dataset.srcDesktop) {
+                videoSrc = video.dataset.srcDesktop;
+                console.log('🖥️ Using desktop video:', videoSrc);
+            }
+
             if (!videoSrc) return;
 
             console.log('Mobile slider: Starting video for slide', this.currentSlide, videoSrc);
@@ -436,16 +449,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 poster.style.opacity = '0';
             }
 
-            // Video-Eigenschaften setzen
+            // Video-Source immer setzen (auch wenn bereits vorhanden)
             video.src = videoSrc;
             video.muted = true;
             video.playsInline = true;
+            video.setAttribute('webkit-playsinline', '');
+            video.setAttribute('preload', 'metadata');
             video.controls = false;
             video.currentTime = 0;
+
+            // Loading-Indikator hinzufügen
+            this.showVideoLoading(currentSlideEl);
 
             // Video abspielen und Timer starten
             video.play().then(() => {
                 console.log('✅ Mobile slider video playing');
+                this.hideVideoLoading(currentSlideEl);
 
                 // Video-Ende Handler
                 const handleVideoEnd = () => {
@@ -456,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (this.options.autoPlay) {
                         this.videoAdvanceTimer = setTimeout(() => {
                             this.nextSlide();
-                        }, 1000); // 1 Sekunde Pause
+                        }, 2000); // 2 Sekunden Pause statt 1
                     }
 
                     video.removeEventListener('ended', handleVideoEnd);
@@ -464,19 +483,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 video.addEventListener('ended', handleVideoEnd);
 
-                // 5-Sekunden Timer für garantierten Advance
+                // 6-Sekunden Timer für garantierten Advance (länger als Hero Slider)
                 this.videoTimer = setTimeout(() => {
                     if (!video.ended) {
                         video.pause();
                         handleVideoEnd();
                     }
-                }, 5000);
+                }, 6000);
 
             }).catch(e => {
-                console.log('❌ Video play failed:', e);
-                // Bei Fehler: Advance nach kurzer Pause
+                console.log('❌ Video play failed (mobile autoplay blocked):', e);
+                video.setAttribute('data-autoplay-blocked', 'true');
+                this.hideVideoLoading(currentSlideEl);
+                this.showPlayButton(currentSlideEl);
+
+                // Bei Fehler: Advance nach längerer Pause
                 if (this.options.autoPlay) {
-                    this.videoAdvanceTimer = setTimeout(() => this.nextSlide(), 1000);
+                    this.videoAdvanceTimer = setTimeout(() => this.nextSlide(), 3000);
                 }
             });
         }
@@ -519,6 +542,38 @@ document.addEventListener('DOMContentLoaded', function() {
                     playButton.remove();
                 }
             });
+        }
+
+        // Video Loading-Indikator anzeigen
+        showVideoLoading(slide) {
+            const card = slide.querySelector('.riman-service-card');
+            if (!card) return;
+
+            // Existierenden Loading-Indikator entfernen
+            const existingLoader = slide.querySelector('.riman-video-loading');
+            if (existingLoader) {
+                existingLoader.remove();
+            }
+
+            // Loading-Spinner erstellen
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'riman-video-loading';
+            loadingIndicator.innerHTML = `
+                <div class="riman-loading-spinner">
+                    <div class="riman-spinner-circle"></div>
+                    <div class="riman-loading-text">Video wird geladen...</div>
+                </div>
+            `;
+
+            card.appendChild(loadingIndicator);
+        }
+
+        // Video Loading-Indikator verstecken
+        hideVideoLoading(slide) {
+            const loadingIndicator = slide.querySelector('.riman-video-loading');
+            if (loadingIndicator) {
+                loadingIndicator.remove();
+            }
         }
 
         // Play-Button nach Video-Ende anzeigen
