@@ -20,7 +20,7 @@ add_action('init', function() {
         'riman-service-cards-frontend-editor',
         plugin_dir_url(__FILE__) . '../assets/service-cards.css',
         [],
-        '2.2.1'
+        '2.2.2'
     );
 
     // Editor-specific CSS enhancements
