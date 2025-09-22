@@ -160,8 +160,9 @@ function createSimpleSlider(container, cards) {
     sliderWrapper.appendChild(dotsContainer);
     container.appendChild(sliderWrapper);
 
-    // Add slider class to container
+    // Add slider class to container and mark as mobile slider
     container.classList.add('riman-simple-slider-active');
+    container.dataset.mobileSlider = 'true'; // Tell video system that slider is active
 
     // Initialize slider functionality
     const slider = new SimpleSlider(sliderWrapper, sliderTrack, dotsContainer, cards.length);
@@ -314,6 +315,7 @@ window.addEventListener('resize', () => {
             if (grid) grid.style.display = '';
 
             container.classList.remove('riman-simple-slider-active');
+            delete container.dataset.mobileSlider; // Remove mobile slider marker
         });
     } else {
         // Switch to mobile - reinitialize if needed
