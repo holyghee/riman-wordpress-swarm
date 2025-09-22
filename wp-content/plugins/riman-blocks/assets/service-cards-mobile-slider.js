@@ -320,107 +320,129 @@ class SimpleSlider {
             const poster = slide.querySelector('.riman-card-poster');
 
             if (index === this.currentSlide) {
-                // Activate current slide video
-                if (video) {
-                    // Keep poster visible initially - CSS handles this but ensure it
-                    if (poster) {
-                        poster.style.opacity = '1';
-                        poster.style.zIndex = '2';
-                        poster.style.display = 'block';
-                        poster.style.position = 'relative';
-                        console.log('🖼️ Poster made visible on slide:', index);
-                    }
-
-                    // Load video but keep it hidden until ready
-                    video.classList.add('is-loading');
-                    console.log('🎬 Loading video on slide:', index);
-
-                    // Immediate video activation - simplified approach
-                    const showVideo = () => {
-                        // Ensure mobile video source is used
-                        const isMobile = window.innerWidth <= 780;
-                        if (isMobile && video.dataset.srcMobile && video.src !== video.dataset.srcMobile) {
-                            console.log('🎬 Switching to mobile video source on slide:', index);
-                            console.log('🎬 From:', video.src);
-                            console.log('🎬 To:', video.dataset.srcMobile);
-                            video.src = video.dataset.srcMobile;
-                            video.load(); // Reload with mobile source
-                        }
-
-                        video.classList.remove('is-loading');
-                        video.classList.add('is-playing', 'is-active');
-                        video.style.opacity = '1';
-                        video.style.display = 'block';
-                        video.style.visibility = 'visible';
-
-                        console.log('🎬 Video activated on slide:', index, {
-                            opacity: video.style.opacity,
-                            display: video.style.display,
-                            readyState: video.readyState,
-                            networkState: video.networkState,
-                            src: video.src,
-                            srcMobile: video.dataset.srcMobile,
-                            srcDesktop: video.dataset.srcDesktop,
-                            isMobile: isMobile
-                        });
-
-                        // Start video playback
-                        video.currentTime = 0;
-                        video.play().then(() => {
-                            console.log('🎬 Video playing successfully on slide:', index);
-
-                            // Keep poster visible for now (for debugging)
-                            if (poster) {
-                                poster.style.opacity = '0.7'; // Semi-transparent to see video underneath
-                                poster.style.zIndex = '1';
-                                console.log('🖼️ Poster semi-transparent - video playing on slide:', index);
-                            }
-                        }).catch(e => {
-                            console.log('🎬 Video play prevented on slide:', index, e);
-                            // Keep poster visible if video can't play
-                            if (poster) {
-                                poster.style.opacity = '1';
-                                poster.style.zIndex = '2';
-                            }
-                        });
-                    };
-
-                    // Force video activation immediately - don't wait for canplay
-                    console.log('🎬 Forcing immediate video activation on slide:', index);
-                    showVideo();
-
-                    // Also try to preload the video
-                    if (video.networkState === video.NETWORK_EMPTY) {
-                        video.load();
-                    }
-                }
-                if (card && card.classList.contains('riman-card--has-video')) {
-                    card.classList.add('video-active');
-                }
+                // Activate current slide with proper fallback system
+                this.ensurePosterThenVideo(slide, index, video, poster, card);
             } else {
-                // Deactivate other slide videos and ensure posters are visible
-                if (video) {
-                    video.classList.remove('is-playing', 'is-active', 'is-loading');
-                    video.style.opacity = '0';
-                    video.style.zIndex = '1';
-                    video.pause();
-                    video.currentTime = 0;
-                    console.log('🎬 Video deactivated on slide:', index);
-                }
-                if (poster) {
-                    // Force poster to be visible on inactive slides
-                    poster.style.opacity = '1';
-                    poster.style.zIndex = '2';
-                    poster.style.display = 'block';
-                    poster.style.position = 'relative';
-                    poster.style.visibility = 'visible';
-                    console.log('🖼️ Poster restored on inactive slide:', index);
-                }
-                if (card && card.classList.contains('riman-card--has-video')) {
-                    card.classList.remove('video-active');
-                }
+                // Deactivate other slides - always show posters
+                this.deactivateSlideVideo(slide, index, video, poster, card);
             }
         });
+    }
+
+    ensurePosterThenVideo(slide, index, video, poster, card) {
+        console.log('🎯 Activating slide with fallback system:', index);
+
+        // Step 1: Always ensure poster is visible first
+        if (poster) {
+            this.ensurePosterVisible(poster, index);
+
+            // Step 2: Wait for poster to load, then handle video
+            if (poster.complete) {
+                console.log('🖼️ Poster already loaded on slide:', index);
+                this.handleVideoAfterPoster(video, poster, card, index);
+            } else {
+                console.log('🖼️ Waiting for poster to load on slide:', index);
+                poster.onload = () => {
+                    console.log('🖼️ Poster loaded successfully on slide:', index);
+                    this.handleVideoAfterPoster(video, poster, card, index);
+                };
+                poster.onerror = () => {
+                    console.log('🖼️ Poster failed to load on slide:', index);
+                    this.handleVideoAfterPoster(video, poster, card, index);
+                };
+            }
+        } else {
+            // No poster, proceed with video only
+            console.log('🖼️ No poster found on slide:', index);
+            this.handleVideoAfterPoster(video, poster, card, index);
+        }
+    }
+
+    ensurePosterVisible(poster, index) {
+        poster.style.opacity = '1';
+        poster.style.zIndex = '2';
+        poster.style.display = 'block';
+        poster.style.position = 'relative';
+        poster.style.visibility = 'visible';
+        console.log('🖼️ Poster made visible on slide:', index);
+    }
+
+    handleVideoAfterPoster(video, poster, card, index) {
+        if (!video) {
+            console.log('🎬 No video on slide:', index);
+            return;
+        }
+
+        // Step 3: Setup correct video source
+        const isMobile = window.innerWidth <= 780;
+        if (isMobile && video.dataset.srcMobile && video.src !== video.dataset.srcMobile) {
+            console.log('🎬 Setting mobile video source on slide:', index);
+            video.src = video.dataset.srcMobile;
+        }
+
+        // Step 4: Wait for video to be ready before showing
+        const showVideo = () => {
+            console.log('🎬 Video ready - showing over poster on slide:', index);
+            video.classList.add('is-playing', 'is-active');
+            video.style.opacity = '1';
+            video.style.zIndex = '3'; // Above poster
+
+            video.currentTime = 0;
+            video.play().then(() => {
+                console.log('🎬 Video playing successfully on slide:', index);
+                // Keep poster as fallback (slightly transparent for debugging)
+                if (poster) {
+                    poster.style.opacity = '0.1';
+                    poster.style.zIndex = '2';
+                }
+            }).catch(e => {
+                console.log('🎬 Video play failed - keeping poster on slide:', index, e);
+                video.style.opacity = '0';
+                if (poster) {
+                    poster.style.opacity = '1';
+                    poster.style.zIndex = '2';
+                }
+            });
+        };
+
+        // Check if video is ready
+        if (video.readyState >= 3) {
+            console.log('🎬 Video already ready on slide:', index);
+            showVideo();
+        } else {
+            console.log('🎬 Waiting for video to load on slide:', index);
+            video.addEventListener('canplay', showVideo, { once: true });
+
+            // Load video if needed
+            if (video.networkState === video.NETWORK_EMPTY) {
+                video.load();
+            }
+        }
+
+        if (card && card.classList.contains('riman-card--has-video')) {
+            card.classList.add('video-active');
+        }
+    }
+
+    deactivateSlideVideo(slide, index, video, poster, card) {
+        // Always show poster on inactive slides
+        if (poster) {
+            this.ensurePosterVisible(poster, index);
+        }
+
+        // Hide and stop video
+        if (video) {
+            video.classList.remove('is-playing', 'is-active', 'is-loading');
+            video.style.opacity = '0';
+            video.style.zIndex = '1';
+            video.pause();
+            video.currentTime = 0;
+            console.log('🎬 Video deactivated on slide:', index);
+        }
+
+        if (card && card.classList.contains('riman-card--has-video')) {
+            card.classList.remove('video-active');
+        }
     }
 
     startAutoPlay() {
