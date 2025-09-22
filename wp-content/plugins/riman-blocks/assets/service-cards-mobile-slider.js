@@ -119,6 +119,17 @@ function createSimpleSlider(container, cards) {
             initializeResponsiveVideo(cardClone);
         }
 
+        // Ensure poster is visible by default in cloned card
+        const clonedPoster = cardClone.querySelector('.riman-card-poster');
+        if (clonedPoster) {
+            clonedPoster.style.opacity = '1';
+            clonedPoster.style.zIndex = '2';
+            clonedPoster.style.display = 'block';
+            clonedPoster.style.position = 'relative';
+            clonedPoster.style.visibility = 'visible';
+            console.log('🖼️ Cloned poster made visible for card:', index);
+        }
+
         cardClone.style.cssText = `
             width: 100%;
             pointer-events: auto;
@@ -387,16 +398,23 @@ class SimpleSlider {
                     card.classList.add('video-active');
                 }
             } else {
-                // Deactivate other slide videos
+                // Deactivate other slide videos and ensure posters are visible
                 if (video) {
                     video.classList.remove('is-playing', 'is-active', 'is-loading');
                     video.style.opacity = '0';
+                    video.style.zIndex = '1';
                     video.pause();
                     video.currentTime = 0;
+                    console.log('🎬 Video deactivated on slide:', index);
                 }
                 if (poster) {
+                    // Force poster to be visible on inactive slides
                     poster.style.opacity = '1';
                     poster.style.zIndex = '2';
+                    poster.style.display = 'block';
+                    poster.style.position = 'relative';
+                    poster.style.visibility = 'visible';
+                    console.log('🖼️ Poster restored on inactive slide:', index);
                 }
                 if (card && card.classList.contains('riman-card--has-video')) {
                     card.classList.remove('video-active');
