@@ -289,7 +289,7 @@ add_action('init', function() {
             if ($mobile_slider) {
                 $slider_handle = 'riman-service-cards-mobile-slider';
                 if (!wp_style_is($slider_handle, 'registered')) {
-                    wp_register_style($slider_handle, $base_url . 'service-cards-mobile-slider.css', [$handle], '1.0.0');
+                    wp_register_style($slider_handle, $base_url . 'service-cards-mobile-slider.css', [$handle], '2.4.0-' . time());
                 }
                 if (!wp_style_is($slider_handle, 'enqueued')) {
                     wp_enqueue_style($slider_handle);
@@ -297,7 +297,7 @@ add_action('init', function() {
 
                 $slider_js_handle = 'riman-service-cards-mobile-slider-js';
                 if (!wp_script_is($slider_js_handle, 'registered')) {
-                    wp_register_script($slider_js_handle, $base_url . 'service-cards-mobile-slider.js', [], '1.0.0', true);
+                    wp_register_script($slider_js_handle, $base_url . 'service-cards-mobile-slider.js', [], '2.1.0-' . time(), true);
                 }
                 if (!wp_script_is($slider_js_handle, 'enqueued')) {
                     wp_enqueue_script($slider_js_handle);
@@ -359,7 +359,7 @@ add_action('init', function() {
             if ($mobile_slider) {
                 $slider_css_handle = 'riman-service-cards-mobile-slider-css';
                 if (!wp_style_is($slider_css_handle, 'registered')) {
-                    wp_register_style($slider_css_handle, $base_url . 'service-cards-mobile-slider.css', [], '1.0.0');
+                    wp_register_style($slider_css_handle, $base_url . 'service-cards-mobile-slider.css', [], '2.4.0-' . time());
                 }
                 if (!wp_style_is($slider_css_handle, 'enqueued')) {
                     wp_enqueue_style($slider_css_handle);

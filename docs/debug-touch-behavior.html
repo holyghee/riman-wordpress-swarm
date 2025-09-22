@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Cards Touch Debug</title>
+    <style>
+        /* Import the actual CSS */
+        @media (max-width: 780px) {
+            .riman-mobile-slider-active .riman-service-cards-grid {
+                display: none !important;
+            }
+
+            .riman-mobile-slider-active .riman-service-slider-wrapper {
+                position: relative;
+                overflow: hidden;
+                width: 100%;
+            }
+
+            .riman-mobile-slider-active .riman-service-slider-track {
+                display: flex;
+                transition: transform 0.3s ease;
+                width: 100%;
+            }
+
+            .riman-mobile-slider-active .riman-service-slide {
+                flex: 0 0 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 0;
+            }
+
+            .riman-mobile-slider-active .riman-service-card {
+                pointer-events: none;
+                cursor: default;
+            }
+
+            .riman-slider-navigation,
+            .riman-slider-arrow,
+            .riman-slider-arrows {
+                display: none !important;
+                visibility: hidden !important;
+            }
+
+            .riman-mobile-slider-active .riman-service-slider-track {
+                touch-action: pan-y;
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
+            .riman-service-slider-wrapper {
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        /* Debug styles */
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 1000;
+            border-radius: 5px;
+            max-width: 200px;
+        }
+
+        /* Sample card styles */
+        .riman-service-card {
+            width: 300px;
+            height: 400px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .riman-service-cards-wrap {
+            padding: 20px;
+        }
+
+        .console-log {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.9);
+            color: #00ff00;
+            padding: 10px;
+            font-family: monospace;
+            font-size: 11px;
+            z-index: 1001;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info" id="debugInfo">
+        Touch Debug Info<br>
+        Current Slide: <span id="currentSlideDisplay">0</span><br>
+        Touch State: <span id="touchState">none</span><br>
+        Transform: <span id="transformDisplay">0</span><br>
+        Width: <span id="widthDisplay">0</span>
+    </div>
+
+    <div class="console-log" id="consoleLog">
+        <div>Console Output:</div>
+    </div>
+
+    <!-- Simulate the service cards structure -->
+    <div class="riman-service-cards-wrap" data-mobile-slider="true" data-slider-autoplay="false" data-slider-interval="8000">
+        <div class="riman-service-grid">
+            <div class="riman-service-card">
+                <h3>Card 1</h3>
+                <p>This is the first service card</p>
+                <div class="riman-card-video" data-src="video1.mp4"></div>
+            </div>
+            <div class="riman-service-card">
+                <h3>Card 2</h3>
+                <p>This is the second service card</p>
+                <div class="riman-card-video" data-src="video2.mp4"></div>
+            </div>
+            <div class="riman-service-card">
+                <h3>Card 3</h3>
+                <p>This is the third service card</p>
+                <div class="riman-card-video" data-src="video3.mp4"></div>
+            </div>
+            <div class="riman-service-card">
+                <h3>Card 4</h3>
+                <p>This is the fourth service card</p>
+                <div class="riman-card-video" data-src="video4.mp4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced logging system
+        const logElement = document.getElementById('consoleLog');
+        const debugInfo = document.getElementById('debugInfo');
+
+        function log(message, level = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logLine = document.createElement('div');
+            logLine.style.color = level === 'error' ? '#ff6666' : level === 'warn' ? '#ffff66' : '#00ff00';
+            logLine.textContent = `[${timestamp}] ${message}`;
+            logElement.appendChild(logLine);
+            logElement.scrollTop = logElement.scrollHeight;
+
+            // Also log to browser console
+            console.log(message);
+        }
+
+        function updateDebugInfo(slider) {
+            if (slider) {
+                document.getElementById('currentSlideDisplay').textContent = slider.currentSlide;
+                document.getElementById('touchState').textContent = slider.isDragging ? 'dragging' : 'idle';
+                document.getElementById('transformDisplay').textContent = slider.getTransformX() + 'px';
+                document.getElementById('widthDisplay').textContent = slider.getSlideWidth() + 'px';
+            }
+        }
+
+        // Override console.log to capture all output
+        const originalLog = console.log;
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            log(args.join(' '));
+        };
+
+        // Start debugging
+        log('🚀 Starting touch behavior debug test');
+        log(`Screen size: ${window.innerWidth}x${window.innerHeight}`);
+        log(`User agent: ${navigator.userAgent.substring(0, 50)}...`);
+
+        // Force mobile mode
+        if (window.innerWidth > 780) {
+            log('⚠️ Screen too wide, you might need to resize or use device emulation');
+        }
+    </script>
+
+    <!-- Include the actual slider JavaScript -->
+    <script>
+// Copy of the actual slider JavaScript with enhanced debugging
+document.addEventListener('DOMContentLoaded', function() {
+
+    // Initialisiere alle Service Card Slider
+    const initServiceCardSliders = () => {
+        console.log('🚀 Initializing Service Card Sliders...');
+        const sliderContainers = document.querySelectorAll('.riman-service-cards-wrap[data-mobile-slider="true"]');
+        console.log('📱 Found slider containers:', sliderContainers.length);
+
+        sliderContainers.forEach((container, containerIndex) => {
+            console.log(`🏗️ Processing container ${containerIndex + 1}:`, container);
+
+            // Force mobile mode for testing
+            const grid = container.querySelector('.riman-service-grid');
+            if (!grid) {
+                console.log('❌ No .riman-service-grid found in container');
+                return;
+            }
+
+            const cards = Array.from(grid.querySelectorAll('.riman-service-card'));
+            console.log(`🃏 Found ${cards.length} service cards in grid`);
+
+            if (cards.length === 0) {
+                console.log('❌ No service cards found - aborting');
+                return;
+            }
+
+            // Slider-Container vorbereiten
+            setupSliderStructure(container, grid, cards);
+
+            // Slider-Instanz erstellen
+            const slider = new ServiceCardSlider(container, {
+                autoPlay: container.dataset.sliderAutoplay === 'true',
+                interval: parseInt(container.dataset.sliderInterval || '8000', 10),
+                cards: cards
+            });
+
+            slider.init();
+
+            // Store slider globally for debugging
+            window.debugSlider = slider;
+        });
+    };
+
+    // Slider-HTML-Struktur erstellen
+    const setupSliderStructure = (container, grid, cards) => {
+        console.log('🔧 Setting up slider structure');
+
+        // Wrapper für Slider erstellen
+        const sliderWrapper = document.createElement('div');
+        sliderWrapper.className = 'riman-service-slider-wrapper';
+
+        const sliderTrack = document.createElement('div');
+        sliderTrack.className = 'riman-service-slider-track';
+
+        // Create slides with 1 card each
+        cards.forEach((card, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'riman-service-slide';
+            const clonedCard = card.cloneNode(true);
+            slide.appendChild(clonedCard);
+            sliderTrack.appendChild(slide);
+        });
+
+        // Slider Track in separaten Container
+        const trackContainer = document.createElement('div');
+        trackContainer.className = 'riman-slider-track-container';
+        trackContainer.style.position = 'relative';
+        trackContainer.style.flex = '1';
+        trackContainer.style.overflow = 'visible';
+        trackContainer.style.minHeight = '450px';
+        trackContainer.style.display = 'flex';
+        trackContainer.style.alignItems = 'center';
+        trackContainer.style.width = '100%';
+        trackContainer.appendChild(sliderTrack);
+
+        sliderWrapper.appendChild(trackContainer);
+
+        // Original Grid ersetzen
+        container.replaceChild(sliderWrapper, grid);
+
+        // Mobile Slider CSS-Klasse hinzufügen
+        container.classList.add('riman-mobile-slider-active');
+    };
+
+    // Hauptklasse für Service Card Slider
+    class ServiceCardSlider {
+        constructor(container, options = {}) {
+            this.container = container;
+            this.track = container.querySelector('.riman-service-slider-track');
+            this.allSlides = Array.from(container.querySelectorAll('.riman-service-slide'));
+            this.slides = this.allSlides.filter(slide => !slide.classList.contains('clone-slide'));
+
+            this.options = {
+                autoPlay: options.autoPlay || false,
+                interval: options.interval || 5000,
+                cards: options.cards || []
+            };
+
+            this.slideCount = this.slides.length;
+            this.currentSlide = 0;
+            this.isPlaying = this.options.autoPlay;
+            this.autoPlayTimer = null;
+            this.isDragging = false;
+            this.startX = 0;
+            this.startY = 0;
+            this.currentX = 0;
+            this.initialTransform = 0;
+            this.isTransitioning = false;
+
+            log(`🎯 Slider created with ${this.slideCount} slides`);
+        }
+
+        init() {
+            this.setupEventListeners();
+            this.waitForDimensionsAndInit();
+        }
+
+        waitForDimensionsAndInit() {
+            const checkDimensions = () => {
+                const slideWidth = this.getSlideWidth();
+                if (slideWidth > 0) {
+                    log(`✅ Dimensions ready, slideWidth: ${slideWidth}px`);
+                    this.updateSlider();
+                    if (this.isPlaying) {
+                        this.startAutoPlay();
+                    }
+                    return true;
+                }
+                return false;
+            };
+
+            if (checkDimensions()) {
+                return;
+            }
+
+            let attempts = 0;
+            const maxAttempts = 20;
+            const retryInterval = setInterval(() => {
+                attempts++;
+                if (checkDimensions() || attempts >= maxAttempts) {
+                    clearInterval(retryInterval);
+                    if (attempts >= maxAttempts) {
+                        log('⚠️ Max attempts reached, forcing initialization');
+                        this.forceInitWithFallback();
+                    }
+                }
+            }, 50);
+        }
+
+        forceInitWithFallback() {
+            this.track.style.display = 'none';
+            this.track.offsetHeight;
+            this.track.style.display = 'flex';
+
+            setTimeout(() => {
+                this.updateSlider();
+                if (this.isPlaying) {
+                    this.startAutoPlay();
+                }
+            }, 100);
+        }
+
+        setupEventListeners() {
+            log('🔗 Setting up event listeners');
+
+            // Touch Events für Swipe-Gesten
+            this.track.addEventListener('touchstart', this.onTouchStart.bind(this), { passive: false });
+            this.track.addEventListener('touchmove', this.onTouchMove.bind(this), { passive: false });
+            this.track.addEventListener('touchend', this.onTouchEnd.bind(this), { passive: false });
+
+            // Mouse Events für Desktop-Test
+            this.track.addEventListener('mousedown', this.onMouseDown.bind(this));
+            this.track.addEventListener('mousemove', this.onMouseMove.bind(this));
+            this.track.addEventListener('mouseup', this.onMouseUp.bind(this));
+            this.track.addEventListener('mouseleave', this.onMouseUp.bind(this));
+
+            // Resize Handler
+            window.addEventListener('resize', this.onResize.bind(this));
+        }
+
+        // Touch Events - Enhanced with debugging
+        onTouchStart(e) {
+            log(`👆 TOUCH START - touches: ${e.touches.length}`);
+
+            if (e.touches.length > 1) {
+                log('❌ Multi-touch detected, ignoring');
+                return;
+            }
+
+            this.isDragging = true;
+            this.startX = e.touches[0].clientX;
+            this.startY = e.touches[0].clientY;
+            this.currentX = this.startX; // FIX: Initialize currentX
+            this.initialTransform = this.getTransformX();
+
+            log(`📍 Touch start: startX=${this.startX}, startY=${this.startY}, initialTransform=${this.initialTransform}`);
+            log(`🎯 Current slide before touch: ${this.currentSlide}`);
+
+            this.pauseAutoPlay();
+            this.track.style.transition = 'none';
+
+            updateDebugInfo(this);
+        }
+
+        onTouchMove(e) {
+            if (!this.isDragging || e.touches.length > 1) return;
+
+            e.preventDefault();
+
+            this.currentX = e.touches[0].clientX;
+            const deltaX = this.currentX - this.startX;
+            const deltaY = Math.abs(e.touches[0].clientY - this.startY);
+
+            log(`📱 Touch move: currentX=${this.currentX}, deltaX=${deltaX}, deltaY=${deltaY}`);
+
+            // Nur horizontal scrollen wenn mehr horizontal als vertikal
+            if (Math.abs(deltaX) > deltaY) {
+                const newTransform = this.initialTransform + deltaX;
+                this.track.style.transform = `translateX(${newTransform}px)`;
+                log(`🎬 Applied transform: ${newTransform}px`);
+            }
+
+            updateDebugInfo(this);
+        }
+
+        onTouchEnd(e) {
+            log(`👆 TOUCH END - isDragging: ${this.isDragging}`);
+
+            if (!this.isDragging) return;
+
+            this.isDragging = false;
+            this.track.style.transition = 'transform 0.3s ease';
+
+            const deltaX = this.currentX - this.startX;
+            const threshold = this.getSlideWidth() * 0.3;
+
+            log(`📊 Touch end analysis: deltaX=${deltaX}, threshold=${threshold}, currentSlide=${this.currentSlide}`);
+
+            if (Math.abs(deltaX) > threshold) {
+                if (deltaX > 0) {
+                    log('⬅️ Swipe right - going to previous slide');
+                    this.previousSlide();
+                } else {
+                    log('➡️ Swipe left - going to next slide');
+                    this.nextSlide();
+                }
+            } else {
+                log('🔄 Swipe too short - returning to current slide');
+                this.updateSlider();
+            }
+
+            updateDebugInfo(this);
+        }
+
+        // Mouse Events (für Desktop-Testing)
+        onMouseDown(e) {
+            log(`🖱️ MOUSE DOWN`);
+            this.isDragging = true;
+            this.startX = e.clientX;
+            this.currentX = this.startX; // FIX: Initialize currentX
+            this.initialTransform = this.getTransformX();
+            this.pauseAutoPlay();
+            this.track.style.transition = 'none';
+            e.preventDefault();
+            updateDebugInfo(this);
+        }
+
+        onMouseMove(e) {
+            if (!this.isDragging) return;
+
+            e.preventDefault();
+            this.currentX = e.clientX;
+            const deltaX = this.currentX - this.startX;
+            const newTransform = this.initialTransform + deltaX;
+            this.track.style.transform = `translateX(${newTransform}px)`;
+            updateDebugInfo(this);
+        }
+
+        onMouseUp(e) {
+            log(`🖱️ MOUSE UP`);
+            if (!this.isDragging) return;
+
+            this.isDragging = false;
+            this.track.style.transition = 'transform 0.3s ease';
+
+            const deltaX = this.currentX - this.startX;
+            const threshold = this.getSlideWidth() * 0.3;
+
+            if (Math.abs(deltaX) > threshold) {
+                if (deltaX > 0) {
+                    this.previousSlide();
+                } else {
+                    this.nextSlide();
+                }
+            } else {
+                this.updateSlider();
+            }
+            updateDebugInfo(this);
+        }
+
+        // Manual Navigation - Next Slide
+        nextSlide() {
+            if (this.isTransitioning) {
+                log('⚠️ Already transitioning, ignoring nextSlide()');
+                return;
+            }
+
+            log(`➡️ Next slide called - current: ${this.currentSlide}`);
+
+            this.pauseAutoPlay();
+            this.isTransitioning = true;
+            this.currentSlide++;
+
+            if (this.currentSlide >= this.slideCount) {
+                this.currentSlide = 0;
+                log('🔄 Wrapped to first slide');
+            }
+
+            log(`✅ New current slide: ${this.currentSlide}`);
+            this.updateSlider();
+
+            setTimeout(() => {
+                this.isTransitioning = false;
+                if (this.options.autoPlay) {
+                    setTimeout(() => this.startAutoPlay(), 3000);
+                }
+            }, 300);
+        }
+
+        // Manual Navigation - Previous Slide
+        previousSlide() {
+            if (this.isTransitioning) {
+                log('⚠️ Already transitioning, ignoring previousSlide()');
+                return;
+            }
+
+            log(`⬅️ Previous slide called - current: ${this.currentSlide}`);
+
+            this.pauseAutoPlay();
+            this.isTransitioning = true;
+            this.currentSlide--;
+
+            if (this.currentSlide < 0) {
+                this.currentSlide = this.slideCount - 1;
+                log('🔄 Wrapped to last slide');
+            }
+
+            log(`✅ New current slide: ${this.currentSlide}`);
+            this.updateSlider();
+
+            setTimeout(() => {
+                this.isTransitioning = false;
+                if (this.options.autoPlay) {
+                    setTimeout(() => this.startAutoPlay(), 3000);
+                }
+            }, 300);
+        }
+
+        goToSlide(index) {
+            log(`🎯 goToSlide called with index: ${index}`);
+
+            if (index >= 0 && index < this.slideCount) {
+                log(`📍 Going from slide ${this.currentSlide} to slide ${index}`);
+                this.currentSlide = index;
+                this.updateSlider();
+                this.pauseAutoPlay();
+
+                if (this.options.autoPlay) {
+                    setTimeout(() => this.startAutoPlay(), 3000);
+                }
+            } else {
+                log(`❌ Invalid slide index: ${index} (valid range: 0-${this.slideCount-1})`);
+            }
+        }
+
+        updateSlider() {
+            const slideWidth = this.getSlideWidth();
+            const transform = -this.currentSlide * slideWidth;
+
+            log(`🎬 UpdateSlider: slide=${this.currentSlide}, width=${slideWidth}px, transform=${transform}px`);
+
+            this.track.style.transform = `translateX(${transform}px)`;
+            updateDebugInfo(this);
+        }
+
+        getSlideWidth() {
+            if (!this.allSlides[0]) {
+                log('⚠️ No slides found for width calculation');
+                return 0;
+            }
+
+            let slideWidth = this.allSlides[0].offsetWidth;
+
+            if (slideWidth === 0) {
+                log('🔧 Slide width is 0, using container width as fallback');
+                slideWidth = this.container.offsetWidth || window.innerWidth;
+            }
+
+            return slideWidth;
+        }
+
+        getTransformX() {
+            const transform = this.track.style.transform;
+            const match = transform.match(/translateX\\(([^)]+)\\)/);
+            return match ? parseFloat(match[1]) : 0;
+        }
+
+        startAutoPlay() {
+            if (!this.options.autoPlay || this.autoPlayTimer) return;
+
+            log(`🎬 Starting auto-play with ${this.options.interval}ms interval`);
+
+            this.autoPlayTimer = setInterval(() => {
+                if (this.isPlaying && !this.isTransitioning) {
+                    log('▶️ Auto-play advancing');
+                    this.autoPlayAdvance();
+                }
+            }, this.options.interval);
+        }
+
+        autoPlayAdvance() {
+            this.isTransitioning = true;
+            this.currentSlide++;
+
+            if (this.currentSlide >= this.slideCount) {
+                this.currentSlide = 0;
+                log('🔄 Auto-play cycling back to first slide');
+            }
+
+            this.updateSlider();
+
+            setTimeout(() => {
+                this.isTransitioning = false;
+            }, 300);
+        }
+
+        pauseAutoPlay() {
+            if (this.autoPlayTimer) {
+                clearInterval(this.autoPlayTimer);
+                this.autoPlayTimer = null;
+                log('⏸️ Auto-play paused');
+            }
+        }
+
+        onResize() {
+            log(`📏 Resize detected: ${window.innerWidth}x${window.innerHeight}`);
+            this.updateSlider();
+        }
+    }
+
+    // Initialisierung
+    initServiceCardSliders();
+});
+    </script>
+</body>
+</html>
