@@ -311,8 +311,38 @@
 .riman-card-media .riman-card-media--placeholder { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
 .riman-card-media img,
 .riman-card-media .riman-card-media--placeholder { z-index: 1; transition: opacity 0.2s ease; }
-.riman-card-media video { z-index: 2; background: #000; opacity: 0; transition: opacity 0.2s ease; }
+/* Grid Layout Consistency - Force equal column widths regardless of content */
+.riman-service-grid .riman-service-card {
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  contain: layout style;
+}
+
+/* Video Elements - Ensure identical behavior to images */
+.riman-card-media video {
+  z-index: 2;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  /* Critical: Force consistent dimensions */
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+}
+
 .riman-card-media video.is-active { opacity: 1; }
+
+/* Prevent videos from affecting grid calculations */
+.riman-card-media--has-video,
+.riman-service-card.riman-card-has-video {
+  contain: size layout style !important;
+}
 .riman-service-card.riman-card-has-video .riman-card-media::after {
   content: '\25B6';
   position: absolute;
