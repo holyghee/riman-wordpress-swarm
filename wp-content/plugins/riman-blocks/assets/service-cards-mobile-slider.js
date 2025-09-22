@@ -86,6 +86,27 @@ function createSimpleSlider(container, cards) {
             cursor: pointer;
         `;
 
+        // Fix videos in cloned card
+        const originalVideos = card.querySelectorAll('video');
+        const clonedVideos = cardClone.querySelectorAll('video');
+
+        originalVideos.forEach((originalVideo, index) => {
+            if (clonedVideos[index]) {
+                // Copy video properties
+                clonedVideos[index].src = originalVideo.src;
+                clonedVideos[index].currentSrc = originalVideo.currentSrc;
+                clonedVideos[index].load(); // Reload video
+
+                // Copy video attributes
+                if (originalVideo.autoplay) clonedVideos[index].autoplay = true;
+                if (originalVideo.loop) clonedVideos[index].loop = true;
+                if (originalVideo.muted) clonedVideos[index].muted = true;
+                if (originalVideo.playsInline) clonedVideos[index].playsInline = true;
+
+                console.log('🎬 Fixed video in cloned card:', clonedVideos[index].src);
+            }
+        });
+
         slide.appendChild(cardClone);
         sliderTrack.appendChild(slide);
     });
