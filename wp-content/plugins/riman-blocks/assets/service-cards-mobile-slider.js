@@ -65,17 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const sliderTrack = document.createElement('div');
         sliderTrack.className = 'riman-service-slider-track';
 
-        // Clone erste Slide für infinite loop
-        const firstCardClone = cards[0].cloneNode(true);
-        const lastCardClone = cards[cards.length - 1].cloneNode(true);
-
-        // Letzte Slide als Clone am Anfang
-        const lastSlideClone = document.createElement('div');
-        lastSlideClone.className = 'riman-service-slide clone-slide';
-        lastSlideClone.appendChild(lastCardClone);
-        sliderTrack.appendChild(lastSlideClone);
-
-        // Original Cards in Slider-Track verschieben
+        // Create slides with 1 card each (original behavior)
         cards.forEach((card, index) => {
             console.log(`📦 Processing card ${index + 1}:`, {
                 cardElement: card,
@@ -113,13 +103,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 cardInSlide: slide.querySelector('.riman-service-card'),
                 cardVisible: clonedCard.offsetWidth > 0 && clonedCard.offsetHeight > 0
             });
-        });
 
-        // Erste Slide als Clone am Ende
-        const firstSlideClone = document.createElement('div');
-        firstSlideClone.className = 'riman-service-slide clone-slide';
-        firstSlideClone.appendChild(firstCardClone);
-        sliderTrack.appendChild(firstSlideClone);
+            console.log(`🔍 Slide ${index} card visibility:`, {
+                cardElement: clonedCard,
+                cardWidth: clonedCard.offsetWidth,
+                cardHeight: clonedCard.offsetHeight,
+                cardClasses: clonedCard.className,
+                cardVisible: clonedCard.offsetWidth > 0 && clonedCard.offsetHeight > 0
+            });
+        });
 
         // Slider Track in separaten Container
         const trackContainer = document.createElement('div');
@@ -139,11 +131,30 @@ document.addEventListener('DOMContentLoaded', function() {
             trackChildren: sliderTrack.children.length
         });
 
-        sliderWrapper.appendChild(trackContainer);
+        // Nur Arrows erstellen - keine Dots
+        const leftArrow = createArrowButton('prev', 'Vorherige Slide');
+        const rightArrow = createArrowButton('next', 'Nächste Slide');
 
-        // Navigation erstellen und über Slider positionieren
-        const navigation = createSliderNavigation(cards.length);
-        trackContainer.appendChild(navigation);
+        // Slider Wrapper Layout: Track Container mit seitlichen Arrows
+        const sliderContent = document.createElement('div');
+        sliderContent.className = 'riman-slider-content';
+        sliderContent.style.display = 'flex';
+        sliderContent.style.alignItems = 'center';
+        sliderContent.style.gap = '0'; // Kein Gap für maximalen Card-Platz
+        sliderContent.style.width = '100%';
+
+        // Flexbox Layout: Arrow - Track - Arrow (keine Dots)
+        sliderContent.appendChild(leftArrow);
+        sliderContent.appendChild(trackContainer);
+        sliderContent.appendChild(rightArrow);
+
+        sliderWrapper.appendChild(sliderContent);
+
+        // Slider Wrapper direkt am Bildschirmrand positionieren
+        sliderWrapper.style.paddingLeft = '0';
+        sliderWrapper.style.paddingRight = '0';
+        sliderWrapper.style.marginLeft = '0';
+        sliderWrapper.style.marginRight = '0';
 
         // Original Grid ersetzen
         container.replaceChild(sliderWrapper, grid);
@@ -185,7 +196,47 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     };
 
-    // Slider-Navigation erstellen (Dots + Arrows)
+    // Arrow Button erstellen
+    const createArrowButton = (direction, label) => {
+        const arrow = document.createElement('button');
+        arrow.className = `riman-slider-arrow riman-slider-${direction}`;
+        arrow.setAttribute('aria-label', label);
+
+        if (direction === 'prev') {
+            arrow.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            `;
+        } else {
+            arrow.innerHTML = `
+                <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+                </svg>
+            `;
+        }
+
+        return arrow;
+    };
+
+    // Dots Container erstellen
+    const createDotsContainer = (slideCount) => {
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'riman-slider-dots';
+
+        for (let i = 0; i < slideCount; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'riman-slider-dot';
+            dot.setAttribute('aria-label', `Slide ${i + 1}`);
+            dot.dataset.slide = i;
+            if (i === 0) dot.classList.add('active');
+            dotsContainer.appendChild(dot);
+        }
+
+        return dotsContainer;
+    };
+
+    // Slider-Navigation erstellen (Dots + Arrows) - Legacy für Kompatibilität
     const createSliderNavigation = (slideCount) => {
         const navContainer = document.createElement('div');
         navContainer.className = 'riman-slider-navigation';
@@ -248,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             this.slideCount = this.slides.length;
-            this.currentSlide = 1; // Startposition (nach dem Clone)
+            this.currentSlide = 0; // CRITICAL FIX: Start with 0 (first slide)
             this.isPlaying = this.options.autoPlay;
             this.autoPlayTimer = null;
             this.videoTimer = null;
@@ -378,6 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.isDragging = true;
             this.startX = e.touches[0].clientX;
             this.startY = e.touches[0].clientY;
+            this.currentX = this.startX; // FIX: Initialize currentX to prevent jump bug
             this.initialTransform = this.getTransformX();
 
             this.pauseAutoPlay();
@@ -419,16 +471,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.updateSlider();
             }
 
-            // Auto-Play nach Swipe wieder starten
-            if (this.options.autoPlay) {
-                setTimeout(() => this.startAutoPlay(), 3000);
-            }
+            // TODO: Auto-play restart disabled
         }
 
         // Mouse Events (für Desktop-Testing)
         onMouseDown(e) {
             this.isDragging = true;
             this.startX = e.clientX;
+            this.currentX = this.startX; // FIX: Initialize currentX to prevent jump bug
             this.initialTransform = this.getTransformX();
             this.pauseAutoPlay();
             this.track.style.transition = 'none';
@@ -464,75 +514,74 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.updateSlider();
             }
 
-            if (this.options.autoPlay) {
-                setTimeout(() => this.startAutoPlay(), 3000);
-            }
+            // TODO: Auto-play restart disabled
         }
 
-        // Slider Navigation
+        // Manual Navigation - Next Slide
         nextSlide() {
             if (this.isTransitioning) return;
 
+            console.log('📱 Manual next slide - pausing auto-play temporarily');
+
+            // Pause auto-play during manual navigation
+            this.pauseAutoPlay();
+
             this.isTransitioning = true;
             this.currentSlide++;
+
+            // Loop back to first slide if we exceed the count
+            if (this.currentSlide >= this.slideCount) {
+                this.currentSlide = 0;
+            }
+
             this.updateSlider();
 
-            // Wenn wir beim ersten Clone sind, springe ohne Animation zur ersten echten Slide
-            if (this.currentSlide > this.slideCount) {
-                setTimeout(() => {
-                    this.track.style.transition = 'none';
-                    this.currentSlide = 1;
-                    this.updateSlider();
+            setTimeout(() => {
+                this.isTransitioning = false;
+                this.handleVideoPlayback();
 
-                    // Animation wieder aktivieren
-                    setTimeout(() => {
-                        this.track.style.transition = 'transform 0.3s ease';
-                        this.isTransitioning = false;
-                        // Handle video playback after loop reset
-                        this.handleVideoPlayback();
-                    }, 50); // Longer delay for stability
-                }, 300);
-            } else {
-                setTimeout(() => {
-                    this.isTransitioning = false;
-                    // Handle video playback for normal transitions
-                    this.handleVideoPlayback();
-                }, 300);
-            }
+                // Restart auto-play after manual navigation
+                if (this.options.autoPlay) {
+                    console.log('🔄 Restarting auto-play after manual navigation');
+                    setTimeout(() => this.startAutoPlay(), 3000);
+                }
+            }, 300);
         }
 
+        // Manual Navigation - Previous Slide
         previousSlide() {
             if (this.isTransitioning) return;
 
+            console.log('📱 Manual previous slide - pausing auto-play temporarily');
+
+            // Pause auto-play during manual navigation
+            this.pauseAutoPlay();
+
             this.isTransitioning = true;
             this.currentSlide--;
-            this.updateSlider();
 
-            // Wenn wir beim letzten Clone sind, springe ohne Animation zur letzten echten Slide
-            if (this.currentSlide < 1) {
-                setTimeout(() => {
-                    this.track.style.transition = 'none';
-                    this.currentSlide = this.slideCount;
-                    this.updateSlider();
-
-                    // Animation wieder aktivieren
-                    setTimeout(() => {
-                        this.track.style.transition = 'transform 0.3s ease';
-                        this.isTransitioning = false;
-                    }, 10);
-                }, 300);
-            } else {
-                setTimeout(() => {
-                    this.isTransitioning = false;
-                }, 300);
+            // Loop to last slide if we go below 0
+            if (this.currentSlide < 0) {
+                this.currentSlide = this.slideCount - 1;
             }
 
-            this.handleVideoPlayback();
+            this.updateSlider();
+
+            setTimeout(() => {
+                this.isTransitioning = false;
+                this.handleVideoPlayback();
+
+                // Restart auto-play after manual navigation
+                if (this.options.autoPlay) {
+                    console.log('🔄 Restarting auto-play after manual previous');
+                    setTimeout(() => this.startAutoPlay(), 3000);
+                }
+            }, 300);
         }
 
         goToSlide(index) {
             if (index >= 0 && index < this.slideCount) {
-                this.currentSlide = index + 1; // +1 wegen Clone am Anfang
+                this.currentSlide = index; // Direct 0-based indexing
                 this.updateSlider();
                 this.handleVideoPlayback();
                 this.pauseAutoPlay();
@@ -546,25 +595,23 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSlider() {
             const slideWidth = this.getSlideWidth();
 
-            // CRITICAL FIX: Correct transform calculation
-            // Slide structure: [clone-last, real-1, real-2, clone-first]
-            // When currentSlide=1 (first real slide), we want transform=0 to show it
-            const transform = -(this.currentSlide - 1) * slideWidth;
+            // CRITICAL FIX: Correct transform calculation for 0-based indexing
+            // currentSlide=0 (first slide) should have transform=0 to be visible
+            const transform = -this.currentSlide * slideWidth;
 
             console.log('🎯 UpdateSlider:', {
                 currentSlide: this.currentSlide,
                 slideWidth: slideWidth,
                 transform: transform,
                 slideCount: this.slideCount,
-                calculation: `-(${this.currentSlide} - 1) * ${slideWidth} = ${transform}`
+                calculation: `-${this.currentSlide} * ${slideWidth} = ${transform}`
             });
 
             this.track.style.transform = `translateX(${transform}px)`;
 
-            // Dots aktualisieren - auf echte Slides basiert (0-indexiert)
-            const realSlideIndex = this.currentSlide - 1; // -1 wegen Clone am Anfang
+            // Dots aktualisieren - direkt auf currentSlide basiert (0-indexiert)
             this.dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === realSlideIndex);
+                dot.classList.toggle('active', index === this.currentSlide);
             });
         }
 
@@ -617,61 +664,60 @@ document.addEventListener('DOMContentLoaded', function() {
             return match ? parseFloat(match[1]) : 0;
         }
 
-        // Auto-Play Funktionalität - ERST nach allen Videos bereit
+        // Proper Auto-Play Implementation - Sequential right-only movement
         startAutoPlay() {
             if (!this.options.autoPlay || this.autoPlayTimer) return;
 
-            // Prüfe ALLE Videos bevor Auto-Play startet
-            const allVideos = Array.from(this.container.querySelectorAll('.riman-card-video'));
-            let videosLoaded = 0;
-            const totalVideos = allVideos.length;
+            console.log('🎬 Starting proper auto-play with interval:', this.options.interval, 'ms');
 
-            if (totalVideos === 0) {
-                // Keine Videos - starte normalen Auto-Play
-                this.startDelayedAutoPlay();
-                return;
+            // REAL Auto-Play: Independent of video events, uses meta box interval
+            this.autoPlayTimer = setInterval(() => {
+                if (this.isPlaying && !this.isTransitioning) {
+                    console.log('▶️ Auto-play: moving to next slide (right-only)');
+                    this.autoPlayAdvance(); // Custom right-only function
+                }
+            }, this.options.interval);
+
+            console.log('✅ Auto-play timer created with', this.options.interval, 'ms interval');
+        }
+
+        // Auto-Play Advance - Always goes right, cycles at end
+        autoPlayAdvance() {
+            this.isTransitioning = true;
+
+            // Always move right
+            this.currentSlide++;
+
+            // Cycle back to first slide at end
+            if (this.currentSlide >= this.slideCount) {
+                this.currentSlide = 0;
+                console.log('🔄 Auto-play: cycling back to first slide');
             }
 
-            const checkAllVideosLoaded = () => {
-                videosLoaded++;
-                console.log(`📹 Video loaded: ${videosLoaded}/${totalVideos}`);
-
-                if (videosLoaded >= totalVideos) {
-                    console.log('✅ All videos loaded - starting auto-play');
-                    this.startDelayedAutoPlay();
-                }
-            };
-
-            // Warte auf alle Videos
-            allVideos.forEach(video => {
-                if (video.readyState >= 2) {
-                    // Video bereits geladen
-                    checkAllVideosLoaded();
-                } else {
-                    // Warte auf Video
-                    video.addEventListener('loadeddata', checkAllVideosLoaded, { once: true });
-                    video.addEventListener('error', checkAllVideosLoaded, { once: true }); // Auch bei Fehler weitermachen
-                }
+            console.log('📍 Auto-play position:', {
+                slide: this.currentSlide + 1,
+                of: this.slideCount,
+                direction: 'right-only'
             });
 
-            // Backup: Starte nach 10 Sekunden trotzdem
+            this.updateSlider();
+
             setTimeout(() => {
-                if (!this.autoPlayTimer) {
-                    console.log('⏰ Timeout reached - starting auto-play anyway');
-                    this.startDelayedAutoPlay();
-                }
-            }, 10000);
+                this.isTransitioning = false;
+                this.handleVideoPlayback();
+            }, 300);
         }
 
-        startDelayedAutoPlay() {
-            this.autoPlayTimer = setTimeout(() => {
-                this.autoPlayTimer = setInterval(() => {
-                    if (!this.isDragging && !document.hidden) {
-                        this.nextSlide();
-                    }
-                }, this.options.interval);
-            }, 3000); // Längere Pause nach Video-Loading
+
+        // Dots Update Hilfsfunktion
+        updateDots(activeIndex) {
+            if (!this.dots) return;
+
+            this.dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === activeIndex);
+            });
         }
+
 
         pauseAutoPlay() {
             if (this.autoPlayTimer) {
@@ -697,7 +743,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Stoppe alle laufenden Videos und Timer
             this.pauseAllVideos();
 
-            // Finde aktuelle Slide (echte Slide, keine Clone)
+            // Finde aktuelle Slide (0-based indexing)
             const currentSlideEl = this.allSlides[this.currentSlide];
             if (!currentSlideEl) return;
 
@@ -770,12 +816,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log('📺 Video ended, showing play button and advancing');
                     this.showPlayButton(currentSlideEl);
 
-                    // Auto-advance nach kurzer Pause wenn autoplay aktiv
-                    if (this.options.autoPlay) {
-                        this.videoAdvanceTimer = setTimeout(() => {
-                            this.nextSlide();
-                        }, 2000);
-                    }
+                    // Video events no longer control auto-play (handled by proper setInterval timer)
 
                     video.removeEventListener('ended', handleVideoEnd);
                 };
@@ -801,10 +842,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.hideVideoLoading(currentSlideEl);
                 this.showPlayButton(currentSlideEl);
 
-                // Bei Fehler: Advance nach längerer Pause
-                if (this.options.autoPlay) {
-                    this.videoAdvanceTimer = setTimeout(() => this.nextSlide(), 3000);
-                }
+                // Video errors no longer control auto-play (handled by proper setInterval timer)
             });
         }
 
