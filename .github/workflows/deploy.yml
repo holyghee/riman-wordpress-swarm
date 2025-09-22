@@ -1,0 +1,13 @@
+name: Deploy to Live Server
+  on:
+    push:
+      branches: [main]
+    workflow_dispatch:
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y sshpass
+      - run: sshpass -p "${{ secrets.KAS_PASSWORD }}" scp -r wp-content/plugins/ ${{ secrets.SSH_USERNAME }}@${{ secrets.KAS_HOST }}:${{
+  secrets.REMOTE_PATH }}/wp-content/plugins/
