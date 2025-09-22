@@ -306,17 +306,54 @@ class SimpleSlider {
         slides.forEach((slide, index) => {
             const card = slide.querySelector('.riman-service-card');
             const video = slide.querySelector('.riman-card-video');
+            const poster = slide.querySelector('.riman-card-poster');
 
             if (index === this.currentSlide) {
                 // Activate current slide video
                 if (video) {
-                    video.classList.add('is-playing', 'is-active');
-                    video.style.opacity = '1';
-                    console.log('🎬 Activated video on slide:', index);
+                    // Keep poster visible initially
+                    if (poster) {
+                        poster.style.opacity = '1';
+                        poster.style.zIndex = '2';
+                    }
 
-                    // Start playing the video
-                    video.currentTime = 0;
-                    video.play().catch(e => console.log('Video play prevented:', e));
+                    // Load video but keep it hidden until ready
+                    video.classList.add('is-loading');
+                    console.log('🎬 Loading video on slide:', index);
+
+                    // Wait for video to be ready before showing
+                    const showVideo = () => {
+                        video.classList.remove('is-loading');
+                        video.classList.add('is-playing', 'is-active');
+                        video.style.opacity = '1';
+
+                        // Hide poster once video is playing
+                        if (poster) {
+                            poster.style.opacity = '0';
+                            poster.style.zIndex = '1';
+                        }
+
+                        console.log('🎬 Video ready and visible on slide:', index);
+                    };
+
+                    // Check if video is already loaded
+                    if (video.readyState >= 3) { // HAVE_FUTURE_DATA or better
+                        showVideo();
+                        video.currentTime = 0;
+                        video.play().catch(e => console.log('Video play prevented:', e));
+                    } else {
+                        // Wait for video to load
+                        video.addEventListener('canplay', () => {
+                            showVideo();
+                            video.currentTime = 0;
+                            video.play().catch(e => console.log('Video play prevented:', e));
+                        }, { once: true });
+
+                        // Force load if not already loading
+                        if (video.networkState === video.NETWORK_EMPTY) {
+                            video.load();
+                        }
+                    }
                 }
                 if (card && card.classList.contains('riman-card--has-video')) {
                     card.classList.add('video-active');
@@ -324,10 +361,14 @@ class SimpleSlider {
             } else {
                 // Deactivate other slide videos
                 if (video) {
-                    video.classList.remove('is-playing', 'is-active');
+                    video.classList.remove('is-playing', 'is-active', 'is-loading');
                     video.style.opacity = '0';
                     video.pause();
                     video.currentTime = 0;
+                }
+                if (poster) {
+                    poster.style.opacity = '1';
+                    poster.style.zIndex = '2';
                 }
                 if (card && card.classList.contains('riman-card--has-video')) {
                     card.classList.remove('video-active');
