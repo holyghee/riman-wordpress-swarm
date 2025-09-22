@@ -43,9 +43,9 @@
     /* DO NOT override width, height, margins, padding */
     /* DO NOT change transform, box-shadow, borders */
 
-    /* Only disable interactions for slider mode */
-    pointer-events: none;
-    cursor: default;
+    /* Allow clicks on cards */
+    pointer-events: auto;
+    cursor: pointer;
   }
 
   /* Navigation dots - simple and clean */
@@ -87,7 +87,7 @@
 
   /* Touch support for swipe gestures */
   .riman-mobile-slider-active .riman-service-slider-track {
-    touch-action: pan-y;
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
     -webkit-user-select: none;
     user-select: none;
   }

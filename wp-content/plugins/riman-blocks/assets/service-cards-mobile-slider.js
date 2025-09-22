@@ -431,6 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.startY = e.touches[0].clientY;
             this.currentX = this.startX; // FIX: Initialize currentX to prevent jump bug
             this.initialTransform = this.getTransformX();
+            this.hasMoved = false; // Track if user actually moved finger
 
             this.pauseAutoPlay();
             this.track.style.transition = 'none';
@@ -439,17 +440,22 @@ document.addEventListener('DOMContentLoaded', function() {
         onTouchMove(e) {
             if (!this.isDragging || e.touches.length > 1) return;
 
-            e.preventDefault();
-
             this.currentX = e.touches[0].clientX;
             const deltaX = this.currentX - this.startX;
             const deltaY = Math.abs(e.touches[0].clientY - this.startY);
 
+            // Mark that user has moved finger
+            if (Math.abs(deltaX) > 5 || deltaY > 5) {
+                this.hasMoved = true;
+            }
+
             // Nur horizontal scrollen wenn mehr horizontal als vertikal
             if (Math.abs(deltaX) > deltaY) {
+                e.preventDefault(); // Only prevent default for horizontal swipes
                 const newTransform = this.initialTransform + deltaX;
                 this.track.style.transform = `translateX(${newTransform}px)`;
             }
+            // Allow vertical scrolling when deltaY > deltaX
         }
 
         onTouchEnd(e) {
@@ -459,15 +465,24 @@ document.addEventListener('DOMContentLoaded', function() {
             this.track.style.transition = 'transform 0.3s ease';
 
             const deltaX = this.currentX - this.startX;
+            const deltaY = Math.abs(e.changedTouches[0] ? e.changedTouches[0].clientY - this.startY : 0);
             const threshold = this.getSlideWidth() * 0.3;
 
-            if (Math.abs(deltaX) > threshold) {
+            // If user didn't move much, it's a tap - allow card clicks
+            if (!this.hasMoved) {
+                this.updateSlider();
+                return;
+            }
+
+            // Only trigger slide change for horizontal swipes
+            if (Math.abs(deltaX) > deltaY && Math.abs(deltaX) > threshold) {
                 if (deltaX > 0) {
                     this.previousSlide();
                 } else {
                     this.nextSlide();
                 }
             } else {
+                // Reset to current position for failed swipes or vertical scrolls
                 this.updateSlider();
             }
 
