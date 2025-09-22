@@ -38,18 +38,27 @@
     align-items: stretch;
   }
 
-  /* Service cards in simple slider */
+  /* Service cards in simple slider - FORCE VISIBILITY */
   .simple-slide .riman-service-card {
-    width: 100%;
+    width: 100% !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
     pointer-events: auto;
     cursor: pointer;
     /* Preserve all original styling */
   }
 
-  /* Video and poster management in mobile slider */
+  /* Video and poster management in mobile slider - FORCE VISIBILITY */
   .simple-slide .riman-card-media {
-    position: relative;
-    overflow: hidden;
+    position: relative !important;
+    overflow: hidden !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 200px !important;
   }
 
   /* Poster images should be visible by default */
