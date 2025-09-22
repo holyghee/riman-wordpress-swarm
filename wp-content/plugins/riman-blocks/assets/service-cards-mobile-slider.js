@@ -126,10 +126,11 @@ document.addEventListener('DOMContentLoaded', function() {
         trackContainer.className = 'riman-slider-track-container';
         trackContainer.style.position = 'relative';
         trackContainer.style.flex = '1';
-        trackContainer.style.overflow = 'hidden';
-        trackContainer.style.minHeight = '400px'; // Force minimum height
+        trackContainer.style.overflow = 'visible'; // CRITICAL: Must be visible for cards
+        trackContainer.style.minHeight = '450px'; // Force minimum height for cards
         trackContainer.style.display = 'flex'; // Force flex display
-        trackContainer.style.alignItems = 'stretch'; // Stretch content
+        trackContainer.style.alignItems = 'center'; // Center cards vertically
+        trackContainer.style.width = '100%'; // Full width
         trackContainer.appendChild(sliderTrack);
 
         console.log('📦 Created track container:', {
@@ -262,14 +263,77 @@ document.addEventListener('DOMContentLoaded', function() {
 
         init() {
             this.setupEventListeners();
-            this.updateSlider();
 
-            if (this.isPlaying) {
-                this.startAutoPlay();
+            // CRITICAL FIX: Wait for DOM to render before calculating dimensions
+            this.waitForDimensionsAndInit();
+        }
+
+        waitForDimensionsAndInit() {
+            // Check if slides have proper dimensions
+            const checkDimensions = () => {
+                const slideWidth = this.getSlideWidth();
+                console.log('🔍 Checking slide dimensions:', {
+                    slideWidth: slideWidth,
+                    slideElement: this.allSlides[0],
+                    slideOffsetWidth: this.allSlides[0] ? this.allSlides[0].offsetWidth : 'no slides',
+                    containerWidth: this.container.offsetWidth,
+                    trackWidth: this.track.offsetWidth
+                });
+
+                if (slideWidth > 0) {
+                    console.log('✅ Dimensions ready, initializing slider');
+                    this.updateSlider();
+
+                    if (this.isPlaying) {
+                        this.startAutoPlay();
+                    }
+
+                    // Videos in aktueller Slide aktivieren
+                    this.handleVideoPlayback();
+                    return true;
+                }
+                return false;
+            };
+
+            // Try immediately first
+            if (checkDimensions()) {
+                return;
             }
 
-            // Videos in aktueller Slide aktivieren
-            this.handleVideoPlayback();
+            // If dimensions not ready, wait and retry
+            console.log('⏳ Dimensions not ready, waiting...');
+            let attempts = 0;
+            const maxAttempts = 20;
+            const retryInterval = setInterval(() => {
+                attempts++;
+                console.log(`🔄 Retry ${attempts}/${maxAttempts} checking dimensions...`);
+
+                if (checkDimensions() || attempts >= maxAttempts) {
+                    clearInterval(retryInterval);
+                    if (attempts >= maxAttempts) {
+                        console.warn('⚠️ Max attempts reached, forcing initialization with fallback');
+                        this.forceInitWithFallback();
+                    }
+                }
+            }, 50);
+        }
+
+        forceInitWithFallback() {
+            // Force recalculation of dimensions
+            this.track.style.display = 'none';
+            this.track.offsetHeight; // Force reflow
+            this.track.style.display = 'flex';
+
+            setTimeout(() => {
+                console.log('🔧 Force initializing with fallback dimensions');
+                this.updateSlider();
+
+                if (this.isPlaying) {
+                    this.startAutoPlay();
+                }
+
+                this.handleVideoPlayback();
+            }, 100);
         }
 
         setupEventListeners() {
@@ -481,7 +545,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         updateSlider() {
             const slideWidth = this.getSlideWidth();
-            const transform = -this.currentSlide * slideWidth;
+
+            // CRITICAL FIX: Correct transform calculation
+            // Slide structure: [clone-last, real-1, real-2, clone-first]
+            // When currentSlide=1 (first real slide), we want transform=0 to show it
+            const transform = -(this.currentSlide - 1) * slideWidth;
+
+            console.log('🎯 UpdateSlider:', {
+                currentSlide: this.currentSlide,
+                slideWidth: slideWidth,
+                transform: transform,
+                slideCount: this.slideCount,
+                calculation: `-(${this.currentSlide} - 1) * ${slideWidth} = ${transform}`
+            });
 
             this.track.style.transform = `translateX(${transform}px)`;
 
@@ -493,7 +569,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         getSlideWidth() {
-            return this.allSlides[0] ? this.allSlides[0].offsetWidth : 0;
+            if (!this.allSlides[0]) {
+                console.warn('⚠️ No slides found for width calculation');
+                return 0;
+            }
+
+            let slideWidth = this.allSlides[0].offsetWidth;
+
+            // If slide width is 0, try various fallback strategies
+            if (slideWidth === 0) {
+                console.log('🔧 Slide width is 0, trying fallback calculations...');
+
+                // Try container width
+                if (this.container.offsetWidth > 0) {
+                    slideWidth = this.container.offsetWidth;
+                    console.log('📐 Using container width as fallback:', slideWidth);
+                }
+                // Try track width
+                else if (this.track.offsetWidth > 0) {
+                    slideWidth = this.track.offsetWidth;
+                    console.log('📐 Using track width as fallback:', slideWidth);
+                }
+                // Try window width as last resort
+                else {
+                    slideWidth = window.innerWidth;
+                    console.log('📐 Using window width as fallback:', slideWidth);
+                }
+
+                // Force the slide to have proper width
+                if (slideWidth > 0) {
+                    this.allSlides.forEach(slide => {
+                        slide.style.width = '100%';
+                        slide.style.flexBasis = '100%';
+                        slide.style.minWidth = `${slideWidth}px`;
+                    });
+                    console.log('🔧 Applied fallback width to all slides:', slideWidth);
+                }
+            }
+
+            console.log('📏 Final slide width:', slideWidth);
+            return slideWidth;
         }
 
         getTransformX() {
@@ -650,34 +765,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('✅ Mobile slider video playing');
                 this.hideVideoLoading(currentSlideEl);
 
+                // Video-Ende Handler definieren (für beide Fälle)
+                const handleVideoEnd = () => {
+                    console.log('📺 Video ended, showing play button and advancing');
+                    this.showPlayButton(currentSlideEl);
+
+                    // Auto-advance nach kurzer Pause wenn autoplay aktiv
+                    if (this.options.autoPlay) {
+                        this.videoAdvanceTimer = setTimeout(() => {
+                            this.nextSlide();
+                        }, 2000);
+                    }
+
+                    video.removeEventListener('ended', handleVideoEnd);
+                };
+
                 // Video-Ende Handler nur wenn kein Loop
                 if (!video.loop) {
-                    const handleVideoEnd = () => {
-                        console.log('📺 Video ended, showing play button and advancing');
-                        this.showPlayButton(currentSlideEl);
-
-                        // Auto-advance nach kurzer Pause wenn autoplay aktiv
-                        if (this.options.autoPlay) {
-                            this.videoAdvanceTimer = setTimeout(() => {
-                                this.nextSlide();
-                            }, 2000);
-                        }
-
-                        video.removeEventListener('ended', handleVideoEnd);
-                    };
-
                     video.addEventListener('ended', handleVideoEnd);
+
+                    // 6-Sekunden Timer für garantierten Advance (länger als Hero Slider)
+                    this.videoTimer = setTimeout(() => {
+                        if (!video.ended) {
+                            video.pause();
+                            handleVideoEnd();
+                        }
+                    }, 6000);
                 } else {
                     console.log('🔄 Video in loop mode - no end handler needed');
                 }
-
-                // 6-Sekunden Timer für garantierten Advance (länger als Hero Slider)
-                this.videoTimer = setTimeout(() => {
-                    if (!video.ended) {
-                        video.pause();
-                        handleVideoEnd();
-                    }
-                }, 6000);
 
             }).catch(e => {
                 console.log('❌ Video play failed (mobile autoplay blocked):', e);
