@@ -323,6 +323,16 @@ class SimpleSlider {
 
                     // Immediate video activation - simplified approach
                     const showVideo = () => {
+                        // Ensure mobile video source is used
+                        const isMobile = window.innerWidth <= 780;
+                        if (isMobile && video.dataset.srcMobile && video.src !== video.dataset.srcMobile) {
+                            console.log('🎬 Switching to mobile video source on slide:', index);
+                            console.log('🎬 From:', video.src);
+                            console.log('🎬 To:', video.dataset.srcMobile);
+                            video.src = video.dataset.srcMobile;
+                            video.load(); // Reload with mobile source
+                        }
+
                         video.classList.remove('is-loading');
                         video.classList.add('is-playing', 'is-active');
                         video.style.opacity = '1';
@@ -334,7 +344,10 @@ class SimpleSlider {
                             display: video.style.display,
                             readyState: video.readyState,
                             networkState: video.networkState,
-                            src: video.src
+                            src: video.src,
+                            srcMobile: video.dataset.srcMobile,
+                            srcDesktop: video.dataset.srcDesktop,
+                            isMobile: isMobile
                         });
 
                         // Start video playback
