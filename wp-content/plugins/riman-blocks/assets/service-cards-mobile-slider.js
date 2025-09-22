@@ -7,16 +7,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialisiere alle Service Card Slider
     const initServiceCardSliders = () => {
+        console.log('🚀 Initializing Service Card Sliders...');
         const sliderContainers = document.querySelectorAll('.riman-service-cards-wrap[data-mobile-slider="true"]');
+        console.log('📱 Found slider containers:', sliderContainers.length);
 
-        sliderContainers.forEach(container => {
+        sliderContainers.forEach((container, containerIndex) => {
+            console.log(`🏗️ Processing container ${containerIndex + 1}:`, container);
+
             // Nur auf Mobile aktivieren (≤780px)
-            if (window.innerWidth > 780) return;
+            if (window.innerWidth > 780) {
+                console.log('⏭️ Skipping - screen too wide:', window.innerWidth);
+                return;
+            }
 
             const grid = container.querySelector('.riman-service-grid');
-            const cards = Array.from(grid.querySelectorAll('.riman-service-card'));
+            if (!grid) {
+                console.log('❌ No .riman-service-grid found in container');
+                return;
+            }
 
-            if (cards.length === 0) return;
+            const cards = Array.from(grid.querySelectorAll('.riman-service-card'));
+            console.log(`🃏 Found ${cards.length} service cards in grid`);
+
+            if (cards.length === 0) {
+                console.log('❌ No service cards found - aborting');
+                return;
+            }
 
             // Slider-Container vorbereiten
             setupSliderStructure(container, grid, cards);
@@ -34,6 +50,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Slider-HTML-Struktur erstellen
     const setupSliderStructure = (container, grid, cards) => {
+        console.log('🔧 Setting up slider structure:', {
+            container: container,
+            grid: grid,
+            cardsCount: cards.length,
+            containerWidth: container.offsetWidth,
+            gridWidth: grid ? grid.offsetWidth : 'no grid'
+        });
+
         // Wrapper für Slider erstellen
         const sliderWrapper = document.createElement('div');
         sliderWrapper.className = 'riman-service-slider-wrapper';
@@ -52,7 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
         sliderTrack.appendChild(lastSlideClone);
 
         // Original Cards in Slider-Track verschieben
-        cards.forEach(card => {
+        cards.forEach((card, index) => {
+            console.log(`📦 Processing card ${index + 1}:`, {
+                cardElement: card,
+                cardWidth: card.offsetWidth,
+                cardHeight: card.offsetHeight,
+                cardClasses: card.className
+            });
+
             const slide = document.createElement('div');
             slide.className = 'riman-service-slide';
             const clonedCard = card.cloneNode(true);
@@ -74,6 +105,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             slide.appendChild(clonedCard);
             sliderTrack.appendChild(slide);
+
+            // Debug: Check slide after creation
+            console.log(`✅ Created slide ${index + 1}:`, {
+                slideElement: slide,
+                slideWidth: slide.offsetWidth,
+                cardInSlide: slide.querySelector('.riman-service-card'),
+                cardVisible: clonedCard.offsetWidth > 0 && clonedCard.offsetHeight > 0
+            });
         });
 
         // Erste Slide als Clone am Ende
@@ -82,23 +121,87 @@ document.addEventListener('DOMContentLoaded', function() {
         firstSlideClone.appendChild(firstCardClone);
         sliderTrack.appendChild(firstSlideClone);
 
-        sliderWrapper.appendChild(sliderTrack);
+        // Slider Track in separaten Container
+        const trackContainer = document.createElement('div');
+        trackContainer.className = 'riman-slider-track-container';
+        trackContainer.style.position = 'relative';
+        trackContainer.style.flex = '1';
+        trackContainer.style.overflow = 'hidden';
+        trackContainer.style.minHeight = '400px'; // Force minimum height
+        trackContainer.style.display = 'flex'; // Force flex display
+        trackContainer.style.alignItems = 'stretch'; // Stretch content
+        trackContainer.appendChild(sliderTrack);
 
-        // Navigation erstellen
+        console.log('📦 Created track container:', {
+            trackContainer: trackContainer,
+            sliderTrack: sliderTrack,
+            trackChildren: sliderTrack.children.length
+        });
+
+        sliderWrapper.appendChild(trackContainer);
+
+        // Navigation erstellen und über Slider positionieren
         const navigation = createSliderNavigation(cards.length);
-        sliderWrapper.appendChild(navigation);
+        trackContainer.appendChild(navigation);
 
         // Original Grid ersetzen
         container.replaceChild(sliderWrapper, grid);
 
         // Mobile Slider CSS-Klasse hinzufügen
         container.classList.add('riman-mobile-slider-active');
+
+        // Debug: Check final structure
+        setTimeout(() => {
+            console.log('🎯 Final slider structure:', {
+                containerHasActiveClass: container.classList.contains('riman-mobile-slider-active'),
+                sliderWrapper: sliderWrapper,
+                sliderWrapperWidth: sliderWrapper.offsetWidth,
+                sliderWrapperHeight: sliderWrapper.offsetHeight,
+                trackWidth: sliderTrack.offsetWidth,
+                trackHeight: sliderTrack.offsetHeight,
+                slidesCount: sliderTrack.children.length,
+                firstSlideVisible: sliderTrack.children[0] ? {
+                    width: sliderTrack.children[0].offsetWidth,
+                    height: sliderTrack.children[0].offsetHeight,
+                    hasCard: !!sliderTrack.children[0].querySelector('.riman-service-card')
+                } : 'no slides'
+            });
+
+            // Check if cards are actually visible
+            const allSlides = sliderTrack.querySelectorAll('.riman-service-slide');
+            allSlides.forEach((slide, index) => {
+                const card = slide.querySelector('.riman-service-card');
+                if (card) {
+                    console.log(`🔍 Slide ${index} card visibility:`, {
+                        cardWidth: card.offsetWidth,
+                        cardHeight: card.offsetHeight,
+                        cardDisplay: getComputedStyle(card).display,
+                        cardVisibility: getComputedStyle(card).visibility,
+                        cardOpacity: getComputedStyle(card).opacity
+                    });
+                }
+            });
+        }, 100);
     };
 
-    // Slider-Navigation erstellen
+    // Slider-Navigation erstellen (Dots + Arrows)
     const createSliderNavigation = (slideCount) => {
-        const nav = document.createElement('div');
-        nav.className = 'riman-slider-nav';
+        const navContainer = document.createElement('div');
+        navContainer.className = 'riman-slider-navigation';
+
+        // Linker Pfeil
+        const prevArrow = document.createElement('button');
+        prevArrow.className = 'riman-slider-arrow riman-slider-prev';
+        prevArrow.setAttribute('aria-label', 'Vorherige Slide');
+        prevArrow.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        `;
+
+        // Dots Container
+        const dotsContainer = document.createElement('div');
+        dotsContainer.className = 'riman-slider-dots';
 
         for (let i = 0; i < slideCount; i++) {
             const dot = document.createElement('button');
@@ -106,10 +209,24 @@ document.addEventListener('DOMContentLoaded', function() {
             dot.setAttribute('aria-label', `Slide ${i + 1}`);
             dot.dataset.slide = i;
             if (i === 0) dot.classList.add('active');
-            nav.appendChild(dot);
+            dotsContainer.appendChild(dot);
         }
 
-        return nav;
+        // Rechter Pfeil
+        const nextArrow = document.createElement('button');
+        nextArrow.className = 'riman-slider-arrow riman-slider-next';
+        nextArrow.setAttribute('aria-label', 'Nächste Slide');
+        nextArrow.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+        `;
+
+        navContainer.appendChild(prevArrow);
+        navContainer.appendChild(dotsContainer);
+        navContainer.appendChild(nextArrow);
+
+        return navContainer;
     };
 
     // Hauptklasse für Service Card Slider
@@ -120,6 +237,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.allSlides = Array.from(container.querySelectorAll('.riman-service-slide'));
             this.slides = this.allSlides.filter(slide => !slide.classList.contains('clone-slide'));
             this.dots = Array.from(container.querySelectorAll('.riman-slider-dot'));
+            this.prevArrow = container.querySelector('.riman-slider-prev');
+            this.nextArrow = container.querySelector('.riman-slider-next');
 
             this.options = {
                 autoPlay: options.autoPlay || false,
@@ -172,6 +291,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.goToSlide(slideIndex);
                 });
             });
+
+            // Navigation Arrows
+            if (this.prevArrow) {
+                this.prevArrow.addEventListener('click', () => this.previousSlide());
+            }
+            if (this.nextArrow) {
+                this.nextArrow.addEventListener('click', () => this.nextSlide());
+            }
 
             // Resize Handler
             window.addEventListener('resize', this.onResize.bind(this));
@@ -375,18 +502,60 @@ document.addEventListener('DOMContentLoaded', function() {
             return match ? parseFloat(match[1]) : 0;
         }
 
-        // Auto-Play Funktionalität
+        // Auto-Play Funktionalität - ERST nach allen Videos bereit
         startAutoPlay() {
             if (!this.options.autoPlay || this.autoPlayTimer) return;
 
-            // Delay first auto-advance for mobile stability
+            // Prüfe ALLE Videos bevor Auto-Play startet
+            const allVideos = Array.from(this.container.querySelectorAll('.riman-card-video'));
+            let videosLoaded = 0;
+            const totalVideos = allVideos.length;
+
+            if (totalVideos === 0) {
+                // Keine Videos - starte normalen Auto-Play
+                this.startDelayedAutoPlay();
+                return;
+            }
+
+            const checkAllVideosLoaded = () => {
+                videosLoaded++;
+                console.log(`📹 Video loaded: ${videosLoaded}/${totalVideos}`);
+
+                if (videosLoaded >= totalVideos) {
+                    console.log('✅ All videos loaded - starting auto-play');
+                    this.startDelayedAutoPlay();
+                }
+            };
+
+            // Warte auf alle Videos
+            allVideos.forEach(video => {
+                if (video.readyState >= 2) {
+                    // Video bereits geladen
+                    checkAllVideosLoaded();
+                } else {
+                    // Warte auf Video
+                    video.addEventListener('loadeddata', checkAllVideosLoaded, { once: true });
+                    video.addEventListener('error', checkAllVideosLoaded, { once: true }); // Auch bei Fehler weitermachen
+                }
+            });
+
+            // Backup: Starte nach 10 Sekunden trotzdem
+            setTimeout(() => {
+                if (!this.autoPlayTimer) {
+                    console.log('⏰ Timeout reached - starting auto-play anyway');
+                    this.startDelayedAutoPlay();
+                }
+            }, 10000);
+        }
+
+        startDelayedAutoPlay() {
             this.autoPlayTimer = setTimeout(() => {
                 this.autoPlayTimer = setInterval(() => {
                     if (!this.isDragging && !document.hidden) {
                         this.nextSlide();
                     }
                 }, this.options.interval);
-            }, 2000);
+            }, 3000); // Längere Pause nach Video-Loading
         }
 
         pauseAutoPlay() {
@@ -425,14 +594,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Responsive Video-Auswahl: Mobile-Version bevorzugen
             let videoSrc = video.src || video.dataset.src || card.dataset.videoSrc;
+            const targetSrc = window.innerWidth <= 780 && video.dataset.srcMobile
+                ? video.dataset.srcMobile
+                : (video.dataset.srcDesktop || videoSrc);
 
-            // Auf Mobile: Mobile-Version verwenden falls verfügbar
-            if (window.innerWidth <= 780 && video.dataset.srcMobile) {
-                videoSrc = video.dataset.srcMobile;
-                console.log('📱 Using mobile-optimized video:', videoSrc);
-            } else if (video.dataset.srcDesktop) {
-                videoSrc = video.dataset.srcDesktop;
-                console.log('🖥️ Using desktop video:', videoSrc);
+            // Nur Video-Source ändern wenn nötig (verhindert Neuladung)
+            if (video.src !== targetSrc) {
+                videoSrc = targetSrc;
+                video.src = videoSrc;
+                if (window.innerWidth <= 780 && video.dataset.srcMobile) {
+                    console.log('📱 Using mobile-optimized video:', videoSrc);
+                } else {
+                    console.log('🖥️ Using desktop video:', videoSrc);
+                }
+            } else {
+                videoSrc = video.src;
             }
 
             if (!videoSrc) return;
@@ -458,6 +634,14 @@ document.addEventListener('DOMContentLoaded', function() {
             video.controls = false;
             video.currentTime = 0;
 
+            // Video Loop einstellen basierend auf Auto-Play
+            if (!this.options.autoPlay) {
+                video.loop = true;
+                console.log('🔄 Video loop enabled (auto-play disabled)');
+            } else {
+                video.loop = false;
+            }
+
             // Loading-Indikator hinzufügen
             this.showVideoLoading(currentSlideEl);
 
@@ -466,22 +650,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('✅ Mobile slider video playing');
                 this.hideVideoLoading(currentSlideEl);
 
-                // Video-Ende Handler
-                const handleVideoEnd = () => {
-                    console.log('📺 Video ended, showing play button and advancing');
-                    this.showPlayButton(currentSlideEl);
+                // Video-Ende Handler nur wenn kein Loop
+                if (!video.loop) {
+                    const handleVideoEnd = () => {
+                        console.log('📺 Video ended, showing play button and advancing');
+                        this.showPlayButton(currentSlideEl);
 
-                    // Auto-advance nach kurzer Pause wenn autoplay aktiv
-                    if (this.options.autoPlay) {
-                        this.videoAdvanceTimer = setTimeout(() => {
-                            this.nextSlide();
-                        }, 2000); // 2 Sekunden Pause statt 1
-                    }
+                        // Auto-advance nach kurzer Pause wenn autoplay aktiv
+                        if (this.options.autoPlay) {
+                            this.videoAdvanceTimer = setTimeout(() => {
+                                this.nextSlide();
+                            }, 2000);
+                        }
 
-                    video.removeEventListener('ended', handleVideoEnd);
-                };
+                        video.removeEventListener('ended', handleVideoEnd);
+                    };
 
-                video.addEventListener('ended', handleVideoEnd);
+                    video.addEventListener('ended', handleVideoEnd);
+                } else {
+                    console.log('🔄 Video in loop mode - no end handler needed');
+                }
 
                 // 6-Sekunden Timer für garantierten Advance (länger als Hero Slider)
                 this.videoTimer = setTimeout(() => {
@@ -544,35 +732,22 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Video Loading-Indikator anzeigen
+        // Dezentes Video-Loading: Nur Poster während Video lädt
         showVideoLoading(slide) {
-            const card = slide.querySelector('.riman-service-card');
-            if (!card) return;
-
-            // Existierenden Loading-Indikator entfernen
-            const existingLoader = slide.querySelector('.riman-video-loading');
-            if (existingLoader) {
-                existingLoader.remove();
+            const poster = slide.querySelector('.riman-card-poster');
+            if (poster) {
+                // Poster sichtbar lassen während Video lädt
+                poster.style.opacity = '1';
+                poster.style.transition = 'opacity 0.3s ease';
             }
-
-            // Loading-Spinner erstellen
-            const loadingIndicator = document.createElement('div');
-            loadingIndicator.className = 'riman-video-loading';
-            loadingIndicator.innerHTML = `
-                <div class="riman-loading-spinner">
-                    <div class="riman-spinner-circle"></div>
-                    <div class="riman-loading-text">Video wird geladen...</div>
-                </div>
-            `;
-
-            card.appendChild(loadingIndicator);
         }
 
-        // Video Loading-Indikator verstecken
+        // Video bereit: Smooth Transition zu Video
         hideVideoLoading(slide) {
-            const loadingIndicator = slide.querySelector('.riman-video-loading');
-            if (loadingIndicator) {
-                loadingIndicator.remove();
+            const poster = slide.querySelector('.riman-card-poster');
+            if (poster) {
+                // Sanfter Fade-out des Posters
+                poster.style.opacity = '0';
             }
         }
 
