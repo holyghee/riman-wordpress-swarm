@@ -143,9 +143,12 @@
 
   .riman-card-media img,
   .riman-card-media video {
-    /* Better object positioning for mobile aspect ratios */
+    /* Better object positioning for mobile - simulate 16:9 crop */
     object-fit: cover !important;
-    object-position: center center !important;
+    object-position: center 30% !important;
+    /* Slightly scale to show more horizontal content like 16:9 */
+    transform: scaleY(0.8) !important;
+    transform-origin: center center !important;
   }
 
   /* Mobile: Reset icon and category to original positions */
