@@ -158,3 +158,40 @@ if ( ! function_exists( 'twentytwentyfive_format_binding' ) ) :
 endif;
 // Enable Application Passwords on local development
 add_filter( "wp_is_application_passwords_available", "__return_true" );
+
+/**
+ * Add custom CSS for mobile hero video handling
+ */
+function riman_add_mobile_hero_video_css() {
+    echo '<style>
+/* Mobile Hero Video - Proper handling of 9:16 portrait videos */
+@media (max-width: 780px) {
+    .riman-hero__video[data-current-source*="mobile"] {
+        object-fit: cover !important;
+        object-position: center center !important;
+        width: 100% !important;
+        height: 100% !important;
+        /* Ensure video fills container properly on mobile */
+        transform: none !important;
+    }
+
+    /* Alternative approach: Scale portrait video to fit horizontal container */
+    .riman-page-hero .riman-hero__video[data-current-source*="mobile"] {
+        /* Center the portrait video and maintain aspect ratio */
+        object-fit: cover;
+        object-position: center;
+        /* Ensure proper scaling */
+        max-width: none;
+        max-height: none;
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    /* Ensure media container doesn\'t cause overflow */
+    .riman-page-hero .riman-hero__media {
+        overflow: hidden;
+    }
+}
+</style>';
+}
+add_action('wp_head', 'riman_add_mobile_hero_video_css', 10);
