@@ -201,8 +201,6 @@
                     opacity: 1 !important;
                     z-index: 2 !important;
                     object-fit: cover !important;
-                    border: 3px solid lime !important;
-                    background: rgba(0,255,0,0.3) !important;
                 `;
 
                 // Hide poster when video shows
@@ -686,8 +684,7 @@
                 video.style.top = 'auto';
                 video.style.left = 'auto';
                 video.style.width = '100%';
-                video.style.height = 'auto';
-                video.style.minHeight = '200px';
+                video.style.height = '100%'; // Keep CSS height instead of auto
                 video.style.zIndex = '4';
                 console.log('Applied mobile video styles');
             }
