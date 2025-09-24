@@ -118,6 +118,22 @@
     padding-left: var(--wp-padding) !important;
     padding-right: var(--wp-padding) !important;
   }
+
+  /* Mobile: Disable problematic hover effects that cause layout shifts */
+  .riman-service-card:hover {
+    /* Disable translateY that causes border thinning on mobile */
+    transform: none !important;
+    /* Keep subtle shadow effect for feedback */
+    box-shadow: 0 8px 16px rgba(182, 140, 47, 0.08), 0 4px 8px rgba(0,0,0,0.04) !important;
+  }
+
+  /* Mobile: Reduce icon scaling to prevent overflow */
+  .riman-service-card:hover .riman-card-icon {
+    /* Disable scaling on mobile to prevent layout issues */
+    transform: translateX(-50%) scale(1) !important;
+    /* Keep subtle shadow enhancement */
+    box-shadow: 0 4px 16px rgba(182, 140, 47, 0.35) !important;
+  }
 }
 
 /* Responsive width overrides driven by meta box selections */
