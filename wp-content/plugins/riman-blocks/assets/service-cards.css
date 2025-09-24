@@ -134,6 +134,31 @@
     /* Keep subtle shadow enhancement */
     box-shadow: 0 4px 16px rgba(182, 140, 47, 0.35) !important;
   }
+
+  /* Mobile: Responsive media container height to maintain 16:9 aspect ratio */
+  .riman-card-media {
+    /* Use aspect-ratio instead of fixed height for consistent appearance */
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+    min-height: 200px !important;
+    max-height: 280px !important;
+  }
+
+  /* Mobile: Adjust icon position for responsive media height */
+  .riman-service-card .riman-card-icon {
+    /* Calculate icon position based on media container height + offset */
+    top: auto !important;
+    bottom: -40px !important;
+    transform: translateX(-50%) !important;
+  }
+
+  /* Mobile: Adjust category position accordingly */
+  .riman-service-card .riman-card-category {
+    /* Position category below the responsive icon */
+    top: auto !important;
+    bottom: -98px !important;
+    transform: translateX(-50%) !important;
+  }
 }
 
 /* Responsive width overrides driven by meta box selections */
