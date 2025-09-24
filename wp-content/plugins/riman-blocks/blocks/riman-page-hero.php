@@ -119,10 +119,17 @@ function riman_render_page_hero_block($attributes, $content, $block) {
         $video_dir = dirname($video_path);
         $video_filename = pathinfo($video_path, PATHINFO_FILENAME);
 
-        // Hero-Mobile Format (9:16, 260x464) für Hero-Sections
-        $hero_mobile_path = $video_dir . '/mobile/' . $video_filename . '-hero-mobile.mp4';
+        // Mobile-komprimierte Version (gleiches Format, kleinere Dateigröße)
+        // Zuerst nach -mobile.mp4 Version suchen (komprimierte Original-Abmessungen)
+        $hero_mobile_path = $video_dir . '/mobile/' . $video_filename . '-mobile.mp4';
         if (file_exists($hero_mobile_path)) {
             $hero_mobile_src = wp_get_upload_dir()['baseurl'] . str_replace(wp_get_upload_dir()['basedir'], '', $hero_mobile_path);
+        } else {
+            // Fallback: Nach komprimierter Version mit anderem Suffix suchen
+            $compressed_path = $video_dir . '/mobile/' . $video_filename . '-compressed.mp4';
+            if (file_exists($compressed_path)) {
+                $hero_mobile_src = wp_get_upload_dir()['baseurl'] . str_replace(wp_get_upload_dir()['basedir'], '', $compressed_path);
+            }
         }
     }
 

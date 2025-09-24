@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Mobile-Version verwenden falls verfügbar und auf Mobile
         if (isMobile && mobileSource) {
             targetSource = mobileSource;
-            sourceType = 'mobile (9:16 Portrait)';
+            sourceType = 'mobile (compressed original)';
         }
 
         // Source nur ändern wenn nötig

@@ -164,38 +164,23 @@ add_filter( "wp_is_application_passwords_available", "__return_true" );
  */
 function riman_add_mobile_hero_video_css() {
     echo '<style>
-/* Mobile Hero Video - Fix stretching of 9:16 portrait videos */
+/* Mobile Hero Video - Normal object-fit: cover for compressed originals */
 @media (max-width: 780px) {
-    /* Direct targeting of RIMAN Hero videos on mobile */
+    /* Ensure hero videos maintain proper cover behavior on mobile */
     .riman-page-hero .riman-hero__video,
     .wp-block-riman-page-hero .riman-hero__video,
-    .riman-hero-page-video {
-        /* Prevent stretching - use contain to show full video */
-        object-fit: contain !important;
+    .riman-hero-page-video,
+    .riman-cover-video {
+        object-fit: cover !important;
         object-position: center center !important;
         width: 100% !important;
         height: 100% !important;
-        background: #000;
     }
 
-    /* Alternative if contain shows black bars - use cover with adjusted positioning */
-    .riman-page-hero .riman-hero__media video,
-    .wp-block-riman-page-hero video {
-        object-fit: contain !important;
-        object-position: center !important;
-    }
-
-    /* Ensure media container has black background for letterboxing */
+    /* Ensure media container is properly sized */
     .riman-page-hero .riman-hero__media,
     .wp-block-riman-page-hero .riman-hero__media {
-        background-color: #000;
         overflow: hidden;
-    }
-
-    /* Fallback for any hero video element */
-    .riman-cover-video {
-        object-fit: contain !important;
-        object-position: center !important;
     }
 }
 </style>';
