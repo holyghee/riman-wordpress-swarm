@@ -151,27 +151,27 @@
     height: 100% !important;
   }
 
-  /* Mobile: Position icon at bottom edge of image (not overlapping) */
+  /* Mobile: Position icon completely below the image */
   .riman-service-card .riman-card-icon {
-    /* Icon at bottom edge: 220px media height = icon at 220px */
-    top: 220px !important;
+    /* Icon below image: 220px media height + 40px gap = 260px */
+    top: 260px !important;
     left: 50% !important;
     transform: translateX(-50%) translateY(-50%) !important;
     z-index: 5 !important;
   }
 
   .riman-service-card .riman-card-category {
-    /* Category below icon: 220px + 40px (half icon) + 18px spacing = 278px */
-    top: 278px !important;
+    /* Category below icon: 260px + 40px (half icon) + 18px spacing = 318px */
+    top: 318px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 4 !important;
   }
 
-  /* Mobile: Add content offset to push content down for icon space */
+  /* Mobile: Add more content offset for icon below image */
   .riman-service-card .riman-card-content {
-    /* Add top padding to make room for icon and category */
-    padding-top: 80px !important;
+    /* Add more top padding since icon is now below image */
+    padding-top: 120px !important;
   }
 }
 
