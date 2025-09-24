@@ -144,20 +144,31 @@
     max-height: 280px !important;
   }
 
+  /* Mobile: Position icon and category relative to media container */
+  .riman-card-media {
+    position: relative !important;
+  }
+
   /* Mobile: Adjust icon position for responsive media height */
   .riman-service-card .riman-card-icon {
-    /* Calculate icon position based on media container height + offset */
+    /* Position icon at bottom of media container, overlapping */
+    position: absolute !important;
     top: auto !important;
     bottom: -40px !important;
+    left: 50% !important;
     transform: translateX(-50%) !important;
+    z-index: 5 !important;
   }
 
   /* Mobile: Adjust category position accordingly */
   .riman-service-card .riman-card-category {
-    /* Position category below the responsive icon */
+    /* Position category below icon */
+    position: absolute !important;
     top: auto !important;
     bottom: -98px !important;
+    left: 50% !important;
     transform: translateX(-50%) !important;
+    z-index: 4 !important;
   }
 }
 
