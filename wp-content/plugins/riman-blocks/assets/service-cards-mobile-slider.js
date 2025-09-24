@@ -189,6 +189,10 @@ class SimpleSlider {
         this.isDragging = false;
         this.hasMoved = false;
 
+        // Autoplay handling
+        this.autoplayInterval = null;
+        this.userHasInteracted = false;
+
         this.init();
     }
 
@@ -251,6 +255,9 @@ class SimpleSlider {
 
         // Only process swipes if user actually moved
         if (this.hasMoved && Math.abs(deltaX) > 50) {
+            // User has interacted with swipe - disable autoplay
+            this.disableAutoplay();
+
             if (deltaX > 0) {
                 // Swipe right - go to previous
                 this.goToPrevious();
@@ -263,6 +270,9 @@ class SimpleSlider {
 
     onDotClick(e) {
         if (e.target.classList.contains('riman-slider-dot')) {
+            // User clicked a dot - disable autoplay
+            this.disableAutoplay();
+
             const slideIndex = parseInt(e.target.dataset.slide);
             this.goToSlide(slideIndex);
         }
@@ -439,11 +449,27 @@ class SimpleSlider {
 
     startAutoPlay() {
         // Auto-play every 5 seconds
-        setInterval(() => {
-            this.goToNext();
+        this.autoplayInterval = setInterval(() => {
+            // Only continue autoplay if user hasn't interacted
+            if (!this.userHasInteracted) {
+                this.goToNext();
+            }
         }, 5000);
 
         console.log('⏰ Auto-play started');
+    }
+
+    disableAutoplay() {
+        if (!this.userHasInteracted) {
+            this.userHasInteracted = true;
+
+            if (this.autoplayInterval) {
+                clearInterval(this.autoplayInterval);
+                this.autoplayInterval = null;
+            }
+
+            console.log('⏹️ Auto-play disabled due to user interaction');
+        }
     }
 }
 
