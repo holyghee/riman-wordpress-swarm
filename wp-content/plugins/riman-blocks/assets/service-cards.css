@@ -153,25 +153,25 @@
 
   /* Mobile: Position icon completely below the image */
   .riman-service-card .riman-card-icon {
-    /* Icon below image: 220px media height + 40px gap = 260px */
-    top: 260px !important;
+    /* Icon below image with more gap: 220px media height + 50px gap = 270px */
+    top: 270px !important;
     left: 50% !important;
     transform: translateX(-50%) translateY(-50%) !important;
     z-index: 5 !important;
   }
 
   .riman-service-card .riman-card-category {
-    /* Category below icon: 260px + 40px (half icon) + 18px spacing = 318px */
-    top: 318px !important;
+    /* Category below icon: 270px + 40px (half icon) + 18px spacing = 328px */
+    top: 328px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 4 !important;
   }
 
-  /* Mobile: Add more content offset for icon below image */
+  /* Mobile: Reduced content padding to keep content position */
   .riman-service-card .riman-card-content {
-    /* Add more top padding since icon is now below image */
-    padding-top: 120px !important;
+    /* Less padding to compensate for lower icon/category position */
+    padding-top: 110px !important;
   }
 }
 

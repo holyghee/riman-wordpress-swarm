@@ -20,7 +20,7 @@ add_action('init', function() {
         'riman-service-cards-frontend-editor',
         plugin_dir_url(__FILE__) . '../assets/service-cards.css',
         [],
-        '2.3.0'
+        '2.3.1'
     );
 
     // Editor-specific CSS enhancements
@@ -279,7 +279,7 @@ add_action('init', function() {
             $base_url = plugin_dir_url(__FILE__) . '../assets/';
             $handle = 'riman-service-cards-frontend';
             if (!wp_style_is($handle, 'registered')) {
-                wp_register_style($handle, $base_url . 'service-cards.css', [], '2.3.0');
+                wp_register_style($handle, $base_url . 'service-cards.css', [], '2.3.1');
             }
             if (!wp_style_is($handle, 'enqueued')) {
                 wp_enqueue_style($handle);
@@ -309,7 +309,7 @@ add_action('init', function() {
             $service_cards_css_handle = 'riman-service-cards-css';
 
             if (!wp_style_is($service_cards_css_handle, 'registered')) {
-                wp_register_style($service_cards_css_handle, $base_url . 'service-cards.css', [], '2.3.0');
+                wp_register_style($service_cards_css_handle, $base_url . 'service-cards.css', [], '2.3.1');
             }
             if (!wp_style_is($service_cards_css_handle, 'enqueued')) {
                 wp_enqueue_style($service_cards_css_handle);
