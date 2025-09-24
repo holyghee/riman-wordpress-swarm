@@ -135,33 +135,33 @@
     box-shadow: 0 4px 16px rgba(182, 140, 47, 0.35) !important;
   }
 
-  /* Mobile: Keep original heights but improve media scaling */
+  /* Mobile: Responsive media container - scale height with image */
   .riman-card-media {
-    /* Keep original 280px height but improve object-fit */
-    height: 280px !important;
+    /* Reduce height to match 16:9-ish aspect ratio for mobile screens */
+    height: 220px !important;
+    overflow: hidden !important;
   }
 
   .riman-card-media img,
   .riman-card-media video {
-    /* Better object positioning for mobile - simulate 16:9 crop */
+    /* Better object positioning for mobile without scaling artifacts */
     object-fit: cover !important;
-    object-position: center 30% !important;
-    /* Slightly scale to show more horizontal content like 16:9 */
-    transform: scaleY(0.8) !important;
-    transform-origin: center center !important;
+    object-position: center center !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 
-  /* Mobile: Reset icon and category to original positions */
+  /* Mobile: Adjust icon and category for reduced media height (220px) */
   .riman-service-card .riman-card-icon {
-    /* Back to original top-based positioning */
-    top: 207px !important;
+    /* Adjust for 220px height: 220px - 40px = 180px */
+    top: 180px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
 
   .riman-service-card .riman-card-category {
-    /* Back to original positioning */
-    top: 305px !important;
+    /* Position category below adjusted icon: 180px + 80px + 18px = 278px */
+    top: 278px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
   }
