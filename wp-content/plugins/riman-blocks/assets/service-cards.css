@@ -4,9 +4,17 @@
 
 .riman-service-grid {
   display: grid;
+  /* Dynamic columns: now matches actual card count, so 1fr works perfectly */
   grid-template-columns: repeat(var(--riman-columns, 3), 1fr);
   gap: 40px;
   margin: 40px 0;
+}
+
+/* Service Cards Container - Extra space for carousel hover effects */
+.riman-service-cards-wrap {
+  overflow: visible !important; /* Allow carousel cards to extend beyond container */
+  padding-top: 60px !important; /* Reasonable padding for icon positioning + hover effects */
+  padding-bottom: 30px !important; /* Extra space for hover effects */
 }
 .riman-service-section-header { text-align:center; margin: 0 0 24px; }
 .riman-section-label { display:inline-block; background:#b68c2f; color:#fff; padding:6px 20px; border-radius:20px; font-size:.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
@@ -17,9 +25,17 @@
 
 /* Tablet: WordPress Standard Responsive Verhalten */
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* Service Cards Grid: 2 Spalten auf Tablet */
-  .riman-service-grid {
+  /* Service Cards Grid: Max 2 Spalten auf Tablet, aber dynamisch */
+  .riman-service-grid.columns-3,
+  .riman-service-grid.columns-4 {
+    /* Force max 2 columns on tablet for 3+ column grids */
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 32px;
+  }
+
+  .riman-service-grid.columns-1,
+  .riman-service-grid.columns-2 {
+    /* Keep original column count for 1-2 column grids */
     gap: 32px;
   }
 
@@ -69,9 +85,8 @@
 
 /* Mobile: WordPress Standard Responsive Verhalten */
 @media (max-width: 767px) {
-  /* Service Cards Grid: Single column auf Mobile */
+  /* Service Cards Grid: Single column auf Mobile (alle Grids) */
   .riman-service-grid {
-    --riman-columns: 1 !important;
     grid-template-columns: 1fr !important;
     gap: 28px;
   }
@@ -153,16 +168,16 @@
 
   /* Mobile: Position icon completely below the image */
   .riman-service-card .riman-card-icon {
-    /* Icon below image with more gap: 220px media height + 50px gap = 270px */
-    top: 270px !important;
+    /* Icon below image - middle value: 220px media height + 45px gap = 265px */
+    top: 265px !important;
     left: 50% !important;
     transform: translateX(-50%) translateY(-50%) !important;
     z-index: 5 !important;
   }
 
   .riman-service-card .riman-card-category {
-    /* Category below icon: 270px + 40px (half icon) + 18px spacing = 328px */
-    top: 328px !important;
+    /* Category below icon: 265px + 40px (half icon) + 18px spacing = 323px */
+    top: 323px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
     z-index: 4 !important;
@@ -171,7 +186,7 @@
   /* Mobile: Reduced content padding to keep content position */
   .riman-service-card .riman-card-content {
     /* Less padding to compensate for lower icon/category position */
-    padding-top: 110px !important;
+    padding-top: 115px !important;
   }
 }
 
@@ -262,6 +277,8 @@
     padding-right: calc(var(--wp-padding, 30px) / 2) !important;
     box-sizing: border-box !important;
   }
+
+  /* Desktop: Clean grid behavior with dynamic columns */
 
   .riman-service-cards-wrap.sc-desktop-full {
     width: 100vw !important;

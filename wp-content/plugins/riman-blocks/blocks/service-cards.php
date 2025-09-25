@@ -20,7 +20,7 @@ add_action('init', function() {
         'riman-service-cards-frontend-editor',
         plugin_dir_url(__FILE__) . '../assets/service-cards.css',
         [],
-        '2.3.1'
+        '2.5.0'
     );
 
     // Editor-specific CSS enhancements
@@ -287,17 +287,18 @@ add_action('init', function() {
 
             // Mobile Slider CSS & JS
             if ($mobile_slider) {
-                $slider_handle = 'riman-service-cards-mobile-slider';
+                // Use new responsive slider system (supports mobile, tablet, and desktop)
+                $slider_handle = 'riman-service-cards-responsive-slider';
                 if (!wp_style_is($slider_handle, 'registered')) {
-                    wp_register_style($slider_handle, $base_url . 'service-cards-mobile-slider.css', [$handle], '2.4.0-' . time());
+                    wp_register_style($slider_handle, $base_url . 'service-cards-responsive-slider.css', [$handle], '2.5.0-' . time());
                 }
                 if (!wp_style_is($slider_handle, 'enqueued')) {
                     wp_enqueue_style($slider_handle);
                 }
 
-                $slider_js_handle = 'riman-service-cards-mobile-slider-js';
+                $slider_js_handle = 'riman-service-cards-responsive-slider-js';
                 if (!wp_script_is($slider_js_handle, 'registered')) {
-                    wp_register_script($slider_js_handle, $base_url . 'service-cards-mobile-slider.js', [], '2.1.0-' . time(), true);
+                    wp_register_script($slider_js_handle, $base_url . 'service-cards-responsive-slider.js', [], '2.5.0-' . time(), true);
                 }
                 if (!wp_script_is($slider_js_handle, 'enqueued')) {
                     wp_enqueue_script($slider_js_handle);
@@ -356,15 +357,7 @@ add_action('init', function() {
             }
 
             // Enqueue Mobile Slider CSS if needed
-            if ($mobile_slider) {
-                $slider_css_handle = 'riman-service-cards-mobile-slider-css';
-                if (!wp_style_is($slider_css_handle, 'registered')) {
-                    wp_register_style($slider_css_handle, $base_url . 'service-cards-mobile-slider.css', [], '2.4.0-' . time());
-                }
-                if (!wp_style_is($slider_css_handle, 'enqueued')) {
-                    wp_enqueue_style($slider_css_handle);
-                }
-            }
+            // Responsive slider CSS already loaded above, no duplicate needed
 
             // Ensure Font Awesome is present if we render icon classes
             if (!wp_style_is('fontawesome', 'enqueued')) {
@@ -555,7 +548,28 @@ add_action('init', function() {
             }
             echo '>';
 
-            printf('<div class="riman-service-grid columns-%d">', esc_attr($columns));
+            // Dynamic column calculation based on actual items count
+            $actual_items_count = count($items);
+            $max_columns = max(1, min(4, intval($a['columns']))); // Original user setting as maximum
+
+            // Device-specific max columns
+            $device_max_columns = [
+                'desktop' => 4,  // Desktop: max 4 columns
+                'tablet'  => 2,  // Tablet: max 2 columns
+                'mobile'  => 1   // Mobile: max 1 column
+            ];
+
+            // Use the smaller value: actual items count or user setting
+            $dynamic_columns = min($actual_items_count, $max_columns);
+
+            // Ensure we don't exceed device limits (handled by CSS, but good to be explicit)
+            $dynamic_columns = max(1, $dynamic_columns);
+
+            printf('<div class="riman-service-grid columns-%d" data-actual-count="%d" data-max-columns="%d">',
+                esc_attr($dynamic_columns),
+                esc_attr($actual_items_count),
+                esc_attr($max_columns)
+            );
 
             $sanitize_meta_text = static function($value) {
                 if (is_string($value)) {

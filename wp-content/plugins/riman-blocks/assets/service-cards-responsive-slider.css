@@ -1,0 +1,209 @@
+/* RIMAN Service Cards Responsive Carousel Styles */
+
+.responsive-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    overflow-x: hidden; /* Hide horizontal overflow to prevent showing next slides */
+    overflow-y: visible; /* Allow vertical overflow for longer cards and icons */
+    margin: 40px 0; /* Increase margin for hover space */
+    padding: 60px 0 80px 0; /* More bottom padding for longer cards */
+    min-height: auto; /* Allow natural height */
+}
+
+.responsive-carousel-track {
+    display: flex;
+    width: 100%; /* Full width to contain all cards */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(0%);
+    will-change: transform;
+    overflow: visible; /* Allow both horizontal and vertical overflow */
+    gap: 40px; /* Same gap as normal grid */
+    align-items: flex-start; /* Allow natural card heights */
+    justify-content: flex-start;
+}
+
+/* Individual cards in carousel track */
+.responsive-carousel-track .riman-service-card {
+    flex: 0 0 auto; /* Fixed size, no grow/shrink */
+    box-sizing: border-box;
+    margin: 0;
+    min-width: 0;
+    transition: transform 0.2s ease;
+    position: relative;
+    height: auto; /* Allow natural card height */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Use existing service card hover effects - don't override them */
+.responsive-carousel-track .riman-service-card:hover {
+    z-index: 10; /* Ensure hovered cards appear above others */
+    /* transform is handled by main service-cards.css file */
+}
+
+/* Navigation styles */
+.responsive-carousel-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 60px; /* Standard spacing from cards */
+    padding: 0 20px;
+    position: relative;
+    z-index: 10; /* Ensure navigation stays above cards */
+    clear: both; /* Ensure navigation clears floating elements */
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(182, 140, 47, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    position: relative;
+}
+
+.slider-dot:hover {
+    background: rgba(182, 140, 47, 0.6);
+    transform: scale(1.1);
+}
+
+.slider-dot.active {
+    background: #B68C2F;
+    box-shadow: 0 0 0 3px rgba(182, 140, 47, 0.2);
+}
+
+.slider-dot:focus {
+    outline: 2px solid #B68C2F;
+    outline-offset: 2px;
+}
+
+/* Responsive adjustments */
+
+/* Mobile slider styles */
+@media (max-width: 767px) {
+    .responsive-slide {
+        padding: 0 15px;
+        justify-content: center;
+    }
+
+    .responsive-slide .riman-service-card {
+        max-width: 340px; /* Prevent cards from being too wide on larger mobile screens */
+    }
+
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+/* Tablet slider styles */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .responsive-slide {
+        padding: 0 20px;
+        gap: 30px;
+        justify-content: space-between;
+    }
+
+    /* Ensure 2-card slides look balanced */
+    .responsive-slide .riman-service-card {
+        flex-basis: calc(50% - 15px);
+        max-width: calc(50% - 15px);
+    }
+
+    .carousel-dot {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Desktop slider styles (for cases with many cards) */
+@media (min-width: 1200px) {
+    .responsive-slide {
+        padding: 0 30px;
+        gap: 40px;
+        justify-content: space-between;
+    }
+
+    /* 4-card desktop slides */
+    .responsive-slide .riman-service-card {
+        flex-basis: calc(25% - 30px);
+        max-width: calc(25% - 30px);
+    }
+
+    .carousel-dot {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* Smooth animations */
+.responsive-carousel-track {
+    will-change: transform;
+}
+
+.responsive-slide .riman-service-card {
+    transition: transform 0.2s ease;
+}
+
+.responsive-slide .riman-service-card:hover {
+    transform: translateY(-4px) scale(1.02);
+}
+
+/* Loading state */
+.responsive-carousel-wrapper.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.responsive-carousel-wrapper.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 32px;
+    height: 32px;
+    margin: -16px 0 0 -16px;
+    border: 3px solid rgba(182, 140, 47, 0.3);
+    border-top: 3px solid #B68C2F;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Accessibility improvements */
+.responsive-carousel-nav {
+    role: tablist;
+    aria-label: "Service Cards Navigation";
+}
+
+.carousel-dot {
+    role: tab;
+    position: relative;
+}
+
+.slider-dot::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    /* Larger touch target for mobile */
+}
+
+/* Swipe indicator removed - users can discover swipe functionality naturally */
+
+/* Hide original grid when slider is active */
+.responsive-carousel-wrapper + .riman-service-grid {
+    display: none !important;
+}
