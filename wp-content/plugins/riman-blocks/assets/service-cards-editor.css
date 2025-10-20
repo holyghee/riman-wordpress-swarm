@@ -55,3 +55,121 @@
 .block-editor-block-list__layout .wp-block-button__link {
   pointer-events: none;
 }
+
+/* Service Cards Hybrid Editor Styles */
+.service-card-hybrid-editor {
+  margin-bottom: 12px;
+}
+
+.service-card-hybrid-editor .editor-mode-toggle {
+  margin-bottom: 5px;
+  display: flex;
+}
+
+.service-card-hybrid-editor .mode-btn {
+  padding: 4px 8px;
+  fontSize: 11px;
+  border: 1px solid #ccc;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.service-card-hybrid-editor .mode-btn:first-child {
+  border-radius: 3px 0 0 3px;
+}
+
+.service-card-hybrid-editor .mode-btn:last-child {
+  border-radius: 0 3px 3px 0;
+  border-left: none;
+}
+
+.service-card-hybrid-editor .mode-btn.active {
+  background: #0073aa;
+  color: #fff;
+}
+
+.service-card-hybrid-editor .mode-btn:hover:not(.active) {
+  background: #f0f0f0;
+}
+
+.service-card-hybrid-editor .editor-toolbar {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  padding: 5px;
+  display: flex;
+  gap: 3px;
+  border-radius: 3px 3px 0 0;
+}
+
+.service-card-hybrid-editor .editor-toolbar button {
+  padding: 3px 6px;
+  fontSize: 11px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.service-card-hybrid-editor .editor-toolbar button:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.service-card-hybrid-editor .editor-toolbar button:active {
+  background: #e0e0e0;
+}
+
+.service-card-hybrid-editor [contentEditable="true"] {
+  min-height: 80px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  background: #fff;
+  fontSize: 13px;
+  line-height: 1.5;
+  outline: none;
+}
+
+.service-card-hybrid-editor [contentEditable="true"]:focus {
+  border-color: #0073aa;
+  box-shadow: 0 0 0 1px #0073aa;
+}
+
+.service-card-hybrid-editor [contentEditable="true"]:empty:before {
+  content: attr(placeholder);
+  color: #999;
+  font-style: italic;
+}
+
+.service-card-hybrid-editor textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 0 0 3px 3px;
+  font-family: Consolas, Monaco, "Courier New", monospace;
+  fontSize: 12px;
+  resize: vertical;
+  outline: none;
+}
+
+.service-card-hybrid-editor textarea:focus {
+  border-color: #0073aa;
+  box-shadow: 0 0 0 1px #0073aa;
+}
+
+.service-card-hybrid-editor .help-text {
+  font-size: 11px;
+  color: #666;
+  font-style: italic;
+  margin-top: 4px;
+  padding: 4px 8px;
+  background: #f9f9f9;
+  border-radius: 3px;
+  border: 1px solid #e0e0e0;
+}
