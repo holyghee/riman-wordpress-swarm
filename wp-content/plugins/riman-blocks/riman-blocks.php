@@ -186,8 +186,8 @@ add_action('wp_enqueue_scripts', function () {
     $css = '.wp-block-riman-breadcrumbs,.wp-block-shortcode .riman-breadcrumbs{width:100%;}
     .riman-breadcrumbs{font-size:.85rem;letter-spacing:.01em;color:#5a5f71;margin:0 auto 1.5rem;padding:0 clamp(1rem,3vw,1.5rem);max-width:var(--wp--style--global--content-size, 1200px);}
     .wp-block-riman-breadcrumbs.alignwide .riman-breadcrumbs,.wp-block-riman-breadcrumbs.alignfull .riman-breadcrumbs{max-width:var(--wp--style--global--wide-size, 1360px);}
-    .riman-breadcrumbs__list{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.35rem;align-items:center;counter-reset:none;}
-    .riman-breadcrumbs__item{display:flex;align-items:center;gap:.35rem;color:inherit;}
+    .riman-breadcrumbs__list{margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;}
+    .riman-breadcrumbs__item{display:flex;align-items:center;gap:.35rem;color:inherit;white-space:nowrap;}
     .riman-breadcrumbs__separator{color:#c0c4d1;}
     .riman-breadcrumbs__link{color:rgb(182,140,47);text-decoration:none;font-weight:600;}
     .riman-breadcrumbs__link:hover{text-decoration:underline;}
@@ -289,10 +289,10 @@ function riman_render_breadcrumbs_markup() {
     if (count($items) < 2) {
         return '';
     }
-    $html = '<nav class="riman-breadcrumbs" aria-label="Breadcrumb"><ol class="riman-breadcrumbs__list">';
+    $html = '<nav class="riman-breadcrumbs" aria-label="Breadcrumb"><div class="riman-breadcrumbs__list">';
     $last_index = count($items) - 1;
     foreach ($items as $index => $item) {
-        $html .= '<li class="riman-breadcrumbs__item">';
+        $html .= '<span class="riman-breadcrumbs__item">';
         if (!empty($item['url']) && $index !== $last_index) {
             $html .= '<a class="riman-breadcrumbs__link" href="' . esc_url($item['url']) . '">' . esc_html($item['label']) . '</a>';
         } else {
@@ -301,9 +301,9 @@ function riman_render_breadcrumbs_markup() {
         if ($index !== $last_index) {
             $html .= '<span class="riman-breadcrumbs__separator">›</span>';
         }
-        $html .= '</li>';
+        $html .= '</span>';
     }
-    $html .= '</ol></nav>';
+    $html .= '</div></nav>';
     return $html;
 }
 
