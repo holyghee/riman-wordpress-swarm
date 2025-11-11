@@ -963,6 +963,32 @@ class Auto_Populate_Navigation_DragDrop {
             .auto-populated-dd > .wp-block-navigation-item__content:hover {
                 color: rgb(182, 140, 47) !important;
             }
+
+            @media (min-width: 960px) {
+                .riman-navigation .wp-block-navigation__responsive-container,
+                .riman-navigation .wp-block-navigation__responsive-container.is-menu-open,
+                .riman-navigation .wp-block-navigation__responsive-container.has-modal-open {
+                    display: block !important;
+                    position: static !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    height: auto !important;
+                    width: auto !important;
+                    transform: none !important;
+                    background: transparent !important;
+                    padding: 0 !important;
+                    color: inherit !important;
+                }
+
+                .riman-navigation .wp-block-navigation__responsive-container .wp-block-navigation__responsive-container-content {
+                    padding: 0 !important;
+                    margin: 0 !important;
+                }
+
+                .riman-navigation .wp-block-navigation__responsive-container .wp-block-navigation__container {
+                    display: flex !important;
+                }
+            }
         </style>
         <?php
     }
