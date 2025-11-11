@@ -828,7 +828,7 @@ class Auto_Populate_Navigation_DragDrop {
             }
 
             .auto-populated-dragdrop > .wp-block-navigation-item > .wp-block-navigation-item__content {
-                font-size: 1rem;
+                font-size: 1.05rem;
                 font-weight: 600;
                 padding: 0 0 10px !important;
                 color: rgb(182, 140, 47);
