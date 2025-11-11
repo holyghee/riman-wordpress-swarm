@@ -184,7 +184,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_register_style($handle, false, [], '1.0.0');
     wp_enqueue_style($handle);
     $css = '.wp-block-riman-breadcrumbs,.wp-block-shortcode .riman-breadcrumbs{width:100%;position:relative;z-index:5;}
-    .riman-breadcrumbs{font-size:.85rem;letter-spacing:.01em;color:#5a5f71;margin:0 auto 1.5rem;padding:0 clamp(1rem,3vw,1.5rem);max-width:var(--wp--style--global--content-size, 1200px);}
+    .riman-breadcrumbs{font-size:.85rem;letter-spacing:.01em;color:#5a5f71;margin:0 auto 2.25rem;padding:0 clamp(1rem,3vw,1.5rem);max-width:var(--wp--style--global--content-size, 1200px);}
     .wp-block-riman-breadcrumbs.alignwide .riman-breadcrumbs,.wp-block-riman-breadcrumbs.alignfull .riman-breadcrumbs{max-width:var(--wp--style--global--wide-size, 1360px);}
     .riman-breadcrumbs__list{margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;}
     .riman-breadcrumbs__item{display:flex;align-items:center;gap:.35rem;color:inherit;white-space:nowrap;}
