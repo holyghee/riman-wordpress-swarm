@@ -160,6 +160,20 @@ endif;
 add_filter( "wp_is_application_passwords_available", "__return_true" );
 
 /**
+ * Ensure Playfair Display loads everywhere so typography stays consistent.
+ */
+function riman_enqueue_playfair_display() {
+    wp_enqueue_style(
+        'riman-playfair-display',
+        'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap',
+        [],
+        null
+    );
+}
+add_action( 'wp_enqueue_scripts', 'riman_enqueue_playfair_display', 5 );
+add_action( 'admin_enqueue_scripts', 'riman_enqueue_playfair_display', 5 );
+
+/**
  * Add custom CSS for mobile hero video handling
  */
 function riman_add_mobile_hero_video_css() {
@@ -186,3 +200,64 @@ function riman_add_mobile_hero_video_css() {
 </style>';
 }
 add_action('wp_head', 'riman_add_mobile_hero_video_css', 10);
+
+/**
+ * Replace leftover local font URLs from development builds in the final HTML output.
+ * Prevents browsers from attempting to load fonts from http://127.0.0.1:8801 (which triggers CORS warnings).
+ */
+function riman_start_output_buffer() {
+    if ( is_admin() ) {
+        return;
+    }
+
+    $host = $_SERVER['HTTP_HOST'] ?? '';
+    $is_local = strpos($host, '127.0.0.1') !== false || strpos($host, 'localhost') !== false;
+    if ( $is_local ) {
+        return;
+    }
+
+    ob_start( function ( $html ) {
+        return str_replace(
+            'http://127.0.0.1:8801',
+            'https://riman-wordpress-swarm.ecomwy.com',
+            $html
+        );
+    } );
+}
+add_action( 'template_redirect', 'riman_start_output_buffer', 0 );
+
+
+// Fix Meta Box text direction (RTL problem)
+add_action('admin_head', function() {
+    echo '<style>
+    /* Meta Box Text Direction Fix */
+    .rwmb-input,
+    .rwmb-text,
+    .rwmb-textarea,
+    .meta-box-input,
+    input[type="text"].meta-box-field,
+    textarea.meta-box-field,
+    .cmb2-text,
+    .cmb2-textarea {
+        direction: ltr !important;
+        text-align: left !important;
+        unicode-bidi: embed !important;
+    }
+
+    /* Service Cards Meta Box spezifisch */
+    .service-cards-meta .rwmb-input,
+    .service-cards-meta input[type="text"],
+    .service-cards-meta textarea {
+        direction: ltr !important;
+        text-align: left !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    }
+
+    /* Allgemeine Meta Box Container */
+    .postbox .inside input[type="text"],
+    .postbox .inside textarea {
+        direction: ltr !important;
+        text-align: left !important;
+    }
+    </style>';
+});
