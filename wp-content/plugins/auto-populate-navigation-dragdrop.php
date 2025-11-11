@@ -495,7 +495,7 @@ class Auto_Populate_Navigation_DragDrop {
         }
 
         // Erstelle Submenu HTML (exakt wie bei Kategorien)
-        $submenu_html = '<ul class="auto-populated-dragdrop" style="margin:0;list-style:none;padding:10px 0;">';
+        $submenu_html = '<ul class="auto-populated-dragdrop">';
 
         // Unterseiten hinzufügen
         foreach ($subpages as $subpage) {
@@ -512,25 +512,20 @@ class Auto_Populate_Navigation_DragDrop {
             if (!empty($detailseiten)) {
                 // Unterseite MIT Detailseiten als verschachteltes Submenu
                 $submenu_html .= sprintf(
-                    '<li class="wp-block-navigation-item wp-block-navigation-submenu has-child subcategory-with-posts">
+                    '<li class="wp-block-navigation-item mega-column subcategory-with-posts">
                         <a class="wp-block-navigation-item__content" href="%s">
                             %s
                         </a>
-                        <button class="wp-block-navigation-submenu__toggle subcategory-toggle" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="1.5"></path>
-                            </svg>
-                        </button>
-                        <ul class="wp-block-navigation__submenu-container subcategory-posts">',
-                    esc_url(get_permalink($subpage->ID)),
-                    esc_html($this->get_riman_display_title($subpage->ID))
+                        <ul class="subcategory-posts">',
+                        esc_url(get_permalink($subpage->ID)),
+                        esc_html($this->get_riman_display_title($subpage->ID))
                 );
 
                 // Detailseiten der Unterseite
                 foreach ($detailseiten as $detailseite) {
                     $submenu_html .= sprintf(
-                        '<li class="wp-block-navigation-item post-item">
-                            <a class="wp-block-navigation-item__content" href="%s">%s</a>
+                        '<li class="mega-menu-item">
+                            <a class="mega-menu-link" href="%s">%s</a>
                         </li>',
                         get_permalink($detailseite->ID),
                         esc_html($this->get_riman_display_title($detailseite->ID))
@@ -676,7 +671,7 @@ class Auto_Populate_Navigation_DragDrop {
             }
             
             // Nur Posts ohne Unterkategorien
-            $submenu_html = '<ul class="auto-populated-dragdrop" style="margin:0;list-style:none;padding:10px 0;">';
+            $submenu_html = '<ul class="auto-populated-dragdrop">';
             
             foreach ($posts as $post) {
                 $submenu_html .= sprintf(
@@ -691,7 +686,7 @@ class Auto_Populate_Navigation_DragDrop {
             $submenu_html .= '</ul>';
         } else {
             // Mit Unterkategorien - zeige diese mit ihren Posts als verschachtelte Submenus
-            $submenu_html = '<ul class="auto-populated-dragdrop" style="margin:0;list-style:none;padding:10px 0;">';
+            $submenu_html = '<ul class="auto-populated-dragdrop">';
             
             // Sortierte Unterkategorien mit ihren Posts
             foreach ($subcategories as $subcat) {
@@ -707,30 +702,25 @@ class Auto_Populate_Navigation_DragDrop {
                 if (!empty($subcat_posts)) {
                     // Unterkategorie MIT Posts als verschachteltes Submenu
                     $submenu_html .= sprintf(
-                        '<li class="wp-block-navigation-item wp-block-navigation-submenu has-child subcategory-with-posts">
+                        '<li class="wp-block-navigation-item mega-column subcategory-with-posts">
                             <a class="wp-block-navigation-item__content" href="%s">
                                 %s
                             </a>
-                            <button class="wp-block-navigation-submenu__toggle subcategory-toggle" aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                    <path d="M4 2L8 6L4 10" stroke="currentColor" stroke-width="1.5"></path>
-                                </svg>
-                            </button>
-                            <ul class="wp-block-navigation__submenu-container subcategory-posts">',
+                            <ul class="subcategory-posts">',
                         esc_url(get_category_link($subcat->term_id)),
                         esc_html($subcat->name)
                     );
                     
                     // Posts der Unterkategorie
                     foreach ($subcat_posts as $post) {
-                        $submenu_html .= sprintf(
-                            '<li class="wp-block-navigation-item post-item">
-                                <a class="wp-block-navigation-item__content" href="%s">%s</a>
-                            </li>',
-                            get_permalink($post->ID),
-                            esc_html($post->post_title)
-                        );
-                    }
+                    $submenu_html .= sprintf(
+                        '<li class="mega-menu-item">
+                            <a class="mega-menu-link" href="%s">%s</a>
+                        </li>',
+                        get_permalink($post->ID),
+                        esc_html($post->post_title)
+                    );
+                }
                     
                     $submenu_html .= '</ul></li>';
                 } else {
@@ -772,193 +762,194 @@ class Auto_Populate_Navigation_DragDrop {
                 position: relative;
             }
 
+            .riman-navigation > .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content {
+                color: rgb(182, 140, 47) !important;
+            }
+
+            .auto-populated-dd::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 100%;
+                height: 24px;
+            }
+
             .auto-populated-dragdrop {
-                min-width: 280px;
-                padding: 10px 0 !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
-                padding-inline-start: 0 !important;
-                padding-inline-end: 0 !important;
-                margin: 0 !important;
-                list-style: none !important;
                 position: absolute;
                 top: 100%;
-                left: 0;
-                transform: none;
-                background: #fff;
-                border: 1px solid #e0e0e0;
-                border-radius: 6px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-                display: none;
-                z-index: 99999;
-            }
-
-            .auto-populated-dd:hover > .auto-populated-dragdrop {
-                display: block;
-            }
-
-            .auto-populated-dragdrop > .wp-block-navigation-item {
-                display: block !important;
-                width: 100% !important;
-                padding: 0 !important;
+                left: 50%;
+                transform: translate(-50%, 16px);
+                width: min(90vw, 960px);
+                min-width: 420px;
+                padding: 32px clamp(20px, 3vw, 36px) !important;
+                margin: 0 !important;
                 list-style: none !important;
-                border-bottom: 1px solid #e0e0e0;
-            }
-
-            .auto-populated-dragdrop > .wp-block-navigation-item:last-child {
-                border-bottom: none;
-            }
-
-            .riman-navigation .auto-populated-dragdrop > .wp-block-navigation-item > .wp-block-navigation-item__content,
-            .riman-navigation .auto-populated-dragdrop .wp-block-navigation__submenu-container > .wp-block-navigation-item > .wp-block-navigation-item__content {
-                display: block !important;
-                width: 100% !important;
-                box-sizing: border-box;
-                padding: 8px 12px !important;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                column-gap: 32px;
+                row-gap: 24px;
+                justify-items: start;
+                align-items: start;
+                border-radius: 0;
+                background: rgba(255, 255, 255, 0.61);
+                backdrop-filter: blur(8px);
+                box-shadow: 0 24px 48px rgba(15, 24, 54, 0.18);
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                z-index: 99999;
                 text-align: left;
             }
 
-            .auto-populated-dd > .auto-populated-dragdrop {
-                left: 0 !important;
-                right: auto !important;
-                padding: 10px 0 !important;
-                padding-left: 0 !important;
-                padding-right: 0 !important;
+            .auto-populated-dd:hover > .auto-populated-dragdrop,
+            .auto-populated-dd:focus-within > .auto-populated-dragdrop {
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translate(-50%, 0);
             }
-            
-            .main-category-link a {
-                color: #007cba !important;
-                padding: 8px 20px;
-                display: block;
-            }
-            
-            .main-category-link a:hover {
-                background: rgba(0,124,186,0.08);
-            }
-            
-            .nav-divider {
-                height: 1px;
-                background: #e0e0e0;
-                margin: 8px 20px;
+
+            .auto-populated-dragdrop > .wp-block-navigation-item {
+                border: none;
+                padding: 0 !important;
+                background: none;
                 list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                text-align: left;
+                align-items: flex-start;
             }
-            
-            .nav-section-title {
-                padding: 4px 20px;
-                color: #666;
-                font-size: 11px;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
+
+            .auto-populated-dragdrop .wp-block-navigation-item {
+                list-style: none !important;
+            }
+
+            .auto-populated-dragdrop > .wp-block-navigation-item > .wp-block-navigation-item__content {
+                font-size: 1rem;
                 font-weight: 600;
+                padding: 0 0 10px !important;
+                color: rgb(182, 140, 47);
+                display: block;
+                text-align: left !important;
+                margin: 0 !important;
+            }
+
+            .auto-populated-dragdrop .wp-block-navigation-item__content {
+                margin: 0 !important;
+            }
+
+            .auto-populated-dragdrop .mega-column {
+                min-width: 220px;
+            }
+
+            .auto-populated-dragdrop .subcategory-with-posts {
+                position: static;
+                padding: 0;
+            }
+
+            .auto-populated-dragdrop .subcategory-link a {
+                padding: 6px 0 !important;
+                border-radius: 6px;
+                color: #4a4f61 !important;
+                transition: background 0.15s ease, color 0.15s ease;
+                text-align: left;
+            }
+
+            .auto-populated-dragdrop .subcategory-link {
                 list-style: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            .auto-populated-dragdrop .subcategory-link a:hover {
+                background: rgba(0, 124, 186, 0.08);
+                color: #007cba !important;
+            }
+            
+            .main-category-link,
+            .nav-divider,
+            .nav-section-title {
+                display: none !important;
             }
             
             .subcategory-link a {
                 position: relative;
             }
 
-            .post-link a {
-                color: #666 !important;
-                font-size: 13px;
-                position: relative;
-            }
-            
-            .post-link a:before {
-                content: "";
-            }
-            
-            .post-link a:hover {
-                color: #007cba !important;
-                background: rgba(0,124,186,0.05);
-            }
-            
-            /* Unterkategorien mit Posts - verschachtelte Submenus */
-            .subcategory-with-posts {
-                position: relative;
-            }
-            
-            .subcategory-with-posts > a {
-                position: relative;
-            }
-            
-            .subcategory-with-posts > a:before {
-                content: "";
-                position: absolute;
-                left: 20px;
-                color: #007cba;
-            }
-            
-            .subcategory-toggle {
-                background: none;
-                border: none;
-                padding: 4px;
-                color: #666;
-                cursor: pointer;
-                position: absolute;
-                right: 20px;
-                top: 50%;
-                transform: translateY(-50%);
-                transition: all 0.2s;
-            }
-            
-            .subcategory-with-posts:hover .subcategory-toggle {
-                color: #007cba;
-                transform: translateY(-50%) translateX(2px);
-            }
-            
-            /* Verschachtelte Posts Dropdown */
-            .subcategory-posts {
-                position: absolute;
-                top: 0 !important;
-                left: 0;
-                transform: translateX(-100%);
-                min-width: 280px;
-                background: #fff;
-                border: 1px solid #e0e0e0;
-                border-radius: 6px;
-                box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-                opacity: 0;
-                visibility: hidden;
-                transition: none;
-                margin-left: 0;
-                margin-right: 0;
-                padding: 8px 0 !important;
-                z-index: 1000;
+            .mega-menu-item,
+            .post-link a,
+            .subcategory-posts .post-item a,
+            .subcategory-posts .wp-block-navigation-item__content {
+                color: #5a5f71 !important;
+                font-size: 0.92rem;
+                padding: 4px 0 !important;
+                border-radius: 4px;
+                transition: color 0.15s ease, transform 0.15s ease;
+                text-align: left !important;
+                padding-left: 0 !important;
+                padding-inline-start: 0 !important;
+                list-style: none;
+                margin: 0;
+                width: 100%;
+                font-weight: 600;
             }
 
-            .subcategory-with-posts:hover .subcategory-posts {
-                opacity: 1;
-                visibility: visible;
-            }
-            
-            /* Unterkategorie Übersicht Link */
-            .subcategory-overview a {
-                color: #007cba !important;
-                font-size: 13px;
-                padding: 6px 16px !important;
+            .mega-menu-link,
+            .mega-menu-item a {
                 display: block;
             }
-            
-            .subcategory-overview a:hover {
-                background: rgba(0,124,186,0.08);
-            }
-            
-            /* Posts in Unterkategorie */
-            .subcategory-posts .post-item a {
-                font-size: 13px;
-                color: #555 !important;
-                transition: all 0.15s;
-                position: relative;
-            }
-            
-            .subcategory-posts .post-item a:before {
-                content: "";
-            }
-            
+
+            .mega-menu-item a:hover,
+            .post-link a:hover,
             .subcategory-posts .post-item a:hover {
-                background: rgba(0,124,186,0.05);
-                color: #007cba !important;
-                padding-left: 32px !important;
+                color: #5a5f71 !important;
+                font-weight: 600;
+                transform: none;
+                background: none;
+            }
+
+            .subcategory-toggle {
+                display: none !important;
+            }
+
+            .auto-populated-dragdrop .subcategory-posts.wp-block-navigation__submenu-container,
+            .auto-populated-dragdrop .subcategory-posts {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                min-width: auto;
+                background: transparent;
+                border: none;
+                border-radius: 0;
+                box-shadow: none;
+                margin: 0;
+                padding: 0 !important;
+                padding-left: 0 !important;
+                padding-inline-start: 0 !important;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                list-style: none !important;
+                width: 100%;
+                align-items: flex-start;
+            }
+
+            .subcategory-posts > li,
+            .subcategory-posts > li > a {
+                margin: 0 !important;
+                padding-left: 0 !important;
+            }
+
+            .auto-populated-dragdrop .subcategory-posts .wp-block-navigation-item {
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100%;
+                padding-inline-start: 0 !important;
             }
             
             /* Klickbare Hauptlinks - sauberer Link ohne Button */
@@ -966,10 +957,11 @@ class Auto_Populate_Navigation_DragDrop {
                 pointer-events: auto !important;
                 display: block;
                 text-decoration: none;
+                color: rgb(182, 140, 47) !important;
             }
-            
+
             .auto-populated-dd > .wp-block-navigation-item__content:hover {
-                color: #007cba;
+                color: rgb(182, 140, 47) !important;
             }
         </style>
         <?php
@@ -982,41 +974,59 @@ class Auto_Populate_Navigation_DragDrop {
         ?>
         <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Unterkategorien mit Posts - Hover-Verhalten verbessern
-            const subcatItems = document.querySelectorAll('.subcategory-with-posts');
-            const hideAllSubmenus = () => {
-                document.querySelectorAll('.subcategory-posts').forEach(submenu => {
-                    submenu.style.opacity = '0';
-                    submenu.style.visibility = 'hidden';
+            const gutter = 16;
+
+            const resetPanel = (panel) => {
+                panel.style.left = '50%';
+                panel.style.right = 'auto';
+                panel.style.transform = 'translate(-50%, 16px)';
+                panel.style.maxWidth = '';
+            };
+
+            const clampPanel = (panel) => {
+                if (!panel) return;
+                resetPanel(panel);
+
+                // Wait for layout to settle
+                requestAnimationFrame(() => {
+                    const rect = panel.getBoundingClientRect();
+                    const viewportWidth = window.innerWidth;
+                    const availableWidth = viewportWidth - gutter * 2;
+
+                    if (rect.width >= availableWidth) {
+                        panel.style.left = `${gutter}px`;
+                        panel.style.right = `${gutter}px`;
+                        panel.style.transform = 'translate(0, 16px)';
+                        panel.style.maxWidth = `calc(100vw - ${gutter * 2}px)`;
+                        return;
+                    }
+
+                    if (rect.right > viewportWidth - gutter) {
+                        panel.style.left = 'auto';
+                        panel.style.right = `${gutter}px`;
+                        panel.style.transform = 'translate(0, 16px)';
+                    } else if (rect.left < gutter) {
+                        panel.style.left = `${gutter}px`;
+                        panel.style.right = 'auto';
+                        panel.style.transform = 'translate(0, 16px)';
+                    }
                 });
             };
 
-            subcatItems.forEach(item => {
-                const submenu = item.querySelector('.subcategory-posts');
-                if (!submenu) {
-                    return;
-                }
+            document.querySelectorAll('.subcategory-toggle').forEach(btn => btn.remove());
 
-                item.addEventListener('mouseenter', () => {
-                    hideAllSubmenus();
-                    submenu.style.opacity = '1';
-                    submenu.style.visibility = 'visible';
-                });
+            const dropdowns = document.querySelectorAll('.auto-populated-dd');
+            dropdowns.forEach(dd => {
+                const panel = dd.querySelector('.auto-populated-dragdrop');
+                if (!panel) return;
 
-                item.addEventListener('mouseleave', () => {
-                    submenu.style.opacity = '0';
-                    submenu.style.visibility = 'hidden';
-                });
+                const adjust = () => clampPanel(panel);
+                dd.addEventListener('mouseenter', adjust);
+                dd.addEventListener('focusin', adjust);
+            });
 
-                submenu.addEventListener('mouseenter', () => {
-                    submenu.style.opacity = '1';
-                    submenu.style.visibility = 'visible';
-                });
-
-                submenu.addEventListener('mouseleave', () => {
-                    submenu.style.opacity = '0';
-                    submenu.style.visibility = 'hidden';
-                });
+            window.addEventListener('resize', () => {
+                document.querySelectorAll('.auto-populated-dragdrop').forEach(panel => clampPanel(panel));
             });
         });
         </script>
