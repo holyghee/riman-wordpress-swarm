@@ -52,7 +52,7 @@
     justify-content: center;
     align-items: center;
     gap: 8px;
-    margin-top: 60px; /* Standard spacing from cards */
+    margin-top: 80px; /* Extra spacing so breadcrumbs never overlap */
     padding: 0 20px;
     position: relative;
     z-index: 2; /* Keep above cards but below breadcrumbs */
