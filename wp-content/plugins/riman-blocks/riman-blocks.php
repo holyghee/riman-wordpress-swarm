@@ -184,7 +184,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_register_style($handle, false, [], '1.0.0');
     wp_enqueue_style($handle);
     $css = '.wp-block-riman-breadcrumbs,.wp-block-shortcode .riman-breadcrumbs{width:100%;position:relative;z-index:50;pointer-events:auto;}
-    .riman-breadcrumbs{font-size:.85rem;letter-spacing:.01em;color:#5a5f71;margin:0 auto clamp(1.75rem,3vw,2.75rem);padding:0 clamp(1rem,3vw,1.5rem) clamp(.75rem,1.5vw,1.25rem);max-width:var(--wp--style--global--content-size, 1200px);background:#fff;display:block;}
+    .riman-breadcrumbs{font-size:.85rem;letter-spacing:.01em;color:#5a5f71;margin:0 auto clamp(1.25rem,2vw,2rem);padding:0 clamp(1rem,2vw,1.2rem) clamp(.4rem,1vw,.8rem);max-width:var(--wp--style--global--content-size, 1200px);background:#fff;display:block;}
     .wp-block-riman-breadcrumbs.alignwide .riman-breadcrumbs,.wp-block-riman-breadcrumbs.alignfull .riman-breadcrumbs{max-width:var(--wp--style--global--wide-size, 1360px);}
     .riman-breadcrumbs__list{margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;}
     .riman-breadcrumbs__item{display:flex;align-items:center;gap:.35rem;color:inherit;white-space:nowrap;}
