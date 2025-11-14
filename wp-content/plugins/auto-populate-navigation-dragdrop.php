@@ -29,9 +29,16 @@ class Auto_Populate_Navigation_DragDrop {
         
         // Frontend Styles
         add_action('wp_head', array($this, 'add_navigation_styles'));
-        
+
         // Frontend Scripts
         add_action('wp_footer', array($this, 'add_navigation_scripts'));
+
+        // Header/Hero sync helper
+        add_action('wp_footer', array($this, 'inject_hero_detector'));
+
+
+        // Style klassische WP Seiten Submenus wie RIMAN Dropdowns
+        add_filter('render_block_core/navigation-link', array($this, 'decorate_wp_page_link'), 15, 3);
     }
     
     /**
@@ -470,9 +477,24 @@ class Auto_Populate_Navigation_DragDrop {
     }
 
     /**
+     * Bestimmt die sichtbare Bezeichnung für einen Navigationslink.
+     * Bevorzugt den im FSE gespeicherten Label-Text und fällt ansonsten
+     * auf die bisherige Hero/Seitentitel-Logik zurück.
+     */
+    private function get_navigation_label($block, $post_id) {
+        if (!empty($block['attrs']['label'])) {
+            return $block['attrs']['label'];
+        }
+
+        return $this->get_riman_display_title($post_id);
+    }
+
+    /**
      * Erstellt ein Submenu für RIMAN Seiten (gleiche Struktur wie Kategorien)
      */
     private function create_riman_submenu($post, $block) {
+        $root_label = $this->get_navigation_label($block, $post->ID);
+
         // Hole Unterseiten der RIMAN Hauptseite
         $subpages = get_posts([
             'post_type' => 'riman_seiten',
@@ -490,7 +512,7 @@ class Auto_Populate_Navigation_DragDrop {
                     <a class="wp-block-navigation-item__content" href="%s">%s</a>
                 </li>',
                 esc_url($block['attrs']['url']),
-                esc_html($this->get_riman_display_title($post->ID))
+                esc_html($root_label)
             );
         }
 
@@ -556,7 +578,7 @@ class Auto_Populate_Navigation_DragDrop {
                 %s
             </li>',
             esc_url(get_permalink($post->ID)),
-            esc_html($this->get_riman_display_title($post->ID)),
+            esc_html($root_label),
             $submenu_html
         );
     }
@@ -634,11 +656,120 @@ class Auto_Populate_Navigation_DragDrop {
     }
 
     /**
-     * Verarbeitet bestehende Submenus
+     * Dekoriert klassische WP Seiten Links, damit Dropdown Styles greifen
+     */
+    public function decorate_wp_page_link($block_content, $block, $instance) {
+        if (!$this->is_wp_page_block($block)) {
+            return $block_content;
+        }
+
+        if (strpos($block_content, 'auto-populated-dd') !== false) {
+            return $block_content;
+        }
+
+        return preg_replace_callback(
+            '/(<li\\b[^>]*class=")([^\"]*)(")/i',
+            function($matches) {
+                $classes = $matches[2];
+                if (strpos($classes, 'auto-populated-dd') === false) {
+                    $classes .= ' auto-populated-dd';
+                }
+                $classes = trim(preg_replace('/\s+/', ' ', $classes));
+                return $matches[1] . $classes . $matches[3];
+            },
+            $block_content,
+            1
+        );
+    }
+
+    /**
+     * Verarbeitet bestehende Submenus und passt sie optisch dem Mega-Menü an
      */
     public function check_category_submenu($block_content, $block, $instance) {
-        // Ähnliche Logik wie check_category_link
+        if (!$this->is_wp_page_block($block)) {
+            return $block_content;
+        }
+
+        if (strpos($block_content, 'auto-populated-dragdrop') !== false) {
+            return $block_content;
+        }
+
+        // Entferne Standard-Toggle-Button, da Hover/Focus genutzt wird
+        $block_content = preg_replace(
+            '/<button[^>]*(wp-block-navigation__submenu-icon|wp-block-navigation-item__submenu-icon)[^>]*>.*?<\\/button>/is',
+            '',
+            $block_content
+        );
+
+        // Ergänze Klassen am Container
+        $block_content = preg_replace_callback(
+            '/(<li\\b[^>]*class=")([^\"]*)(")/i',
+            function($matches) {
+                $classes = $matches[2];
+                if (strpos($classes, 'auto-populated-dd') === false) {
+                    $classes .= ' auto-populated-dd';
+                }
+                $classes = trim(preg_replace('/\s+/', ' ', $classes));
+                return $matches[1] . $classes . $matches[3];
+            },
+            $block_content,
+            1
+        );
+
+        $block_content = preg_replace_callback(
+            '/<ul([^>]*)class="([^\"]*wp-block-navigation__submenu-container[^\"]*)"([^>]*)>/i',
+            function($matches) {
+                $classes = $matches[2];
+                $classes = preg_replace('/\b(has-text-color|has-contrast-color|has-background|has-base-background-color)\b/', '', $classes);
+                if (strpos($classes, 'auto-populated-dragdrop') === false) {
+                    $classes .= ' auto-populated-dragdrop';
+                }
+                $classes = trim(preg_replace('/\s+/', ' ', $classes));
+                return '<ul' . $matches[1] . 'class="' . $classes . '"' . $matches[3] . '>';
+            },
+            $block_content,
+            1
+        );
+
         return $block_content;
+    }
+
+    /**
+     * Prüft ob Block ein klassischer Seiten-Link/Submenu ist
+     */
+    private function is_wp_page_block($block) {
+        if (empty($block['attrs'])) {
+            return false;
+        }
+
+        $attrs = $block['attrs'];
+
+        if (!empty($attrs['type']) && $attrs['type'] === 'page') {
+            return true;
+        }
+
+        if (!empty($attrs['kind']) && $attrs['kind'] === 'post-type' && !empty($attrs['type']) && $attrs['type'] === 'page') {
+            return true;
+        }
+
+        if (!empty($attrs['id'])) {
+            $post = get_post((int) $attrs['id']);
+            if ($post && $post->post_type === 'page') {
+                return true;
+            }
+        }
+
+        if (!empty($attrs['url'])) {
+            $post_id = url_to_postid($attrs['url']);
+            if ($post_id) {
+                $post = get_post($post_id);
+                if ($post && $post->post_type === 'page') {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
     
     /**
@@ -758,6 +889,157 @@ class Auto_Populate_Navigation_DragDrop {
     public function add_navigation_styles() {
         ?>
         <style>
+            :root {
+                --riman-header-height: 96px;
+            }
+            .wp-site-blocks > .wp-block-template-part {
+                position: relative;
+                z-index: 2;
+                background: transparent !important;
+                margin-bottom: 0 !important;
+            }
+
+            .riman-header,
+            .riman-header .wp-block-group,
+            .riman-header-container,
+            .riman-header-container > * {
+                background: transparent !important;
+            }
+
+            @media (max-width: 1280px) {
+                .riman-header .riman-header-inner,
+                .riman-header-container {
+                    display: flex !important;
+                    flex-wrap: wrap !important;
+                    flex-direction: row !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    column-gap: clamp(0.4rem, 0.8vw, 1.2rem) !important;
+                    row-gap: clamp(0.4rem, 0.8vw, 1rem) !important;
+                }
+
+                .riman-header .riman-nav-container {
+                    order: 1 !important;
+                    flex: 0 0 100% !important;
+                    width: 100% !important;
+                    justify-content: flex-end !important;
+                }
+
+                .riman-header .wp-block-site-logo {
+                    order: 2 !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                    flex: 0 0 auto !important;
+                }
+
+                .riman-header .riman-logo,
+                .riman-header .wp-block-site-title {
+                    order: 3 !important;
+                    text-align: left !important;
+                    flex: 0 0 auto !important;
+                }
+            }
+
+            .riman-header .wp-block-site-logo,
+            .riman-header .wp-block-site-logo img {
+                width: clamp(68px, 7vw, 120px) !important;
+                height: auto !important;
+            }
+
+            .riman-logo,
+            .riman-header .wp-block-site-title {
+                font-size: clamp(1.2rem, 0.6vw + 1.1rem, 2.2rem) !important;
+                letter-spacing: 0.04em;
+            }
+
+            body.has-hero-header .wp-block-riman-page-hero:first-of-type,
+            body.has-hero-header .wp-block-cover.alignfull:first-of-type {
+                margin-top: calc(-1 * var(--riman-header-height)) !important;
+                padding-top: calc(var(--riman-header-height) + clamp(0.5rem, 1vw, 1.5rem)) !important;
+                position: relative;
+                z-index: 1;
+            }
+
+
+            .riman-nav-container {
+                flex: 1 1 auto !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: flex-start !important;
+                min-width: 0 !important;
+                gap: clamp(0.75rem, 1.5vw, 1.5rem) !important;
+            }
+
+            .riman-nav-container nav.riman-navigation {
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__responsive-container-open,
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__responsive-container-close,
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__toggle,
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__submenu-icon {
+                display: none !important;
+            }
+
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__responsive-container {
+                position: static !important;
+                width: 100% !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important;
+            }
+
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__responsive-container .wp-block-navigation__container {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                justify-content: center !important;
+                align-items: center !important;
+                column-gap: clamp(1rem, 2.5vw, 3rem) !important;
+                row-gap: 0.75rem !important;
+                margin: 0 0 -5px !important;
+                padding: 0 clamp(0.5rem, 1vw, 1.5rem) 0 clamp(0.25rem, 1vw, 1rem) !important;
+                width: 100% !important;
+            }
+
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__responsive-container .wp-block-navigation__container > .wp-block-navigation-item {
+                background: transparent !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                box-shadow: none !important;
+                min-width: auto !important;
+                display: flex !important;
+                flex-direction: column;
+                gap: 0 !important;
+                flex: 0 1 auto !important;
+                white-space: nowrap !important;
+            }
+
+            .riman-nav-container nav.riman-navigation .wp-block-navigation__responsive-container .wp-block-navigation__container > .wp-block-navigation-item > .wp-block-navigation-item__content {
+                font-weight: 300 !important;
+                font-size: clamp(0.85rem, 0.35vw + 0.9rem, 1.05rem) !important;
+                padding: 0 !important;
+                color: rgb(182, 140, 47) !important;
+                text-decoration: none !important;
+                line-height: 1 !important;
+                white-space: nowrap !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.05em;
+            }
+
+            .riman-nav-container .wp-block-button,
+            .riman-nav-container .wp-block-button__link {
+                white-space: nowrap !important;
+                word-break: normal !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+
+
             .auto-populated-dd {
                 position: relative;
             }
@@ -776,16 +1058,17 @@ class Auto_Populate_Navigation_DragDrop {
             }
 
             .auto-populated-dragdrop {
-                position: absolute;
-                top: 100%;
-                left: 50%;
-                transform: translate(-50%, 16px);
-                width: min(90vw, 960px);
-                min-width: 420px;
+                position: absolute !important;
+                top: 100% !important;
+                left: 50% !important;
+                transform: translate(-50%, 16px) !important;
+                width: max-content !important;
+                min-width: 320px !important;
+                max-width: min(90vw, 960px) !important;
                 padding: 32px clamp(20px, 3vw, 36px) !important;
                 margin: 0 !important;
                 list-style: none !important;
-                display: grid;
+                display: grid !important;
                 grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
                 column-gap: 32px;
                 row-gap: 24px;
@@ -795,20 +1078,79 @@ class Auto_Populate_Navigation_DragDrop {
                 background: rgba(255, 255, 255, 0.61);
                 backdrop-filter: blur(8px);
                 box-shadow: 0 24px 48px rgba(15, 24, 54, 0.18);
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+                transition: opacity 0.2s ease, transform 0.2s ease;
+                z-index: 99999;
+                text-align: left;
+                border: none !important;
+            }
+
+            .auto-populated-dragdrop.is-simple-list {
+                display: flex !important;
+                flex-direction: column !important;
+                width: auto !important;
+                min-width: 240px !important;
+                max-width: 360px !important;
+                padding: 20px 24px !important;
+                row-gap: 4px !important;
+                column-gap: 0 !important;
+            }
+
+            .auto-populated-dd:hover > .auto-populated-dragdrop,
+            .auto-populated-dd:focus-within > .auto-populated-dragdrop {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                transform: translate(-50%, 0) !important;
+            }
+
+            /* Force mega dropdown styles even when WordPress adds submenu helpers */
+            .riman-navigation .wp-block-navigation__container .wp-block-navigation-item > .wp-block-navigation__submenu-container.auto-populated-dragdrop,
+            .riman-navigation .wp-block-navigation-item > .wp-block-navigation__submenu-container.auto-populated-dragdrop {
+                position: absolute !important;
+                top: 100% !important;
+                left: 50% !important;
+                transform: translate(-50%, 16px) !important;
+                width: min(90vw, 960px) !important;
+                min-width: 420px !important;
+                padding: 32px clamp(20px, 3vw, 36px) !important;
+                margin: 0 !important;
+                list-style: none !important;
+                display: grid !important;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                column-gap: 32px;
+                row-gap: 24px;
+                justify-items: start;
+                align-items: start;
+                border-radius: 0;
+                background: rgba(255, 255, 255, 0.61);
+                backdrop-filter: blur(8px);
+                box-shadow: 0 24px 48px rgba(15, 24, 54, 0.18);
+                opacity: 0 !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
                 transition: opacity 0.2s ease, transform 0.2s ease;
                 z-index: 99999;
                 text-align: left;
             }
 
-            .auto-populated-dd:hover > .auto-populated-dragdrop,
-            .auto-populated-dd:focus-within > .auto-populated-dragdrop {
-                opacity: 1;
-                visibility: visible;
-                pointer-events: auto;
-                transform: translate(-50%, 0);
+            .riman-navigation .wp-block-navigation-item > .wp-block-navigation__submenu-container.auto-populated-dragdrop.is-simple-list {
+                display: flex !important;
+                flex-direction: column !important;
+                width: auto !important;
+                min-width: 240px !important;
+                max-width: 360px !important;
+                padding: 20px 24px !important;
+            }
+
+            .riman-navigation .wp-block-navigation-item:hover > .wp-block-navigation__submenu-container.auto-populated-dragdrop,
+            .riman-navigation .wp-block-navigation-item:focus-within > .wp-block-navigation__submenu-container.auto-populated-dragdrop {
+                opacity: 1 !important;
+                visibility: visible !important;
+                pointer-events: auto !important;
+                transform: translate(-50%, 0) !important;
             }
 
             .auto-populated-dragdrop > .wp-block-navigation-item {
@@ -823,18 +1165,45 @@ class Auto_Populate_Navigation_DragDrop {
                 align-items: flex-start;
             }
 
+            .auto-populated-dragdrop.is-simple-list > .wp-block-navigation-item {
+                gap: 0 !important;
+            }
+
             .auto-populated-dragdrop .wp-block-navigation-item {
                 list-style: none !important;
             }
 
             .auto-populated-dragdrop > .wp-block-navigation-item > .wp-block-navigation-item__content {
                 font-size: 1.05rem;
-                font-weight: 600;
+                font-weight: 600 !important;
                 padding: 0 0 10px !important;
                 color: rgb(182, 140, 47);
                 display: block;
                 text-align: left !important;
                 margin: 0 !important;
+                text-decoration: none !important;
+            }
+
+            .auto-populated-dragdrop > .wp-block-navigation-item.wp-block-navigation-link > .wp-block-navigation-item__content {
+                color: rgb(182, 140, 47) !important;
+                border: none !important;
+            }
+
+            .auto-populated-dragdrop.is-simple-list > .wp-block-navigation-item > .wp-block-navigation-item__content {
+                font-size: 1rem !important;
+                font-weight: 600 !important;
+                color: #4a4f61 !important;
+                padding: 6px 0 !important;
+            }
+
+            .auto-populated-dragdrop > .wp-block-navigation-item.wp-block-navigation-link > .wp-block-navigation-item__content:hover {
+                color: rgb(182, 140, 47) !important;
+                background: transparent !important;
+                text-decoration: none !important;
+            }
+
+            .auto-populated-dragdrop.is-simple-list > .wp-block-navigation-item > .wp-block-navigation-item__content:hover {
+                color: #007cba !important;
             }
 
             .auto-populated-dragdrop .wp-block-navigation-item__content {
@@ -964,31 +1333,6 @@ class Auto_Populate_Navigation_DragDrop {
                 color: rgb(182, 140, 47) !important;
             }
 
-            @media (min-width: 960px) {
-                .riman-navigation .wp-block-navigation__responsive-container,
-                .riman-navigation .wp-block-navigation__responsive-container.is-menu-open,
-                .riman-navigation .wp-block-navigation__responsive-container.has-modal-open {
-                    display: block !important;
-                    position: static !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
-                    height: auto !important;
-                    width: auto !important;
-                    transform: none !important;
-                    background: transparent !important;
-                    padding: 0 !important;
-                    color: inherit !important;
-                }
-
-                .riman-navigation .wp-block-navigation__responsive-container .wp-block-navigation__responsive-container-content {
-                    padding: 0 !important;
-                    margin: 0 !important;
-                }
-
-                .riman-navigation .wp-block-navigation__responsive-container .wp-block-navigation__container {
-                    display: flex !important;
-                }
-            }
         </style>
         <?php
     }
@@ -1009,8 +1353,26 @@ class Auto_Populate_Navigation_DragDrop {
                 panel.style.maxWidth = '';
             };
 
+            const setPanelWidth = (panel) => {
+                if (!panel) return;
+                const hasMegaColumns = panel.querySelector('.mega-column, .subcategory-with-posts');
+                const directColumns = panel.querySelectorAll(':scope > .wp-block-navigation-item').length;
+
+                if (!hasMegaColumns && directColumns > 0) {
+                    panel.classList.add('is-simple-list');
+                    panel.style.setProperty('width', 'auto', 'important');
+                    return;
+                }
+
+                panel.classList.remove('is-simple-list');
+                const columnCount = Math.max(1, hasMegaColumns ? panel.querySelectorAll('.mega-column').length : directColumns);
+                const desiredWidth = Math.min(960, Math.max(320, columnCount * 240));
+                panel.style.setProperty('width', `${desiredWidth}px`, 'important');
+            };
+
             const clampPanel = (panel) => {
                 if (!panel) return;
+                setPanelWidth(panel);
                 resetPanel(panel);
 
                 // Wait for layout to settle
@@ -1054,6 +1416,47 @@ class Auto_Populate_Navigation_DragDrop {
             window.addEventListener('resize', () => {
                 document.querySelectorAll('.auto-populated-dragdrop').forEach(panel => clampPanel(panel));
             });
+        });
+        </script>
+        <?php
+    }
+
+    /**
+     * Adds a small inline script that toggles has-hero-header when hero blocks exist
+     */
+    public function inject_hero_detector() {
+        ?>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectors = [
+                '.wp-block-riman-page-hero',
+                '.wp-block-cover.alignfull',
+                '.wp-block-cover__background.has-background-dim'
+            ];
+
+            const updateHeaderVar = () => {
+                const header = document.querySelector('.wp-site-blocks > .wp-block-template-part');
+                if (!header) {
+                    return;
+                }
+                const height = header.offsetHeight || 0;
+                if (height) {
+                    document.documentElement.style.setProperty('--riman-header-height', height + 'px');
+                }
+            };
+
+            const updateState = () => {
+                const hasHero = selectors.some(sel => document.querySelector(sel));
+                document.body.classList.toggle('has-hero-header', hasHero);
+                updateHeaderVar();
+            };
+
+            const observer = new MutationObserver(updateState);
+            observer.observe(document.body, { childList: true, subtree: true });
+
+            updateState();
+            window.addEventListener('load', () => updateState());
+            window.addEventListener('resize', () => requestAnimationFrame(updateHeaderVar));
         });
         </script>
         <?php
